@@ -2,6 +2,6 @@
 
 All notable changes to `pakka` will be documented in this file.
 
-## 1.0.0 - 202X-XX-XX
+## 0.0.1 - 2020-02-10
 
 - initial release
