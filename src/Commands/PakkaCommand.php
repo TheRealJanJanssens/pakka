@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\Skeleton\Commands;
+namespace TheRealJanJanssens\Pakka\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class PakkaCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'pakka';
 
     public $description = 'My command';
 

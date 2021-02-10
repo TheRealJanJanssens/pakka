@@ -1,16 +1,16 @@
 {
-    "name": ":vendor_name/:package_name",
-    "description": ":package_description",
+    "name": "therealjanjanssens/pakka",
+    "description": "pakka in a package",
     "keywords": [
-        ":vendor_name",
-        ":package_name"
+        "therealjanjanssens",
+        "pakka"
     ],
-    "homepage": "https://github.com/:vendor_name/:package_name",
+    "homepage": "https://github.com/therealjanjanssens/pakka",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
+            "name": "Jan Janssens",
+            "email": "hello@janjanssens.be",
             "role": "Developer"
         }
     ],
@@ -25,13 +25,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\Skeleton\\": "src",
-            "Spatie\\Skeleton\\Database\\Factories\\": "database/factories"
+            "TheRealJanJanssens\\Pakka\\": "src",
+            "TheRealJanJanssens\\Pakka\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\Skeleton\\Tests\\": "tests"
+            "TheRealJanJanssens\\Pakka\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -45,10 +45,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\Skeleton\\SkeletonServiceProvider"
+                "TheRealJanJanssens\\Pakka\\PakkaServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "Spatie\\Skeleton\\SkeletonFacade"
+                "Pakka": "TheRealJanJanssens\\Pakka\\PakkaFacade"
             }
         }
     },

@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Skeleton\Tests;
+namespace TheRealJanJanssens\Pakka\Tests;
 
 class ExampleTest extends TestCase
 {
