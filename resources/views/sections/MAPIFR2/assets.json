@@ -1,0 +1,26 @@
+{
+	"classes":"a:1:{s:11:\".adjustable\";s:11:\"text-center\";}",
+	"attributes":"",
+	"extras":"",
+	"css":[
+		"css/components/bootstrap.css",
+		"css/components/stack-interface.css",
+		"css/components/slick.css",
+		"css/components/theme.css",
+		"css/components/custom.css"
+	],
+	"js":[
+		"js/components/jquery-3.1.1.min.js",
+		"js/components/parallax.js",
+		"js/components/slick.min.js",
+		"js/components/smooth-scroll.min.js",
+		"js/components/scripts.js"
+	],
+	"editable":[
+		"section_padding",
+		"element_height",
+		"element_border_radius",
+		"element_shadow",
+		"background"
+	]
+}

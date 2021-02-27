@@ -1,0 +1,22 @@
+$heading-font: 'Gotham', sans-serif;
+$body-font: 'Gotham', sans-serif;
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('/public/fonts/Gotham-Book.eot');
+    src: url('/public/fonts/Gotham-Book.eot?#iefix') format('embedded-opentype'),
+        url('/public/fonts/Gotham-Book.woff') format('woff'),
+        url('/public/fonts/Gotham-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('/public/fonts/Gotham-Medium.eot');
+    src: url('/public/fonts/Gotham-Medium.eot?#iefix') format('embedded-opentype'),
+        url('/public/fonts/Gotham-Medium.woff') format('woff'),
+        url('/public/fonts/Gotham-Medium.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}

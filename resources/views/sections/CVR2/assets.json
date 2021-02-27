@@ -1,0 +1,31 @@
+{
+	"classes":"",
+	"attributes":"",
+	"extras":"",
+	"css":[
+		"css/components/bootstrap.css",
+		"css/components/stack-interface.css",
+		"css/components/slick.css",
+		"css/components/theme.css",
+		"css/components/custom.css"
+	],
+	"js":[
+		"js/components/jquery-3.1.1.min.js",
+		"js/components/parallax.js",
+		"js/components/slick.min.js",
+		"js/components/smooth-scroll.min.js",
+		"js/components/scripts.js"
+	],
+	"editable":[
+		"image_format",
+		"slide_speed",
+		"slide_arrows",
+		"slide_paging",
+		"slide_autoplay",
+		"slide_transition",
+		"slide_sts",
+		"slide_center_mode",
+		"slide_center_padding",
+		"slide_slides_padding"
+	]
+}

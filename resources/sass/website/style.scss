@@ -1,0 +1,22 @@
+// Import Config
+@import "_config.scss";
+
+::-moz-selection{
+	background: $primary;
+	color: rgba(255,255,255,1);
+}
+
+::selection{
+	background: $primary;
+	color: rgba(255,255,255,1);
+}
+
+body{
+	color: $body-color;
+	background-color: $white;
+	font-family: $body-font;
+	font-weight: 400;
+	font-size: 14px;
+	overflow-x: hidden;
+    width: 100vw;
+}

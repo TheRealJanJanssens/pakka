@@ -1,0 +1,31 @@
+{
+	"classes":"a:1:{s:11:\".adjustable\";s:21:\"text-center height-80\";}",
+	"attributes":"a:1:{s:11:\".adjustable\";s:16:\"data-overlay='5'\";}",
+	"extras":"",
+	"css":[
+		"css/components/bootstrap.css",
+		"css/components/stack-interface.css",
+		"css/components/slick.css",
+		"css/components/theme.css",
+		"css/components/custom.css"
+	],
+	"js":[
+		"js/components/jquery-3.1.1.min.js",
+		"js/components/parallax.js",
+		"js/components/slick.min.js",
+		"js/components/smooth-scroll.min.js",
+		"js/components/scripts.js"
+	],
+	"editable":[
+		"background_image",
+		"background",
+		"background_alignment",
+		"background_effect",
+		"invert_colours",
+		"image_overlay",
+		"slide_speed",
+		"slide_transition",
+		"slide_autoplay",
+		"section_height"
+	]
+}

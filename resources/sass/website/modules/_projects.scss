@@ -1,0 +1,152 @@
+.list-item{
+	position: relative;
+	overflow: hidden;
+	height: 200px;
+	cursor: pointer;
+	
+	&:before{
+		content: '';
+		position: absolute;
+		display: block;
+		z-index: 2;
+		background-color: $secondary;
+		width: calc(100% + 20px);
+		height: 100%;
+		left: 0px;
+		opacity: 0;
+		transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+		-webkit-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+		-moz-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+		-o-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+	}
+	
+	.project-text{
+		display: block;
+		position: absolute;
+		z-index: 3;
+		top: 50%;
+		-webkit-transform: translateY(-50%); 
+		-ms-transform: translateY(-50%);
+		transform: translateY(-50%);
+		right: 0;
+		left: 0;
+		margin:0 auto;
+		text-align: center;
+		color: $white;
+		visibility: hidden;
+		opacity: 0;
+		transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+		-webkit-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+		-moz-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+		-o-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+		h4{
+			color: $white;
+		}
+	}
+	
+	img{
+		width: 100%;
+		min-height: 100%;
+		height: auto;
+		object-fit: cover;
+		display: block;
+		position: absolute;
+		z-index: 1;
+		top: 50%;
+		-webkit-transform: translateY(-50%); 
+		-ms-transform: translateY(-50%);
+		transform: translateY(-50%);
+		right: 0;
+		left: 0;
+		margin:0 auto;
+	}
+	
+	&:hover{
+		.project-text{
+			visibility: visible;
+			opacity: 1;
+		}
+		
+		&:before{
+			opacity: 0.8;
+		}
+	}
+}
+
+#project-list{
+	.list-item{
+		height: 300px;
+		border: 10px white solid;
+	}
+}
+
+#project-detail{
+	
+	.project-phase{
+		p{
+			font-size: 12px;
+			color: $primary;
+		}
+		
+		&:before{
+			content: "";
+			display: block;
+			width: 95%;
+			height: 3px;
+			background-color: $border-color;
+			margin: 0 auto;
+		}
+		
+		&.active{
+			&:before{
+				background-color: $primary;
+			}
+		}
+	}
+	
+	#buy_state{
+		display: block;
+		font-size: 16px;
+		font-weight: 600;
+		color: $primary;
+	}
+	
+	#map-project{
+		height: 300px;
+	}
+}
+
+.slider-container{
+	position: relative;
+}
+
+.slider-navigation{
+	position: absolute;
+	display: block;
+	top: 50%;
+	-webkit-transform: translateY(-50%); 
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	right: 0;
+	left: 0;
+	margin:0 auto;
+	width: calc(100% - 40px);
+	height: 35px;
+	span{
+		position: absolute;
+		display: block;
+		width: 35px;
+		height: 35px;
+		
+		i{
+			left: 0;
+			right: 0;
+			margin: 0 auto;
+			font-size: 16px;
+		}
+		
+		&:nth-child(2){
+			right: 0;
+		}
+	}
+}

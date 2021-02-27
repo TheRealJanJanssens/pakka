@@ -1,0 +1,29 @@
+[
+	{
+		"name":"Hoofding",
+		"slug":"CTAH3_H",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"Vul hier een titel in..."
+			},
+			{
+				"position":2,
+				"label":"Knop tekst",
+				"name":"button",
+				"type":"text",
+				"default":"Klik hier"
+			},
+			{
+				"position":3,
+				"label":"Knop link",
+				"name":"link",
+				"type":"text",
+				"default":"#"
+			}
+		]
+	}
+]

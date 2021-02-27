@@ -1,0 +1,30 @@
+{
+	"classes":"a:0:{}",
+	"attributes":"a:1:{s:2:\".e\";s:73:\"data-marker-image='/public/images/marker/standard.png' data-map-zoom='14'\";}",
+	"extras":"a:1:{s:13:\"map_style_key\";s:25:\"maps.maps_styles.standard\";}",
+	"css":[
+		"css/components/bootstrap.css",
+		"css/components/stack-interface.css",
+		"css/components/slick.css",
+		"css/components/theme.css",
+		"css/components/custom.css"
+	],
+	"js":[
+		"js/components/jquery-3.1.1.min.js",
+		"js/components/parallax.js",
+		"js/components/slick.min.js",
+		"js/components/smooth-scroll.min.js",
+		"js/components/scripts.js"
+	],
+	"editable":[
+		"section_padding",
+		"text_alignment_row",
+		"background",
+		"flip_layout",
+		"element_border_radius",
+		"element_shadow",
+		"maps_style",
+		"maps_marker",
+		"maps_zoom"
+	]
+}

@@ -1,0 +1,62 @@
+[
+	{
+		"name":"Achtergrond",
+		"slug":"HEROIG01002_BIMG",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Achtergrond",
+				"name":"images",
+				"type":"images"
+			}
+		]
+	},
+	{
+		"name":"Hoofding",
+		"slug":"HEROIG01002_H",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"Vul hier een titel in..."
+			},
+			{
+				"position":2,
+				"label":"Tekst",
+				"name":"text",
+				"type":"text",
+				"default":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+			},
+			{
+				"position":3,
+				"label":"Knop 1 tekst",
+				"name":"button_first",
+				"type":"text",
+				"default":"Klik hier"
+			},
+			{
+				"position":4,
+				"label":"Knop 1 link",
+				"name":"link_first",
+				"type":"text",
+				"default":"#"
+			},
+			{
+				"position":5,
+				"label":"Knop 2 tekst",
+				"name":"button_second",
+				"type":"text",
+				"default":"Klik hier"
+			},
+			{
+				"position":6,
+				"label":"Knop 2 link",
+				"name":"link_second",
+				"type":"text",
+				"default":"#"
+			}
+		]
+	}
+]

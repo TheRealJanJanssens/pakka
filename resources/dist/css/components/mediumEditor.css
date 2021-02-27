@@ -1,0 +1,536 @@
+
+Warning: "continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"? in /Users/janjanssens/Library/Application Support/Coda 2/Plug-ins/PhpPlugin.codaplugin/Contents/Resources/csstidy.php on line 2934
+// Medium Editor Base
+.medium-editor-anchor-preview,.medium-editor-toolbar {
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:16px;
+	z-index:2000;
+}
+
+@-webkit-keyframes medium-editor-image-loading {
+	0% {
+		-webkit-transform:scale(0);
+		transform:scale(0);
+	}
+	
+	100% {
+		-webkit-transform:scale(1);
+		transform:scale(1);
+	}
+}
+
+@keyframes medium-editor-image-loading {
+	0% {
+		-webkit-transform:scale(0);
+		transform:scale(0);
+	}
+	
+	100% {
+		-webkit-transform:scale(1);
+		transform:scale(1);
+	}
+}
+
+@-webkit-keyframes medium-editor-pop-upwards {
+	0% {
+		opacity:0;
+		-webkit-transform:matrix(.97,0,0,1,0,12);
+		transform:matrix(.97,0,0,1,0,12);
+	}
+	
+	20% {
+		opacity:.7;
+		-webkit-transform:matrix(.99,0,0,1,0,2);
+		transform:matrix(.99,0,0,1,0,2);
+	}
+	
+	40% {
+		opacity:1;
+		-webkit-transform:matrix(1,0,0,1,0,-1);
+		transform:matrix(1,0,0,1,0,-1);
+	}
+	
+	100% {
+		-webkit-transform:matrix(1,0,0,1,0,0);
+		transform:matrix(1,0,0,1,0,0);
+	}
+}
+
+@keyframes medium-editor-pop-upwards {
+	0% {
+		opacity:0;
+		-webkit-transform:matrix(.97,0,0,1,0,12);
+		transform:matrix(.97,0,0,1,0,12);
+	}
+	
+	20% {
+		opacity:.7;
+		-webkit-transform:matrix(.99,0,0,1,0,2);
+		transform:matrix(.99,0,0,1,0,2);
+	}
+	
+	40% {
+		opacity:1;
+		-webkit-transform:matrix(1,0,0,1,0,-1);
+		transform:matrix(1,0,0,1,0,-1);
+	}
+	
+	100% {
+		-webkit-transform:matrix(1,0,0,1,0,0);
+		transform:matrix(1,0,0,1,0,0);
+	}
+}
+
+.medium-editor-anchor-preview {
+	left:0;
+	line-height:1.4;
+	max-width:280px;
+	position:absolute;
+	text-align:center;
+	top:0;
+	word-break:break-all;
+	word-wrap:break-word;
+	visibility:hidden;
+}
+
+.medium-editor-anchor-preview a {
+	color:#fff;
+	display:inline-block;
+	margin:5px 5px 10px;
+}
+
+.medium-editor-placeholder-relative:after,.medium-editor-placeholder:after {
+	content:attr(data-placeholder)!important;
+	white-space:pre;
+	padding:inherit;
+	margin:inherit;
+	font-style:italic;
+}
+
+.medium-editor-anchor-preview-active {
+	visibility:visible;
+}
+
+.medium-editor-dragover {
+	background:#ddd;
+}
+
+.medium-editor-image-loading {
+	-webkit-animation:medium-editor-image-loading 1s infinite ease-in-out;
+	animation:medium-editor-image-loading 1s infinite ease-in-out;
+	background-color:#333;
+	border-radius:100%;
+	display:inline-block;
+	height:40px;
+	width:40px;
+}
+
+.medium-editor-placeholder {
+	position:relative;
+}
+
+.medium-editor-placeholder:after {
+	position:absolute;
+	left:0;
+	top:0;
+}
+
+.medium-editor-placeholder-relative,.medium-editor-placeholder-relative:after {
+	position:relative;
+}
+
+.medium-toolbar-arrow-over:before,.medium-toolbar-arrow-under:after {
+	border-style:solid;
+	content:'';
+	display:block;
+	height:0;
+	left:50%;
+	margin-left:-8px;
+	position:absolute;
+	width:0;
+}
+
+.medium-toolbar-arrow-under:after {
+	border-width: 8px 8px 0;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 7px solid #000; /* height triangle */
+}
+
+.medium-toolbar-arrow-over:before {
+	border-width:0 8px 8px;
+	top:-8px;
+}
+
+.medium-editor-toolbar {
+	left:0;
+	position:absolute;
+	top:0;
+	visibility:hidden;
+	z-index: 10;
+	transition:none !important;
+	-webkit-transition:none !important;
+	-moz-transition:none !important;
+	-o-transition:none !important;
+	box-shadow: 0px 32px 32px 0px rgba(20,44,26,0.10), 0px 16px 16px 0px rgba(20,44,26,0.10), 0px 8px 8px 0px rgba(20,44,26,0.10), 0px 4px 4px 0px rgba(20,44,26,0.10), 0px 2px 2px 0px rgba(20,44,26,0.10);
+}
+
+.medium-editor-toolbar ul {
+	margin:0;
+	padding:0;
+	transition:none !important;
+	-webkit-transition:none !important;
+	-moz-transition:none !important;
+	-o-transition:none !important;
+}
+
+.medium-editor-toolbar li {
+	float:left;
+	list-style:none;
+	margin:0;
+	padding:0;
+	transition:none !important;
+	-webkit-transition:none !important;
+	-moz-transition:none !important;
+	-o-transition:none !important;
+}
+
+.medium-editor-toolbar li button {
+	box-sizing:border-box;
+	cursor:pointer;
+	display:block;
+	font-size:14px;
+	line-height:1.33;
+	margin:0;
+	padding:15px;
+	text-decoration:none;
+	transition:none !important;
+	-webkit-transition:none !important;
+	-moz-transition:none !important;
+	-o-transition:none !important;
+}
+
+.medium-editor-toolbar li button i{
+	transition:none !important;
+	-webkit-transition:none !important;
+	-moz-transition:none !important;
+	-o-transition:none !important;
+}
+
+.medium-editor-toolbar li button:focus {
+	outline:0;
+}
+
+.medium-editor-toolbar li .medium-editor-action-underline {
+	text-decoration:underline;
+}
+
+.medium-editor-toolbar li .medium-editor-action-pre {
+	font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;
+	font-size:12px;
+	font-weight:100;
+	padding:15px 0;
+}
+
+.medium-editor-toolbar-active {
+	visibility:visible;
+}
+
+.medium-editor-sticky-toolbar {
+	position:fixed;
+	top:1px;
+}
+
+.medium-editor-relative-toolbar {
+	position:relative;
+}
+
+.medium-editor-toolbar-active.medium-editor-stalker-toolbar {
+	-webkit-animation:medium-editor-pop-upwards 160ms forwards linear;
+	animation:medium-editor-pop-upwards 160ms forwards linear;
+}
+
+.medium-editor-action-bold {
+	font-weight:bolder;
+}
+
+.medium-editor-action-italic {
+	font-style:italic;
+}
+
+.medium-editor-toolbar-form {
+	display:none;
+}
+
+.medium-editor-toolbar-form a,.medium-editor-toolbar-form input {
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	vertical-align: middle;
+}
+
+.medium-editor-toolbar-select{
+	vertical-align: middle;
+    width: 220px !important;
+    background-color: transparent;
+    border: none;
+    -webkit-appearance: inherit !important;
+}
+
+.medium-editor-toolbar-form .medium-editor-toolbar-form-row {
+	line-height:14px;
+	margin-left:5px;
+	padding-bottom:5px;
+}
+
+.medium-editor-toolbar-form .medium-editor-toolbar-input,.medium-editor-toolbar-form label {
+	border:none;
+	box-sizing:border-box;
+	font-size:14px;
+	margin:0;
+	padding:6px;
+	width:316px;
+	display:inline-block;
+}
+
+.medium-editor-toolbar-form .medium-editor-toolbar-input:focus,.medium-editor-toolbar-form label:focus {
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	appearance:none;
+	border:none;
+	box-shadow:none;
+	outline:0;
+}
+
+.medium-editor-toolbar-form a {
+	display:inline-block;
+	font-size:16px;
+	font-weight:bolder;
+	margin:0 10px;
+	text-decoration:none;
+}
+
+.medium-editor-toolbar-form-active {
+	display:block;
+}
+
+.medium-editor-toolbar-actions:after {
+	clear:both;
+	content:"";
+	display:table;
+}
+
+.medium-editor-element {
+	word-wrap:break-word;
+	min-height:30px;
+}
+
+.medium-editor-element img {
+	max-width:100%;
+}
+
+.medium-editor-element sub {
+	vertical-align:sub;
+}
+
+.medium-editor-element sup {
+	vertical-align:super;
+}
+
+.medium-editor-hidden {
+	display:none;
+}
+
+.medium-editor-toolbar-input::-webkit-input-placeholder {
+/* Chrome/Opera/Safari */
+	font-size:14px;
+}
+
+.medium-editor-toolbar-input::-moz-placeholder {
+/* Firefox 19+ */
+	font-size:14px;
+}
+
+.medium-editor-toolbar-input:-ms-input-placeholder {
+/* IE 10+ */
+	font-size:14px;
+}
+
+.medium-editor-toolbar-input:-moz-placeholder {
+/* Firefox 18- */
+	font-size:14px;
+}
+
+// Beagle Theme
+.medium-toolbar-arrow-under:after {
+	border-color:#000 transparent transparent;
+	top:40px;
+}
+
+.medium-toolbar-arrow-over:before {
+	border-color:transparent transparent #000;
+}
+
+.medium-editor-toolbar {
+	background-color:#000;
+	border:none;
+	border-radius:50px;
+}
+
+.medium-editor-toolbar li button {
+	background-color:transparent;
+	border:none;
+	box-sizing:border-box;
+	color:#ccc;
+	height:40px;
+	min-width:40px;
+	padding:5px 12px;
+	-webkit-transition:background-color .2s ease-in,color .2s ease-in;
+	transition:background-color .2s ease-in,color .2s ease-in;
+}
+
+.medium-editor-toolbar li button:hover {
+	background-color:#000;
+	color:var(--primary-color-component);
+}
+
+.medium-editor-toolbar li .medium-editor-button-first {
+	border-bottom-left-radius:50px;
+	border-top-left-radius:50px;
+	padding-left:24px;
+}
+
+.medium-editor-toolbar li .medium-editor-button-last {
+	border-bottom-right-radius:50px;
+	border-right:none;
+	border-top-right-radius:50px;
+	padding-right:24px;
+}
+
+.medium-editor-toolbar li .medium-editor-button-active {
+	background-color:#000;
+	color:var(--primary-color-component);
+}
+
+.medium-editor-toolbar-form {
+	background:#000;
+	border-radius:50px;
+	color:#ccc;
+	overflow:hidden;
+}
+
+.medium-editor-toolbar-form .medium-editor-toolbar-input {
+	background:#000;
+	box-sizing:border-box;
+	color:#ccc;
+	height:40px;
+	padding-left:16px;
+	width:220px;
+}
+
+.medium-editor-toolbar-form .medium-editor-toolbar-input::-webkit-input-placeholder {
+	font-size:14px;
+	color:#f8f5f3;
+	color:rgba(248,245,243,0.8);
+}
+
+.medium-editor-toolbar-form .medium-editor-toolbar-input:-moz-placeholder {
+	font-size:14px;
+/* Firefox 18- */
+	color:#f8f5f3;
+	color:rgba(248,245,243,0.8);
+}
+
+.medium-editor-toolbar-form .medium-editor-toolbar-input::-moz-placeholder {
+	font-size:14px;
+/* Firefox 19+ */
+	color:#f8f5f3;
+	color:rgba(248,245,243,0.8);
+}
+
+.medium-editor-toolbar-form .medium-editor-toolbar-input:-ms-input-placeholder {
+	font-size:14px;
+	color:#f8f5f3;
+	color:rgba(248,245,243,0.8);
+}
+
+.medium-editor-toolbar-form a {
+	color:#ccc;
+}
+
+.medium-editor-toolbar-form .medium-editor-toolbar-close {
+	margin-right:16px;
+}
+
+.medium-editor-toolbar-anchor-preview {
+	background:#000;
+	border-radius:50px;
+	padding:5px 12px;
+}
+
+.medium-editor-anchor-preview a {
+	color:#ccc;
+	text-decoration:none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  margin-top: -5px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+
+}
+
+.medium-editor-toolbar-form input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: #ccc;
+  border-radius: 10px;
+  border: 0.2px solid #010101;
+}
+
+.medium-editor-toolbar-form input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ccc;
+}
+
+.medium-editor-toolbar-form input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: #ccc;
+  border-radius: 10px;
+  border: 0.2px solid #010101;
+}
+
+.medium-editor-toolbar-form input[type=range]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+.medium-editor-toolbar-form input[type=range]::-ms-fill-lower {
+  background: #ccc;
+  border: 0.2px solid #010101;
+  border-radius: 10px;
+}
+.medium-editor-toolbar-form input[type=range]:focus::-ms-fill-lower {
+  background: #ccc;
+}
+.medium-editor-toolbar-form input[type=range]::-ms-fill-upper {
+  background: #ccc;
+  border: 0.2px solid #010101;
+  border-radius: 10px;
+}
+.medium-editor-toolbar-form input[type=range]:focus::-ms-fill-upper {
+  background: #ccc;
+}

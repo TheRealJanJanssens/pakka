@@ -1,0 +1,32 @@
+{
+	"classes":"a:2:{s:4:\".img\";s:9:\"width-100\";s:2:\".e\";s:9:\"width-100\";}",
+	"attributes":"",
+	"extras":"",
+	"css":[
+		"css/components/bootstrap.css",
+		"css/components/stack-interface.css",
+		"css/components/slick.css",
+		"css/components/theme.css",
+		"css/components/custom.css"
+	],
+	"js":[
+		"js/components/jquery-3.1.1.min.js",
+		"js/components/parallax.js",
+		"js/components/isotope.min.js",
+		"js/components/smooth-scroll.min.js",
+		"js/components/scripts.js"
+	],
+	"editable":[
+		"section_padding",
+		"masonry",
+		"overlap_layout",
+		"item_columns",
+		"background",
+		"image_width",
+		"image_format",
+		"image_border_radius",
+		"image_shadow",
+		"element_width",
+		"element_border_radius"
+	]
+}

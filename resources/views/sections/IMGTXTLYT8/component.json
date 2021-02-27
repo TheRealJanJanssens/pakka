@@ -1,0 +1,154 @@
+[
+	{
+		"name":"Hoofding",
+		"slug":"IMGTXTLYT8_H",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"Vul hier een titel in..."
+			},
+			{
+				"position":2,
+				"label":"Subtitel",
+				"name":"subtitle",
+				"type":"text",
+				"default":"Vul hier een titel in..."
+			}
+		]
+	},
+	{
+		"name":"Kolom 1",
+		"slug":"IMGTXTLYT8_C1",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"Vul hier een titel in..."
+			},
+			{
+				"position":2,
+				"label":"Tekst",
+				"name":"text",
+				"type":"text",
+				"default":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+			},
+			{
+				"position":3,
+				"label":"Knop link",
+				"name":"link",
+				"type":"text",
+				"default":"#"
+			},
+			{
+				"position":4,
+				"label":"Afbeeldingen",
+				"name":"images",
+				"type":"images"
+			}
+		]
+	},
+	{
+		"name":"Kolom 2",
+		"slug":"IMGTXTLYT8_C2",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"Vul hier een titel in..."
+			},
+			{
+				"position":2,
+				"label":"Tekst",
+				"name":"text",
+				"type":"text",
+				"default":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+			},
+			{
+				"position":3,
+				"label":"Knop link",
+				"name":"link",
+				"type":"text",
+				"default":"#"
+			},
+			{
+				"position":4,
+				"label":"Afbeeldingen",
+				"name":"images",
+				"type":"images"
+			}
+		]
+	},
+	{
+		"name":"Kolom 3",
+		"slug":"IMGTXTLYT8_C3",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"Vul hier een titel in..."
+			},
+			{
+				"position":2,
+				"label":"Tekst",
+				"name":"text",
+				"type":"text",
+				"default":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+			},
+			{
+				"position":3,
+				"label":"Knop link",
+				"name":"link",
+				"type":"text",
+				"default":"#"
+			},
+			{
+				"position":4,
+				"label":"Afbeeldingen",
+				"name":"images",
+				"type":"images"
+			}
+		]
+	},
+	{
+		"name":"Kolom 4",
+		"slug":"IMGTXTLYT8_C4",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"Vul hier een titel in..."
+			},
+			{
+				"position":2,
+				"label":"Tekst",
+				"name":"text",
+				"type":"text",
+				"default":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+			},
+			{
+				"position":3,
+				"label":"Knop link",
+				"name":"link",
+				"type":"text",
+				"default":"#"
+			},
+			{
+				"position":4,
+				"label":"Afbeeldingen",
+				"name":"images",
+				"type":"images"
+			}
+		]
+	}
+]

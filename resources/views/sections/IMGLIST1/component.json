@@ -1,0 +1,28 @@
+[
+	{
+		"name":"Galerij",
+		"slug":"IMGLIST1",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"Vul hier een titel in..."
+			},
+			{
+				"position":2,
+				"label":"Subtitel",
+				"name":"subtitle",
+				"type":"text",
+				"default":"Vul hier een titel in..."
+			},
+			{
+				"position":3,
+				"label":"Afbeeldingen",
+				"name":"images",
+				"type":"images"
+			}
+		]
+	}
+]

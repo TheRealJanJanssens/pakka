@@ -1,0 +1,22 @@
+[
+	{
+		"name":"Hoofding",
+		"slug":"FBFEEDIFR1_H",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"Volg ons op facebook!"
+			},
+			{
+				"position":2,
+				"label":"Knop tekst",
+				"name":"button",
+				"type":"text",
+				"default":"Onze facebookpagina"
+			}
+		]
+	}
+]

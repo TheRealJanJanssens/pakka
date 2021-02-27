@@ -1,0 +1,32 @@
+{
+	"classes":"a:1:{s:5:\".item\";s:8:\"col-md-3\";}",
+	"attributes":"",
+	"extras":"",
+	"css":[
+		"css/components/bootstrap.css",
+		"css/components/stack-interface.css",
+		"css/components/slick.css",
+		"css/components/lightcase.css",
+		"css/components/theme.css",
+		"css/components/custom.css"
+	],
+	"js":[
+		"js/components/jquery-3.1.1.min.js",
+		"js/components/parallax.js",
+		"js/components/isotope.min.js",
+		"js/components/smooth-scroll.min.js",
+		"js/components/lightcase.js",
+		"js/components/scripts.js"
+	],
+	"editable":[
+		"section_padding",
+		"item_columns",
+		"masonry",
+		"background",
+		"image_format",
+		"image_border_radius",
+		"image_shadow",
+		"item_hover",
+		"item_limit"
+	]
+}

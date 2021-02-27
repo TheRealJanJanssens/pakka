@@ -17,7 +17,22 @@
     "require": {
         "php": "^7.4|^8.0",
         "spatie/laravel-package-tools": "^1.1",
-        "illuminate/contracts": "^8.0"
+        "illuminate/contracts": "^8.0",
+        "barryvdh/laravel-debugbar": "^3.2",
+        "barryvdh/laravel-dompdf": "^0.9.0",
+        "darryldecode/cart": "^4.2",
+        "laravelcollective/html": "^6.2",
+        "mollie/laravel-mollie": "^2.14",
+        "php-parallel-lint/php-console-highlighter": "^0.5.0",
+        "phpmailer/phpmailer": "^6.2",
+        "realrashid/sweet-alert": "^3.2",
+        "spatie/laravel-analytics": "^3.10",
+        "spatie/laravel-cookie-consent": "^2.12",
+        "spatie/laravel-honeypot": "^3.0",
+        "spatie/laravel-image-optimizer": "^1.6",
+        "spatie/laravel-sitemap": "^5.9",
+        "unikent/tfilecache": "^2.0"
+
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
@@ -25,6 +40,9 @@
         "vimeo/psalm": "^4.5"
     },
     "autoload": {
+        "files": [
+            "app/Http/helpers.php"
+        ],
         "psr-4": {
             "TheRealJanJanssens\\Pakka\\": "src",
             "TheRealJanJanssens\\Pakka\\Database\\Factories\\": "database/factories"

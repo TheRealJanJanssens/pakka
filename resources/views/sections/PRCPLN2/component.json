@@ -1,0 +1,109 @@
+[
+	{
+		"name":"Titel",
+		"slug":"PRCPLN2_HEAD",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text"
+			}
+		]
+	},
+	{
+		"name":"Tekst blok",
+		"slug":"PRCPLN2_C1",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"First title"
+			},
+			{
+				"position":2,
+				"label":"Prijs",
+				"name":"price",
+				"type":"text",
+				"default":"20"
+			},
+			{
+				"position":3,
+				"label":"Omschrijving",
+				"name":"text",
+				"type":"textarea",
+				"default":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+			},
+			{
+				"position":4,
+				"label":"Knop tekst",
+				"name":"button",
+				"type":"text",
+				"default":"Klik hier"
+			},
+			{
+				"position":5,
+				"label":"Knop link",
+				"name":"link",
+				"type":"text",
+				"default":"#"
+			}
+		]
+	},
+	{
+		"name":"Tekst blok",
+		"slug":"PRCPLN2_C2",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"First title"
+			},
+			{
+				"position":2,
+				"label":"Prijs",
+				"name":"price",
+				"type":"text",
+				"default":"20"
+			},
+			{
+				"position":3,
+				"label":"Omschrijving",
+				"name":"text",
+				"type":"textarea",
+				"default":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+			},
+			{
+				"position":4,
+				"label":"Knop tekst",
+				"name":"button",
+				"type":"text",
+				"default":"Klik hier"
+			},
+			{
+				"position":5,
+				"label":"Knop link",
+				"name":"link",
+				"type":"text",
+				"default":"#"
+			}
+		]
+	},
+	{
+		"name":"Disclaimer",
+		"slug":"PRCPLN2_DIS",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Disclaimer",
+				"name":"text",
+				"type":"text",
+				"default":""
+			}
+		]
+	}
+]

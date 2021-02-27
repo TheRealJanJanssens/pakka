@@ -1,0 +1,36 @@
+{
+	"classes":"",
+	"attributes":"",
+	"extras":"",
+	"css":[
+		"css/components/bootstrap.css",
+		"css/components/stack-interface.css",
+		"css/components/slick.css",
+		"css/components/theme.css",
+		"css/components/custom.css"
+	],
+	"js":[
+		"js/components/jquery-3.1.1.min.js",
+		"js/components/parallax.js",
+		"js/components/granim.min.js",
+		"js/components/scripts.js"
+	],
+	"editable":[
+		"text_alignment",
+		"section_padding",
+		"background",
+		"granim_background",
+		"background_image",
+		"image_format",
+		"image_padding",
+		"image_grayscale",
+		"slide_speed",
+		"slide_arrows",
+		"slide_paging",
+		"slide_autoplay",
+		"slide_transition",
+		"slide_sts",
+		"slide_center_mode",
+		"slide_center_padding"
+	]
+}

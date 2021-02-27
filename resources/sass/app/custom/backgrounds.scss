@@ -1,0 +1,4 @@
+.bg-primary-gradient{
+	background: $primary;
+	background: linear-gradient(90deg, $primary 0%, darken($primary, 15%) 100%);
+}

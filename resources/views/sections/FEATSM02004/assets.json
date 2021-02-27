@@ -1,0 +1,27 @@
+{
+	"classes":"a:2:{s:7:\".row--e\";s:11:\"text-center\";s:5:\".item\";s:8:\"col-md-3\";}",
+	"attributes":"",
+	"extras":"",
+	"css":[
+		"css/components/bootstrap.css",
+		"css/components/stack-interface.css",
+		"css/components/slick.css",
+		"css/components/theme.css",
+		"css/components/custom.css"
+	],
+	"js":[
+		"js/components/jquery-3.1.1.min.js",
+		"js/components/parallax.js",
+		"js/components/isotope.min.js",
+		"js/components/smooth-scroll.min.js",
+		"js/components/scripts.js"
+	],
+	"editable":[
+		"section_padding",
+		"text_alignment_row",
+		"background",
+		"item_columns",
+		"element_border_radius",
+		"element_shadow"
+	]
+}

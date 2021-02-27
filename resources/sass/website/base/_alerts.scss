@@ -1,0 +1,27 @@
+.alert{
+	font-size: 12px;
+	margin: 5px 0px;
+	padding: 5px 0px;
+	text-align: center;
+	border-radius: 3px;
+	
+	&.alert--danger{
+		color: $error-color;
+		border: 1px solid $error-color;
+	}
+	
+	&.alert--success{
+		color: $succes-color;
+		border: 1px solid $succes-color;
+	}
+	
+	&.alert--info{
+		color: $body-color;
+		border: 1px solid $body-color;
+	}
+	
+	&.alert--warning{
+		color: $warning-color;
+		border: 1px solid $warning-color;
+	}
+}

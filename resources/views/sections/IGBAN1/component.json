@@ -1,0 +1,14 @@
+[
+	{
+		"name":"Afbeeldingen",
+		"slug":"IGBAN1_IMG",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Afbeeldingen",
+				"name":"images",
+				"type":"images"
+			}
+		]
+	}
+]

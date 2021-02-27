@@ -1,0 +1,37 @@
+{
+	"classes":"",
+	"attributes":"",
+	"extras":"",
+	"css":[
+		"css/components/socicon.css",
+		"css/components/bootstrap.css",
+		"css/components/stack-interface.css",
+		"css/components/slick.css",
+		"css/components/theme.css",
+		"css/components/custom.css"
+	],
+	"js":[
+		"js/components/jquery-3.1.1.min.js",
+		"js/components/parallax.js",
+		"js/components/smooth-scroll.min.js",
+		"js/components/scripts.js"
+	],
+	"editable":[
+		"background",
+		"text_alignment",
+		"section_padding",
+		"menu_select",
+		"submenu_select",
+		"credmenu_select",
+		"maps_style",
+		"maps_marker",
+		"maps_zoom",
+		"logo_size",
+		"element_border_radius",
+		"element_shadow",
+		"footer_column_content",
+		"footer_column_content",
+		"footer_column_content",
+		"footer_column_content"
+	]
+}

@@ -1,0 +1,367 @@
+*:focus{
+	outline: none;
+}
+
+*{
+	box-sizing: border-box;
+}
+
+input::-webkit-input-placeholder {
+  font-family: $body-font, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+input:-ms-input-placeholder {
+  font-family: $body-font, Arial, Helvetica, sans-serif;
+}
+
+input:-moz-placeholder {
+  font-family: $body-font, Arial, Helvetica, sans-serif;
+}
+
+input::-moz-placeholder {
+  font-family: $body-font, Arial, Helvetica, sans-serif;
+}
+
+.input{
+	position: relative;
+	padding: 0px 5px;
+	div{
+		position: relative;
+		
+		span{
+			color: $body-color-light;
+			display: block;
+			position: absolute;
+			right: 15px;
+			top: 10px;
+		}
+	}
+	
+	input, textarea{
+		padding-right: 40px;
+	}
+}
+
+input, textarea, form select{
+	font-family: $body-font, Arial, Helvetica, sans-serif;
+	color: $body-color;
+	//border-radius: 5px;
+	display: block;
+	width: 100%;
+	padding: 7px 13px;
+	font-size: 14px;
+	margin: 10px auto;
+	border: 1px solid $border-color;
+	transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+	-webkit-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+	-moz-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+	-o-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+label{
+	font-size: 14px;
+}
+
+form select{
+	-webkit-appearance: none;
+	-moz-appearance:    none;
+	appearance:         none;
+	background-color: rgba(255,255,255,1);
+}
+
+input:focus, textarea:focus{
+	border: 1px solid $primary;
+	box-shadow: 0px 32px 32px 0px rgba(20,44,26,0.02), 0px 16px 16px 0px rgba(20,44,26,0.02), 0px 8px 8px 0px rgba(20,44,26,0.02), 0px 4px 4px 0px rgba(20,44,26,0.02), 0px 2px 2px 0px rgba(20,44,26,0.02);
+}
+
+textarea{
+	height: 250px;
+	max-height: 500px;
+	max-width: 100%;
+}
+
+/* Base for label styling */
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+	position: absolute;
+	left: -9999px;
+}
+[type="checkbox"]:not(:checked) + label,
+[type="checkbox"]:checked + label {
+	position: relative;
+	padding-left: 1.95em;
+	cursor: pointer;
+}
+
+/* checkbox aspect */
+[type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before {
+	content: '';
+	position: absolute;
+	left: 0; top: 0;
+	width: 1.25em; height: 1.25em;
+	border: 1px solid $border-color;
+	background: rgba(255,255,255,1);
+	border-radius: 4px;
+	box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+	transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+	-webkit-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+	-moz-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+	-o-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+}
+/* checked mark aspect */
+[type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after {
+	content: "\f00c";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+	position: absolute;
+	top: .25em; left: .2em;
+	font-size: 1em;
+	line-height: 0.8;
+	color: $body-color;
+	transition: all .2s;
+	vertical-align: middle;
+	text-align: center;
+}
+
+/* checked mark aspect changes */
+[type="checkbox"]:not(:checked) + label:after {
+	opacity: 0;
+	transform: scale(0);
+}
+[type="checkbox"]:checked + label:after {
+	opacity: 1;
+	transform: scale(1);
+}
+
+/* disabled checkbox */
+/*
+[type="checkbox"]:disabled:not(:checked) + label:before,
+[type="checkbox"]:disabled:checked + label:before {
+  box-shadow: none;
+  border-color: #bbb;
+  background-color: #ddd;
+}
+[type="checkbox"]:disabled:checked + label:after {
+  color: #999;
+}
+[type="checkbox"]:disabled + label {
+  color: #aaa;
+}
+*/
+
+/* hover style just for information */
+label{
+	a{
+		cursor: pointer;
+		color: $primary;
+		transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+		-webkit-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+		-moz-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+		-o-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+	}
+	
+	a:hover{
+		color: darken($primary, 5%);
+	}
+	
+	&:hover:before{
+		border: 1px solid $border-color!important;
+	}
+}
+
+label:hover:before {
+  
+}
+
+form .warning:not(:checked) + label:before{
+	border: 1px solid $alert-color;
+}
+
+form .warning{
+	border: 1px solid $alert-color;
+}
+
+.form-group{
+	&.error{
+		label{
+			color: $alert-color;
+		}
+		
+		input, textarea{
+			border-color: $alert-color;
+		}
+	}
+}
+
+.input-error{
+	color: $alert-color;
+}
+
+.input-description{
+	font-size: 14px;
+	
+	i{
+		margin-right: 10px;
+	}
+}
+
+/* SELECT */
+
+/* Default custom select styles */
+div.cs--select {
+	font-size: 16px;
+	border: 1px solid $border-color;
+	border-radius: 5px;
+	display: block;
+	vertical-align: middle;
+	position: relative;
+	text-align: left;
+	background: #fff;
+/* 	z-index: 100; */
+	width: 100%;
+	margin: 10px auto;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+	-webkit-transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+	-moz-transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+	-o-transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+div.cs--select:focus {
+	outline: none; /* For better accessibility add a style for this in your skin */
+}
+
+.cs--select select {
+	display: none !important;
+	opacity: 0;
+	height: 0;
+	width: 0;
+	overflow: hidden;
+}
+
+.cs--select span {
+	color: $body-color !important;
+	top: inherit !important;
+	right: inherit !important;
+	display: block;
+	position: relative !important;
+	cursor: pointer;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Placeholder and selected option */
+.cs--select > span {
+	padding: 8.5px 13px !important;
+	padding-right: 3em !important;
+}
+
+.cs--select .cs--selected span{
+	color: rgba(234,82,84,1);
+}
+
+.cs--select > span::after,
+.cs--select .cs--selected span::after {
+	speak: none;
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.cs--select > span::after {
+	content: '\25BE';
+	right: 1em;
+	color: $body-color-light;
+}
+
+.cs--select .cs--selected span::after {
+	content: '';
+	margin-left: 1em;
+}
+
+.cs--select.cs--active > span::after {
+	-webkit-transform: translateY(-50%) rotate(180deg);
+	transform: translateY(-50%) rotate(180deg);
+}
+
+div.cs--active {
+	z-index: 200;
+}
+
+/* Options */
+.cs--select .cs--options {
+	pointer-events: none;
+	position: absolute;
+	overflow: hidden;
+	width: 100%;
+	background: #fff;
+	visibility: hidden;
+	opacity: 0;
+	top: 31px;
+	left: -1px;
+	width: -webkit-calc(100% + 2px);
+    width: -moz-calc(100% + 2px);
+	width: calc(100% + 2px);
+	border-radius: 0px 0px 5px 5px;
+	border: 1px solid $border-color;
+	border-top: none;
+	box-shadow: 0px 32px 32px 0px rgba(20, 34, 44, 0.05), 0px 16px 16px 0px rgba(20, 34, 44, 0.05), 0px 8px 8px 0px rgba(20, 34, 44, 0.05), 0px 4px 4px 0px rgba(20, 34, 44, 0.05), 0px 2px 2px 0px rgba(20, 34, 44, 0.05);
+	transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+	-webkit-transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+	-moz-transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+	-o-transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.cs--select.cs--active .cs--options {
+	visibility: visible;
+	opacity: 1;
+	pointer-events: all;
+}
+
+.cs--select ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+.cs--select ul span {
+	padding: 8.5px 13px !important;
+}
+
+.cs--select ul li.cs--focus span {
+	background-color: #ddd;
+}
+
+.cs--select ul li{
+	transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+	-webkit-transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+	-moz-transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+	-o-transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.cs--select ul li:hover{
+	background-color: rgba(235, 235, 235, 1);
+}
+
+/* Optgroup and optgroup label */
+.cs--select li.cs--optgroup ul {
+	padding-left: 1em;
+}
+
+.cs--select li.cs--optgroup > span {
+	cursor: default;
+}

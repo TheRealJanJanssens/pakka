@@ -1,0 +1,14 @@
+[
+	{
+		"name":"Achtergrond",
+		"slug":"CVR2_BIMG",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Achtergrond",
+				"name":"images",
+				"type":"images"
+			}
+		]
+	}
+]

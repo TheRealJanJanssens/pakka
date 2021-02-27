@@ -1,0 +1,40 @@
+// Import Settings
+@import "settings/index";
+
+@import "../app/vendor/themify-icons-min.css";
+
+// Import Grid
+@import "base/_grids.scss";
+@import "base/_grids-core.scss";
+@import "base/_grids-units.scss";
+/*
+@import "base/_grids-responsive-old-ie.scss";
+*/
+@import "base/_grids-responsive.scss";
+
+// Import Typo
+@import "base/_typo-core.scss";
+
+// Import Tables
+@import "base/_tabels.scss";
+
+// Import buttons
+@import "base/_buttons.scss";
+
+// Import inputs
+@import "base/_inputs.scss";
+
+// Import alerts
+@import "base/_alerts.scss";
+
+// Import list
+@import "base/_list.scss";
+
+@import "base/_navigation.scss";
+
+@import "base/_general.scss";
+
+@import "vendor/index";
+
+// Import grid elements
+@import "modules/index";

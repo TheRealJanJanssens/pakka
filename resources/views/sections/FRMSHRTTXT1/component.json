@@ -1,0 +1,15 @@
+[
+	{
+		"name":"Contactformulier",
+		"slug":"FRMSHRTTXT1_F",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Knop",
+				"name":"button",
+				"type":"text",
+				"default":"Verstuur bericht"
+			}
+		]
+	}
+]

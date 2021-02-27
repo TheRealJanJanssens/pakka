@@ -1,0 +1,24 @@
+{
+	"classes":"a:1:{s:11:\".adjustable\";s:22:\"space--xxs text-center\";}",
+	"attributes":"a:0:{}",
+	"extras":"a:0:{}",
+	"css":[
+		"css/components/bootstrap.css",
+		"css/components/stack-interface.css",
+		"css/components/slick.css",
+		"css/components/theme.css",
+		"css/components/custom.css"
+	],
+	"js":[
+		"js/components/jquery-3.1.1.min.js",
+		"js/components/parallax.js",
+		"js/components/slick.min.js",
+		"js/components/smooth-scroll.min.js",
+		"js/components/scripts.js"
+	],
+	"editable":[
+		"section_padding_sm",
+		"text_alignment",
+		"background"
+	]
+}

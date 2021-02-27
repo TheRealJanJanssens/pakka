@@ -1,0 +1,75 @@
+[
+	{
+		"name":"Over ons",
+		"slug":"FOOTLNG2_ABOUT",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"Over ons"
+			},
+			{
+				"position":2,
+				"label":"Omschrijving",
+				"name":"text",
+				"type":"textarea",
+				"default":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+			},
+			{
+				"position":3,
+				"label":"Knop tekst",
+				"name":"button",
+				"type":"text",
+				"default":"Klik hier"
+			},
+			{
+				"position":4,
+				"label":"Knop link",
+				"name":"link",
+				"type":"text",
+				"default":"#"
+			}
+		]
+	},
+	{
+		"name":"Menu",
+		"slug":"FOOTLNG2_MENU",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"Menu"
+			}
+		]
+	},
+	{
+		"name":"Submenu",
+		"slug":"FOOTLNG2_SUBMENU",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"Submenu"
+			}
+		]
+	},
+	{
+		"name":"Openingsuren",
+		"slug":"FOOTLNG2_OPNH",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"Openingsuren"
+			}
+		]
+	}
+]

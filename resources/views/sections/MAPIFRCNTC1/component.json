@@ -1,0 +1,15 @@
+[
+	{
+		"name":"Hoofding",
+		"slug":"MAPIFRCNTC1_H",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Tekst",
+				"name":"text",
+				"type":"text",
+				"default":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+			}
+		]
+	}
+]

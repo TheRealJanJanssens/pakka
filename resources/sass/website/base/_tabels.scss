@@ -1,0 +1,86 @@
+/*!
+Pure v1.0.0
+Copyright 2013 Yahoo!
+Licensed under the BSD License.
+https://github.com/yahoo/pure/blob/master/LICENSE.md
+*/
+table {
+    /* Remove spacing between table cells (from Normalize.css) */
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+    border: 1px solid $body-color-light;
+    width: 100%;
+}
+
+table caption {
+    color: $body-color;
+    padding: 1em 0;
+    text-align: center;
+}
+
+table td,
+table th {
+    border-left: 1px solid $body-color-light;/*  inner column border */
+    border-width: 0 0 0 1px;
+    font-size: inherit;
+    margin: 0;
+    overflow: visible; /*to make ths where the title is really long work*/
+    padding: 0.5em 1em; /* cell padding */
+}
+
+/* Consider removing this next declaration block, as it causes problems when
+there's a rowspan on the first cell. Case added to the tests. issue#432 */
+table td:first-child,
+table th:first-child {
+    border-left-width: 0;
+}
+
+table thead {
+    background-color: #e0e0e0;
+    color: #000;
+    text-align: left;
+    vertical-align: bottom;
+}
+
+/*
+striping:
+   even - #fff (white)
+   odd  - #f2f2f2 (light gray)
+*/
+table td {
+    background-color: transparent;
+}
+.table--odd td {
+    background-color: $border-color;
+}
+
+/* nth-child selector for modern browsers */
+.table--striped tr:nth-child(2n-1) td {
+    background-color: $border-color;
+}
+
+/* BORDERED TABLES */
+.table--bordered td {
+    border-bottom: 1px solid $body-color-light;
+}
+.table--bordered tbody > tr:last-child > td {
+    border-bottom-width: 0;
+}
+
+
+/* HORIZONTAL BORDERED TABLES */
+
+.table--horizontal td,
+.table--horizontal th {
+    border-width: 0 0 1px 0;
+    border-bottom: 1px solid $body-color-light;
+}
+.table--horizontal tbody > tr:last-child > td {
+    border-bottom-width: 0;
+}
+
+.table--rounded{
+	border-radius: 5px;
+	overflow: hidden;
+}

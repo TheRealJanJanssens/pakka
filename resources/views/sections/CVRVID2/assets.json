@@ -1,0 +1,31 @@
+{
+	"classes":"a:1:{s:11:\".adjustable\";s:30:\"text-center bg--dark height-80\";}",
+	"attributes":"a:1:{s:11:\".adjustable\";s:16:\"data-overlay='7'\";}",
+	"extras":"a:1:{s:7:\"youtube\";s:11:\"lM02vNMRRB0\";}",
+	"css":[
+		"css/components/bootstrap.css",
+		"css/components/stack-interface.css",
+		"css/components/slick.css",
+		"css/components/theme.css",
+		"css/components/custom.css"
+	],
+	"js":[
+		"js/components/jquery-3.1.1.min.js",
+		"js/components/parallax.js",
+		"js/components/slick.min.js",
+		"js/components/smooth-scroll.min.js",
+		"js/components/ytplayer.min.js",
+		"js/components/scripts.js"
+	],
+	"editable":[
+		"text_alignment",
+		"background_image",
+		"background_video",
+		"background",
+		"background_alignment",
+		"background_effect",
+		"invert_colours",
+		"image_overlay",
+		"section_height"
+	]
+}
