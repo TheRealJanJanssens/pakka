@@ -2,8 +2,8 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers\Auth;
 
-use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
@@ -35,7 +35,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-	    constructGlobVars();
+        constructGlobVars();
         $this->middleware('guest')->except('logout');
     }
 

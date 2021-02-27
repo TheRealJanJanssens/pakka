@@ -2,10 +2,10 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers\Auth;
 
-use TheRealJanJanssens\Pakka\Models\User;
-use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Validator;
+use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
+use TheRealJanJanssens\Pakka\Models\User;
 
 class RegisterController extends Controller
 {
@@ -36,7 +36,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-	    constructGlobVars();
+        constructGlobVars();
         $this->middleware('guest');
     }
 

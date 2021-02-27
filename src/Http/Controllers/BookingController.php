@@ -7,15 +7,13 @@ use Illuminate\Http\Request;
 
 use TheRealJanJanssens\Pakka\Models\Booking;
 use TheRealJanJanssens\Pakka\Models\Service;
-use TheRealJanJanssens\Pakka\Models\ServiceAssignment;
-use TheRealJanJanssens\Pakka\Models\Translation;
 
 class BookingController extends Controller
 {
-	public function __construct()
+    public function __construct()
     {
-	    $this->middleware('auth');
-      constructGlobVars();
+        $this->middleware('auth');
+        constructGlobVars();
     }
     
     /**
@@ -25,8 +23,9 @@ class BookingController extends Controller
      */
     public function index()
     {
-      $services = Service::getServices();
-      return view('admin.bookings.index', compact('services'));
+        $services = Service::getServices();
+
+        return view('admin.bookings.index', compact('services'));
     }
 
     /**
@@ -36,7 +35,7 @@ class BookingController extends Controller
      */
     public function create()
     {
-      return view('admin.bookings.create');
+        return view('admin.bookings.create');
     }
 
     /**
@@ -47,11 +46,11 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-	    //$this->validate($result, Service::rules());
-	    $inputs = Booking::convertDates($request->all());
-      $bookings = Booking::create($inputs);
+        //$this->validate($result, Service::rules());
+        $inputs = Booking::convertDates($request->all());
+        $bookings = Booking::create($inputs);
 
-      //return redirect()->route(ADMIN . '.bookings.index')->withSuccess(trans('app.success_store'));
+        //return redirect()->route(ADMIN . '.bookings.index')->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -73,9 +72,9 @@ class BookingController extends Controller
      */
     public function edit($id)
     {
-		  $booking = Booking::getBooking($id);
-		
-      return view('admin.bookings.edit', compact('booking'));
+        $booking = Booking::getBooking($id);
+        
+        return view('admin.bookings.edit', compact('booking'));
     }
 
     /**
@@ -87,13 +86,13 @@ class BookingController extends Controller
      */
     public function update(Request $request, $id)
     {
-      //$this->validate($request->all(), Booking::rules(true, $id));
-      $booking = Booking::findOrFail($id);
+        //$this->validate($request->all(), Booking::rules(true, $id));
+        $booking = Booking::findOrFail($id);
 
-      $inputs = Booking::convertDates($request->all());
-      $booking->update($inputs);
+        $inputs = Booking::convertDates($request->all());
+        $booking->update($inputs);
       
-      //return redirect()->route(ADMIN . '.bookings.index')->withSuccess(trans('app.success_update'));
+        //return redirect()->route(ADMIN . '.bookings.index')->withSuccess(trans('app.success_update'));
     }
 
     /**
@@ -104,12 +103,13 @@ class BookingController extends Controller
      */
     public function destroy($id)
     {
-      Booking::destroy($id);
+        Booking::destroy($id);
     }
     
-    public function getJson(){
-		  $result = Booking::getBookings(true);
-	    
-	    return $result;
+    public function getJson()
+    {
+        $result = Booking::getBookings(true);
+        
+        return $result;
     }
 }

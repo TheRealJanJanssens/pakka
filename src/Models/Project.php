@@ -2,11 +2,8 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
-
-use App\TaskGroup;
-use App\Task;
+use Illuminate\Notifications\Notifiable;
 
 class Project extends Model
 {
@@ -18,7 +15,7 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'id','name','status','client_id','description','created_at','updated_at'
+        'id','name','status','client_id','description','created_at','updated_at',
     ];
 
     /*
@@ -29,7 +26,7 @@ class Project extends Model
     public static function rules($update = false, $id = null)
     {
         $commun = [
-            'name'    => "required",
+            'name' => "required",
             
         ];
 
@@ -38,7 +35,7 @@ class Project extends Model
         }
 
         return array_merge($commun, [
-            'name'    => 'required',
+            'name' => 'required',
         ]);
     }
 }

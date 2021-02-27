@@ -2,75 +2,77 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Notifications\Notifiable;
+use App\ProviderSchedule;
 use Illuminate\Database\Eloquent\Model;
 
-use App\ProviderSchedule;
-
-use Session;
+use Illuminate\Notifications\Notifiable;
 
 class Provider extends Model
 {
-  use Notifiable;
+    use Notifiable;
   
-  public $timestamps = false;
+    public $timestamps = false;
 
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array
-   */
-  protected $fillable = [
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
       'name',
       'user_id',
-      'capacity'
+      'capacity',
   ];
-	
-	protected $casts = ['id' => 'string'];
-	
-  /*
-  |------------------------------------------------------------------------------------
-  | Validations
-  |------------------------------------------------------------------------------------
-  */
-  public static function rules($update = false, $id = null)
-  {
-    $commun = [
-      'name'    => "required"
+    
+    protected $casts = ['id' => 'string'];
+    
+    /*
+    |------------------------------------------------------------------------------------
+    | Validations
+    |------------------------------------------------------------------------------------
+    */
+    public static function rules($update = false, $id = null)
+    {
+        $commun = [
+      'name' => "required",
     ];
 
-    if ($update) {
-      return $commun;
-    }
+        if ($update) {
+            return $commun;
+        }
 
-    return array_merge($commun, [
-      'name'    => "required"
+        return array_merge($commun, [
+      'name' => "required",
     ]);
-  }
-	
-	public static function getProvider($id){
-		$provider = Provider::findOrFail($id);
-		$provider['schedule'] = ProviderSchedule::getSchedule($provider->id);
-    return $provider;
-	}
-	
-	public static function getProviders(){
-	    $result = Provider::orderBy('id')->get();
-	    return $result;
-	}
-	
-	public static function constructSelect(){
-    $providers = Provider::orderBy('id')->get();
-    $result = [];
-    foreach($providers as $provider){
-	    $result[$provider->id] = $provider->name;
-    }
-
-    if(!empty($result)){
-      array_unshift($result, trans("app.select_option") );
     }
     
-    return $result;
-	}
+    public static function getProvider($id)
+    {
+        $provider = Provider::findOrFail($id);
+        $provider['schedule'] = ProviderSchedule::getSchedule($provider->id);
+
+        return $provider;
+    }
+    
+    public static function getProviders()
+    {
+        $result = Provider::orderBy('id')->get();
+
+        return $result;
+    }
+    
+    public static function constructSelect()
+    {
+        $providers = Provider::orderBy('id')->get();
+        $result = [];
+        foreach ($providers as $provider) {
+            $result[$provider->id] = $provider->name;
+        }
+
+        if (! empty($result)) {
+            array_unshift($result, trans("app.select_option"));
+        }
+    
+        return $result;
+    }
 }

@@ -2,10 +2,8 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Support\Facades\DB;
-
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class SectionItem extends Model
 {
@@ -20,7 +18,7 @@ class SectionItem extends Model
         'id',
         'section',
         'name',
-        'tags'
+        'tags',
     ];
 
     /*
@@ -31,7 +29,7 @@ class SectionItem extends Model
     public static function rules($update = false, $id = null)
     {
         $commun = [
-            'section'    => "required",
+            'section' => "required",
             
         ];
 
@@ -40,7 +38,7 @@ class SectionItem extends Model
         }
 
         return array_merge($commun, [
-            'section'    => "required",
+            'section' => "required",
         ]);
     }
     
@@ -52,18 +50,18 @@ class SectionItem extends Model
     |------------------------------------------------------------------------------------
     */
     
-    public static function getSectionItemsByType($type){
-	    
-	    $result = SectionItem::select([
+    public static function getSectionItemsByType($type)
+    {
+        $result = SectionItem::select([
         'section_items.id',
         'section_items.name',
         'section_items.section',
         'section_items.tags',
-    	])
-	    ->where('section_items.type', $type)
-	    ->orderBy('name')
-	    ->get();
-	    
-	    return $result;
-	}
+        ])
+        ->where('section_items.type', $type)
+        ->orderBy('name')
+        ->get();
+        
+        return $result;
+    }
 }

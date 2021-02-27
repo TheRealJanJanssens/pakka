@@ -2,22 +2,22 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class TaskGroup extends Model
 {
     use Notifiable;
-	
-	public $timestamps = false;
-	
+    
+    public $timestamps = false;
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'id','project_id','name','position','color'
+        'id','project_id','name','position','color',
     ];
 
     /*
@@ -28,8 +28,8 @@ class TaskGroup extends Model
     public static function rules($update = false, $id = null)
     {
         $commun = [
-            'project_id'    => "required",
-            'name'    => "required",
+            'project_id' => "required",
+            'name' => "required",
             
         ];
 
@@ -38,8 +38,8 @@ class TaskGroup extends Model
         }
 
         return array_merge($commun, [
-            'project_id'    => "required",
-            'name'    => "required",
+            'project_id' => "required",
+            'name' => "required",
         ]);
     }
 }

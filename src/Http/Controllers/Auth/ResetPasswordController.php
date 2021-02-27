@@ -2,8 +2,8 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers\Auth;
 
-use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
 
 class ResetPasswordController extends Controller
 {

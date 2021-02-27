@@ -3,20 +3,20 @@
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Translation;
+use Cache;
 use Illuminate\Http\Request;
 use TheRealJanJanssens\Pakka\Models\Collection;
+
 use TheRealJanJanssens\Pakka\Models\CollectionCondition;
+
 use TheRealJanJanssens\Pakka\Models\CollectionSet;
-
-use App\Translation;
-
-use Cache;
 
 class CollectionController extends Controller
 {
-	public function __construct()
+    public function __construct()
     {
-	    $this->middleware('auth');
+        $this->middleware('auth');
         constructGlobVars();
     }
     
@@ -50,20 +50,20 @@ class CollectionController extends Controller
      */
     public function store(Request $request)
     {
-	    //$this->validate($result, Collection::rules());
-	    $array =  $request->all();
-		$result = constructTranslations($request->all());
-		$collection = Collection::create($result);
-		if(isset($result['string']) && is_array($result['string']) ){
-			//dd($result);
-			for ($i = 0; $i < count($result['string']); $i++){
-				$conditions[$i] = array("input" => $result['input'][$i], "operator" => $result['operator'][$i], "string" => $result['string'][$i]);
-			}			
-			CollectionCondition::storeCondition($collection['id'], $conditions);
+        //$this->validate($result, Collection::rules());
+        $array = $request->all();
+        $result = constructTranslations($request->all());
+        $collection = Collection::create($result);
+        if (isset($result['string']) && is_array($result['string'])) {
+            //dd($result);
+            for ($i = 0; $i < count($result['string']); $i++) {
+                $conditions[$i] = ["input" => $result['input'][$i], "operator" => $result['operator'][$i], "string" => $result['string'][$i]];
+            }
+            CollectionCondition::storeCondition($collection['id'], $conditions);
         }
-		
-		Cache::tags('collections')->flush();
-		
+        
+        Cache::tags('collections')->flush();
+        
         return redirect()->route(ADMIN . '.collections.index')->withSuccess(trans('app.success_store'));
     }
 
@@ -86,10 +86,10 @@ class CollectionController extends Controller
      */
     public function edit($id)
     {
-		$collection = Collection::getCollection($id,2);
-		
-		Cache::tags('collections')->flush();
-		
+        $collection = Collection::getCollection($id, 2);
+        
+        Cache::tags('collections')->flush();
+        
         return view('admin.collections.edit', compact('collection'));
     }
 
@@ -104,23 +104,23 @@ class CollectionController extends Controller
     {
         //$this->validate($request, Collection::rules(true, $id));
 
-		$array =  $request->all();
-		
-		$result = constructTranslations($request->all());
-		
-		$collection = Collection::findOrFail($id);
-		$collection->update($result);
-		
-		CollectionCondition::where('collection_id',$id)->delete();
-		if(isset($result['string']) && is_array($result['string']) ){
-			for ($i = 0; $i < count($result['string']); $i++){
-				$conditions[$i] = array("input" => $result['input'][$i], "operator" => $result['operator'][$i], "string" => $result['string'][$i]);
-			}			
-			CollectionCondition::storeCondition($collection['id'], $conditions);
+        $array = $request->all();
+        
+        $result = constructTranslations($request->all());
+        
+        $collection = Collection::findOrFail($id);
+        $collection->update($result);
+        
+        CollectionCondition::where('collection_id', $id)->delete();
+        if (isset($result['string']) && is_array($result['string'])) {
+            for ($i = 0; $i < count($result['string']); $i++) {
+                $conditions[$i] = ["input" => $result['input'][$i], "operator" => $result['operator'][$i], "string" => $result['string'][$i]];
+            }
+            CollectionCondition::storeCondition($collection['id'], $conditions);
         }
-		
-		Cache::tags('collections')->flush();
-		
+        
+        Cache::tags('collections')->flush();
+        
         return redirect()->route(ADMIN . '.collections.index')->withSuccess(trans('app.success_update'));
     }
 
@@ -132,37 +132,34 @@ class CollectionController extends Controller
      */
     public function destroy($id)
     {
-	    $items = Collection::where('id',$id)->get()->toArray();
+        $items = Collection::where('id', $id)->get()->toArray();
         
-        foreach($items as $item){
-	        $transName = $item['name'];
-	        $transSlug = $item['slug'];
-	        $transDescription = $item['description'];
-	        
-	        Translation::where('translation_id', $transName)->delete();
-	        Translation::where('translation_id', $transSlug)->delete();
-	        Translation::where('translation_id', $transDescription)->delete();
+        foreach ($items as $item) {
+            $transName = $item['name'];
+            $transSlug = $item['slug'];
+            $transDescription = $item['description'];
+            
+            Translation::where('translation_id', $transName)->delete();
+            Translation::where('translation_id', $transSlug)->delete();
+            Translation::where('translation_id', $transDescription)->delete();
         }
         
         Collection::destroy($id);
-		CollectionCondition::where('collection_id',$id)->delete();
-		CollectionSet::where('collection_id',$id)->delete();
-		
-        return back()->withSuccess(trans('app.success_destroy')); 
+        CollectionCondition::where('collection_id', $id)->delete();
+        CollectionSet::where('collection_id', $id)->delete();
+        
+        return back()->withSuccess(trans('app.success_destroy'));
     }
     
     public function sort(Request $request)
     {
-	    if($request->isMethod('post')){
-		    
-		    $items = $request->all();
-		    $items = json_decode($items['data'], true);
+        if ($request->isMethod('post')) {
+            $items = $request->all();
+            $items = json_decode($items['data'], true);
 
-			foreach($items as $item){
-				Collection::find($item[0]['id'])->update(['position' => $item[0]['position']]);
-			}
-
-		}
+            foreach ($items as $item) {
+                Collection::find($item[0]['id'])->update(['position' => $item[0]['position']]);
+            }
+        }
     }
 }
-

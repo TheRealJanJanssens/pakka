@@ -2,22 +2,22 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class InvoicePreset extends Model
 {
     use Notifiable;
-	
-	public $timestamps = false;
-	
+    
+    public $timestamps = false;
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'price', 'quantity', 'vat', 'position'
+        'name', 'price', 'quantity', 'vat', 'position',
     ];
 
     /*
@@ -28,7 +28,7 @@ class InvoicePreset extends Model
     public static function rules($update = false, $id = null)
     {
         $commun = [
-            'name'    => "required"
+            'name' => "required",
         ];
 
         if ($update) {
@@ -36,9 +36,7 @@ class InvoicePreset extends Model
         }
 
         return array_merge($commun, [
-            'name'    => "required"
+            'name' => "required",
         ]);
     }
-
-    
 }

@@ -5,58 +5,56 @@ namespace TheRealJanJanssens\Pakka\Http\Controllers;
 use Analytics;
 use Spatie\Analytics\Period;
 
-use Illuminate\Http\Request;
-
 class DashboardController extends Controller
 {
-	public function __construct()
+    public function __construct()
     {
-	    $this->middleware('auth');
+        $this->middleware('auth');
         constructGlobVars();
     }
-	
+    
     public function index()
     {
-	    $week = Analytics::performQuery(Period::days(7),'ga:sessions');
-	    
-	    if($week->rows){
-		    $week = $week->rows[0][0];
-	    }else{
-		    $week = "-";
-	    }
-	    
-	    $month = Analytics::performQuery(Period::days(28),'ga:sessions');
-	    
-	    if($month->rows){
-		    $month = $month->rows[0][0];
-	    }else{
-		    $month = "-";
-	    }
-	    
-	    $bounceRate = Analytics::performQuery(Period::days(28),'ga:bounceRate'); // %
-	    
-	    if($bounceRate->rows){
-		    $bounceRate = round($bounceRate->rows[0][0], 2);
-	    }else{
-		    $bounceRate = "-";
-	    }
+        $week = Analytics::performQuery(Period::days(7), 'ga:sessions');
+        
+        if ($week->rows) {
+            $week = $week->rows[0][0];
+        } else {
+            $week = "-";
+        }
+        
+        $month = Analytics::performQuery(Period::days(28), 'ga:sessions');
+        
+        if ($month->rows) {
+            $month = $month->rows[0][0];
+        } else {
+            $month = "-";
+        }
+        
+        $bounceRate = Analytics::performQuery(Period::days(28), 'ga:bounceRate'); // %
+        
+        if ($bounceRate->rows) {
+            $bounceRate = round($bounceRate->rows[0][0], 2);
+        } else {
+            $bounceRate = "-";
+        }
 
-	    
-	    $avgSessionDuration = Analytics::performQuery(Period::days(28),'ga:avgSessionDuration'); // seconds
-	    
-	    if($avgSessionDuration->rows){
-		    $avgSessionDuration = gmdate("H:i:s", $avgSessionDuration->rows[0][0]);
-	    }else{
-		    $avgSessionDuration = "-";
-	    }
+        
+        $avgSessionDuration = Analytics::performQuery(Period::days(28), 'ga:avgSessionDuration'); // seconds
+        
+        if ($avgSessionDuration->rows) {
+            $avgSessionDuration = gmdate("H:i:s", $avgSessionDuration->rows[0][0]);
+        } else {
+            $avgSessionDuration = "-";
+        }
 
-	    $analytics = array(
-		    "weekVisits" => $week,
-		    "monthVisits" => $month,
-		    "bounceRate" => $bounceRate,
-		    "avgSessionDuration" => $avgSessionDuration,
-	    );
-	    
+        $analytics = [
+            "weekVisits" => $week,
+            "monthVisits" => $month,
+            "bounceRate" => $bounceRate,
+            "avgSessionDuration" => $avgSessionDuration,
+        ];
+        
         return view('pakka::admin.dashboard.index', compact('analytics'));
     }
 }

@@ -2,29 +2,26 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
-
-use Session;
+use Illuminate\Notifications\Notifiable;
 
 class VariantOption extends Model
 {
     use Notifiable;
     
     public $timestamps = false;
-	
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'id', 'variant_id', 'product_id', 'name'
+        'id', 'variant_id', 'product_id', 'name',
     ];
-	
-	protected $casts = ['id' => 'string'];
-	
+    
+    protected $casts = ['id' => 'string'];
+    
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -33,9 +30,9 @@ class VariantOption extends Model
     public static function rules($update = false, $id = null)
     {
         $commun = [
-	        'variant_id'    => "required",
-	        'product_id'    => "required",
-	        'name'    => "required"
+            'variant_id' => "required",
+            'product_id' => "required",
+            'name' => "required",
         ];
 
         if ($update) {
@@ -43,9 +40,9 @@ class VariantOption extends Model
         }
 
         return array_merge($commun, [
-	        'variant_id'    => "required",
-	        'product_id'    => "required",
-	        'name'    => "required"
+            'variant_id' => "required",
+            'product_id' => "required",
+            'name' => "required",
         ]);
     }
 }

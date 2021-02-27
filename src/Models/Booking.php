@@ -2,19 +2,18 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Model;
-
 use Carbon\Carbon;
-use Session;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+
+use Illuminate\Support\Facades\DB;
 
 class Booking extends Model
 {
     use Notifiable;
     
     public $timestamps = false;
-	
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -28,11 +27,11 @@ class Booking extends Model
         'end_at',
         'title',
         'price',
-        'description'
+        'description',
     ];
-	
-	protected $casts = ['id' => 'string'];
-	
+    
+    protected $casts = ['id' => 'string'];
+    
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -41,7 +40,7 @@ class Booking extends Model
     public static function rules($update = false, $id = null)
     {
         $commun = [
-	        'title'    => "required"
+            'title' => "required",
         ];
 
         if ($update) {
@@ -49,7 +48,7 @@ class Booking extends Model
         }
 
         return array_merge($commun, [
-	        'title'    => "required"
+            'title' => "required",
         ]);
     }
     
@@ -61,124 +60,129 @@ class Booking extends Model
     |------------------------------------------------------------------------------------
     */
     
-    public static function convertDates($array,$mode = 1){
-		
-		switch ($mode) {
-		    case 1:
-				if(isset($array['start_at'])){
-			        $array['start_at'] = Carbon::parse($array['start_at'])->format('Y-m-d H:i:s');
-		        }
-		        
-		        if(isset($array['end_at'])){
-			        $array['end_at'] = Carbon::parse($array['end_at'])->format('Y-m-d H:i:s');
-		        }
-		        break;
-		    case 2:
-		        if(isset($array['start_at'])){
-			        $array['start_at'] = Carbon::parse($array['start_at'])->format('d-m-Y H:i');
-		        }
-		        
-		        if(isset($array['end_at'])){
-			        $array['end_at'] = Carbon::parse($array['end_at'])->format('d-m-Y H:i');
-		        }
-		        break;
-		}
-		
-		
-		
-		return $array;
-    }
-    
-    public static function getBooking($id){
-    	$result = Booking::select([
-    		'bookings.id',
-    		'bookings.service_id',
-    		'bookings.provider_id',
-    		'bookings.client_id',
-    		'bookings.start_at',
-    		'bookings.end_at',
-    		'bookings.title',
-    		'bookings.price',
-    		'bookings.description'])
-    		->where('bookings.id', '=', $id)
-    		->first();
-		
-		$result = $result;
-		$result = Booking::convertDates($result,2);
-		return $result;
-    }
-    
-    public static function getBookings($json = false, $date = null){
-	    
-	    if($date == null){
-		    $date = Carbon::today()->subDays(30);
-	    }
-	    
-	    $bookings = Booking::select([
-  		'bookings.id',
-  		'bookings.service_id',
-  		'bookings.provider_id',
-  		'bookings.client_id',
-  		'bookings.start_at',
-  		'bookings.end_at',
-  		'bookings.title',
-  		'bookings.price',
-  		'bookings.description'])
-  		->whereDate('bookings.start_at', '>=', $date)
-  		->get();
-	    
-	    if($json == true && count($bookings) > 0){
-			$i=0;
-			foreach($bookings as $booking){
-				$result[$i]['bookingId'] = $booking['id'];
-				$result[$i]['title'] = $booking['title'];
-				$result[$i]['start'] = $booking['start_at'];
-				$result[$i]['end'] = $booking['end_at'];
-				$result[$i]['desc'] = $booking['description'];
-				
-				if(!isset($booking['end_at'])){
-					$result[$i]['allDay'] = true;
-				}else{
-					$result[$i]['allDay'] = false;
-				}
+    public static function convertDates($array, $mode = 1)
+    {
+        switch ($mode) {
+            case 1:
+                if (isset($array['start_at'])) {
+                    $array['start_at'] = Carbon::parse($array['start_at'])->format('Y-m-d H:i:s');
+                }
+                
+                if (isset($array['end_at'])) {
+                    $array['end_at'] = Carbon::parse($array['end_at'])->format('Y-m-d H:i:s');
+                }
 
-				$i++;
-			}
-			$result = json_encode($result);
-	    }else{
-		    $result = $bookings;
-	    }
-	    
-	    return $result;
+                break;
+            case 2:
+                if (isset($array['start_at'])) {
+                    $array['start_at'] = Carbon::parse($array['start_at'])->format('d-m-Y H:i');
+                }
+                
+                if (isset($array['end_at'])) {
+                    $array['end_at'] = Carbon::parse($array['end_at'])->format('d-m-Y H:i');
+                }
+
+                break;
+        }
+        
+        
+        
+        return $array;
     }
     
-    public static function getUpcomingBookings($limit = 5){
-		$date = Carbon::now();
-		$result = array();
-		
-    $bookings = Booking::select([
-  		'bookings.id',
-  		'bookings.service_id',
-  		'bookings.provider_id',
-  		'bookings.client_id',
-  		'bookings.start_at',
-  		'bookings.end_at',
-  		'bookings.title',
-  		'bookings.price',
-  		'bookings.description'])
-  		->whereDate('bookings.start_at', '>=', $date)
-  		->orderBy('bookings.start_at', 'asc')
-  		->limit($limit)
-  		->get();
-		
-		if($bookings){
-			$i=0;
-			foreach($bookings as $booking){
-				$result[$i] = Booking::convertDates($booking,2);
-				$i++;
-			}
-		}
-		
-		return $result;
-	}
+    public static function getBooking($id)
+    {
+        $result = Booking::select([
+            'bookings.id',
+            'bookings.service_id',
+            'bookings.provider_id',
+            'bookings.client_id',
+            'bookings.start_at',
+            'bookings.end_at',
+            'bookings.title',
+            'bookings.price',
+            'bookings.description', ])
+            ->where('bookings.id', '=', $id)
+            ->first();
+        
+        $result = $result;
+        $result = Booking::convertDates($result, 2);
+
+        return $result;
+    }
+    
+    public static function getBookings($json = false, $date = null)
+    {
+        if ($date == null) {
+            $date = Carbon::today()->subDays(30);
+        }
+        
+        $bookings = Booking::select([
+        'bookings.id',
+        'bookings.service_id',
+        'bookings.provider_id',
+        'bookings.client_id',
+        'bookings.start_at',
+        'bookings.end_at',
+        'bookings.title',
+        'bookings.price',
+        'bookings.description', ])
+        ->whereDate('bookings.start_at', '>=', $date)
+        ->get();
+        
+        if ($json == true && count($bookings) > 0) {
+            $i = 0;
+            foreach ($bookings as $booking) {
+                $result[$i]['bookingId'] = $booking['id'];
+                $result[$i]['title'] = $booking['title'];
+                $result[$i]['start'] = $booking['start_at'];
+                $result[$i]['end'] = $booking['end_at'];
+                $result[$i]['desc'] = $booking['description'];
+                
+                if (! isset($booking['end_at'])) {
+                    $result[$i]['allDay'] = true;
+                } else {
+                    $result[$i]['allDay'] = false;
+                }
+
+                $i++;
+            }
+            $result = json_encode($result);
+        } else {
+            $result = $bookings;
+        }
+        
+        return $result;
+    }
+    
+    public static function getUpcomingBookings($limit = 5)
+    {
+        $date = Carbon::now();
+        $result = [];
+        
+        $bookings = Booking::select([
+        'bookings.id',
+        'bookings.service_id',
+        'bookings.provider_id',
+        'bookings.client_id',
+        'bookings.start_at',
+        'bookings.end_at',
+        'bookings.title',
+        'bookings.price',
+        'bookings.description', ])
+        ->whereDate('bookings.start_at', '>=', $date)
+        ->orderBy('bookings.start_at', 'asc')
+        ->limit($limit)
+        ->get();
+        
+        if ($bookings) {
+            $i = 0;
+            foreach ($bookings as $booking) {
+                $result[$i] = Booking::convertDates($booking, 2);
+                $i++;
+            }
+        }
+        
+        return $result;
+    }
 }

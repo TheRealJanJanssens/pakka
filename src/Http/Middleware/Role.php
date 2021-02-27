@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use Auth;
+use Closure;
 
 class Role
 {
@@ -17,7 +17,7 @@ class Role
     public function handle($request, Closure $next, $role)
     {
         // Not Logged
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect('/login');
         }
 
@@ -25,6 +25,7 @@ class Role
         if ($request->user()->role < $role) {
             return abort(404);
         }
+
         return $next($request);
     }
 }

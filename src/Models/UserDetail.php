@@ -2,32 +2,32 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class UserDetail extends Model
 {
     use Notifiable;
-	
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'user_id', 
-        'firstname', 
-        'lastname', 
-        'address', 
-        'city', 
-        'zip', 
-        'country', 
-        'phone', 
-        'company_name', 
-        'vat', 
-        'marketing_consent', 
-        'terms_consent', 
-        'birthday'
+        'user_id',
+        'firstname',
+        'lastname',
+        'address',
+        'city',
+        'zip',
+        'country',
+        'phone',
+        'company_name',
+        'vat',
+        'marketing_consent',
+        'terms_consent',
+        'birthday',
     ];
 
     /*
@@ -38,7 +38,7 @@ class UserDetail extends Model
     public static function rules($update = false, $id = null)
     {
         $commun = [
-            'user_id'    => "required"
+            'user_id' => "required",
         ];
 
         if ($update) {
@@ -46,9 +46,7 @@ class UserDetail extends Model
         }
 
         return array_merge($commun, [
-            'user_id'    => "required"
+            'user_id' => "required",
         ]);
     }
-
-    
 }

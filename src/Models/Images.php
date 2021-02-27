@@ -2,8 +2,8 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Images extends Model
 {
@@ -15,7 +15,7 @@ class Images extends Model
      * @var array
      */
     protected $fillable = [
-        'id','item_id','position','file','created_at','updated_at'
+        'id','item_id','position','file','created_at','updated_at',
     ];
 
     /*
@@ -26,8 +26,8 @@ class Images extends Model
     public static function rules($update = false, $id = null)
     {
         $commun = [
-            'item_id'    => "required",
-            'file'    => "required",
+            'item_id' => "required",
+            'file' => "required",
             
         ];
 
@@ -36,8 +36,8 @@ class Images extends Model
         }
 
         return array_merge($commun, [
-            'item_id'    => "required",
-            'file'    => "required",
+            'item_id' => "required",
+            'file' => "required",
         ]);
     }
 }

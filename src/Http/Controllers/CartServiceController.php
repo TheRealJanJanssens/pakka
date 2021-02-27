@@ -9,9 +9,9 @@ use TheRealJanJanssens\Pakka\Models\Translation;
 
 class CartServiceController extends Controller
 {
-	public function __construct()
+    public function __construct()
     {
-	    $this->middleware('auth');
+        $this->middleware('auth');
         constructGlobVars();
     }
     
@@ -23,6 +23,7 @@ class CartServiceController extends Controller
     public function index()
     {
         $services = CartService::getCartServices();
+
         return view('admin.cart_services.index', compact('services'));
     }
 
@@ -44,19 +45,19 @@ class CartServiceController extends Controller
      */
     public function store(Request $request)
     {
-	    //$this->validate($result, CartService::rules());
-	    $array =  $request->all();
-		$result = constructTranslations($request->all());
-		$service = CartService::create($result);
-/*
-		if(isset($result['value']) && is_array($result['value']) ){
-			for ($i = 0; $i < count($result['value']); $i++){
-				$conditions[$i] = array("operator" => $result['operator'][$i], "value" => $result['value'][$i], "type" => $result['type'][$i]);
-			}			
-			ShipmentCondition::storeCondition($service['id'], $conditions);
-        }
-*/
-		
+        //$this->validate($result, CartService::rules());
+        $array = $request->all();
+        $result = constructTranslations($request->all());
+        $service = CartService::create($result);
+        /*
+                if(isset($result['value']) && is_array($result['value']) ){
+                    for ($i = 0; $i < count($result['value']); $i++){
+                        $conditions[$i] = array("operator" => $result['operator'][$i], "value" => $result['value'][$i], "type" => $result['type'][$i]);
+                    }
+                    ShipmentCondition::storeCondition($service['id'], $conditions);
+                }
+        */
+        
         return redirect()->route(ADMIN . '.cart_services.index')->withSuccess(trans('app.success_store'));
     }
 
@@ -79,8 +80,8 @@ class CartServiceController extends Controller
      */
     public function edit($id)
     {
-		$service = CartService::getCartService($id,2);
-		
+        $service = CartService::getCartService($id, 2);
+        
         return view('admin.cart_services.edit', compact('service'));
     }
 
@@ -95,22 +96,22 @@ class CartServiceController extends Controller
     {
         //$this->validate($request, CartService::rules(true, $id));
 
-		$array =  $request->all();
-		
-		$result = constructTranslations($request->all());
-		
-		$service = CartService::findOrFail($id);
-		$service->update($result);
-		
-/*
-		if(isset($result['value']) && is_array($result['value']) ){
-			for ($i = 0; $i < count($result['value']); $i++){
-				$conditions[$i] = array("operator" => $result['operator'][$i], "value" => $result['value'][$i], "type" => $result['type'][$i]);
-			}			
-			ShipmentCondition::storeCondition($service['id'], $conditions);
-        }
-*/	
-		
+        $array = $request->all();
+        
+        $result = constructTranslations($request->all());
+        
+        $service = CartService::findOrFail($id);
+        $service->update($result);
+        
+        /*
+                if(isset($result['value']) && is_array($result['value']) ){
+                    for ($i = 0; $i < count($result['value']); $i++){
+                        $conditions[$i] = array("operator" => $result['operator'][$i], "value" => $result['value'][$i], "type" => $result['type'][$i]);
+                    }
+                    ShipmentCondition::storeCondition($service['id'], $conditions);
+                }
+        */
+        
         return redirect()->route(ADMIN . '.cart_services.index')->withSuccess(trans('app.success_update'));
     }
 
@@ -122,20 +123,19 @@ class CartServiceController extends Controller
      */
     public function destroy($id)
     {
-	    $items = CartService::where('id',$id)->get()->toArray();
+        $items = CartService::where('id', $id)->get()->toArray();
         
-        foreach($items as $item){
-	        $transName = $item['name'];
-	        $transDescription = $item['description'];
-	        
-	        Translation::where('translation_id', $transName)->delete();
-	        Translation::where('translation_id', $transDescription)->delete();
+        foreach ($items as $item) {
+            $transName = $item['name'];
+            $transDescription = $item['description'];
+            
+            Translation::where('translation_id', $transName)->delete();
+            Translation::where('translation_id', $transDescription)->delete();
         }
         
         CartService::destroy($id);
-		//ShipmentCondition::where('shipment_option_id',$id)->delete();
-		
-        return back()->withSuccess(trans('app.success_destroy')); 
+        //ShipmentCondition::where('shipment_option_id',$id)->delete();
+        
+        return back()->withSuccess(trans('app.success_destroy'));
     }
 }
-

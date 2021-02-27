@@ -9,9 +9,9 @@ use TheRealJanJanssens\Pakka\Models\UserDetail;
 
 class ClientController extends Controller
 {
-	public function __construct()
+    public function __construct()
     {
-	    $this->middleware('auth');
+        $this->middleware('auth');
         constructGlobVars();
     }
     
@@ -23,6 +23,7 @@ class ClientController extends Controller
     public function index()
     {
         $items = User::getUsers(1);
+
         return view('admin.clients.index', compact('items'));
     }
 
@@ -44,19 +45,19 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-	    $username = $request->firstname." ".$request->lastname;
-	    $request->request->add(['name' => $username, 'role' => 1]);
-	    
-      //create user
-      $this->validate($request, User::rules());
-      $user = User::create($request->all());
-	
-  		//creating user details
-  		$request->request->add(['user_id' => $user->id]);
-  		$this->validate($request, UserDetail::rules());
-  		UserDetail::create($request->all());
-	
-      return back()->withSuccess(trans('app.success_store'));
+        $username = $request->firstname." ".$request->lastname;
+        $request->request->add(['name' => $username, 'role' => 1]);
+        
+        //create user
+        $this->validate($request, User::rules());
+        $user = User::create($request->all());
+    
+        //creating user details
+        $request->request->add(['user_id' => $user->id]);
+        $this->validate($request, UserDetail::rules());
+        UserDetail::create($request->all());
+    
+        return back()->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -79,7 +80,7 @@ class ClientController extends Controller
     public function edit($id)
     {
         $item = User::getUser($id);
-		//dd($item);
+        //dd($item);
         return view('admin.clients.edit', compact('item'));
     }
 
@@ -92,18 +93,18 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-	    $username = $request->firstname." ".$request->lastname;
-	    $request->request->add(['name' => $username, 'user_id' => $id]);
-		
-      //update user
-		  $this->validate($request, User::rules(true, $id));
-      $user = User::findOrFail($id);
-      $user->update($request->all());
+        $username = $request->firstname." ".$request->lastname;
+        $request->request->add(['name' => $username, 'user_id' => $id]);
         
-  		//update user details
-  		$this->validate($request, UserDetail::rules(true, $id));
-  		$userDetail = UserDetail::updateOrCreate(['user_id' => $id], $request->all());    
-		
+        //update user
+        $this->validate($request, User::rules(true, $id));
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+        
+        //update user details
+        $this->validate($request, UserDetail::rules(true, $id));
+        $userDetail = UserDetail::updateOrCreate(['user_id' => $id], $request->all());
+        
         return redirect()->route(ADMIN . '.clients.index')->withSuccess(trans('app.success_update'));
     }
 
@@ -115,15 +116,16 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-      User::destroy($id);
-      UserDetail::where('user_id',$id)->delete();
-	
-      return back()->withSuccess(trans('app.success_destroy')); 
+        User::destroy($id);
+        UserDetail::where('user_id', $id)->delete();
+    
+        return back()->withSuccess(trans('app.success_destroy'));
     }
     
-    public function getInfo($id){
-	    $user = User::getUser($id);
-	    return json_encode($user);
+    public function getInfo($id)
+    {
+        $user = User::getUser($id);
+
+        return json_encode($user);
     }
 }
-
