@@ -2,22 +2,22 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class InvoiceItem extends Model
 {
     use Notifiable;
-	
-	public $timestamps = false;
-	
+    
+    public $timestamps = false;
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'invoice_id', 'name', 'price', 'quantity', 'vat', 'position'
+        'invoice_id', 'name', 'price', 'quantity', 'vat', 'position',
     ];
 
     /*
@@ -28,7 +28,7 @@ class InvoiceItem extends Model
     public static function rules($update = false, $id = null)
     {
         $commun = [
-            'invoice_id'    => "required"
+            'invoice_id' => "required",
         ];
 
         if ($update) {
@@ -36,9 +36,7 @@ class InvoiceItem extends Model
         }
 
         return array_merge($commun, [
-            'invoice_id'    => "required"
+            'invoice_id' => "required",
         ]);
     }
-
-    
 }

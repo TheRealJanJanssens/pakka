@@ -2,8 +2,8 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers\Auth;
 
-use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
 
 class ForgotPasswordController extends Controller
 {

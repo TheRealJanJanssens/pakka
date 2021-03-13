@@ -1,57 +1,45 @@
 <?php 
-/*
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use Illuminate\Html\Facades\Form;
-*/
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Session;
-
-
-//use Session;
-//use Auth;
-use TheRealJanJanssens\Pakka\Models\Menu;
-use TheRealJanJanssens\Pakka\Models\MenuItem;
-use TheRealJanJanssens\Pakka\Models\Translation;
-use TheRealJanJanssens\Pakka\Models\Language;
-use TheRealJanJanssens\Pakka\Models\Setting;
-use TheRealJanJanssens\Pakka\Models\AttributeValue;
 use TheRealJanJanssens\Pakka\Models\AttributeInput;
-use TheRealJanJanssens\Pakka\Models\Page;
-use TheRealJanJanssens\Pakka\Models\Section;
+use TheRealJanJanssens\Pakka\Models\AttributeValue;
 use TheRealJanJanssens\Pakka\Models\Component;
 use TheRealJanJanssens\Pakka\Models\Item;
+use TheRealJanJanssens\Pakka\Models\Language;
+use TheRealJanJanssens\Pakka\Models\Menu;
+use TheRealJanJanssens\Pakka\Models\MenuItem;
+use TheRealJanJanssens\Pakka\Models\Page;
+use TheRealJanJanssens\Pakka\Models\Section;
+use TheRealJanJanssens\Pakka\Models\Setting;
+use TheRealJanJanssens\Pakka\Models\Stock;
+use TheRealJanJanssens\Pakka\Models\Translation;
 use TheRealJanJanssens\Pakka\Models\Variant;
 use TheRealJanJanssens\Pakka\Models\VariantOption;
 use TheRealJanJanssens\Pakka\Models\VariantValue;
-use TheRealJanJanssens\Pakka\Models\Stock;
-
-use Illuminate\Html\FormFacade;
 
 /*
 |--------------------------------------------------------------------------
 | Generate string
 |--------------------------------------------------------------------------
 |
-| generates random string 
+| generates random string
 |
 | $n = size of random string
 |
 */
 
 if (! function_exists('generateString')) {
-	function generateString($n) { 
-	    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
-	    $randomString = ''; 
-	  
-	    for ($i = 0; $i < $n; $i++) { 
-	        $index = rand(0, strlen($characters) - 1); 
-	        $randomString .= $characters[$index]; 
-	    } 
-	  
-	    return $randomString; 
-	}
+    function generateString($n)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+      
+        for ($i = 0; $i < $n; $i++) {
+            $index = rand(0, strlen($characters) - 1);
+            $randomString .= $characters[$index];
+        }
+      
+        return $randomString;
+    }
 }
 
 /*
@@ -59,20 +47,23 @@ if (! function_exists('generateString')) {
 | Contains
 |--------------------------------------------------------------------------
 |
-| Searches if one of the element in $arr is contained in $str 
+| Searches if one of the element in $arr is contained in $str
 |
 | $str = string that has to be checked
 | $arr = array that contains all the strings that will check against $str
 |
 */
 if (! function_exists('contains')) {
-	function contains($str, array $arr)
-	{
-	    foreach($arr as $a) {
-	        if (stripos($str,$a) !== false) return true;
-	    }
-	    return false;
-	}
+    function contains($str, array $arr)
+    {
+        foreach ($arr as $a) {
+            if (stripos($str, $a) !== false) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
 
 /*
@@ -80,89 +71,94 @@ if (! function_exists('contains')) {
 | Slugify
 |--------------------------------------------------------------------------
 |
-| Slugifies the given string based off the one in Symfony's Jobeet tutorial 
+| Slugifies the given string based off the one in Symfony's Jobeet tutorial
 |
 | $str = string that will be slugified
 |
 */
 if (! function_exists('slugify')) {
-	function slugify($str)
-	{
-	  // replace non letter or digits by -
-	  $text = preg_replace('~[^\pL\d]+~u', '-', $str);
-	
-	  // transliterate
-	  $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-	
-	  // remove unwanted characters
-	  $text = preg_replace('~[^-\w]+~', '', $text);
-	
-	  // trim
-	  $text = trim($text, '-');
-	
-	  // remove duplicate -
-	  $text = preg_replace('~-+~', '-', $text);
-	
-	  // lowercase
-	  $text = strtolower($text);
-	
-	  if (empty($text)) {
-	    return 'n-a';
-	  }
-	
-	  return $text;
-	}
+    function slugify($str)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\pL\d]+~u', '-', $str);
+    
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+    
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+    
+        // trim
+        $text = trim($text, '-');
+    
+        // remove duplicate -
+        $text = preg_replace('~-+~', '-', $text);
+    
+        // lowercase
+        $text = strtolower($text);
+    
+        if (empty($text)) {
+            return 'n-a';
+        }
+    
+        return $text;
+    }
 }
 
 if (! function_exists('deslugify')) {
-	function deslugify($str)
-	{
-	  // replace non letter or digits by -
-	  $text = str_replace('-', ' ', $str);
+    function deslugify($str)
+    {
+        // replace non letter or digits by -
+        $text = str_replace('-', ' ', $str);
 
-	  // lowercase
-	  $text = strtolower($text);
-	  
-	  if (empty($text)) {
-	    return 'n-a';
-	  }
-	
-	  return $text;
-	}
+        // lowercase
+        $text = strtolower($text);
+      
+        if (empty($text)) {
+            return 'n-a';
+        }
+    
+        return $text;
+    }
 }
 
 if (! function_exists('imgUrl')) {
-	function imgUrl($id, $image, $size){
-		$publicUrl = config('image.public');
-		
-		if(isset($image) || !empty($image)){
-			$url = $publicUrl.$id."/".$size."/".$image;
-		}else{
-			$url = config('placeholders.image'); //placeholder
-		}
-		
-		return $url;
-	}
+    function imgUrl($id, $image, $size)
+    {
+        $publicUrl = config('image.public');
+        
+        if (isset($image) || ! empty($image)) {
+            $url = $publicUrl.$id."/".$size."/".$image;
+        } else {
+            $url = config('placeholders.image'); //placeholder
+        }
+        
+        return $url;
+    }
 }
 
 if (! function_exists('formatDate')) {
-	function formatDate($date, $format = "d-m-Y"){
-		$date = strtotime($date);
-		$result = date($format, $date);
-		return $result;
-	}
+    function formatDate($date, $format = "d-m-Y")
+    {
+        $date = strtotime($date);
+        $result = date($format, $date);
+
+        return $result;
+    }
 }
 
 if (! function_exists('translateConfigArray')) {
-	function translateConfigArray($string){
-		$array = config($string);
-		if($array){
-			foreach($array as $key => $val){
-				$result[$key] = trans($val);
-			}
-			return $result;
-		}
-	}
+    function translateConfigArray($string)
+    {
+        $array = config($string);
+        if ($array) {
+            foreach ($array as $key => $val) {
+                $result[$key] = trans($val);
+            }
+
+            return $result;
+        }
+    }
 }
 
 
@@ -175,27 +171,28 @@ if (! function_exists('translateConfigArray')) {
 |
 */
 if (! function_exists('getBaseUrl')) {
-	function getBaseUrl(){
-	    // output: /myproject/index.php
-	    $currentPath = $_SERVER['PHP_SELF']; 
-	
-	    // output: Array ( [dirname] => /myproject [basename] => index.php [extension] => php [filename] => index ) 
-	    $pathInfo = pathinfo($currentPath); 
-	
-	    // output: localhost
-	    $hostName = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : "localhost"; 
-		$serverProtocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : "http";
+    function getBaseUrl()
+    {
+        // output: /myproject/index.php
+        $currentPath = $_SERVER['PHP_SELF'];
+    
+        // output: Array ( [dirname] => /myproject [basename] => index.php [extension] => php [filename] => index )
+        $pathInfo = pathinfo($currentPath);
+    
+        // output: localhost
+        $hostName = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : "localhost";
+        $serverProtocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : "http";
 
-	    // output: http://
-	    $protocol = strtolower(substr($serverProtocol,0,5))=='https'?'https':'http';
-		$baseUrl = $protocol.'://'.$hostName.$pathInfo['dirname']."/";
-		
-		//filters out /public/ if in url
-		$baseUrl = str_replace('/public/', '/', $baseUrl);
-		
-	    // return: http://localhost/myproject/
-	    return $baseUrl;
-	}
+        // output: http://
+        $protocol = strtolower(substr($serverProtocol, 0, 5)) == 'https'?'https':'http';
+        $baseUrl = $protocol.'://'.$hostName.$pathInfo['dirname']."/";
+        
+        //filters out /public/ if in url
+        $baseUrl = str_replace('/public/', '/', $baseUrl);
+        
+        // return: http://localhost/myproject/
+        return $baseUrl;
+    }
 }
 
 /*
@@ -208,24 +205,25 @@ if (! function_exists('getBaseUrl')) {
 |
 */
 if (! function_exists('constructModuleAssets')) {
-	function constructModuleAssets($array){
-		$id = $array['id'];
-		$storedId = Session::get('set_id');
-		$route = config('pakka.prefix.admin') . '.' . $array['link'] . '.index';
-		if($array['link'] == 'items'){
-			if(Route::currentRouteName() == $route && Route::current()->moduleId == $id){
-				Session::put('module_name', $array['name']);
-				Session::put('module', $array['link']);
-				Session::put('set_id', $id);
-			}
-		}else{
-			if(Route::currentRouteName() == $route){
-				Session::put('module_name', $array['name']);
-				Session::put('module', $array['link']);
-				Session::put('set_id', $id);
-			}
-		}
-	}
+    function constructModuleAssets($array)
+    {
+        $id = $array['id'];
+        $storedId = Session::get('set_id');
+        $route = config('pakka.prefix.admin') . '.' . $array['link'] . '.index';
+        if ($array['link'] == 'items') {
+            if (Route::currentRouteName() == $route && Route::current()->moduleId == $id) {
+                Session::put('module_name', $array['name']);
+                Session::put('module', $array['link']);
+                Session::put('set_id', $id);
+            }
+        } else {
+            if (Route::currentRouteName() == $route) {
+                Session::put('module_name', $array['name']);
+                Session::put('module', $array['link']);
+                Session::put('set_id', $id);
+            }
+        }
+    }
 }
 
 /*
@@ -353,34 +351,33 @@ if (! function_exists('constructGlobVars')) {
 */
 
 if (! function_exists('constructTransSelect')) {
-	function constructTransSelect() {
-		$lang = Session::get('lang');
-		if(count($lang) > 1){
-			?>
+    function constructTransSelect()
+    {
+        $lang = Session::get('lang');
+        if (count($lang) > 1) {
+            ?>
 			<div class="bgc-white p-20 mB-40 bd">
 				<p><b> <?php echo trans('app.translation'); ?> :</b></p>
 				<div class="list-group list-group-lang">
 					<?php
-					$i = 0;
-					
-					foreach($lang as $langItem){
-						if($i == 0){
-							$class = 'list-group-head active';
-						}else{
-							$class = '';
-						}
-						?>					
+                    $i = 0;
+                    
+            foreach ($lang as $langItem) {
+                if ($i == 0) {
+                    $class = 'list-group-head active';
+                } else {
+                    $class = '';
+                } ?>					
 						<a href="#" class="list-group-item list-group-item-action <?php echo $class; ?>" data-lang="<?php echo $langItem['language_code']; ?>"><?php echo $langItem['name']; ?></a>
 						<?php
-						$i++;
-					}
-					?>
+                        $i++;
+            } ?>
 				</div>
 				
 			</div>
 			<?php
-		}
-	}
+        }
+    }
 }
 
 /*
@@ -393,39 +390,39 @@ if (! function_exists('constructTransSelect')) {
 
 /*
 if (! function_exists('constructStatusSelect')) {
-	function constructStatusSelect($status) {
-		?>
-		<div class="list-group list-group-status">
-				
-				<?php
-				if(isset($status)){
-					switch($status){
-				    	case(1):
-							$onlineClass = "active";
-							$offlineClass = "";
-				        break;
-				        	
-				        case(0):
-							$onlineClass = "";
-							$offlineClass = "active";
-				        break;
-				    }
-				}else{    
-				    $onlineClass = "active";
-					$offlineClass = "";
-				}
-				?>
-								
-				<a href="#" class="list-group-item list-group-item-action list-group-head <?php echo $onlineClass ; ?>" data-status="1"><?php echo trans('app.online'); ?></a>
-				<a href="#" class="list-group-item list-group-item-action <?php echo $offlineClass ; ?>" data-status="0"><?php echo trans('app.offline'); ?></a>
-			</div>
-			
-			<input class="status-input" name="status" type="hidden" value="<?php echo $status; ?>">
-			
-		<?php
-		
-		Form::myInput('hidden', 'status', '', ["class" => "status-input"]);
-	}
+    function constructStatusSelect($status) {
+        ?>
+        <div class="list-group list-group-status">
+
+                <?php
+                if(isset($status)){
+                    switch($status){
+                        case(1):
+                            $onlineClass = "active";
+                            $offlineClass = "";
+                        break;
+
+                        case(0):
+                            $onlineClass = "";
+                            $offlineClass = "active";
+                        break;
+                    }
+                }else{
+                    $onlineClass = "active";
+                    $offlineClass = "";
+                }
+                ?>
+
+                <a href="#" class="list-group-item list-group-item-action list-group-head <?php echo $onlineClass ; ?>" data-status="1"><?php echo trans('app.online'); ?></a>
+                <a href="#" class="list-group-item list-group-item-action <?php echo $offlineClass ; ?>" data-status="0"><?php echo trans('app.offline'); ?></a>
+            </div>
+
+            <input class="status-input" name="status" type="hidden" value="<?php echo $status; ?>">
+
+        <?php
+
+        Form::myInput('hidden', 'status', '', ["class" => "status-input"]);
+    }
 }
 */
 
@@ -441,28 +438,29 @@ if (! function_exists('constructStatusSelect')) {
 */
 
 if (! function_exists('getBladeList')) {
-	function getBladeList($name,$emptyVal = false){
-		$files = glob(resource_path()."/views/".$name."/*");
-	    
-	    foreach($files as $file){
-		   //Simply print them out onto the screen.
-		   
-		   $file = explode("/", $file);
+    function getBladeList($name, $emptyVal = false)
+    {
+        $files = glob(resource_path()."/views/".$name."/*");
+        
+        foreach ($files as $file) {
+            //Simply print them out onto the screen.
+           
+            $file = explode("/", $file);
 
-		   if(strpos(end($file), '.') !== false){
-			   $file = explode(".", end($file));
-			   $result[$name.'.'.$file[0]] = $file[0];
-		   }else{
-			   $result[$name.'.'.end($file)] = end($file);
-		   }
-		}
-		
-		if($emptyVal == true){
-			array_unshift($result,''); //puts an empty value in front for when you don't use components
-		}
-		
-		return $result;
-	}
+            if (strpos(end($file), '.') !== false) {
+                $file = explode(".", end($file));
+                $result[$name.'.'.$file[0]] = $file[0];
+            } else {
+                $result[$name.'.'.end($file)] = end($file);
+            }
+        }
+        
+        if ($emptyVal == true) {
+            array_unshift($result, ''); //puts an empty value in front for when you don't use components
+        }
+        
+        return $result;
+    }
 }
 
 /*
@@ -494,7 +492,7 @@ if (! function_exists('getJson')) {
 */
 
 if (! function_exists('getCompMeta')) {
-	function getCompMeta($name,$data){
+  function getCompMeta($name,$data){
 		//Get File if exists in 
 		$path = resource_path('views/sections/'.$name.'/'.$data.'.json');
 		if(file_exists($path)){
@@ -527,14 +525,15 @@ if (! function_exists('getCompMeta')) {
 */
 
 if (! function_exists('isOptionInput')) {
-	function isOptionInput($inputType){
-		$types = array("select","checkbox","radio"); //illegal inputs
-		if(contains($inputType, $types)){
-			return true;
-		}else{
-			return false;
-		}
-	}
+    function isOptionInput($inputType)
+    {
+        $types = ["select","checkbox","radio"]; //illegal inputs
+        if (contains($inputType, $types)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 /*
@@ -551,114 +550,126 @@ if (! function_exists('isOptionInput')) {
 */
 
 if (! function_exists('constructInputs')) {
-	function constructInputs($inputs,$mode=1,$trans=false){
-		foreach($inputs as $input){
-			
-			$lang = Session::get('lang');
-			
-			//construct label
-			if($trans == true){
-				$label = trans($input['label']);
-			}else{
-				$label = $input['label'];
-			}
-			
-			//construct extra hidden inputs
-			$extra="";
-			switch ($mode) {
-			    case 1:
-			        $extra .= Form::myInput('hidden', 'name[]', '', [], $input['name']);
-			        break;
-			    case 2:
-			        $extra .= Form::myInput('hidden', 'input_id[]', '', [], $input['input_id']);
-			        $extra .= Form::myInput('hidden', 'input_type[]', '', [], $input['type']);
-			        break;
-			}
-			
-			//if options are present construct them
-			if(isOptionInput($input['type'])){
-				foreach($input as $key => $value){
-					if(strpos($key, 'option') !== false){
-						$options = $value;
-					}
-				}
-			}else{
-				$options = null;
-			}
-			
-			switch ($input['type']) {
-			    case "text":
-			        foreach($lang as $langItem){
-				        echo Form::myInput('text', $input['name'], $label, [], null, $langItem["language_code"]);
-				        echo $extra;
-			        }
-			        break;
-			    case "textnolang":
-			        echo Form::myInput('text', $input['name'], $label);
-					echo $extra;
-			        break;
-			    case "number":
-			        echo Form::myInput('number', $input['name'], $label, [], null);
-					echo $extra;
-			        break;
-			    case "textarea":
-			        foreach($lang as $langItem){
-				        echo Form::myTextArea($input['name'], $label, [], null, $langItem["language_code"]);
-						echo $extra;
-			        }
-			        break;
-			    case "textareanolang":
-			        echo Form::myTextArea($input['name'], $label);
-					echo $extra;
-			        break;
-			    case "select":
-			        echo Form::myItemsSelect($input['name'], $label, $options, null, ['class' => 'form-control select2 select-custom-input', 'data-search' => '-1']);
-					echo $extra;
-			        break;
-			    case "pageselect":   
-			    	if(!Session::has('pages_select')){
-				    	$pages = Page::getPagesLinks();
-				    	array_unshift($pages, trans('app.no_page_selected'));
-				    	Session::put('pages_select', $pages);
-			    	}else{
-				    	$pages = Session::get('pages_select');
-			    	}
+    function constructInputs($inputs, $mode = 1, $trans = false)
+    {
+        foreach ($inputs as $input) {
+            $lang = Session::get('lang');
+            
+            //construct label
+            if ($trans == true) {
+                $label = trans($input['label']);
+            } else {
+                $label = $input['label'];
+            }
+            
+            //construct extra hidden inputs
+            $extra = "";
+            switch ($mode) {
+                case 1:
+                    $extra .= Form::myInput('hidden', 'name[]', '', [], $input['name']);
 
-			        echo Form::mySelect($input['name'], $label, $pages, null, ['class' => 'form-control select2 select-custom-input', 'data-search' => '-1']);
-					echo $extra;
-			        break; 
-			    case "switch":
-					echo Form::mySwitch($input['name'], $label, '', false);
-					echo $extra;
-					break;
-				case "color":
-					echo Form::myColorPicker($input['name'], $label);
-					echo $extra;
-					break;
-				case "file":
-					echo Form::myFile($input['name'], $label);
-					break;
-			    case "images":
-			    ?>
+                    break;
+                case 2:
+                    $extra .= Form::myInput('hidden', 'input_id[]', '', [], $input['input_id']);
+                    $extra .= Form::myInput('hidden', 'input_type[]', '', [], $input['type']);
+
+                    break;
+            }
+            
+            //if options are present construct them
+            if (isOptionInput($input['type'])) {
+                foreach ($input as $key => $value) {
+                    if (strpos($key, 'option') !== false) {
+                        $options = $value;
+                    }
+                }
+            } else {
+                $options = null;
+            }
+            
+            switch ($input['type']) {
+                case "text":
+                    foreach ($lang as $langItem) {
+                        echo Form::myInput('text', $input['name'], $label, [], null, $langItem["language_code"]);
+                        echo $extra;
+                    }
+
+                    break;
+                case "textnolang":
+                    echo Form::myInput('text', $input['name'], $label);
+                    echo $extra;
+
+                    break;
+                case "number":
+                    echo Form::myInput('number', $input['name'], $label, [], null);
+                    echo $extra;
+
+                    break;
+                case "textarea":
+                    foreach ($lang as $langItem) {
+                        echo Form::myTextArea($input['name'], $label, [], null, $langItem["language_code"]);
+                        echo $extra;
+                    }
+
+                    break;
+                case "textareanolang":
+                    echo Form::myTextArea($input['name'], $label);
+                    echo $extra;
+
+                    break;
+                case "select":
+                    echo Form::myItemsSelect($input['name'], $label, $options, null, ['class' => 'form-control select2 select-custom-input', 'data-search' => '-1']);
+                    echo $extra;
+
+                    break;
+                case "pageselect":
+                    if (! Session::has('pages_select')) {
+                        $pages = Page::getPagesLinks();
+                        array_unshift($pages, trans('app.no_page_selected'));
+                        Session::put('pages_select', $pages);
+                    } else {
+                        $pages = Session::get('pages_select');
+                    }
+
+                    echo Form::mySelect($input['name'], $label, $pages, null, ['class' => 'form-control select2 select-custom-input', 'data-search' => '-1']);
+                    echo $extra;
+
+                    break;
+                case "switch":
+                    echo Form::mySwitch($input['name'], $label, '', false);
+                    echo $extra;
+
+                    break;
+                case "color":
+                    echo Form::myColorPicker($input['name'], $label);
+                    echo $extra;
+
+                    break;
+                case "file":
+                    echo Form::myFile($input['name'], $label);
+
+                    break;
+                case "images":
+                ?>
 			        <div class="form-group dropzone-input">
 				    	<label for="<?php echo $input['name']."[]"; ?>"><?php echo $label; ?></label>
 				    	
 				    	<?php
-					    	if(!empty($item['images'])){
-						    	echo '<div id="dropzone__json">';
-							    	$imgJSON = array();
-									$i = 0;
-		
-										foreach($item['images'] as $image){
-											$imgJSON[$i]["id"] = $itemId;
-											$imgJSON[$i]["file"] = $image;
-											$imgJSON[$i]["url"] = imgUrl($itemId ,$image, 100);
-											$i++;
-										}
-										echo json_encode($imgJSON);
-						    	echo '</div>';
-					    	}
-				    	?>
+                            if (! empty($item['images'])) {
+                                echo '<div id="dropzone__json">';
+                                $imgJSON = [];
+                                $i = 0;
+        
+                                foreach ($item['images'] as $image) {
+                                    $imgJSON[$i]["id"] = $itemId;
+                                    $imgJSON[$i]["file"] = $image;
+                                    $imgJSON[$i]["url"] = imgUrl($itemId, $image, 100);
+                                    $i++;
+                                }
+                                echo json_encode($imgJSON);
+                                echo '</div>';
+                            }
+                        ?>
 				    	
 				       	<div id="dropzone__container" class="dropzone dropzone-previews">
 	
@@ -696,10 +707,10 @@ if (! function_exists('constructInputs')) {
 						</div>
 			    	</div>
 					<?php
-			        break;
-			}
-		}
-	}
+                    break;
+            }
+        }
+    }
 }
 
 /*
@@ -716,22 +727,22 @@ if (! function_exists('constructInputs')) {
 */
 
 if (! function_exists('listImages')) {
-	function listImages($itemId,$item,$name){
-		if(!empty($item[$name])){
-		    	
-	    	$imgJSON = array();
-			$i = 0;
+    function listImages($itemId, $item, $name)
+    {
+        if (! empty($item[$name])) {
+            $imgJSON = [];
+            $i = 0;
 
-			foreach($item['images'] as $image){
-				$imgJSON[$i]["id"] = $itemId;
-				$imgJSON[$i]["file"] = $image; 
-				$imgJSON[$i]["url"] = imgUrl($itemId ,$image, 100); 
-				$i++;
-			}
-			
-		    echo "<div id='dropzone__json'>".json_encode($imgJSON)."</div>";
-	    }
-	}
+            foreach ($item['images'] as $image) {
+                $imgJSON[$i]["id"] = $itemId;
+                $imgJSON[$i]["file"] = $image;
+                $imgJSON[$i]["url"] = imgUrl($itemId, $image, 100);
+                $i++;
+            }
+            
+            echo "<div id='dropzone__json'>".json_encode($imgJSON)."</div>";
+        }
+    }
 }
 
 /*
@@ -743,22 +754,24 @@ if (! function_exists('listImages')) {
 */
 
 if (! function_exists('slugControl')) {
-	function slugControl($post){
-		$slug = "";
-		foreach($post as $key => $item){
-			$illInputs = array("_token","_method","slug","status","input_id","input_type","translation_id","product_id"); //illegal inputs
-			$slugCheck = array("slug");
-			
-			if($slug == "" && !contains($key, $illInputs)){
-				$slug = slugify($item);
-			}
-			
-			if(contains($key, $slugCheck) && (empty($item) || $item ="")){
-				$post[$key] = $slug;
-			}
-		}
-		return $post;
-	}
+    function slugControl($post)
+    {
+        $slug = "";
+        foreach ($post as $key => $item) {
+            $illInputs = ["_token","_method","slug","status","input_id","input_type","translation_id","product_id"]; //illegal inputs
+            $slugCheck = ["slug"];
+            
+            if ($slug == "" && ! contains($key, $illInputs)) {
+                $slug = slugify($item);
+            }
+            
+            if (contains($key, $slugCheck) && (empty($item) || $item = "")) {
+                $post[$key] = $slug;
+            }
+        }
+
+        return $post;
+    }
 }
 
 /*
@@ -773,31 +786,35 @@ if (! function_exists('slugControl')) {
 */
 
 if (! function_exists('checkAcces')) {
-	function checkAcces($setting){
-		if(isset(auth()->user()->role)){
-			$settings = Session::get('settings');
-		
-			if(!empty($settings) && array_key_exists($setting,$settings)){
-				switch(true) {
-				    case auth()->user()->role == 10:
-				        return true;
-				        break;
-				    case auth()->user()->role !== 10 && $settings[$setting] == 1:
-				        return true;
-				        break;
-				    default:
-				        return false;
-				        break;
-				}
-			}else{
-				if(auth()->user()->role == 10){
-					return true;
-				}else{
-					return false;
-				}
-			}
-		}
-	}
+    function checkAcces($setting)
+    {
+        if (isset(auth()->user()->role)) {
+            $settings = Session::get('settings');
+        
+            if (! empty($settings) && array_key_exists($setting, $settings)) {
+                switch (true) {
+                    case auth()->user()->role == 10:
+                        return true;
+
+                        break;
+                    case auth()->user()->role !== 10 && $settings[$setting] == 1:
+                        return true;
+
+                        break;
+                    default:
+                        return false;
+
+                        break;
+                }
+            } else {
+                if (auth()->user()->role == 10) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+    }
 }
 
 /*
@@ -811,17 +828,18 @@ if (! function_exists('checkAcces')) {
 */
 
 if (! function_exists('checkEditAcces')) {
-	function checkEditAcces(){
-		if(isset(auth()->user()->role)){
-			if(auth()->user()->role >= 5){
-				return true;
-			}else{
-				return false;
-			}
-		}else{
-			return false;
-		}
-	}
+    function checkEditAcces()
+    {
+        if (isset(auth()->user()->role)) {
+            if (auth()->user()->role >= 5) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }
 
 /*
@@ -834,13 +852,14 @@ if (! function_exists('checkEditAcces')) {
 */
 
 if (! function_exists('checkLink')) {
-	function checkLink($link){
-		if(isset($link) && $link !== "#"){
-			return true;
-		}else{
-			return false;
-		}
-	}
+    function checkLink($link)
+    {
+        if (isset($link) && $link !== "#") {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 /*
@@ -853,14 +872,15 @@ if (! function_exists('checkLink')) {
 */
 
 if (! function_exists('checkCookie')) {
-	function checkCookie($string){
-		$cookie = Cookie::get($string);
-		if($cookie !== false && $cookie !== null){
-			return true;
-		}else{
-			return false;
-		}
-	}
+    function checkCookie($string)
+    {
+        $cookie = Cookie::get($string);
+        if ($cookie !== false && $cookie !== null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 /*
@@ -877,14 +897,16 @@ if (! function_exists('checkCookie')) {
 */
 
 if (! function_exists('constructTransId')) {
-	function constructTransId($transId = null){
-		if(empty($transId) || !isset($transId)){ 
-			$result = generateString(8);
-		}else{
-			$result = $transId;
-		}
-		return $result;
-	}
+    function constructTransId($transId = null)
+    {
+        if (empty($transId) || ! isset($transId)) {
+            $result = generateString(8);
+        } else {
+            $result = $transId;
+        }
+
+        return $result;
+    }
 }
 
 /*
@@ -902,119 +924,127 @@ if (! function_exists('constructTransId')) {
 */
 
 //experimental translate function
-function constructTranslations($array){
-	//BASE VARIABLES
-	$newItemId = Session::get('new_item_id');
-	$currentItemId = Session::get('current_item_id');
-	$checklist = AttributeInput::getInputsChecklist();
-	$langs = Session::get('lang');
-	$optionsInputs = array("select", "checkbox","radio");
-	$result = array();
-	$iT=0; //translation_id count (used for debug)
-	$iI=0; //input count. used to keep track of the custom inputs
+function constructTranslations($array)
+{
+    //BASE VARIABLES
+    $newItemId = Session::get('new_item_id');
+    $currentItemId = Session::get('current_item_id');
+    $checklist = AttributeInput::getInputsChecklist();
+    $langs = Session::get('lang');
+    $optionsInputs = ["select", "checkbox","radio"];
+    $result = [];
+    $iT = 0; //translation_id count (used for debug)
+    $iI = 0; //input count. used to keep track of the custom inputs
 
-	foreach($array as $key => $value){
-		//explodes key to extract name and language
-		if(substr($key, 2, 1) === ':') {
-			$expKey = explode(":", $key);
-			$languageCode = $expKey[0];
-			$inputName = $expKey[1];
-		} else {
-			$languageCode = null;
-			$inputName = $key;
-		}
-		
-		$translationId = isset($array["translation_id"][$inputName]) ? $array["translation_id"][$inputName] : null;
-		$inputId = isset($array["input_id"][$iI]) ? $array["input_id"][$iI] : null;
-		$inputType = isset($array["input_type"][$iI]) ? $array["input_type"][$iI] : null;
-		
-		if(substr($key, 2, 1) === ':' || isset($checklist[$inputName])){
-			$translatable = true;
-		}else{
-			$translatable = false;
-		}
-		
-		switch (true) {
-            case !isset($checklist[$inputName]) && $translatable == true:
-				/* TRANSLATION STATIC INPUT (INSERT) */
-				//check if value is an array. This is used in translatable static table inputs (ex. collection conditions)
-				if(is_array($value)){
-					$vI = 0; // value array counter
-					
-					foreach($value as $item){
-						//remove duplicate translation_ids and rekey so its the same format like the loop through the inputs
-						$xI = 0;
-						for($x = 0; $x < count($translationId); $x++) {
-							if($xI == 0){
-								$temp[$x] = $translationId[$x];
-							}
-							$xI++;
-							if($xI == count($langs)){
-								$xI = 0;
-							}
-						}
-						$translationId = array_values($temp);
-						
-						$itemTranslationId = constructTransId( $translationId[$vI] );
-						
-						//If multiple languages this prevents multiple translation ids for one input key (nl:title,en:title,fr:title -> key = title)
-						if(!isset($result[$inputName][$vI])){
-							$result[$inputName][$vI] = $itemTranslationId; //stores trans_id per key
-						}else{
-							$itemTranslationId = $result[$inputName][$vI];
-						}
-						
-						$debug['translations'][$iT] = ['mode' => 'static', 'translation_id' => htmlspecialchars($itemTranslationId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName), 'text' => htmlspecialchars(addslashes($item)), '$iV' => $vI];
-						
-						Translation::updateOrCreate(['translation_id' => htmlspecialchars($itemTranslationId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName)], ['text' => htmlspecialchars(addslashes($item))] );
-						$vI++;
-						$iT++;
-					}
-				}else{
-					$translationId = constructTransId($translationId);
-					//If multiple languages this prevents multiple translation ids for one input key (nl:title,en:title,fr:title -> key = title)
-					if(!isset($result[$inputName])){
-						$result[$inputName] = $translationId; //stores trans_id per key
-					}else{
-						$translationId = $result[$inputName];
-					}
-					
-					$debug['translations'][$iT] = ['mode' => 'static', 'translation_id' => htmlspecialchars($translationId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName), 'text' => htmlspecialchars(addslashes($value))];
-					
-					Translation::updateOrCreate(['translation_id' => htmlspecialchars($translationId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName)], ['text' => htmlspecialchars(addslashes($value))] );
-					$iT++;
-				}
+    foreach ($array as $key => $value) {
+        //explodes key to extract name and language
+        if (substr($key, 2, 1) === ':') {
+            $expKey = explode(":", $key);
+            $languageCode = $expKey[0];
+            $inputName = $expKey[1];
+        } else {
+            $languageCode = null;
+            $inputName = $key;
+        }
+        
+        $translationId = isset($array["translation_id"][$inputName]) ? $array["translation_id"][$inputName] : null;
+        $inputId = isset($array["input_id"][$iI]) ? $array["input_id"][$iI] : null;
+        $inputType = isset($array["input_type"][$iI]) ? $array["input_type"][$iI] : null;
+        
+        if (substr($key, 2, 1) === ':' || isset($checklist[$inputName])) {
+            $translatable = true;
+        } else {
+            $translatable = false;
+        }
+        
+        switch (true) {
+            case ! isset($checklist[$inputName]) && $translatable == true:
+                /* TRANSLATION STATIC INPUT (INSERT) */
+                //check if value is an array. This is used in translatable static table inputs (ex. collection conditions)
+                if (is_array($value)) {
+                    $vI = 0; // value array counter
+                    
+                    foreach ($value as $item) {
+                        //remove duplicate translation_ids and rekey so its the same format like the loop through the inputs
+                        $xI = 0;
+                        for ($x = 0; $x < count($translationId); $x++) {
+                            if ($xI == 0) {
+                                $temp[$x] = $translationId[$x];
+                            }
+                            $xI++;
+                            if ($xI == count($langs)) {
+                                $xI = 0;
+                            }
+                        }
+                        $translationId = array_values($temp);
+                        
+                        $itemTranslationId = constructTransId($translationId[$vI]);
+                        
+                        //If multiple languages this prevents multiple translation ids for one input key (nl:title,en:title,fr:title -> key = title)
+                        if (! isset($result[$inputName][$vI])) {
+                            $result[$inputName][$vI] = $itemTranslationId; //stores trans_id per key
+                        } else {
+                            $itemTranslationId = $result[$inputName][$vI];
+                        }
+                        
+                        $debug['translations'][$iT] = ['mode' => 'static', 'translation_id' => htmlspecialchars($itemTranslationId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName), 'text' => htmlspecialchars(addslashes($item)), '$iV' => $vI];
+                        
+                        Translation::updateOrCreate(['translation_id' => htmlspecialchars($itemTranslationId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName)], ['text' => htmlspecialchars(addslashes($item))]);
+                        $vI++;
+                        $iT++;
+                    }
+                } else {
+                    $translationId = constructTransId($translationId);
+                    //If multiple languages this prevents multiple translation ids for one input key (nl:title,en:title,fr:title -> key = title)
+                    if (! isset($result[$inputName])) {
+                        $result[$inputName] = $translationId; //stores trans_id per key
+                    } else {
+                        $translationId = $result[$inputName];
+                    }
+                    
+                    $debug['translations'][$iT] = ['mode' => 'static', 'translation_id' => htmlspecialchars($translationId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName), 'text' => htmlspecialchars(addslashes($value))];
+                    
+                    Translation::updateOrCreate(['translation_id' => htmlspecialchars($translationId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName)], ['text' => htmlspecialchars(addslashes($value))]);
+                    $iT++;
+                }
+
                 break;
             case isset($checklist[$inputName]) && $translationId == null && $translatable == true:
                /* TRANSLATION ATTRIBUTE INPUT */
-			   switch (true) {
-				    case contains($inputType, $optionsInputs): //insert option
-				        AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($currentItemId), 'language_code' => htmlspecialchars($languageCode) ], ['option_id' => htmlspecialchars($value) ] );
-				        break;
-				    case !contains($inputType, $optionsInputs) && $value !== null: //insert value
-				        AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($currentItemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => htmlspecialchars($value) ] );
-				        break;
-				    case !contains($inputType, $optionsInputs) && $value == null: //insert value null
-				        AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($currentItemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => null] );
-				        break;
-				}
-				
-				$debug['translations'][$iT] = ['mode' => 'custom', 'input_id' => htmlspecialchars($inputId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName), 'value' => htmlspecialchars(addslashes($value))];
-				
-				$iT++;
-				$iI++;
-                break;    
+               switch (true) {
+                    case contains($inputType, $optionsInputs): //insert option
+                        AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($currentItemId), 'language_code' => htmlspecialchars($languageCode) ], ['option_id' => htmlspecialchars($value) ]);
+
+                        break;
+                    case ! contains($inputType, $optionsInputs) && $value !== null: //insert value
+                        AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($currentItemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => htmlspecialchars($value) ]);
+
+                        break;
+                    case ! contains($inputType, $optionsInputs) && $value == null: //insert value null
+                        AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($currentItemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => null]);
+
+                        break;
+                }
+                
+                $debug['translations'][$iT] = ['mode' => 'custom', 'input_id' => htmlspecialchars($inputId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName), 'value' => htmlspecialchars(addslashes($value))];
+                
+                $iT++;
+                $iI++;
+
+                break;
             default:
-				//NON INPUTS (_token,status,...)
-	            //status is a general input for all items and is set with a hidden input
-	            $result[$key] = $value;
+                //NON INPUTS (_token,status,...)
+                //status is a general input for all items and is set with a hidden input
+                $result[$key] = $value;
+
                 break;
         }
-	}
-	
-	$debug["start_array"] = $array;
-	$debug["end_array"] = $result;
-	return $result;
+    }
+    
+    $debug["start_array"] = $array;
+    $debug["end_array"] = $result;
+
+    return $result;
 }
 
 /*
@@ -1218,7 +1248,8 @@ if (! function_exists('constructAttributes')) {
 |------------------------------------------------------------------------------------
 */
 
-function constructVariants($id, $array){
+function constructVariants($id, $array)
+{
     $iV = 0; //incr variants
     $iS = 0; //incr stocks
     //dd($array);
@@ -1229,183 +1260,193 @@ function constructVariants($id, $array){
     $option_values = $variants['option_values'];
     $insert['product_id'] = $id;
 
-    if($array['remove_variants'] == 1){
-	    Stock::where('product_id',$id)->delete();
-	    Variant::where('product_id',$id)->delete();
-	    VariantOption::where('product_id',$id)->delete();
-	    VariantValue::where('product_id',$id)->delete();
+    if ($array['remove_variants'] == 1) {
+        Stock::where('product_id', $id)->delete();
+        Variant::where('product_id', $id)->delete();
+        VariantOption::where('product_id', $id)->delete();
+        VariantValue::where('product_id', $id)->delete();
     }
     
     //Step 1: Create Stock record
     //if(isset($array['stocks'])){
-	    //Variant stock record
-	    foreach($array['stocks']['sku'] as $stock){
-		    $stockResult = Stock::updateOrCreate([
-		    	'sku' =>  $stock,
-		    	'product_id' =>  $id
-		    ],[
-		    	'price' => $array['stocks']['price'][$iS],
-		    	'quantity' => $array['stocks']['quantity'][$iS],
-		    	'weight' => $array['stocks']['weight'][$iS]
-			]);
-			
-			$stockArray[$iS] = $stockResult->id;
-		    $iS++;
-	    }
+    //Variant stock record
+    foreach ($array['stocks']['sku'] as $stock) {
+        $stockResult = Stock::updateOrCreate([
+                'sku' => $stock,
+                'product_id' => $id,
+            ], [
+                'price' => $array['stocks']['price'][$iS],
+                'quantity' => $array['stocks']['quantity'][$iS],
+                'weight' => $array['stocks']['weight'][$iS],
+            ]);
+            
+        $stockArray[$iS] = $stockResult->id;
+        $iS++;
+    }
     //}
     
     //Step 2: Create Variant
-    foreach($variant_values as $variant_value){
-	    if($variant_value){
-		    if($variant_ids[$iV] == 0){
-			    $variantResult = Variant::create([
-				    'product_id' => $id,
-				    'name' => $variant_value
-			    ]);
-		    }else{
-			    $variantResult = Variant::updateOrCreate([
-			    	'id' =>  $variant_ids[$iV],
-			    	'product_id' =>  $id
-			    ],[
-			    	'name' => $variant_value
-				]);
-		    }
-		    
-		    //temporarly stores variant in array
-		    $variantArray[$iV]['id'] = $variantResult->id;
-		    $variantArray[$iV]['name'] = $variant_value;
-		    
-		    //Step 3: Create Variant Option
-		    $variantOptionIds = explode(',', $option_ids[$iV]);
-		    $variantOptionValues = explode(',', $option_values[$iV]);
+    foreach ($variant_values as $variant_value) {
+        if ($variant_value) {
+            if ($variant_ids[$iV] == 0) {
+                $variantResult = Variant::create([
+                    'product_id' => $id,
+                    'name' => $variant_value,
+                ]);
+            } else {
+                $variantResult = Variant::updateOrCreate([
+                    'id' => $variant_ids[$iV],
+                    'product_id' => $id,
+                ], [
+                    'name' => $variant_value,
+                ]);
+            }
+            
+            //temporarly stores variant in array
+            $variantArray[$iV]['id'] = $variantResult->id;
+            $variantArray[$iV]['name'] = $variant_value;
+            
+            //Step 3: Create Variant Option
+            $variantOptionIds = explode(',', $option_ids[$iV]);
+            $variantOptionValues = explode(',', $option_values[$iV]);
 
-		    if(is_array($variantOptionValues)){
-			    $iVO = 0;
-			    foreach($variantOptionValues as $value){
-				    if(!isset($variantOptionIds[$iVO])){
-					    $variantOptResult = VariantOption::create([
-						    'variant_id' => $variantResult->id,
-						    'product_id' => $id,
-						    'name' => $value
-					    ]);
-				    }else{
-					    $variantOptResult = VariantOption::updateOrCreate([
-					    	'id' =>  $variantOptionIds[$iVO],
-					    	'variant_id' => $variantResult->id,
-					    	'product_id' =>  $id
-					    ],[
-					    	'name' => $value
-						]);
-				    }
-				    //temporarly stores variant option in array
-				    $variantArray[$iV]['options'][$value] = $variantOptResult->id;
-				    
-				    $iVO++;
-			    }
-		    }
-		    
-		    $iV++;
-	    }
+            if (is_array($variantOptionValues)) {
+                $iVO = 0;
+                foreach ($variantOptionValues as $value) {
+                    if (! isset($variantOptionIds[$iVO])) {
+                        $variantOptResult = VariantOption::create([
+                            'variant_id' => $variantResult->id,
+                            'product_id' => $id,
+                            'name' => $value,
+                        ]);
+                    } else {
+                        $variantOptResult = VariantOption::updateOrCreate([
+                            'id' => $variantOptionIds[$iVO],
+                            'variant_id' => $variantResult->id,
+                            'product_id' => $id,
+                        ], [
+                            'name' => $value,
+                        ]);
+                    }
+                    //temporarly stores variant option in array
+                    $variantArray[$iV]['options'][$value] = $variantOptResult->id;
+                    
+                    $iVO++;
+                }
+            }
+            
+            $iV++;
+        }
     }
     
     //Step 4: Create Variant Values
-    $iS = 0; 
-    if(count($array['stocks']['sku']) > 1){ //indication of variants being made 
-	    foreach($array['stocks']['sku'] as $stock){  
-		    $option_ids = explode(',', $array['stocks']['option_ids'][$iS]);
-		    $option_values = explode(',', $array['stocks']['option_values'][$iS]);
-		    $iO = 0;
-		    foreach($option_values as $option_value){
-			    
-			    if(!isset($option_ids[$iO])){
-				    VariantValue::create([
-					    'variant_id' => $variantArray[$iO]["id"],
-				    	'product_id' =>  $id,
-				    	'option_id' =>  $variantArray[$iO]["options"][$option_value],
-					    'stock_id' =>  $stockArray[$iS]
-				    ]);
-			    }else{
-				    //dd($option_ids[$iO]);
-				    VariantValue::updateOrCreate([
-			    		'id' =>  $option_ids[$iO],
-				    ],[
-					    'variant_id' => $variantArray[$iO]["id"],
-				    	'product_id' =>  $id,
-				    	'option_id' =>  $variantArray[$iO]["options"][$option_value],
-					    'stock_id' =>  $stockArray[$iS]
-				    ]);
-			    }
-			    
-			    
-			    
-			    $iO++;
-		    }    
-		    $iS++;
-	    }
+    $iS = 0;
+    if (count($array['stocks']['sku']) > 1) { //indication of variants being made
+        foreach ($array['stocks']['sku'] as $stock) {
+            $option_ids = explode(',', $array['stocks']['option_ids'][$iS]);
+            $option_values = explode(',', $array['stocks']['option_values'][$iS]);
+            $iO = 0;
+            foreach ($option_values as $option_value) {
+                if (! isset($option_ids[$iO])) {
+                    VariantValue::create([
+                        'variant_id' => $variantArray[$iO]["id"],
+                        'product_id' => $id,
+                        'option_id' => $variantArray[$iO]["options"][$option_value],
+                        'stock_id' => $stockArray[$iS],
+                    ]);
+                } else {
+                    //dd($option_ids[$iO]);
+                    VariantValue::updateOrCreate([
+                        'id' => $option_ids[$iO],
+                    ], [
+                        'variant_id' => $variantArray[$iO]["id"],
+                        'product_id' => $id,
+                        'option_id' => $variantArray[$iO]["options"][$option_value],
+                        'stock_id' => $stockArray[$iS],
+                    ]);
+                }
+                
+                
+                
+                $iO++;
+            }
+            $iS++;
+        }
     }
 }
 
 if (! function_exists('getOrderFinancialStatus')) {
-	function getOrderFinancialStatus($status) {
-		switch($status){
-			case 0:
-		        $class = "badge-warning";
-		        $icon = '<i class="fa fa-dot-circle mr-2"></i>';
-		        $text = trans('app.open');
-		        break;
-		    case 1:
-		    	$class = "badge-success";
-		        $icon = '<i class="fa fa-check-circle mr-2"></i>';
-		        $text = trans('app.paid');
-		        break;
-		    case 2:
-		    	$class = "badge-danger";
-		        $icon = '<i class="fa fa-times-circle mr-2"></i>';
-		        $text = trans('app.canceled');
-		        break;
-		    default:
-		    	$class = "badge-danger";
-		        $icon = '<i class="fa fa-exclamation-circle mr-2"></i>';
-		        $text = trans('app.status').' '.trans('app.unknown');
-		        break;
-		}
-        	
-		echo "<span class='badge badge-pill ".$class." ml-2'>".$icon.$text."</span>";
-	}
+    function getOrderFinancialStatus($status)
+    {
+        switch ($status) {
+            case 0:
+                $class = "badge-warning";
+                $icon = '<i class="fa fa-dot-circle mr-2"></i>';
+                $text = trans('app.open');
+
+                break;
+            case 1:
+                $class = "badge-success";
+                $icon = '<i class="fa fa-check-circle mr-2"></i>';
+                $text = trans('app.paid');
+
+                break;
+            case 2:
+                $class = "badge-danger";
+                $icon = '<i class="fa fa-times-circle mr-2"></i>';
+                $text = trans('app.canceled');
+
+                break;
+            default:
+                $class = "badge-danger";
+                $icon = '<i class="fa fa-exclamation-circle mr-2"></i>';
+                $text = trans('app.status').' '.trans('app.unknown');
+
+                break;
+        }
+            
+        echo "<span class='badge badge-pill ".$class." ml-2'>".$icon.$text."</span>";
+    }
 }
 
 if (! function_exists('getOrderFulfillmentStatus')) {
-	function getOrderFulfillmentStatus($status) {
-		switch($status){
-			case 0:
-		        $class = "badge-warning";
-		        $icon = '<i class="fa fa-dot-circle mr-2"></i>';
-		        $text = trans('app.reserved');
-		        break;
-		    case 1:
-		    	$class = "badge-success";
-		        $icon = '<i class="fa fa-check-circle mr-2"></i>';
-		        $text = trans('app.send');
-		        break;
-		    case 2:
-		    	$class = "badge-danger";
-		        $icon = '<i class="fa fa-times-circle mr-2"></i>';
-		        $text = trans('app.canceled');
-		        break;
-		    case 3:
-		    	$class = "badge-warning";
-		        $icon = '<i class="fa fa-arrow-alt-circle-left mr-2"></i>';
-		        $text = trans('app.retour');
-		        break;
-		    default:
-		    	$class = "badge-danger";
-		        $icon = '<i class="fa fa-exclamation-circle mr-2"></i>';
-		        $text = trans('app.status').' '.trans('app.unknown');
-		        break;
-		}
+    function getOrderFulfillmentStatus($status)
+    {
+        switch ($status) {
+            case 0:
+                $class = "badge-warning";
+                $icon = '<i class="fa fa-dot-circle mr-2"></i>';
+                $text = trans('app.reserved');
 
-		echo "<span class='badge badge-pill ".$class." ml-2'>".$icon.$text."</span>";
-	}
+                break;
+            case 1:
+                $class = "badge-success";
+                $icon = '<i class="fa fa-check-circle mr-2"></i>';
+                $text = trans('app.send');
+
+                break;
+            case 2:
+                $class = "badge-danger";
+                $icon = '<i class="fa fa-times-circle mr-2"></i>';
+                $text = trans('app.canceled');
+
+                break;
+            case 3:
+                $class = "badge-warning";
+                $icon = '<i class="fa fa-arrow-alt-circle-left mr-2"></i>';
+                $text = trans('app.retour');
+
+                break;
+            default:
+                $class = "badge-danger";
+                $icon = '<i class="fa fa-exclamation-circle mr-2"></i>';
+                $text = trans('app.status').' '.trans('app.unknown');
+
+                break;
+        }
+
+        echo "<span class='badge badge-pill ".$class." ml-2'>".$icon.$text."</span>";
+    }
 }
 
 /*
@@ -1420,10 +1461,12 @@ if (! function_exists('getOrderFulfillmentStatus')) {
 */
 
 if (! function_exists('isJson')) {
-	function isJson($string) {
-		json_decode($string);
-		return (json_last_error() == JSON_ERROR_NONE);
-	}
+    function isJson($string)
+    {
+        json_decode($string);
+
+        return (json_last_error() == JSON_ERROR_NONE);
+    }
 }
 
 /*
@@ -1438,76 +1481,72 @@ if (! function_exists('isJson')) {
 */
 
 if (! function_exists('constructPageStructure')) {
-	function constructPageStructure($array, $page_id){
-		if(isJson($array)){
-			
-			$langs = Session::get('lang');
-			$array = json_decode($array,true);
-			
-			if(empty($page_id)){
-				dd("no page id set");
-			}
-			
-			$iS = 1;
-			foreach($array as $section){
-				$sectionResult = Section::create([
-				    'page_id' => $page_id,
-				    'type' => $section['type'],
-				    'name' => $section['name'],
-				    'position' => $iS
-				]);
-				
-				$iC = 1;
-				foreach($section['components'] as $component){
-				    $compResult = Component::create([
-					    'id' => generateString(8),
-					    'page_id' => $page_id,
-					    'section_id' => $sectionResult->id,
-					    'position' => $iC,
-					    'slug' => $component['slug'],
-					    'name' => $component['name']
-					]);
-					
-					$iI = 1;
-					foreach($component['inputs'] as $input){
-						
-						$types = array("select","checkbox","radio"); //illegal inputs
-						
-						if(contains($input['type'], $types) && isset($input['options'])){
-							//inputs with options
-						}else{
-							$inputInsert = AttributeInput::create([
-								'input_id' => generateString(8),
-							    'set_id' => $compResult->id,
-							    'position' => $iI,
-							    'label' => $input['label'],
-							    'name' => $input['name'],
-							    'type' => $input['type']
-							]);
-							foreach($langs as $lang){
-								if(isset($input['default']) && !empty($input['default'])){
-									$input = AttributeValue::create([
-										'input_id' => $inputInsert->input_id,
-									    'item_id' => $compResult->id,
-									    'language_code' => $lang["language_code"],
-									    'value' => $input['default']
-									]);
-								}
-							}
-						}
-						$iI++;
-					}
-					
-					$iC++;
-			    }
-				
-				$iS++;
-			}
-
-			
-			
-		}
-	}
+    function constructPageStructure($array, $page_id)
+    {
+        if (isJson($array)) {
+            $langs = Session::get('lang');
+            $array = json_decode($array, true);
+            
+            if (empty($page_id)) {
+                dd("no page id set");
+            }
+            
+            $iS = 1;
+            foreach ($array as $section) {
+                $sectionResult = Section::create([
+                    'page_id' => $page_id,
+                    'type' => $section['type'],
+                    'name' => $section['name'],
+                    'position' => $iS,
+                ]);
+                
+                $iC = 1;
+                foreach ($section['components'] as $component) {
+                    $compResult = Component::create([
+                        'id' => generateString(8),
+                        'page_id' => $page_id,
+                        'section_id' => $sectionResult->id,
+                        'position' => $iC,
+                        'slug' => $component['slug'],
+                        'name' => $component['name'],
+                    ]);
+                    
+                    $iI = 1;
+                    foreach ($component['inputs'] as $input) {
+                        $types = ["select","checkbox","radio"]; //illegal inputs
+                        
+                        if (contains($input['type'], $types) && isset($input['options'])) {
+                            //inputs with options
+                        } else {
+                            $inputInsert = AttributeInput::create([
+                                'input_id' => generateString(8),
+                                'set_id' => $compResult->id,
+                                'position' => $iI,
+                                'label' => $input['label'],
+                                'name' => $input['name'],
+                                'type' => $input['type'],
+                            ]);
+                            foreach ($langs as $lang) {
+                                if (isset($input['default']) && ! empty($input['default'])) {
+                                    $input = AttributeValue::create([
+                                        'input_id' => $inputInsert->input_id,
+                                        'item_id' => $compResult->id,
+                                        'language_code' => $lang["language_code"],
+                                        'value' => $input['default'],
+                                    ]);
+                                }
+                            }
+                        }
+                        $iI++;
+                    }
+                    
+                    $iC++;
+                }
+                
+                $iS++;
+            }
+        }
+    }
 }
 
 /*
@@ -1751,13 +1790,14 @@ if (! function_exists('constructPage')) {
 |
 */
 
-if (! function_exists('checkSecAttr')) {    
-    function checkSecAttr($element,$array){
-		if(isset($array[$element])){
-			return true;
-		}else{
-			return false;
-		}
+if (! function_exists('checkSecAttr')) {
+    function checkSecAttr($element, $array)
+    {
+        if (isset($array[$element])) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
@@ -1766,8 +1806,8 @@ if (! function_exists('checkSecAttr')) {
 | Parse Section Attributes
 |--------------------------------------------------------------------------
 |
-| Parses the given section attributes 
-| optional: parse a given value if section attribute exists 
+| Parses the given section attributes
+| optional: parse a given value if section attribute exists
 |
 | $element = element
 | $array = the section array
@@ -1775,11 +1815,12 @@ if (! function_exists('checkSecAttr')) {
 |
 */
 
-if (! function_exists('parseSecAttr')) {    
-    function parseSecAttr($element,$array){
-		if(isset($array[$element])){
-			echo $array[$element];
-		}
+if (! function_exists('parseSecAttr')) {
+    function parseSecAttr($element, $array)
+    {
+        if (isset($array[$element])) {
+            echo $array[$element];
+        }
     }
 }
 
@@ -1788,7 +1829,7 @@ if (! function_exists('parseSecAttr')) {
 | Parse Value if Section Attributes exists
 |--------------------------------------------------------------------------
 |
-| Parse a given value if section attribute exists 
+| Parse a given value if section attribute exists
 |
 | $element = element
 | $array = the section array
@@ -1797,11 +1838,12 @@ if (! function_exists('parseSecAttr')) {
 |
 */
 
-if (! function_exists('parseAltAttr')) {    
-    function parseAltAttr($element,$array,$value,$condition = true){    
-		if(checkSecAttr($element,$array) == $condition){
-			echo $value;
-		}
+if (! function_exists('parseAltAttr')) {
+    function parseAltAttr($element, $array, $value, $condition = true)
+    {
+        if (checkSecAttr($element, $array) == $condition) {
+            echo $value;
+        }
     }
 }
 
@@ -1817,98 +1859,100 @@ if (! function_exists('parseAltAttr')) {
 |
 |
 */
-if (! function_exists('parseEditSecAttr')) {    
-    function parseEditSecAttr($mode,$array){
-		if($mode == 2){	
-			echo "data-id='". $array['id'] ."' data-status='". $array['status'] ."' data-position='". $array['position'] ."' data-section='". $array['section'] ."' data-editable='". $array['editable'] ."' ";
-			
-			//Checks for item-id in extras
-			if(isset($array['extras']['menu_id'])){
-				echo "data-menu_id='".$array['extras']['menu_id']."' ";
-			}
-			
-			if(isset($array['extras']['submenu_id'])){
-				echo "data-submenu_id='".$array['extras']['submenu_id']."' ";
-			}
-			
-			if(isset($array['extras']['credmenu_id'])){
-				echo "data-credmenu_id='".$array['extras']['credmenu_id']."' ";
-			}
-			
-			if(isset($array['extras']['item_id'])){
-				echo "data-item_id='".$array['extras']['item_id']."' ";
-			}
-			
-			if(isset($array['extras']['item_page'])){
-				echo "data-item_page='".$array['extras']['item_page']."' ";
-			}
-			
-			if(isset($array['extras']['item_title'])){
-				echo "data-item_title='".$array['extras']['item_title']."' ";
-			}
-			
-			if(isset($array['extras']['item_text'])){
-				echo "data-item_text='".$array['extras']['item_text']."' ";
-			}
-			
-			if(isset($array['extras']['item_limit'])){
-				echo "data-item_limit='".$array['extras']['item_limit']."' ";
-			}
-			
-			if(isset($array['extras']['youtube'])){
-				echo "data-youtube='".$array['extras']['youtube']."' ";
-			}
-			
-			if(isset($array['extras']['map_style_key'])){
-				echo "data-map_style_key='".$array['extras']['map_style_key']."' ";
-			}
-			
-			if(isset($array['extras']['divider_shape_top'])){
-				echo "data-divider_shape_top='".$array['extras']['divider_shape_top']."' ";
-			}
-			
-			if(isset($array['extras']['divider_shape_bottom'])){
-				echo "data-divider_shape_bottom='".$array['extras']['divider_shape_bottom']."' ";
-			}
-			
-			//FOOTER CONTENT
-			for ($i = 1; $i < 5; $i++) {
-				$key = 'footer_column_'.$i;
-				if(isset($array['extras'][$key])){
-					echo "data-".$key."='".$array['extras'][$key]."' ";
-				}
-			}
-			
-			
-		}
+if (! function_exists('parseEditSecAttr')) {
+    function parseEditSecAttr($mode, $array)
+    {
+        if ($mode == 2) {
+            echo "data-id='". $array['id'] ."' data-status='". $array['status'] ."' data-position='". $array['position'] ."' data-section='". $array['section'] ."' data-editable='". $array['editable'] ."' ";
+            
+            //Checks for item-id in extras
+            if (isset($array['extras']['menu_id'])) {
+                echo "data-menu_id='".$array['extras']['menu_id']."' ";
+            }
+            
+            if (isset($array['extras']['submenu_id'])) {
+                echo "data-submenu_id='".$array['extras']['submenu_id']."' ";
+            }
+            
+            if (isset($array['extras']['credmenu_id'])) {
+                echo "data-credmenu_id='".$array['extras']['credmenu_id']."' ";
+            }
+            
+            if (isset($array['extras']['item_id'])) {
+                echo "data-item_id='".$array['extras']['item_id']."' ";
+            }
+            
+            if (isset($array['extras']['item_page'])) {
+                echo "data-item_page='".$array['extras']['item_page']."' ";
+            }
+            
+            if (isset($array['extras']['item_title'])) {
+                echo "data-item_title='".$array['extras']['item_title']."' ";
+            }
+            
+            if (isset($array['extras']['item_text'])) {
+                echo "data-item_text='".$array['extras']['item_text']."' ";
+            }
+            
+            if (isset($array['extras']['item_limit'])) {
+                echo "data-item_limit='".$array['extras']['item_limit']."' ";
+            }
+            
+            if (isset($array['extras']['youtube'])) {
+                echo "data-youtube='".$array['extras']['youtube']."' ";
+            }
+            
+            if (isset($array['extras']['map_style_key'])) {
+                echo "data-map_style_key='".$array['extras']['map_style_key']."' ";
+            }
+            
+            if (isset($array['extras']['divider_shape_top'])) {
+                echo "data-divider_shape_top='".$array['extras']['divider_shape_top']."' ";
+            }
+            
+            if (isset($array['extras']['divider_shape_bottom'])) {
+                echo "data-divider_shape_bottom='".$array['extras']['divider_shape_bottom']."' ";
+            }
+            
+            //FOOTER CONTENT
+            for ($i = 1; $i < 5; $i++) {
+                $key = 'footer_column_'.$i;
+                if (isset($array['extras'][$key])) {
+                    echo "data-".$key."='".$array['extras'][$key]."' ";
+                }
+            }
+        }
     }
 }
 
-if (! function_exists('checkAdjustable')) {    
-    function checkAdjustable(){
-		if(checkAcces("permission_layout_edit")){
-			echo "adjustable";
-		}
+if (! function_exists('checkAdjustable')) {
+    function checkAdjustable()
+    {
+        if (checkAcces("permission_layout_edit")) {
+            echo "adjustable";
+        }
     }
 }
 
-if (! function_exists('checkManageable')) {    
-    function checkManageable(){
-		if(checkAcces("permission_section_edit")){
-			echo "manageable";
-		}
+if (! function_exists('checkManageable')) {
+    function checkManageable()
+    {
+        if (checkAcces("permission_section_edit")) {
+            echo "manageable";
+        }
     }
 }
 
-if (! function_exists('getSection')) {    
-    function getSection($page,$id,$mode = 1){
-		if($mode == 2){
-			dd($page);
-		}
-		
-		if(isset($page['sections'][$id])){
-			return $page['sections'][$id];
-		}
+if (! function_exists('getSection')) {
+    function getSection($page, $id, $mode = 1)
+    {
+        if ($mode == 2) {
+            dd($page);
+        }
+        
+        if (isset($page['sections'][$id])) {
+            return $page['sections'][$id];
+        }
     }
 }
 
@@ -1939,60 +1983,59 @@ if (! function_exists('getSectionView')) {
 */
 
 if (! function_exists('checkContent')) {
-	function checkContent($array, $key){
-		if((isset($array[$key]) && $array[$key] !== "#") || checkEditAcces()){
-			return true;
-		}else{
-			return false;
-		}
-	}
+    function checkContent($array, $key)
+    {
+        if ((isset($array[$key]) && $array[$key] !== "#") || checkEditAcces()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
-if (! function_exists('parseContent')) {    
-    function parseContent($array, $key, $editable = true){
-	    //$user = auth()->user()->role;
-		$locale = Session::get('locale');
-		$empty = false;
-	    if(empty($array[$key]) || !isset($array[$key])){
-		    if(!isset(auth()->user()->role)){
-			    //reverts to the default locale value when website is displayed to fill in the website for the user
-			    //Doubles the total of queries (? possibly a better solution ?)
-			    
-			     //detects item content and sets the right id to edit in live editor
-			    if(isset($array['module_id'])){
-				    $input = AttributeInput::where("name",$key)->where('set_id', $array['module_id'])->get()->toArray();
-			    }else{
-				    $input = AttributeInput::where("name",$key)->where('set_id', $array['id'])->get()->toArray();
-			    }
-			    
-			    if(!empty($input)){
-				    $value = AttributeValue::where("item_id",$array["id"])->where('input_id',$input[0]['input_id'])->get()->toArray();
-					$value = $value[0]['value'];
-			    }else{
-				    $value = trans("app.insert_here");
-				    $empty = true;
-			    }
-			    
-		    }else{
-			    $value = trans("app.insert_here");
-			    $empty = true;
-		    }
-	    }else{
-		    $value = $array[$key];
-	    }
-	    
-	    if(!isset(auth()->user()->role) || $editable !== true){
-		    echo nl2br(htmlspecialchars_decode($value));
-	    }else{
-		    //detects item content and sets the right id to edit in live editor
-		    if(isset($array['module_id'])){
-			    echo "<data contenteditable='true' data-id='".$array["id"]."' data-module='".$array["module_id"]."' data-key='".$key."' data-locale='".$locale."' data-empty='".$empty."'>".nl2br(htmlspecialchars_decode($value))."</data>";
-		    }else{
-			    echo "<data contenteditable='true' data-id='".$array["id"]."' data-key='".$key."' data-locale='".$locale."' data-empty='".$empty."'>".nl2br(htmlspecialchars_decode($value))."</data>";
-		    }
-		    
-		    
-	    }
+if (! function_exists('parseContent')) {
+    function parseContent($array, $key, $editable = true)
+    {
+        //$user = auth()->user()->role;
+        $locale = Session::get('locale');
+        $empty = false;
+        if (empty($array[$key]) || ! isset($array[$key])) {
+            if (! isset(auth()->user()->role)) {
+                //reverts to the default locale value when website is displayed to fill in the website for the user
+                //Doubles the total of queries (? possibly a better solution ?)
+                
+                //detects item content and sets the right id to edit in live editor
+                if (isset($array['module_id'])) {
+                    $input = AttributeInput::where("name", $key)->where('set_id', $array['module_id'])->get()->toArray();
+                } else {
+                    $input = AttributeInput::where("name", $key)->where('set_id', $array['id'])->get()->toArray();
+                }
+                
+                if (! empty($input)) {
+                    $value = AttributeValue::where("item_id", $array["id"])->where('input_id', $input[0]['input_id'])->get()->toArray();
+                    $value = $value[0]['value'];
+                } else {
+                    $value = trans("app.insert_here");
+                    $empty = true;
+                }
+            } else {
+                $value = trans("app.insert_here");
+                $empty = true;
+            }
+        } else {
+            $value = $array[$key];
+        }
+        
+        if (! isset(auth()->user()->role) || $editable !== true) {
+            echo nl2br(htmlspecialchars_decode($value));
+        } else {
+            //detects item content and sets the right id to edit in live editor
+            if (isset($array['module_id'])) {
+                echo "<data contenteditable='true' data-id='".$array["id"]."' data-module='".$array["module_id"]."' data-key='".$key."' data-locale='".$locale."' data-empty='".$empty."'>".nl2br(htmlspecialchars_decode($value))."</data>";
+            } else {
+                echo "<data contenteditable='true' data-id='".$array["id"]."' data-key='".$key."' data-locale='".$locale."' data-empty='".$empty."'>".nl2br(htmlspecialchars_decode($value))."</data>";
+            }
+        }
     }
 }
 
@@ -2011,32 +2054,33 @@ if (! function_exists('parseContent')) {
 |
 */
 
-if (! function_exists('parseImage')) {    
-    function parseImage($array, $file, $size, $lazyLoad = false){
-	    //$user = auth()->user()->role;
-		$locale = Session::get('locale');
-	    
-	    $url = imgUrl($array['id'], $file, $size);
-	    $id = $array['id'];
-	    
-	    if($lazyLoad == true){
-		    $lazyLoad = "src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+if (! function_exists('parseImage')) {
+    function parseImage($array, $file, $size, $lazyLoad = false)
+    {
+        //$user = auth()->user()->role;
+        $locale = Session::get('locale');
+        
+        $url = imgUrl($array['id'], $file, $size);
+        $id = $array['id'];
+        
+        if ($lazyLoad == true) {
+            $lazyLoad = "src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
          data-";
-	    }else{
-		    $lazyLoad = "";
-	    }
-	    
-	    if(!isset(auth()->user()->role)){
-		    echo $lazyLoad."src='".$url."'";
-	    }else{
-		    //detects is element array is an item element
-		    if(isset($array['module_id'])){
-			    //item element
-			    echo $lazyLoad."src='".$url."' contenteditable='true' data-id='".$id."' data-module='".$array['module_id']."'";
-		    }else{
-			    echo $lazyLoad."src='".$url."' contenteditable='true' data-id='".$id."'";
-		    }
-	    }
+        } else {
+            $lazyLoad = "";
+        }
+        
+        if (! isset(auth()->user()->role)) {
+            echo $lazyLoad."src='".$url."'";
+        } else {
+            //detects is element array is an item element
+            if (isset($array['module_id'])) {
+                //item element
+                echo $lazyLoad."src='".$url."' contenteditable='true' data-id='".$id."' data-module='".$array['module_id']."'";
+            } else {
+                echo $lazyLoad."src='".$url."' contenteditable='true' data-id='".$id."'";
+            }
+        }
     }
 }
 
@@ -2050,7 +2094,7 @@ if (! function_exists('parseImage')) {
 */
 /*
 function is_dir_empty($dir) {
-  if (!is_readable($dir)) return NULL; 
+  if (!is_readable($dir)) return NULL;
   return (count(scandir($dir)) == 2);
 }
 */
@@ -2061,82 +2105,83 @@ function is_dir_empty($dir) {
 |--------------------------------------------------------------------------
 |
 | Constructs a menu with all its subitems.
-| 
+|
 | $id is the id of the menu that you want to be constructed.
 |
 */
 
 if (! function_exists('constructMenu')) {
-	function constructMenu($id = null){
-		
-		//Default auth role to 0 if not set. It isn't set when 'php artisan route:list' and throws a 'Trying to get property of non-object' error because the value is NULL
-		if(!empty(auth()->user()->role)){
-			$currentAuth = auth()->user()->role;
-		}else{
-			$currentAuth = 0;
-		}
-		
-		if($id !== null){
-			$menus = Menu::where('id', $id)->get()->toArray();
-		}else{
-			$menus = Menu::get()->toArray();
-		}
+    function constructMenu($id = null)
+    {
+        
+        //Default auth role to 0 if not set. It isn't set when 'php artisan route:list' and throws a 'Trying to get property of non-object' error because the value is NULL
+        if (! empty(auth()->user()->role)) {
+            $currentAuth = auth()->user()->role;
+        } else {
+            $currentAuth = 0;
+        }
+        
+        if ($id !== null) {
+            $menus = Menu::where('id', $id)->get()->toArray();
+        } else {
+            $menus = Menu::get()->toArray();
+        }
         
         //Constructs AdminMenu when not in database
-        if(empty($menus)){
-	        $appLocale = env('APP_LOCALE'); //gets default local from .env
-	        
-	        Menu::create([
-		        'id' => 1,
-		        'name' => 'Beheerpaneel'
-	        ]);
-	        
-	        $menuItems = array(
-		        0 => [
-			        'menu' => 1,
-			        'position' => 1,
-			        'icon' => 'ti-home',
-			        $appLocale.':name' => 'Dashboard',
-			        'translation_id' => ['name'=>''],
-			        'link' => 'dashboard',
-			        'permission' => 5
-		        ],
-		        1 => [
-			        'menu' => 1,
-			        'position' => 2,
-			        'icon' => 'ti-user',
-			        $appLocale.':name' => 'Gebruikers',
-			        'translation_id' => ['name'=>''],
-			        'link' => 'users',
-			        'permission' => 10
-		        ],
-		        2 => [
-			        'menu' => 1,
-			        'position' => 3,
-			        'icon' => 'ti-menu',
-			        $appLocale.':name' => 'Menu', 
-			        'translation_id' => ['name'=>''],
-			        'link' => 'menu',
-			        'permission' => 10
-		        ],
-		        3 => [
-			        'menu' => 1,
-			        'position' => 4,
-			        'icon' => 'ti-pencil-alt',
-			        $appLocale.':name' => "Pagina's", 
-			        'translation_id' => ['name'=>''],
-			        'link' => 'content',
-			        'permission' => 5
-		        ]
-	        );
-			
-			foreach($menuItems as $menuItem){
-				$result = constructTranslations($menuItem);
-				MenuItem::create($result);
-			}
-	        
-	        //Get the freshly made menu and items
-	        $menus = Menu::get()->toArray();
+        if (empty($menus)) {
+            $appLocale = env('APP_LOCALE'); //gets default local from .env
+            
+            Menu::create([
+                'id' => 1,
+                'name' => 'Beheerpaneel',
+            ]);
+            
+            $menuItems = [
+                0 => [
+                    'menu' => 1,
+                    'position' => 1,
+                    'icon' => 'ti-home',
+                    $appLocale.':name' => 'Dashboard',
+                    'translation_id' => ['name' => ''],
+                    'link' => 'dashboard',
+                    'permission' => 5,
+                ],
+                1 => [
+                    'menu' => 1,
+                    'position' => 2,
+                    'icon' => 'ti-user',
+                    $appLocale.':name' => 'Gebruikers',
+                    'translation_id' => ['name' => ''],
+                    'link' => 'users',
+                    'permission' => 10,
+                ],
+                2 => [
+                    'menu' => 1,
+                    'position' => 3,
+                    'icon' => 'ti-menu',
+                    $appLocale.':name' => 'Menu',
+                    'translation_id' => ['name' => ''],
+                    'link' => 'menu',
+                    'permission' => 10,
+                ],
+                3 => [
+                    'menu' => 1,
+                    'position' => 4,
+                    'icon' => 'ti-pencil-alt',
+                    $appLocale.':name' => "Pagina's",
+                    'translation_id' => ['name' => ''],
+                    'link' => 'content',
+                    'permission' => 5,
+                ],
+            ];
+            
+            foreach ($menuItems as $menuItem) {
+                $result = constructTranslations($menuItem);
+                MenuItem::create($result);
+            }
+            
+            //Get the freshly made menu and items
+            $menus = Menu::get()->toArray();
         }
         
         $i = 0;
@@ -2187,7 +2232,7 @@ if (! function_exists('constructMenu')) {
         }
 
         return $result;
-	}
+    }
 }
 
 /*
@@ -2199,9 +2244,10 @@ if (! function_exists('constructMenu')) {
 |
 */
 if (! function_exists('isLocalhost')) {
-	function isLocalhost($whitelist = ['127.0.0.1', '::1']) {
-	    return in_array($_SERVER['REMOTE_ADDR'], $whitelist);
-	}
+    function isLocalhost($whitelist = ['127.0.0.1', '::1'])
+    {
+        return in_array($_SERVER['REMOTE_ADDR'], $whitelist);
+    }
 }
 
 /*
@@ -2245,22 +2291,23 @@ if (! function_exists('constructGoogleFontLink')) {
 |
 */
 if (! function_exists('constructStyleVar')) {
-	function constructStyleVar() {
-	    $settings = session('settings');
-	    $fontList = config('_fonts');
-	    
-	    foreach($fontList as $font){
-		    if($settings['body_font'] == $font['option_id']){
-			   $body_font = $font['value'];
-		    }
-		    
-		    //last condition prevents duplicates in the fonts variable
-		    if($settings['heading_font'] == $font['option_id']){
-			    $heading_font = $font['value'];
-		    }
-	    }
-	    
-	    return "<style>
+    function constructStyleVar()
+    {
+        $settings = session('settings');
+        $fontList = config('_fonts');
+        
+        foreach ($fontList as $font) {
+            if ($settings['body_font'] == $font['option_id']) {
+                $body_font = $font['value'];
+            }
+            
+            //last condition prevents duplicates in the fonts variable
+            if ($settings['heading_font'] == $font['option_id']) {
+                $heading_font = $font['value'];
+            }
+        }
+        
+        return "<style>
 					:root {
 						--primary-color: ".$settings['primary_color'].";
 						--secondary-color: ".$settings['secondary_color'].";
@@ -2269,7 +2316,7 @@ if (! function_exists('constructStyleVar')) {
 						--heading-font: ".$heading_font.";
 					}
 				</style>";
-	}
+    }
 }
 
 /*
@@ -2281,56 +2328,59 @@ if (! function_exists('constructStyleVar')) {
 |
 */
 if (! function_exists('constructTrackers')) {
-	function constructTrackers($position = "head") {
-		if(checkCookie('laravel_cookie_consent')){
-			$settings = session('settings');
-			switch ($position) {
-			    case "head":
-					if(isset($settings['track_gtm_head'])){
-					    echo $settings['track_gtm_head'];
-				    }
-				    
-				    if(isset($settings['track_fbpxl'])){
-					    echo $settings['track_fbpxl'];
-				    }
-			        break;
-			    case "body":
-			        if(isset($settings['track_gtm_body'])){
-					    echo $settings['track_gtm_body'];
-				    }
-			        break;
-			}
-		}
-	}
+    function constructTrackers($position = "head")
+    {
+        if (checkCookie('laravel_cookie_consent')) {
+            $settings = session('settings');
+            switch ($position) {
+                case "head":
+                    if (isset($settings['track_gtm_head'])) {
+                        echo $settings['track_gtm_head'];
+                    }
+                    
+                    if (isset($settings['track_fbpxl'])) {
+                        echo $settings['track_fbpxl'];
+                    }
+
+                    break;
+                case "body":
+                    if (isset($settings['track_gtm_body'])) {
+                        echo $settings['track_gtm_body'];
+                    }
+
+                    break;
+            }
+        }
+    }
 }
 
 if (! function_exists('constructDividers')) {
-	function constructDividers($array)
-	{
-		if(isset($array['classes'])){
-			$sClasses = $array['classes'];
-		}
-		
-		if(isset($array['extras'])){
-			$extras = $array['extras'];
-		}
-		
-		if( isset($extras['divider_shape_top']) ){
-			$orientation = isset($extras['divider_shape_top']) ? "divider-top" : "";
-			$shape = isset($extras['divider_shape_top']) ? $extras['divider_shape_top'] : "";
-			$classes = isset($sClasses['.divider-top']) ? $sClasses['.divider-top'] : "";
-			$classes = "$orientation $classes";
-			include "../resources/views/partials/dividers/".$shape.".blade.php";
-		}
-		
-		if( isset($extras['divider_shape_bottom']) ){
-			$orientation = isset($extras['divider_shape_bottom']) ? "divider-bottom" : "";
-			$shape = isset($extras['divider_shape_bottom']) ? $extras['divider_shape_bottom'] : "";
-			$classes = isset($sClasses['.divider-bottom']) ? $sClasses['.divider-bottom'] : "";
-			$classes = "$orientation $classes";
-			include "../resources/views/partials/dividers/".$shape.".blade.php";
-		}
-	}
+    function constructDividers($array)
+    {
+        if (isset($array['classes'])) {
+            $sClasses = $array['classes'];
+        }
+        
+        if (isset($array['extras'])) {
+            $extras = $array['extras'];
+        }
+        
+        if (isset($extras['divider_shape_top'])) {
+            $orientation = isset($extras['divider_shape_top']) ? "divider-top" : "";
+            $shape = isset($extras['divider_shape_top']) ? $extras['divider_shape_top'] : "";
+            $classes = isset($sClasses['.divider-top']) ? $sClasses['.divider-top'] : "";
+            $classes = "$orientation $classes";
+            include "../resources/views/partials/dividers/".$shape.".blade.php";
+        }
+        
+        if (isset($extras['divider_shape_bottom'])) {
+            $orientation = isset($extras['divider_shape_bottom']) ? "divider-bottom" : "";
+            $shape = isset($extras['divider_shape_bottom']) ? $extras['divider_shape_bottom'] : "";
+            $classes = isset($sClasses['.divider-bottom']) ? $sClasses['.divider-bottom'] : "";
+            $classes = "$orientation $classes";
+            include "../resources/views/partials/dividers/".$shape.".blade.php";
+        }
+    }
 }
 
 /*
@@ -2342,69 +2392,68 @@ if (! function_exists('constructDividers')) {
 |
 */
 if (! function_exists('constructSocialMediaLinks')) {
-	function constructSocialMediaLinks() {
-	    $settings = session('settings');
-	    $links = array();
-	    
-	    if(!empty($settings['social_facebook'])){
-		    array_push($links, array('icon' => 'fa fa-facebook', 'email_icon' => 'facebook-icon_24x24.png', 'name' => 'Facebook', 'link' => $settings['social_facebook']));
-	    }
-	    
-	    if(!empty($settings['social_instagram'])){
-		    array_push($links, array('icon' => 'fa fa-instagram', 'email_icon' => 'instagram-icon_24x24.png', 'name' => 'Instagram', 'link' => $settings['social_instagram']));
-	    }
-	    
-	    if(!empty($settings['social_twitter'])){
-		    array_push($links, array('icon' => 'fa fa-twitter', 'email_icon' => 'twitter-icon_24x24.png', 'name' => 'Twitter', 'link' => $settings['social_twitter']));
-	    }
-	    
-	    if(!empty($settings['social_youtube'])){
-		    array_push($links, array('icon' => 'fa fa-youtube', 'email_icon' => 'youtube-icon_24x24.png', 'name' => 'Youtube', 'link' => $settings['social_youtube']));
-	    }
-	    
-	    if(!empty($settings['social_linkedin'])){
-		    array_push($links, array('icon' => 'fa fa-instagram', 'email_icon' => 'linkedin-icon_24x24.png', 'name' => 'Linkedin', 'link' => $settings['social_linkedin']));
-	    }
-	    
-	    if(!empty($settings['social_behance'])){
-		    array_push($links, array('icon' => 'fa fa-behance', 'email_icon' => null, 'name' => 'Behance', 'link' => $settings['social_behance']));
-	    }
-	    
-	    if(!empty($settings['social_pinterest'])){
-		    array_push($links, array('icon' => 'fa fa-pinterest-p', 'email_icon' => 'pintrest-icon_24x24.png', 'name' => 'Pinterest', 'link' => $settings['social_pinterest']));
-	    }
-	    
-	    if(!empty($settings['social_tumblr'])){
-		    array_push($links, array('icon' => 'fa fa-tumblr', 'email_icon' => null, 'name' => 'Tumblr', 'link' => $settings['social_tumblr']));
-	    }
-	    
-	    return $links;
-	}
+    function constructSocialMediaLinks()
+    {
+        $settings = session('settings');
+        $links = [];
+        
+        if (! empty($settings['social_facebook'])) {
+            array_push($links, ['icon' => 'fa fa-facebook', 'email_icon' => 'facebook-icon_24x24.png', 'name' => 'Facebook', 'link' => $settings['social_facebook']]);
+        }
+        
+        if (! empty($settings['social_instagram'])) {
+            array_push($links, ['icon' => 'fa fa-instagram', 'email_icon' => 'instagram-icon_24x24.png', 'name' => 'Instagram', 'link' => $settings['social_instagram']]);
+        }
+        
+        if (! empty($settings['social_twitter'])) {
+            array_push($links, ['icon' => 'fa fa-twitter', 'email_icon' => 'twitter-icon_24x24.png', 'name' => 'Twitter', 'link' => $settings['social_twitter']]);
+        }
+        
+        if (! empty($settings['social_youtube'])) {
+            array_push($links, ['icon' => 'fa fa-youtube', 'email_icon' => 'youtube-icon_24x24.png', 'name' => 'Youtube', 'link' => $settings['social_youtube']]);
+        }
+        
+        if (! empty($settings['social_linkedin'])) {
+            array_push($links, ['icon' => 'fa fa-instagram', 'email_icon' => 'linkedin-icon_24x24.png', 'name' => 'Linkedin', 'link' => $settings['social_linkedin']]);
+        }
+        
+        if (! empty($settings['social_behance'])) {
+            array_push($links, ['icon' => 'fa fa-behance', 'email_icon' => null, 'name' => 'Behance', 'link' => $settings['social_behance']]);
+        }
+        
+        if (! empty($settings['social_pinterest'])) {
+            array_push($links, ['icon' => 'fa fa-pinterest-p', 'email_icon' => 'pintrest-icon_24x24.png', 'name' => 'Pinterest', 'link' => $settings['social_pinterest']]);
+        }
+        
+        if (! empty($settings['social_tumblr'])) {
+            array_push($links, ['icon' => 'fa fa-tumblr', 'email_icon' => null, 'name' => 'Tumblr', 'link' => $settings['social_tumblr']]);
+        }
+        
+        return $links;
+    }
 }
 
-if (! function_exists('constructVariantSelect')){
-	function constructVariantSelect($variants,$classes) {
-		if(!empty($variants)){
-			foreach($variants as $variant){
-				$ids = explode(',', $variant['option_ids']);
-				$values = explode(',', $variant['option_values']);
-				
-				?>
+if (! function_exists('constructVariantSelect')) {
+    function constructVariantSelect($variants, $classes)
+    {
+        if (! empty($variants)) {
+            foreach ($variants as $variant) {
+                $ids = explode(',', $variant['option_ids']);
+                $values = explode(',', $variant['option_values']); ?>
 				<div class="select-group" data-group="<?php echo $variant['id']; ?>">       	                    	
 	            	<b class="d-block mb-2"><?php echo $variant['name']; ?></b>
 	            	<?php
-		            	$i = 0;
-		            	foreach($values as $value){
-			        ?>
+                        $i = 0;
+                foreach ($values as $value) {
+                    ?>
 			        	<div class="select-item d-inline-block p-3 boxed e 
-						<?php 
-				        	echo $classes; 
-					        if($i==0){
-						    	echo " ml-0 mr-2 my-2 active";
-							}else{
-								echo " m-2";
-							}
-					     ?>">
+						<?php
+                            echo $classes;
+                    if ($i == 0) {
+                        echo " ml-0 mr-2 my-2 active";
+                    } else {
+                        echo " m-2";
+                    } ?>">
 		                	<div class="input-radio"> 
 		                		<div class="select-item-label hidden"> 
 		                			<input type="radio" class="cart-delivery" value="<?php echo $ids[$i]; ?>" id="input-assigned-<?php echo $ids[$i]; ?>"> 
@@ -2417,15 +2466,14 @@ if (! function_exists('constructVariantSelect')){
 		                	</div>
 		            	</div>	
 			        <?php
-				        $i++;    	
-		            	}
-	            	?>
+                        $i++;
+                } ?>
 	        					                    	
 		        </div>
 				<?php
-			}	
-		}
-	}
+            }
+        }
+    }
 }
 
 /*
@@ -2436,63 +2484,65 @@ if (! function_exists('constructVariantSelect')){
 | Construct google font link
 |
 */
-function url_get_contents ( $url ) {
-    if ( ! function_exists( 'curl_init' ) ){
-        die( 'The cURL library is not installed.' );
+function url_get_contents($url)
+{
+    if (! function_exists('curl_init')) {
+        die('The cURL library is not installed.');
     }
 
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);  
-	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 3);     
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-    $output = curl_exec( $ch );
-//dd($output);
-    if(curl_errno( $ch )) {
-        die ('Curl error: ' . curl_error($ch));
+    curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 3);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $output = curl_exec($ch);
+    //dd($output);
+    if (curl_errno($ch)) {
+        die('Curl error: ' . curl_error($ch));
     }
 
-    curl_close( $ch );
+    curl_close($ch);
+
     return $output;
 }
 
 if (! function_exists('getIGInfo')) {
-	function getIGInfo() {
-	    $settings = session('settings');
-	    $account = $settings['social_instagram'];
-	    
-	    if(!empty($account)){
-		    $profileUrl = $settings['social_instagram']."?__a=1";
-		    $response = url_get_contents($profileUrl);
+    function getIGInfo()
+    {
+        $settings = session('settings');
+        $account = $settings['social_instagram'];
+        
+        if (! empty($account)) {
+            $profileUrl = $settings['social_instagram']."?__a=1";
+            $response = url_get_contents($profileUrl);
 
-		    if(!empty($response)){
-				//$response = file_get_contents($profileUrl);
-				$data = json_decode($response, true);
-				
-				if($data){
-					$media = $data['graphql']['user']['edge_owner_to_timeline_media']['edges'];
-					if(is_array($media)){
-						$result['username'] = $data['graphql']['user']['username'];
-						$result['biography'] = $data['graphql']['user']['biography'];
-						$result['followers'] = $data['graphql']['user']['edge_followed_by']['count'];
-						$result['media'] = $media;
-						return $result;
-					}else{
-						//echo "<p class='text-danger text-center mx-auto'>Er liep iets mis bij het ophalen van de informatie.</p>";
-					}
-				}else{
-					//echo "<p class='text-danger text-center mx-auto'>Ongeldig account. Kopieer de url van je Instagram account en kopieer deze in de instellingen.</p>";
-				}
-		    }
-			
+            if (! empty($response)) {
+                //$response = file_get_contents($profileUrl);
+                $data = json_decode($response, true);
+                
+                if ($data) {
+                    $media = $data['graphql']['user']['edge_owner_to_timeline_media']['edges'];
+                    if (is_array($media)) {
+                        $result['username'] = $data['graphql']['user']['username'];
+                        $result['biography'] = $data['graphql']['user']['biography'];
+                        $result['followers'] = $data['graphql']['user']['edge_followed_by']['count'];
+                        $result['media'] = $media;
 
-	    }else{
-		    //echo "<p class='text-danger text-center mx-auto'>Geen account aanwezig.</p>";
-	    }
-	}
+                        return $result;
+                    } else {
+                        //echo "<p class='text-danger text-center mx-auto'>Er liep iets mis bij het ophalen van de informatie.</p>";
+                    }
+                } else {
+                    //echo "<p class='text-danger text-center mx-auto'>Ongeldig account. Kopieer de url van je Instagram account en kopieer deze in de instellingen.</p>";
+                }
+            }
+        } else {
+            //echo "<p class='text-danger text-center mx-auto'>Geen account aanwezig.</p>";
+        }
+    }
 }
 
 /*
@@ -2537,11 +2587,15 @@ function checkActiveAdminRoute($array){
 */
 function isActiveRoute($route, $output = "active", $id = null)
 {
-	if(isset($id)){
-		if (Route::currentRouteName() == $route && $id == Session::get('set_id')) return $output;
-	}else{
-		if (Route::currentRouteName() == $route) return $output;
-	}    
+    if (isset($id)) {
+        if (Route::currentRouteName() == $route && $id == Session::get('set_id')) {
+            return $output;
+        }
+    } else {
+        if (Route::currentRouteName() == $route) {
+            return $output;
+        }
+    }
 }
 
 /*
@@ -2553,78 +2607,72 @@ function isActiveRoute($route, $output = "active", $id = null)
 | Very useful for navigation, marking if the link is active.
 |
 */
-function areActiveRoutes(Array $routes, $output = "active")
+function areActiveRoutes(array $routes, $output = "active")
 {
-    foreach ($routes as $route)
-    {
-        if (Route::currentRouteName() == $route) return $output;
+    foreach ($routes as $route) {
+        if (Route::currentRouteName() == $route) {
+            return $output;
+        }
     }
 }
 
-function constructAdminMenu($array){
-	
-	foreach($array as $item){
-		//dd($item['link']);
-		$liClass = "";
-		$aClass = "";
-		$iClass = $item['icon'].' ';
-		$route = "javascript:void(0);"; //default 
+function constructAdminMenu($array)
+{
+    foreach ($array as $item) {
+        //dd($item['link']);
+        $liClass = "";
+        $aClass = "";
+        $iClass = $item['icon'].' ';
+        $route = "javascript:void(0);"; //default
 
-		if(!isset($item['items'])){
-			if($item['link'] == 'items'){
-				$route = route(config('pakka.prefix.admin') . '.' . $item['link'] . '.index', $item['id']);
-				$liClass .= isActiveRoute('admin.' . $item['link'] . '.index', 'active', $item['id']);
-				$iClass .= isActiveRoute('admin.' . $item['link'] . '.index', 'c-blue-500', $item['id']);
-			}else{
-				$route = route(config('pakka.prefix.admin') . '.' . $item['link'] . '.index');
-				$liClass .= isActiveRoute('admin.' . $item['link'] . '.index', 'active');
-				$iClass .= isActiveRoute('admin.' . $item['link'] . '.index', 'c-blue-500');
-			}
-		}else{
-			$liClass .= " dropdown";
-			$aClass .= "dropdown-toggle";
-		}
-		
-		?>
+        if (! isset($item['items'])) {
+            if ($item['link'] == 'items') {
+                $route = route(config('pakka.prefix.admin') . '.' . $item['link'] . '.index', $item['id']);
+                $liClass .= isActiveRoute('admin.' . $item['link'] . '.index', 'active', $item['id']);
+                $iClass .= isActiveRoute('admin.' . $item['link'] . '.index', 'c-blue-500', $item['id']);
+            } else {
+                $route = route(config('pakka.prefix.admin') . '.' . $item['link'] . '.index');
+                $liClass .= isActiveRoute('admin.' . $item['link'] . '.index', 'active');
+                $iClass .= isActiveRoute('admin.' . $item['link'] . '.index', 'c-blue-500');
+            }
+        } else {
+            $liClass .= " dropdown";
+            $aClass .= "dropdown-toggle";
+        } ?>
 		
 		<li class="nav-item mT-20 <?php echo $liClass; ?>">
 			<a class="<?php echo $aClass; ?>" href="<?php echo $route; ?>">
 				<span class="icon-holder"><i class="<?php echo $iClass; ?>"></i> </span>
 				<span class="title"><?php echo $item['name']; ?></span> 
 				<?php
-					if(isset($item['items'])){
-					?>
+                    if (isset($item['items'])) {
+                        ?>
 					<span class="arrow"><i class="ti-angle-right"></i></span>
 					<?php
-					}
-				?>
+                    } ?>
 			</a>
 			
 			<?php
-				if(isset($item['items'])){
-			?>
+                if (isset($item['items'])) {
+                    ?>
 				<ul class="dropdown-menu">
 					<?php
-						foreach($item['items'] as $subItem){
-							if($subItem['link'] == 'items'){
-								$subRoute = route(config('pakka.prefix.admin') . '.' . $subItem['link'] . '.index', $subItem['id']);
-							}else{
-								$subRoute = route(config('pakka.prefix.admin') . '.' . $subItem['link'] . '.index');
-							}
-					?>
+                        foreach ($item['items'] as $subItem) {
+                            if ($subItem['link'] == 'items') {
+                                $subRoute = route(config('pakka.prefix.admin') . '.' . $subItem['link'] . '.index', $subItem['id']);
+                            } else {
+                                $subRoute = route(config('pakka.prefix.admin') . '.' . $subItem['link'] . '.index');
+                            } ?>
 						<li><a class="sidebar-link" href="<?php echo $subRoute; ?>"><?php echo $subItem['name']; ?></a></li>
 					<?php
-						}
-					?>
+                        } ?>
 				</ul>
 			<?php
-				}
-			?>
+                } ?>
 		</li>
 		
 		<?php
-		
-	}
+    }
 }
 
 /*
@@ -2637,66 +2685,69 @@ function constructAdminMenu($array){
 */
 
 if (! function_exists('formatNumber')) {
-	function formatNumber($number,$allowDec = true){
-		if($allowDec == false && fmod($number, 1) == 0.00){
-			$number = number_format(floatval($number), 0, ',', ' ');
-		}else{
-			$number = number_format(floatval($number), 2, ',', ' ');
-		}
-		
-		return $number;
-	}
+    function formatNumber($number, $allowDec = true)
+    {
+        if ($allowDec == false && fmod($number, 1) == 0.00) {
+            $number = number_format(floatval($number), 0, ',', ' ');
+        } else {
+            $number = number_format(floatval($number), 2, ',', ' ');
+        }
+        
+        return $number;
+    }
 }
 
 if (! function_exists('getExclAmount')) {
-	function getExclAmount($amount, $vat = null){
-		
-		if($vat == null){
-			$settings = session('settings');
-			$vat = $settings['shop_general_vat'];
-		}
-		
-		$vatMultiplier = floatval($vat)+100;
-		
-		//het bedrag inclusief BTW/121 x 21
-		if($vat !== 0){
-			$amount = $amount - (floatval($amount) / $vatMultiplier * floatval($vat));
-		}
-		
-		//Usage of 3 decimals for accurate calculations when amount gets rounded
-		return number_format($amount,3);
-	}
+    function getExclAmount($amount, $vat = null)
+    {
+        if ($vat == null) {
+            $settings = session('settings');
+            $vat = $settings['shop_general_vat'];
+        }
+        
+        $vatMultiplier = floatval($vat) + 100;
+        
+        //het bedrag inclusief BTW/121 x 21
+        if ($vat !== 0) {
+            $amount = $amount - (floatval($amount) / $vatMultiplier * floatval($vat));
+        }
+        
+        //Usage of 3 decimals for accurate calculations when amount gets rounded
+        return number_format($amount, 3);
+    }
 }
 
 if (! function_exists('getInclAmount')) {
-	function getInclAmount($amount, $vat = null){
-		if($vat == null){
-			$settings = session('settings');
-			$vat = $settings['shop_general_vat'];
-		}
-		
-		$vatMultiplier = (floatval($vat)+100)/100;
-		
-		//het bedrag inclusief BTW/121 x 21
-		if($vat !== 0){
-			$amount = $vatMultiplier * floatval($amount);
-		}
-		
-		//Usage of 3 decimals for accurate calculations when amount gets rounded
-		return number_format($amount,3);
-	}
+    function getInclAmount($amount, $vat = null)
+    {
+        if ($vat == null) {
+            $settings = session('settings');
+            $vat = $settings['shop_general_vat'];
+        }
+        
+        $vatMultiplier = (floatval($vat) + 100) / 100;
+        
+        //het bedrag inclusief BTW/121 x 21
+        if ($vat !== 0) {
+            $amount = $vatMultiplier * floatval($amount);
+        }
+        
+        //Usage of 3 decimals for accurate calculations when amount gets rounded
+        return number_format($amount, 3);
+    }
 }
 
 if (! function_exists('shopStatus')) {
-	function shopStatus(){
-		$settings = session('settings');
-		
-		if($settings['shop_status'] == 1){
-			return true;
-		}else{
-			return false;
-		}
-	}
+    function shopStatus()
+    {
+        $settings = session('settings');
+        
+        if ($settings['shop_status'] == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 /*
@@ -2707,18 +2758,20 @@ if (! function_exists('shopStatus')) {
 | Darken hex colors
 |
 */
-function darken_color($rgb, $darker=2){
-
+function darken_color($rgb, $darker = 2)
+{
     $hash = (strpos($rgb, '#') !== false) ? '#' : '';
     $rgb = (strlen($rgb) == 7) ? str_replace('#', '', $rgb) : ((strlen($rgb) == 6) ? $rgb : false);
-    if(strlen($rgb) != 6) return $hash.'000000';
+    if (strlen($rgb) != 6) {
+        return $hash.'000000';
+    }
     $darker = ($darker > 1) ? $darker : 1;
 
-    list($R16,$G16,$B16) = str_split($rgb,2);
+    list($R16, $G16, $B16) = str_split($rgb, 2);
 
-    $R = sprintf("%02X", floor(hexdec($R16)/$darker));
-    $G = sprintf("%02X", floor(hexdec($G16)/$darker));
-    $B = sprintf("%02X", floor(hexdec($B16)/$darker));
+    $R = sprintf("%02X", floor(hexdec($R16) / $darker));
+    $G = sprintf("%02X", floor(hexdec($G16) / $darker));
+    $B = sprintf("%02X", floor(hexdec($B16) / $darker));
 
     return $hash.$R.$G.$B;
 }
@@ -2733,28 +2786,29 @@ function darken_color($rgb, $darker=2){
 */
 
 if (! function_exists('move_file')) {
-    function move_file($file, $type='app', $withWatermark = false)
+    function move_file($file, $type = 'app', $withWatermark = false)
     {
         // Grab all variables
         $destinationPath = config('image.'.$type.'.folder');
-        $width           = config('image.' . $type . '.width');
-        $height          = config('image.' . $type . '.height');
-        $full_name       = str_random(16) . '.' . $file->getClientOriginalExtension();
+        $width = config('image.' . $type . '.width');
+        $height = config('image.' . $type . '.height');
+        $full_name = str_random(16) . '.' . $file->getClientOriginalExtension();
         
         if ($width == null && $height == null) { // Just move the file
             $file->storeAs($destinationPath, $full_name);
+
             return $full_name;
         }
 
 
         // Create the Image
-        $image           = Image::make($file->getRealPath());
+        $image = Image::make($file->getRealPath());
 
         if ($width == null || $height == null) {
             $image->resize($width, $height, function ($constraint) {
                 $constraint->aspectRatio();
             });
-        }else{
+        } else {
             $image->fit($width, $height);
         }
 

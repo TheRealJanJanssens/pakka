@@ -2,11 +2,11 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Notifications\Notifiable;
+use Cache;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Notifications\Notifiable;
 use Session;
-use Cache;
 
 class Menu extends Model
 {
@@ -18,7 +18,7 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
-        'id','name'
+        'id','name',
     ];
 
     /*
@@ -29,7 +29,7 @@ class Menu extends Model
     public static function rules($update = false, $id = null)
     {
         $commun = [
-            'name'    => "required",
+            'name' => "required",
             
         ];
 
@@ -38,7 +38,7 @@ class Menu extends Model
         }
 
         return array_merge($commun, [
-            'name'    => 'required',
+            'name' => 'required',
         ]);
     }
     
@@ -51,35 +51,37 @@ class Menu extends Model
     |------------------------------------------------------------------------------------
     */
     
-    public static function getMenuLinks(){
-	    $pages = Menu::select([
-        	'menus.id',
-	        'menus.name',
-	  	])
-	  	->orderBy('menus.id')
-	    ->get()->toArray();
+    public static function getMenuLinks()
+    {
+        $pages = Menu::select([
+            'menus.id',
+            'menus.name',
+        ])
+        ->orderBy('menus.id')
+        ->get()->toArray();
         
-	    if(!empty($pages)){
-		    foreach($pages as $page){
-			    $result[$page["id"]] = $page['name'];
-		    } 
-	    }else{
-		    $result = array();
-	    }
-	    
-	    return $result;
+        if (! empty($pages)) {
+            foreach ($pages as $page) {
+                $result[$page["id"]] = $page['name'];
+            }
+        } else {
+            $result = [];
+        }
+        
+        return $result;
     }
     
-    public static function getMenuOrFirst($id = null){
-	    if(empty($id)){
-		    $query = Cache::remember('menus.first-menu', 60*60*24, function(){
-		        return Menu::select('menus.id')->where('id', '!=', 1)->first();
-	        });
-	        $id = $query->id;
-	    }else{
-		    $id;
-	    }
+    public static function getMenuOrFirst($id = null)
+    {
+        if (empty($id)) {
+            $query = Cache::remember('menus.first-menu', 60 * 60 * 24, function () {
+                return Menu::select('menus.id')->where('id', '!=', 1)->first();
+            });
+            $id = $query->id;
+        } else {
+            $id;
+        }
 
-	    return Session::get('menus')[$id];
+        return Session::get('menus')[$id];
     }
 }

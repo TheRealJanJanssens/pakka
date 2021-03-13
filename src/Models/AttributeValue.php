@@ -2,15 +2,15 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class AttributeValue extends Model
 {
     use Notifiable;
-	
-	public $timestamps = false;
-	
+    
+    public $timestamps = false;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -21,9 +21,9 @@ class AttributeValue extends Model
         'item_id',
         'language_code',
         'option_id',
-        'value'
+        'value',
     ];
-	
+    
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -32,8 +32,8 @@ class AttributeValue extends Model
     public static function rules($update = false, $id = null)
     {
         $commun = [
-            'input_id'    => "required",
-            'item_id'    => "required",
+            'input_id' => "required",
+            'item_id' => "required",
             
         ];
 
@@ -42,8 +42,8 @@ class AttributeValue extends Model
         }
 
         return array_merge($commun, [
-            'input_id'    => "required",
-            'item_id'    => "required",
+            'input_id' => "required",
+            'item_id' => "required",
         ]);
     }
 }

@@ -2,22 +2,22 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class OrderItem extends Model
 {
     use Notifiable;
-	
-	public $timestamps = false;
-	
+    
+    public $timestamps = false;
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'product_id', 'order_id', 'sku', 'name', 'price', 'quantity', 'weight', 'vat'
+        'product_id', 'order_id', 'sku', 'name', 'price', 'quantity', 'weight', 'vat',
     ];
 
     /*
@@ -28,7 +28,7 @@ class OrderItem extends Model
     public static function rules($update = false, $id = null)
     {
         $commun = [
-            'order_id'    => "required"
+            'order_id' => "required",
             
         ];
 
@@ -37,7 +37,7 @@ class OrderItem extends Model
         }
 
         return array_merge($commun, [
-            'order_id'    => "required"
+            'order_id' => "required",
         ]);
     }
 }

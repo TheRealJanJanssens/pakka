@@ -8,9 +8,9 @@ use TheRealJanJanssens\Pakka\Models\User;
 
 class UserController extends Controller
 {
-	public function __construct()
+    public function __construct()
     {
-	    $this->middleware('auth');
+        $this->middleware('auth');
         constructGlobVars();
     }
     
@@ -47,7 +47,7 @@ class UserController extends Controller
         $this->validate($request, User::rules());
         
         User::create($request->all());
-		
+        
         return back()->withSuccess(trans('app.success_store'));
     }
 
@@ -103,7 +103,6 @@ class UserController extends Controller
     {
         User::destroy($id);
 
-        return back()->withSuccess(trans('app.success_destroy')); 
+        return back()->withSuccess(trans('app.success_destroy'));
     }
 }
-
