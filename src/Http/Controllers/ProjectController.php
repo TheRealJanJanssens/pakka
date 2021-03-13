@@ -38,7 +38,7 @@ class ProjectController extends Controller
     {
 	    $projects = Project::all();
 	    
-        return view('admin.projects.index', compact('projects'));
+        return view('pakka::admin.projects.index', compact('projects'));
     }
     
     public function detail($id)
@@ -46,13 +46,13 @@ class ProjectController extends Controller
 	    $project = Project::findOrFail($id);
 	    $tasks = Task::getTasks($id);
 	    
-        return view('admin.projects.detail', compact('project','tasks'));
+        return view('pakka::admin.projects.detail', compact('project','tasks'));
     }
     
     public function taskDetail($id){
 	    $task = Task::getTask($id);
 	    
-        return view('admin.projects.taskdetail', compact('task'));
+        return view('pakka::admin.projects.taskdetail', compact('task'));
     }
     
     public function storeTaskGroup(Request $request)

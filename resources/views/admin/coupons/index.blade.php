@@ -11,7 +11,7 @@
 @section('content')
 
     <div class="mB-20">
-        <a href="{{ route(ADMIN . '.coupons.create') }}" class="btn btn-info">
+        <a href="{{ route(config('pakka.prefix.admin'). '.coupons.create') }}" class="btn btn-info">
             {{ trans('pakka::app.add_button') }}
         </a>
     </div>
@@ -43,7 +43,7 @@
             <tbody>
                 @foreach ($coupons as $coupon)
                     <tr>
-                        <td><a href="{{ route(ADMIN . '.coupons.edit', $coupon['id']) }}">{{ $coupon['name'] }}</a></td>
+                        <td><a href="{{ route(config('pakka.prefix.admin'). '.coupons.edit', $coupon['id']) }}">{{ $coupon['name'] }}</a></td>
                         <td>
 	                        <div class="pillbox pillbox-blue">
 		                        @if($coupon['is_fixed'] == 1)
@@ -87,11 +87,11 @@
                         <td>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <a href="{{ route(ADMIN . '.coupons.edit', $coupon['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+                                    <a href="{{ route(config('pakka.prefix.admin'). '.coupons.edit', $coupon['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
                                 <li class="list-inline-item">
                                     {!! Form::open([
                                         'class'=>'delete',
-                                        'url'  => route(ADMIN . '.coupons.destroy', $coupon['id']), 
+                                        'url'  => route(config('pakka.prefix.admin'). '.coupons.destroy', $coupon['id']), 
                                         'method' => 'DELETE',
                                         ]) 
                                     !!}

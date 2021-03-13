@@ -48,7 +48,7 @@ class SettingController extends Controller
 			}
 		}
 		
-        return view('admin.settings.index', compact('settings','values'));
+        return view('pakka::admin.settings.index', compact('settings','values'));
     }
     
     public function updateSettings(Request $request)
@@ -88,6 +88,6 @@ class SettingController extends Controller
 	    }
 	    
 	    Session::forget('settings');
-	    return redirect()->route(ADMIN . '.settings.index')->withSuccess(trans('app.success_store'));
+	    return redirect()->route(config('pakka.prefix.admin'). '.settings.index')->withSuccess(trans('app.success_store'));
     }
 }

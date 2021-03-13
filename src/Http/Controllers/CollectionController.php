@@ -8,7 +8,7 @@ use TheRealJanJanssens\Pakka\Models\Collection;
 use TheRealJanJanssens\Pakka\Models\CollectionCondition;
 use TheRealJanJanssens\Pakka\Models\CollectionSet;
 
-use App\Translation;
+use TheRealJanJanssens\Pakka\Models\Translation;
 
 use Cache;
 
@@ -29,7 +29,7 @@ class CollectionController extends Controller
     {
         $collections = Collection::getCollections();
 
-        return view('admin.collections.index', compact('collections'));
+        return view('pakka::admin.collections.index', compact('collections'));
     }
 
     /**
@@ -39,7 +39,7 @@ class CollectionController extends Controller
      */
     public function create()
     {
-        return view('admin.collections.create');
+        return view('pakka::admin.collections.create');
     }
 
     /**
@@ -64,7 +64,7 @@ class CollectionController extends Controller
 		
 		Cache::tags('collections')->flush();
 		
-        return redirect()->route(ADMIN . '.collections.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.collections.index')->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -90,7 +90,7 @@ class CollectionController extends Controller
 		
 		Cache::tags('collections')->flush();
 		
-        return view('admin.collections.edit', compact('collection'));
+        return view('pakka::admin.collections.edit', compact('collection'));
     }
 
     /**
@@ -121,7 +121,7 @@ class CollectionController extends Controller
 		
 		Cache::tags('collections')->flush();
 		
-        return redirect()->route(ADMIN . '.collections.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.collections.index')->withSuccess(trans('app.success_update'));
     }
 
     /**

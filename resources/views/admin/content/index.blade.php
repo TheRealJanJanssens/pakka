@@ -8,7 +8,7 @@
 
 	<div class="action-bar mB-20 ">
         @if(checkAcces("permission_content_edit"))
-			<a href="{{ route(ADMIN . '.content.createpage') }}" class="btn btn-info">
+			<a href="{{ route(config('pakka.prefix.admin'). '.content.createpage') }}" class="btn btn-info">
 		        {{ trans('pakka::app.page') }} {{ trans('pakka::app.add_button') }}
 		    </a>
 	    @endif
@@ -38,15 +38,15 @@
 		                            
 		                            @if(checkAcces("permission_content_edit"))
 			                            <li class="list-inline-item">
-											<a href="{{ route(ADMIN . '.content.createsection', $page->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-secondary btn-sm"><span class="ti-plus"></span></a></li>
+											<a href="{{ route(config('pakka.prefix.admin'). '.content.createsection', $page->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-secondary btn-sm"><span class="ti-plus"></span></a></li>
 											
 		                                <li class="list-inline-item">
-		                                    <a href="{{ route(ADMIN . '.content.editpage', $page->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+		                                    <a href="{{ route(config('pakka.prefix.admin'). '.content.editpage', $page->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
 		                                    
 		                                <li class="list-inline-item">
 		                                    {!! Form::open([
 		                                        'class'=>'delete',
-		                                        'url'  => route(ADMIN . '.content.destroypage', $page->id), 
+		                                        'url'  => route(config('pakka.prefix.admin'). '.content.destroypage', $page->id), 
 		                                        'method' => 'DELETE',
 		                                        ]) 
 		                                    !!}
@@ -71,14 +71,14 @@
 			                            <ul class="list-inline">
 				                            @if(checkAcces("permission_content_edit"))
 					                            <li class="list-inline-item">
-				                                    <a href="{{ route(ADMIN . '.content.createcomponent', [$page->id,$section->id]) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-secondary btn-sm"><span class="ti-plus"></span></a></li>
+				                                    <a href="{{ route(config('pakka.prefix.admin'). '.content.createcomponent', [$page->id,$section->id]) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-secondary btn-sm"><span class="ti-plus"></span></a></li>
 				                                    
 				                                <li class="list-inline-item">
-				                                    <a href="{{ route(ADMIN . '.content.editsection', [$section->id, $page->id]) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+				                                    <a href="{{ route(config('pakka.prefix.admin'). '.content.editsection', [$section->id, $page->id]) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
 				                                <li class="list-inline-item">
 				                                    {!! Form::open([
 				                                        'class'=>'delete',
-				                                        'url'  => route(ADMIN . '.content.destroysection', $section->id), 
+				                                        'url'  => route(config('pakka.prefix.admin'). '.content.destroysection', $section->id), 
 				                                        'method' => 'DELETE',
 				                                        ]) 
 				                                    !!}
@@ -104,20 +104,20 @@
 					                            <ul class="list-inline">
 
 						                            <li class="list-inline-item">
-						                                <a href="{{ route(ADMIN . '.content.editcontent', $component->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil-alt"></span></a></li>
+						                                <a href="{{ route(config('pakka.prefix.admin'). '.content.editcontent', $component->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil-alt"></span></a></li>
 						                            
 						                            @if(checkAcces("permission_input_edit"))
 							                            <li class="list-inline-item">
-						                                    <a href="{{ route(ADMIN . '.inputs.index', $component->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-secondary btn-sm"><span class="ti-view-list"></span></a></li>
+						                                    <a href="{{ route(config('pakka.prefix.admin'). '.inputs.index', $component->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-secondary btn-sm"><span class="ti-view-list"></span></a></li>
 						                            @endif
 						                            
 						                            @if(checkAcces("permission_content_edit"))
 						                                <li class="list-inline-item">
-						                                    <a href="{{ route(ADMIN . '.content.editcomponent', [$component->id,$page->id,$section->id]) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+						                                    <a href="{{ route(config('pakka.prefix.admin'). '.content.editcomponent', [$component->id,$page->id,$section->id]) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
 						                                <li class="list-inline-item">
 						                                    {!! Form::open([
 						                                        'class'=>'delete',
-						                                        'url'  => route(ADMIN . '.content.destroycomponent', $component->id), 
+						                                        'url'  => route(config('pakka.prefix.admin'). '.content.destroycomponent', $component->id), 
 						                                        'method' => 'DELETE',
 						                                        ]) 
 						                                    !!}

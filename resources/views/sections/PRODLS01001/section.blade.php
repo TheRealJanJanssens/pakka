@@ -11,7 +11,7 @@
 		                            $o = "desc";
 	                            }
 	                            
-	                            $products = App\Product::getProductsByCollection(Request()->param1,1,$o);
+	                            $products = TheRealJanJanssens\Pakka\Models\Product::getProductsByCollection(Request()->param1,1,$o);
                             ?>
 				            
                             <div class="row">
@@ -40,7 +40,7 @@
 	                            
 				                @foreach($products as $product)
 				                	<?php
-					                	$jsonStock = App\Product::getStockJson($product['stocks']);
+					                	$jsonStock = TheRealJanJanssens\Pakka\Models\Product::getStockJson($product['stocks']);
 				                	?>
 				                	<div class="masonry-item p-3 item {{ parseSecAttr('.item', $section['classes']) }}">
 					                	<a href="{!! url('/'.$settings['role_product_detail'].'/'.$product['id'].'/'.$product['slug']) !!}" class="product boxed p-0 e {{ parseSecAttr('.e', $section['classes']) }}">
@@ -136,7 +136,7 @@
                                 <hr>
                                 
                                 <?php
-	                                $collections = App\Collection::getCollections(1);
+	                                $collections = TheRealJanJanssens\Pakka\Models\Collection::getCollections(1);
                                 ?>
                                 
                                 <ul class="link-list">

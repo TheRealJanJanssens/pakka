@@ -132,7 +132,7 @@
 		                                <li class="list-inline-item">
 		                                    {!! Form::open([
 		                                        'class'=>'delete',
-		                                        'url'  => route(ADMIN . '.menu.destroymenuitem', 1), 
+		                                        'url'  => route(config('pakka.prefix.admin'). '.menu.destroymenuitem', 1), 
 		                                        'method' => 'DELETE',
 		                                        ]) 
 		                                    !!}

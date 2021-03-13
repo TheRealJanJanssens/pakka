@@ -23,7 +23,7 @@ class UserController extends Controller
     {
         $items = User::orderBy('id')->get();
 
-        return view('admin.users.index', compact('items'));
+        return view('pakka::admin.users.index', compact('items'));
     }
 
     /**
@@ -33,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        return view('pakka::admin.users.create');
     }
 
     /**
@@ -72,7 +72,7 @@ class UserController extends Controller
     {
         $item = User::findOrFail($id);
 
-        return view('admin.users.edit', compact('item'));
+        return view('pakka::admin.users.edit', compact('item'));
     }
 
     /**
@@ -90,7 +90,7 @@ class UserController extends Controller
 
         $item->update($request->all());
 
-        return redirect()->route(ADMIN . '.users.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.users.index')->withSuccess(trans('app.success_update'));
     }
 
     /**

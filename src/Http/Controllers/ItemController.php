@@ -49,7 +49,7 @@ class ItemController extends Controller
 	    
 	    //dd($items);
 	    
-        return view('admin.items.index', compact('items'));
+        return view('pakka::admin.items.index', compact('items'));
     }
     
     public function show($moduleId, $id)
@@ -57,7 +57,7 @@ class ItemController extends Controller
 	    $this->getModule($moduleId);
 	    
         $item = Item::findOrFail($id);
-        return view('admin.items.show', compact('item'));
+        return view('pakka::admin.items.show', compact('item'));
     }
     
     public function createItem($moduleId)
@@ -70,7 +70,7 @@ class ItemController extends Controller
 	    Session::put('current_item_id', $newItemId);
 	    Session::forget('uploadImages');
 	      
-        return view('admin.items.createitem', compact('inputs'));
+        return view('pakka::admin.items.createitem', compact('inputs'));
     }
     
     public function storeItem(Request $request)
@@ -89,7 +89,7 @@ class ItemController extends Controller
 
         Item::create($result);
         
-        return redirect()->route(ADMIN . '.items.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.items.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));
     }
     
     public function editItem($moduleId, $id)
@@ -104,7 +104,7 @@ class ItemController extends Controller
 	    
 	    $item = Item::getItem($id,2);
 	    
-        return view('admin.items.edititem', compact('item','inputs'));
+        return view('pakka::admin.items.edititem', compact('item','inputs'));
     }
     
     public function updateItem(Request $request, $id)
@@ -116,7 +116,7 @@ class ItemController extends Controller
 
         $item->update($request->all());
 	    		
-        return redirect()->route(ADMIN . '.items.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));      
+        return redirect()->route(config('pakka.prefix.admin'). '.items.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));      
     }
     
     public function destroyItem($id)
@@ -128,7 +128,7 @@ class ItemController extends Controller
 	    AttributeValue::where('item_id',$id)->delete();
 	    Translation::where('translation_id',$item['slug'])->delete();
 	    
-        return redirect()->route(ADMIN . '.items.index', Session::get('set_id'))->withSuccess(trans('app.success_store')); 
+        return redirect()->route(config('pakka.prefix.admin'). '.items.index', Session::get('set_id'))->withSuccess(trans('app.success_store')); 
     }
     
     public function layoutSwitch($id){
@@ -136,6 +136,6 @@ class ItemController extends Controller
 	    Setting::updateOrCreate(['user_id' => auth()->user()->id, 'name' => 'item_layout'], ['value' => $id]);
 	    Session::forget('settings');
 	    
-	    return redirect()->route(ADMIN . '.items.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));
+	    return redirect()->route(config('pakka.prefix.admin'). '.items.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));
     }
 }

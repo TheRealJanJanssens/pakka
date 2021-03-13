@@ -11,7 +11,7 @@
 
 @section('content')
 	{!! Form::model($order['details'], [
-			'action' => ['OrderController@updateDetails', $order['details']['id']],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\OrderController@updateDetails', $order['details']['id']],
 			'method' => 'put', 
 			'files' => true
 		])

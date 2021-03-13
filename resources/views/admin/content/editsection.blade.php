@@ -6,7 +6,7 @@
 
 @section('content')
 	{!! Form::model($section, [
-			'action' => ['ContentController@updateSection', $section->id],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\ContentController@updateSection', $section->id],
 			'method' => 'put', 
 			'files' => true
 		])

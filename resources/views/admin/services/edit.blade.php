@@ -10,7 +10,7 @@
 
 @section('content')
 	{!! Form::model($service, [
-			'action' => ['ServicesController@update', $service['id']],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\ServicesController@update', $service['id']],
 			'method' => 'put', 
 			'files' => true
 		])

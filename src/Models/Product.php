@@ -300,12 +300,11 @@ class Product extends Model
 	    ->orderBy('products.created_at')
 	    ->groupBy('products.id')
 	    //->toSql();
-	    ->get()->toArray();
+	    ->get();
 	    
 	    if(!empty($result)){
 		    $result = constructAttributes($result,$mode);
 		    $result = constructTranslatableValues($result,['slug','name','description']);
-		    
 		    $result['variants'] = Variant::getVariantInputs($id);
 		    $result['stocks'] = Stock::getStockInputs($id);
 		    
@@ -400,7 +399,7 @@ class Product extends Model
 	        return $result->get();
         });
 	    
-	    $result = constructAttributes($result->toArray());
+	    $result = constructAttributes($result);
 	    
 	    $i=0;
 	    foreach($result as $product){
@@ -575,7 +574,7 @@ class Product extends Model
 			        });
 			        break;
 			}
-			$result = $result->toArray();
+			$result = $result;
 			$result = constructAttributes($result);
 		}
 
@@ -663,7 +662,7 @@ class Product extends Model
 	    ->where('stocks.sku', $sku)
 	    ->orderBy('products.created_at')
 	    ->groupBy('products.id')
-	    ->get()->toArray();
+	    ->get();
 	    
 	    $result = constructAttributes($result);
 	    $result = constructTranslatableValues($result,['slug','name','description']);

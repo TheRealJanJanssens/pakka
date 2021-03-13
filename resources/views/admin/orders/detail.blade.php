@@ -56,14 +56,14 @@
 					
 					<a class="dropdown-item" href="/view/invoice/{{ $order['documents'][0]['document_id'] }}" target="_blank"><i class="ti-file text-primary mR-10"></i>{{ trans('pakka::app.view_invoice') }}</a>
 					<a class="dropdown-item" href="/download/invoice/{{ $order['documents'][0]['document_id'] }}" target="_blank"><i class="ti-download text-primary mR-10"></i>{{ trans('pakka::app.download_invoice') }}</a>
-					<a class="dropdown-item" href="{{ route(ADMIN . '.invoices.copy', ['id' => $order['documents'][0]['document_id'] , 'credit' => true]) }}"><i class="ti-layers text-primary mR-10"></i>{{ trans('pakka::app.generate_creditnote') }}</a>
+					<a class="dropdown-item" href="{{ route(config('pakka.prefix.admin'). '.invoices.copy', ['id' => $order['documents'][0]['document_id'] , 'credit' => true]) }}"><i class="ti-layers text-primary mR-10"></i>{{ trans('pakka::app.generate_creditnote') }}</a>
 					
 					<hr>
 				@endif
 				
 				{!! Form::open([
                     'class'=>'delete',
-                    'url'  => route(ADMIN . '.orders.retour', $order['id']), 
+                    'url'  => route(config('pakka.prefix.admin'). '.orders.retour', $order['id']), 
                     'method' => 'GET',
                     ]) 
                 !!}
@@ -74,7 +74,7 @@
 				
 				{!! Form::open([
                     'class'=>'delete',
-                    'url'  => route(ADMIN . '.orders.cancel', $order['id']), 
+                    'url'  => route(config('pakka.prefix.admin'). '.orders.cancel', $order['id']), 
                     'method' => 'GET',
                     ]) 
                 !!}
@@ -146,7 +146,7 @@
 						        </td>
 					        	<td class="align-middle">
 						        	@if(!empty($item['product_id']))
-							        	<a href="{{ route(ADMIN . '.products.edit', $item['product_id']) }}" class="text-body font-weight-normal"><b>{!! $item['name'] !!}</b></a>
+							        	<a href="{{ route(config('pakka.prefix.admin'). '.products.edit', $item['product_id']) }}" class="text-body font-weight-normal"><b>{!! $item['name'] !!}</b></a>
 							        @else
 							        	<b>{!! $item['name'] !!}</b>
 							        @endif

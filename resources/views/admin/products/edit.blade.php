@@ -9,7 +9,7 @@
 @section('content')
 
 	{!! Form::model($product, [
-			'action' => ['ProductController@update', $product['id']],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\ProductController@update', $product['id']],
 			'method' => 'put', 
 			'files' => true
 		])

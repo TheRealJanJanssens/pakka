@@ -11,7 +11,7 @@
 @section('content')
 
     <div class="mB-20">
-        <a href="{{ route(ADMIN . '.collections.create') }}" class="btn btn-info">
+        <a href="{{ route(config('pakka.prefix.admin'). '.collections.create') }}" class="btn btn-info">
             {{ trans('pakka::app.add_button') }}
         </a>
     </div>
@@ -41,7 +41,7 @@
             <tbody data-action="/admin/collections/sort">
                 @foreach ($collections as $collection)
                     <tr class="item" data-id="{{ $collection['id'] }}" data-position="">
-                        <td><i class="handle ti-line-double"></i><a href="{{ route(ADMIN . '.collections.edit', $collection['id']) }}">{{ stripslashes($collection['name']) }}</a></td>
+                        <td><i class="handle ti-line-double"></i><a href="{{ route(config('pakka.prefix.admin'). '.collections.edit', $collection['id']) }}">{{ stripslashes($collection['name']) }}</a></td>
                         <td>
 	                        @if ($collection['type'] == 1)
 	                        	{{ trans('pakka::app.man_col') }}
@@ -64,11 +64,11 @@
                         <td>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <a href="{{ route(ADMIN . '.collections.edit', $collection['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+                                    <a href="{{ route(config('pakka.prefix.admin'). '.collections.edit', $collection['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
                                 <li class="list-inline-item">
                                     {!! Form::open([
                                         'class'=>'delete',
-                                        'url'  => route(ADMIN . '.collections.destroy', $collection['id']), 
+                                        'url'  => route(config('pakka.prefix.admin'). '.collections.destroy', $collection['id']), 
                                         'method' => 'DELETE',
                                         ]) 
                                     !!}

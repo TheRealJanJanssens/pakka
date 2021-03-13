@@ -25,7 +25,7 @@ class ShipmentController extends Controller
     public function index()
     {
         $shipments = ShipmentOption::getShipments();
-        return view('admin.shipments.index', compact('shipments'));
+        return view('pakka::admin.shipments.index', compact('shipments'));
     }
 
     /**
@@ -35,7 +35,7 @@ class ShipmentController extends Controller
      */
     public function create()
     {
-        return view('admin.shipments.create');
+        return view('pakka::admin.shipments.create');
     }
 
     /**
@@ -57,7 +57,7 @@ class ShipmentController extends Controller
 			ShipmentCondition::storeCondition($shipment['id'], $conditions);
         }
 		
-        return redirect()->route(ADMIN . '.shipments.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.shipments.index')->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -81,7 +81,7 @@ class ShipmentController extends Controller
     {
 		$shipment = ShipmentOption::getShipment($id,2);
 		
-        return view('admin.shipments.edit', compact('shipment'));
+        return view('pakka::admin.shipments.edit', compact('shipment'));
     }
 
     /**
@@ -110,7 +110,7 @@ class ShipmentController extends Controller
         }
 		
 		
-        return redirect()->route(ADMIN . '.shipments.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.shipments.index')->withSuccess(trans('app.success_update'));
     }
 
     /**

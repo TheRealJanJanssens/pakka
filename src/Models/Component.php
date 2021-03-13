@@ -51,6 +51,10 @@ class Component extends Model
         ]);
     }
  	
+	public function setAttributes(){
+		
+	}
+
  	/*
     |------------------------------------------------------------------------------------
     | Get content with translations

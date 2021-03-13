@@ -23,7 +23,7 @@ class CartServiceController extends Controller
     public function index()
     {
         $services = CartService::getCartServices();
-        return view('admin.cart_services.index', compact('services'));
+        return view('pakka::admin.cart_services.index', compact('services'));
     }
 
     /**
@@ -33,7 +33,7 @@ class CartServiceController extends Controller
      */
     public function create()
     {
-        return view('admin.cart_services.create');
+        return view('pakka::admin.cart_services.create');
     }
 
     /**
@@ -57,7 +57,7 @@ class CartServiceController extends Controller
         }
 */
 		
-        return redirect()->route(ADMIN . '.cart_services.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.cart_services.index')->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -81,7 +81,7 @@ class CartServiceController extends Controller
     {
 		$service = CartService::getCartService($id,2);
 		
-        return view('admin.cart_services.edit', compact('service'));
+        return view('pakka::admin.cart_services.edit', compact('service'));
     }
 
     /**
@@ -111,7 +111,7 @@ class CartServiceController extends Controller
         }
 */	
 		
-        return redirect()->route(ADMIN . '.cart_services.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.cart_services.index')->withSuccess(trans('app.success_update'));
     }
 
     /**

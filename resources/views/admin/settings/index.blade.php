@@ -7,7 +7,7 @@
 @section('content')
 
 	{!! Form::model($values, [
-			'action' => ['SettingController@updateSettings'],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\SettingController@updateSettings'],
 			'method' => 'put', 
 			'files' => true
 		])

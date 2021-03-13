@@ -11,7 +11,7 @@
 @section('content')
 
     <div class="mB-20">
-        <a href="{{ route(ADMIN . '.cart_services.create') }}" class="btn btn-info">
+        <a href="{{ route(config('pakka.prefix.admin'). '.cart_services.create') }}" class="btn btn-info">
             {{ trans('pakka::app.add_button') }}
         </a>
     </div>
@@ -31,7 +31,7 @@
             <tbody>
                 @foreach ($services as $service)
                     <tr>
-                        <td><a href="{{ route(ADMIN . '.cart_services.edit', $service['id']) }}">{{ $service['name'] }}</a></td>
+                        <td><a href="{{ route(config('pakka.prefix.admin'). '.cart_services.edit', $service['id']) }}">{{ $service['name'] }}</a></td>
                         <td>
 	                        <b>€{{ $service['price'] }}</b>
                         </td>
@@ -48,11 +48,11 @@
                         <td>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <a href="{{ route(ADMIN . '.cart_services.edit', $service['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+                                    <a href="{{ route(config('pakka.prefix.admin'). '.cart_services.edit', $service['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
                                 <li class="list-inline-item">
                                     {!! Form::open([
                                         'class'=>'delete',
-                                        'url'  => route(ADMIN . '.cart_services.destroy', $service['id']), 
+                                        'url'  => route(config('pakka.prefix.admin'). '.cart_services.destroy', $service['id']), 
                                         'method' => 'DELETE',
                                         ]) 
                                     !!}

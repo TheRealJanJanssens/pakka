@@ -7,7 +7,7 @@
 @section('content')
 
     <div class="mB-30">
-        <a href="{{ route(ADMIN . '.clients.create') }}" class="btn btn-primary-gradient">
+        <a href="{{ route(config('pakka.prefix.admin'). '.clients.create') }}" class="btn btn-primary-gradient">
 	        <i class="ti-plus mR-10"></i>
             {{ trans('pakka::app.add_button') }}
         </a>
@@ -40,7 +40,7 @@
                 	@if(($item->role == 10 && checkAcces("permission_user_admin_edit")) || $item->role !== 10)
 	                    <tr>
 	                        <td>
-		                        <a href="{{ route(ADMIN . '.clients.edit', $item->id) }}">			                        
+		                        <a href="{{ route(config('pakka.prefix.admin'). '.clients.edit', $item->id) }}">			                        
 			                        @if($item->company_name)
 			                        	{{ $item->company_name }}
 			                        @else
@@ -52,11 +52,11 @@
 	                        <td>
 	                            <ul class="list-inline">
 	                                <li class="list-inline-item">
-	                                    <a href="{{ route(ADMIN . '.clients.edit', $item->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary-gradient btn-sm"><span class="ti-pencil"></span></a></li>
+	                                    <a href="{{ route(config('pakka.prefix.admin'). '.clients.edit', $item->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary-gradient btn-sm"><span class="ti-pencil"></span></a></li>
 	                                <li class="list-inline-item">
 	                                    {!! Form::open([
 	                                        'class'=>'delete',
-	                                        'url'  => route(ADMIN . '.clients.destroy', $item->id), 
+	                                        'url'  => route(config('pakka.prefix.admin'). '.clients.destroy', $item->id), 
 	                                        'method' => 'DELETE',
 	                                        ]) 
 	                                    !!}

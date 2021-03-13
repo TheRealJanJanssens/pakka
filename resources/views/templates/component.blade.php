@@ -1,4 +1,4 @@
-@extends('layouts.component')
+@extends('pakka::layouts.component')
 
 @section('content')
 
@@ -121,8 +121,9 @@
 			}
 			
 			//Other way to do this?
+			$view = getSectionView($section['section']);
 			?>
-				@include("sections.".$section['section'].".section")
+				@include($view)
 			<?php
 			
 			if($i == $sectionCount){

@@ -1,4 +1,4 @@
-@extends('layouts.custom')
+@extends('pakka::layouts.custom')
 
 @section('content')
 

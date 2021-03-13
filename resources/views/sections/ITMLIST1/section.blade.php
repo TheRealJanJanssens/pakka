@@ -30,7 +30,7 @@
 		                $page = $section['extras']['item_page'];
 		                
 		                if(!session()->has('website.'.app()->getLocale().'.'.$page)){
-			                $itemPage = App\Translation::getTranslation($page);
+			                $itemPage = TheRealJanJanssens\Pakka\Models\Translation::getTranslation($page);
 			                session()->put('website.'.app()->getLocale().'.'.$page, $itemPage);
 		                }else{
 			                $itemPage = session()->get('website.'.app()->getLocale().'.'.$page);

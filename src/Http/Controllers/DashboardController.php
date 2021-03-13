@@ -7,12 +7,17 @@ use Spatie\Analytics\Period;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+
 class DashboardController extends Controller
 {
 	public function __construct()
     {
 	    $this->middleware('auth');
         constructGlobVars();
+		//dd( auth()->user() );
     }
 	
     public function index()

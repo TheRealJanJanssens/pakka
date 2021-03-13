@@ -25,7 +25,7 @@ class ServicesController extends Controller
     {
         $services = Service::getServices();
 
-        return view('admin.services.index', compact('services'));
+        return view('pakka::admin.services.index', compact('services'));
     }
 
     /**
@@ -35,7 +35,7 @@ class ServicesController extends Controller
      */
     public function create()
     {
-        return view('admin.services.create');
+        return view('pakka::admin.services.create');
     }
 
     /**
@@ -55,7 +55,7 @@ class ServicesController extends Controller
         ServiceAssignment::storeAssignments($service->id, $array['providers']);
       }
 	
-      return redirect()->route(ADMIN . '.services.index')->withSuccess(trans('app.success_store'));
+      return redirect()->route(config('pakka.prefix.admin'). '.services.index')->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -78,7 +78,7 @@ class ServicesController extends Controller
     public function edit($id)
     {
 		  $service = Service::getService($id,2);
-      return view('admin.services.edit', compact('service'));
+      return view('pakka::admin.services.edit', compact('service'));
     }
 
     /**
@@ -102,7 +102,7 @@ class ServicesController extends Controller
       if(isset($array['providers'])){
 	       ServiceAssignment::storeAssignments($id, $array['providers']);
       }
-      return redirect()->route(ADMIN . '.services.index')->withSuccess(trans('app.success_update'));
+      return redirect()->route(config('pakka.prefix.admin'). '.services.index')->withSuccess(trans('app.success_update'));
     }
 
     /**

@@ -22,7 +22,7 @@ class InvoicePresetController extends Controller
     public function index()
     {
         $items = InvoicePreset::orderBy('position')->get();
-        return view('admin.invoice_presets.index', compact('items'));
+        return view('pakka::admin.invoice_presets.index', compact('items'));
     }
 
     /**
@@ -32,7 +32,7 @@ class InvoicePresetController extends Controller
      */
     public function create()
     {
-        return view('admin.invoice_presets.create');
+        return view('pakka::admin.invoice_presets.create');
     }
 
     /**
@@ -76,7 +76,7 @@ class InvoicePresetController extends Controller
         $item['price'] = str_replace('.', ',', $item['price']);
         
 		//dd($item);
-        return view('admin.invoice_presets.edit', compact('item'));
+        return view('pakka::admin.invoice_presets.edit', compact('item'));
     }
 
     /**
@@ -97,7 +97,7 @@ class InvoicePresetController extends Controller
         
         $preset->update($inputs);
 		
-        return redirect()->route(ADMIN . '.invoice_presets.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.invoice_presets.index')->withSuccess(trans('app.success_update'));
     }
 
     /**

@@ -97,7 +97,6 @@ class MenuController extends Controller
     
     public function storeMenuItem(Request $request)
     {
-	    
         $this->validate($request, MenuItem::rules());
         
         //converts lang inputs
@@ -175,7 +174,7 @@ class MenuController extends Controller
         $item->update($request->all());
 		Session::forget('menus');
 		Cache::tags('translations')->flush();
-        return redirect()->route('pakka::'.config('pakka.prefix.admin').'.menu.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin').'.menu.index')->withSuccess(trans('app.success_update'));
     }
     
     public function updateMenuItem(Request $request, $id)
@@ -190,7 +189,7 @@ class MenuController extends Controller
         $item->update($result);
 		Session::forget('menus');
 		Cache::tags('translations')->flush();
-        return redirect()->route('pakka::'.config('pakka.prefix.admin').'.menu.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin').'.menu.index')->withSuccess(trans('app.success_update'));
     }
 
     /**

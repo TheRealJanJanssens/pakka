@@ -10,7 +10,7 @@
 
 @section('content')
 	{!! Form::model($item, [
-			'action' => ['InvoicePresetController@update', $item['id']],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\InvoicePresetController@update', $item['id']],
 			'method' => 'put', 
 			'files' => true
 		])

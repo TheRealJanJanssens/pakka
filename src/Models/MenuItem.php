@@ -71,7 +71,7 @@ class MenuItem extends Model
 		    ->where('translations.language_code', $locale)
 		    ->whereRaw('`menu_items`.`name` = `translations`.`translation_id`')
 		    ->orderBy('menu_items.position')
-		    ->get()->toArray();
+		    ->get();
 		}else{
 			$queryResult = MenuItem::select([
 			'menu_items.id',
@@ -103,7 +103,7 @@ class MenuItem extends Model
 			DB::raw('`menu_items`.`name` AS name_trans'),
 		  	])
 		    ->where('menu_items.id', $id)
-		    ->get()->toArray();
+		    ->get();
 		}
 	    
 	    $result = constructTranslatableValues($queryResult,['name']);
@@ -182,7 +182,7 @@ class MenuItem extends Model
 		    ->whereRaw('`menu_items`.`name` = `translations`.`translation_id`')
 		    ->where('translations.language_code', $locale)
 		    ->orderBy('menu_items.position')
-		    ->get()->toArray();
+		    ->get();
 		}else{
 			//QUERY FOR ALL OTHER MENUS
 			$result = MenuItem::select([
@@ -197,7 +197,7 @@ class MenuItem extends Model
 		    ->where('menu_items.menu', $id)
 		    ->where('menu_items.permission', '<=', $permission)
 		    ->orderBy('menu_items.position')
-		    ->get()->toArray();
+		    ->get();
 		}
 		
 		//remove the slashes from the menu item name

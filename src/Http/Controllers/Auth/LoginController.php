@@ -3,6 +3,7 @@
 namespace TheRealJanJanssens\Pakka\Http\Controllers\Auth;
 
 use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -25,8 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    //protected $redirectTo = '/' . ADMIN;
-    protected $redirectTo = '/admin';
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -35,12 +35,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-	    constructGlobVars();
         $this->middleware('guest')->except('logout');
-    }
-
-    public function showLoginForm()
-    {
-        return view('pakka::auth.login');
     }
 }

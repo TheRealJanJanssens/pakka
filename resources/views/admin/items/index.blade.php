@@ -19,12 +19,12 @@
 	
     <div class="action-bar mB-20 row">
 	    <div class="col-6">
-	        <a href="{{ route(ADMIN . '.items.createitem', Session::get('set_id')) }}" class="btn btn-info">
+	        <a href="{{ route(config('pakka.prefix.admin'). '.items.createitem', Session::get('set_id')) }}" class="btn btn-info">
 	            {{ trans('pakka::app.add_button') }}
 	        </a>
 
 	        @if(checkAcces("permission_input_edit"))
-		        <a href="{{ route(ADMIN . '.inputs.index', Session::get('set_id')) }}" class="btn btn-info">
+		        <a href="{{ route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id')) }}" class="btn btn-info">
 		            Inputs {{ trans('pakka::app.admin') }}
 		        </a>
 	        @endif
@@ -32,8 +32,8 @@
         
         <div class="col-6">
 	        <div class="button-group">
-		        <a href="{{ route(ADMIN . '.items.layoutswitch', 1) }}" class="button-group-item @if($layout == 1) {{'active'}} @endif"><i class="ti-view-list-alt"></i></a>
-		        <a href="{{ route(ADMIN . '.items.layoutswitch', 3) }}" class="button-group-item  @if($layout == 3) {{'active'}} @endif"><i class="ti-view-grid"></i></a>
+		        <a href="{{ route(config('pakka.prefix.admin'). '.items.layoutswitch', 1) }}" class="button-group-item @if($layout == 1) {{'active'}} @endif"><i class="ti-view-list-alt"></i></a>
+		        <a href="{{ route(config('pakka.prefix.admin'). '.items.layoutswitch', 3) }}" class="button-group-item  @if($layout == 3) {{'active'}} @endif"><i class="ti-view-grid"></i></a>
 	        </div>
         </div>
         
@@ -58,7 +58,7 @@
 				                        	<div class="table-image"><img src="{{ imgUrl($item['id'] ,$item['images'][0], 100) }}"></div>
 				                        @endif
 			
-				                        <a href="{{ route(ADMIN . '.items.edititem', ['moduleId' => Session::get('set_id'), 'id' => $item['id']]) }}" class="link">{{ htmlspecialchars_decode($item['title']) }}</a>
+				                        <a href="{{ route(config('pakka.prefix.admin'). '.items.edititem', ['moduleId' => Session::get('set_id'), 'id' => $item['id']]) }}" class="link">{{ htmlspecialchars_decode($item['title']) }}</a>
 				                    </td>
 			                        <td>
 				                        @if ($item['status'] == 1)
@@ -73,11 +73,11 @@
 			                        <td>
 			                            <ul class="list-inline">
 			                                <li class="list-inline-item">
-			                                    <a href="{{ route(ADMIN . '.items.edititem', ['moduleId' => Session::get('set_id'), 'id' => $item['id']]) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+			                                    <a href="{{ route(config('pakka.prefix.admin'). '.items.edititem', ['moduleId' => Session::get('set_id'), 'id' => $item['id']]) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
 			                                <li class="list-inline-item">
 			                                    {!! Form::open([
 			                                        'class'=>'delete',
-			                                        'url'  => route(ADMIN . '.items.destroyitem', $item['id']), 
+			                                        'url'  => route(config('pakka.prefix.admin'). '.items.destroyitem', $item['id']), 
 			                                        'method' => 'DELETE',
 			                                        ]) 
 			                                    !!}
@@ -128,7 +128,7 @@
 				                        	<div class="table-image"><img src="{{ imgUrl($item['id'] ,$item['images'][0], 100) }}"></div>
 				                        @endif
 			
-				                        <a href="{{ route(ADMIN . '.items.edititem', ['moduleId' => Session::get('set_id'), 'id' => $item['id']]) }}" class="link">{{ htmlspecialchars_decode($item['title']) }}</a>
+				                        <a href="{{ route(config('pakka.prefix.admin'). '.items.edititem', ['moduleId' => Session::get('set_id'), 'id' => $item['id']]) }}" class="link">{{ htmlspecialchars_decode($item['title']) }}</a>
 				                    </td>
 			                        <td>
 				                        @if ($item['status'] == 1)
@@ -143,11 +143,11 @@
 			                        <td>
 			                            <ul class="list-inline">
 			                                <li class="list-inline-item">
-			                                    <a href="{{ route(ADMIN . '.items.edititem', ['moduleId' => Session::get('set_id'), 'id' => $item['id']]) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+			                                    <a href="{{ route(config('pakka.prefix.admin'). '.items.edititem', ['moduleId' => Session::get('set_id'), 'id' => $item['id']]) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
 			                                <li class="list-inline-item">
 			                                    {!! Form::open([
 			                                        'class'=>'delete',
-			                                        'url'  => route(ADMIN . '.items.destroyitem', $item['id']), 
+			                                        'url'  => route(config('pakka.prefix.admin'). '.items.destroyitem', $item['id']), 
 			                                        'method' => 'DELETE',
 			                                        ]) 
 			                                    !!}
@@ -210,13 +210,13 @@
 						                </div>
 						                
 						                <div class="item-actions">
-							                <a href="{{ route(ADMIN . '.items.edititem', ['moduleId' => Session::get('set_id'), 'id' => $item['id']]) }}" title="{{ trans('pakka::app.edit_title') }}">
+							                <a href="{{ route(config('pakka.prefix.admin'). '.items.edititem', ['moduleId' => Session::get('set_id'), 'id' => $item['id']]) }}" title="{{ trans('pakka::app.edit_title') }}">
 								                <span class="ti-pencil"></span>
 								            </a>
 								            
 			                                {!! Form::open([
 			                                    'class'=>'delete',
-			                                    'url'  => route(ADMIN . '.items.destroyitem', $item['id']), 
+			                                    'url'  => route(config('pakka.prefix.admin'). '.items.destroyitem', $item['id']), 
 			                                    'method' => 'DELETE',
 			                                    ]) 
 			                                !!}

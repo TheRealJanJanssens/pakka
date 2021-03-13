@@ -36,7 +36,7 @@
 	            	@foreach ($projects as $project)
 	                    <tr>
 	                        <td>
-		                        <a href="{{ route(ADMIN . '.projects.detail', ['id' => $project['id']]) }}" class="link">{{ $project['name'] }}</a>
+		                        <a href="{{ route(config('pakka.prefix.admin'). '.projects.detail', ['id' => $project['id']]) }}" class="link">{{ $project['name'] }}</a>
 		                    </td>
 	                        <td>
 		                        @if ($project['status'] == 1)

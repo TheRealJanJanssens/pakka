@@ -10,7 +10,7 @@
 
 @section('content')
 	{!! Form::open([
-			'action' => ['CartServiceController@store'],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\CartServiceController@store'],
 			'files' => true
 		])
 	!!}

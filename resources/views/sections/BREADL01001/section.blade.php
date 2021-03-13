@@ -5,7 +5,7 @@
 		        <a href="/" >Home</a>
 		        
 		        @if(isset(Request()->param1))
-		        	@php($pageName = App\Translation::getTranslation(Route::getCurrentRoute()->getAction()['pageName']))
+		        	@php($pageName = TheRealJanJanssens\Pakka\Models\Translation::getTranslation(Route::getCurrentRoute()->getAction()['pageName']))
 		        	@if(strtolower($settings['role_product_detail']) !== strtolower($pageName))
 		        		<i class="fa fa-chevron-right type--fade type--fine-print mx-2"></i>
 						<a href="{{ Route::getCurrentRoute()->getCompiled()->getStaticPrefix() }}">{{ $pageName }}</a>
@@ -18,7 +18,7 @@
 					<a href="{{ Request::url() }}">{!! ucfirst(deslugify(Request()->param2)) !!}</a>
 				@else
 					<i class="fa fa-chevron-right type--fade type--fine-print mx-2"></i>
-			        <a href="{{ Request::url() }}">{!! App\Translation::getTranslation(Route::getCurrentRoute()->getAction()['pageName']) !!}</a>
+			        <a href="{{ Request::url() }}">{!! TheRealJanJanssens\Pakka\Models\Translation::getTranslation(Route::getCurrentRoute()->getAction()['pageName']) !!}</a>
 		        @endif
 
 		    </div>

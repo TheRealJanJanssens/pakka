@@ -3,7 +3,7 @@
 	    <div class="row">
 	        <div class="col-md-12">
 		        <?php
-                    $collections = App\Collection::getCollections(1);
+                    $collections = TheRealJanJanssens\Pakka\Models\Collection::getCollections(1);
                 ?>
 
                 @foreach($collections as $collection)

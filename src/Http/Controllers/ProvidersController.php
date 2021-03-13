@@ -24,7 +24,7 @@ class ProvidersController extends Controller
     {
       $providers = Provider::getProviders();
 
-      return view('admin.providers.index', compact('providers'));
+      return view('pakka::admin.providers.index', compact('providers'));
     }
 
     /**
@@ -34,7 +34,7 @@ class ProvidersController extends Controller
      */
     public function create()
     {
-      return view('admin.providers.create')->with('warning','test');
+      return view('pakka::admin.providers.create')->with('warning','test');
     }
 
     /**
@@ -54,7 +54,7 @@ class ProvidersController extends Controller
         ProviderSchedule::storeSchedule($provider['id'], $array['schedule']);
       }
 	
-      return redirect()->route(ADMIN . '.providers.index')->withSuccess(trans('app.success_store'));
+      return redirect()->route(config('pakka.prefix.admin'). '.providers.index')->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -78,7 +78,7 @@ class ProvidersController extends Controller
     {
 		  $provider = Provider::getProvider($id);
 
-      return view('admin.providers.edit', compact('provider'));
+      return view('pakka::admin.providers.edit', compact('provider'));
     }
 
     /**
@@ -100,7 +100,7 @@ class ProvidersController extends Controller
         ProviderSchedule::storeSchedule($id, $array['schedule']);
       }
 
-      return redirect()->route(ADMIN . '.providers.index')->withSuccess(trans('app.success_update'));
+      return redirect()->route(config('pakka.prefix.admin'). '.providers.index')->withSuccess(trans('app.success_update'));
     }
 
     /**

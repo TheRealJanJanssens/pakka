@@ -1,5 +1,5 @@
 {!! Form::open([
-		'action' => ['BookingController@store'],
+		'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\BookingController@store'],
 		'method' => 'post',
 		'class' => 'booking-form', 
 		'files' => true

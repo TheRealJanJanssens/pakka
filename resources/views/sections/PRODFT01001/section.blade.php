@@ -17,12 +17,12 @@
             <div class="col">
                 <div class="slider" {{ parseSecAttr('.slider', $section['attributes']) }}>                
 	                <?php
-		                $products = App\Product::getProducts(1, $sort = "desc", 10);
+		                $products = TheRealJanJanssens\Pakka\Models\Product::getProducts(1, $sort = "desc", 10);
 	                ?>
 	                
 	                @foreach($products as $product)
 	                	<?php
-		                	$jsonStock = App\Product::getStockJson($product['stocks']);
+		                	$jsonStock = TheRealJanJanssens\Pakka\Models\Product::getStockJson($product['stocks']);
 	                	?>
 	                	<div class="p-3">
 		                	<a href="{!! url('/'.$settings['role_product_detail'].'/'.$product['id'].'/'.$product['slug']) !!}" class="product boxed p-0 e {{ parseSecAttr('.e', $section['classes']) }}">

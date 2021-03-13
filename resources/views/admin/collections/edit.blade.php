@@ -10,7 +10,7 @@
 
 @section('content')
 	{!! Form::model($collection, [
-			'action' => ['CollectionController@update', $collection['id']],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\CollectionController@update', $collection['id']],
 			'method' => 'put', 
 			'files' => true
 		])

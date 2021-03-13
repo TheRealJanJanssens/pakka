@@ -11,7 +11,7 @@
 @section('content')
 
     <div class="mB-20">
-        <a href="{{ route(ADMIN . '.providers.create') }}" class="btn btn-info">
+        <a href="{{ route(config('pakka.prefix.admin'). '.providers.create') }}" class="btn btn-info">
             {{ trans('pakka::app.add_button') }}
         </a>
     </div>
@@ -29,15 +29,15 @@
             <tbody>
                 @foreach ($providers as $provider)
                     <tr>
-                        <td><a href="{{ route(ADMIN . '.providers.edit', $provider['id']) }}">{{ $provider['name'] }}</a></td>
+                        <td><a href="{{ route(config('pakka.prefix.admin'). '.providers.edit', $provider['id']) }}">{{ $provider['name'] }}</a></td>
                         <td>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <a href="{{ route(ADMIN . '.providers.edit', $provider['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+                                    <a href="{{ route(config('pakka.prefix.admin'). '.providers.edit', $provider['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
                                 <li class="list-inline-item">
                                     {!! Form::open([
                                         'class'=>'delete',
-                                        'url'  => route(ADMIN . '.providers.destroy', $provider['id']), 
+                                        'url'  => route(config('pakka.prefix.admin'). '.providers.destroy', $provider['id']), 
                                         'method' => 'DELETE',
                                         ]) 
                                     !!}

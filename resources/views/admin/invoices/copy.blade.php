@@ -6,7 +6,7 @@
 
 @section('content')
 	{!! Form::model($document, [
-			'action' => ['InvoiceController@store'],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\InvoiceController@store'],
 			'files' => true
 		])
 	!!}

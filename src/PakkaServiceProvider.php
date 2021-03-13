@@ -5,25 +5,16 @@ namespace TheRealJanJanssens\Pakka;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use TheRealJanJanssens\Pakka\Commands\ShowTextCommand;
-
 class PakkaServiceProvider extends PackageServiceProvider
 {
     public function bootingPackage(){
-        // Load the helpers in app/Http/helpers.php
-        if (file_exists($file = __DIR__.'/helpers.php'))
-        {
-            require $file;
-        }
-
-        if (file_exists($file = __DIR__.'/Macros/form.php'))
-        {
-            require $file;
-        }
-
         $this->publishes([
             // Config
             __DIR__.'/../config/database.php' => config_path('database.php'),
             __DIR__.'/../config/pakka.php' => config_path('pakka.php'),
+            __DIR__.'/../config/image.php' => config_path('image.php'),
+            __DIR__.'/../config/settings.php' => config_path('settings.php'),
+            __DIR__.'/../config/_fonts.php' => config_path('_fonts.php'),
 
             // NPM json
             __DIR__.'/../resources/dev/package.json' => base_path('package.json'),
@@ -37,6 +28,9 @@ class PakkaServiceProvider extends PackageServiceProvider
             // Kernel
             __DIR__.'/../src/Http/Kernel/Kernel.php' => app_path('Http/Kernel.php'),
 
+            //Auth
+            //__DIR__.'/../src/Http/Controllers/Auth' => app_path('Http/Controllers/Auth'),
+            
             // Storage Assets
             __DIR__.'/../storage/analytics' => storage_path('app/analytics'),
             __DIR__.'/../storage/fonts' => storage_path('fonts'),
@@ -60,8 +54,19 @@ class PakkaServiceProvider extends PackageServiceProvider
         //     __DIR__.'/../resources/sass' => resource_path('pakka/sass'),
 
         // ], 'pakka-dev');
-    }
 
+        // Load the helpers in app/Http/helpers.php
+        if (file_exists($file = __DIR__.'/helpers.php'))
+        {
+            require $file;
+        }
+
+        if (file_exists($file = __DIR__.'/Macros/form.php'))
+        {
+            require $file;
+        }
+    }
+    
     public function configurePackage(Package $package): void
     {
         /*

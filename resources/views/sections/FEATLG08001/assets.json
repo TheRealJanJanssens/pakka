@@ -3,18 +3,18 @@
 	"attributes":"a:1:{s:2:\".e\";s:16:\"data-overlay='5'\";}",
 	"extras":"",
 	"css":[
-		"css/components/bootstrap.css",
-		"css/components/stack-interface.css",
-		"css/components/slick.css",
-		"css/components/theme.css",
-		"css/components/custom.css"
+		"vendor/css/components/bootstrap.css",
+		"vendor/css/components/stack-interface.css",
+		"vendor/css/components/slick.css",
+		"vendor/css/components/theme.css",
+		"vendor/css/components/custom.css"
 	],
 	"js":[
-		"js/components/jquery-3.1.1.min.js",
-		"js/components/parallax.js",
-		"js/components/slick.min.js",
-		"js/components/smooth-scroll.min.js",
-		"js/components/scripts.js"
+		"vendor/js/components/jquery-3.1.1.min.js",
+		"vendor/js/components/parallax.js",
+		"vendor/js/components/slick.min.js",
+		"vendor/js/components/smooth-scroll.min.js",
+		"vendor/js/components/scripts.js"
 	],
 	"editable":[
 		"text_alignment",

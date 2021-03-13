@@ -6,7 +6,7 @@
 
 @section('content')
 	{!! Form::open([
-			'action' => ['ClientController@store'],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\ClientController@store'],
 			'files' => true
 		])
 	!!}

@@ -2,14 +2,14 @@
     <div class="container">
         <div class="row justify-content-around">
 	        
-	        @php( $product = App\Product::getProduct( Request()->param1 ) )
+	        @php( $product = TheRealJanJanssens\Pakka\Models\Product::getProduct( Request()->param1 ) )
 
 			@if(!empty($product))
 				
 	            <?php   
 		            //dd($product);
 	                
-	                $jsonStock = App\Product::getStockJson($product['stocks']);
+	                $jsonStock = TheRealJanJanssens\Pakka\Models\Product::getStockJson($product['stocks']);
 	            ?>
 		        
 	            <div class="col-md-7 col-lg-6">

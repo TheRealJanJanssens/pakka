@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
-use App\CollectionCondition;
+use TheRealJanJanssens\Pakka\Models\CollectionCondition;
 
 use Session;
 use Cache;

@@ -45,7 +45,6 @@ class WebsiteController extends Controller
 			
 			Session::put('locale', $locale);
 			App::setLocale($locale);
-			
 		}else{
 	        foreach(Session::get("lang") as $lang){
 		        if($request->locale == $lang['language_code']){
@@ -90,7 +89,7 @@ class WebsiteController extends Controller
 	    }
 */
 	    
-	    return view(Route::currentRouteName(), compact('page'));
+	    return view('pakka::'.Route::currentRouteName(), compact('page'));
     }
     
     public function sendMail(Request $request, $ajax = null)

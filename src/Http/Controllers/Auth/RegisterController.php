@@ -2,10 +2,12 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers\Auth;
 
-use TheRealJanJanssens\Pakka\Models\User;
 use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use App\Providers\RouteServiceProvider;
+use TheRealJanJanssens\Pakka\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -27,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -36,7 +38,6 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-	    constructGlobVars();
         $this->middleware('guest');
     }
 
@@ -59,14 +60,14 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => $data['password'],
+            'password' => Hash::make($data['password']),
         ]);
     }
 }

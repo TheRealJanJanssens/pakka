@@ -2,6 +2,19 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.0.3 - 2020-03-xx
+
+- Helper constructAttributes fix (setAttribute and null failsafes)
+- Added a functionality to support custom sections
+- General Section fixes to address namespace errors
+- Linked font config
+- Linked section css and js
+- Product model convert to objects
+- Connect image config file
+- Resolved "ADMIN . " issues
+- Resolved Form actions
+- Resolved route() issues in controllers
+
 ## 0.0.2 - 2020-02-27
 
 - Dev require Psalm

@@ -11,7 +11,7 @@
 @section('content')
 
 	<div class="mB-20">
-        <a href="{{ route(ADMIN . '.items.createinput', Session::get('module_id')) }}" class="btn btn-info">
+        <a href="{{ route(config('pakka.prefix.admin'). '.items.createinput', Session::get('module_id')) }}" class="btn btn-info">
             Input {{ trans('pakka::app.add_button') }}
         </a>
     </div>
@@ -40,7 +40,7 @@
                     <tr class="item" data-id="{{ $input['id'] }}" data-position="">
                         <td>
 	                        <i class="handle ti-line-double"></i>
-	                        <a href="{{ route(ADMIN . '.items.editinput', [
+	                        <a href="{{ route(config('pakka.prefix.admin'). '.items.editinput', [
 	                        	'moduleId' => Session::get('module_id') , 
 		                    	'id' => $input['id']
 			                ]) }}">{{ $input['label'] }}</a>
@@ -49,14 +49,14 @@
                         <td>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <a href="{{ route(ADMIN . '.items.editinput', [
+                                    <a href="{{ route(config('pakka.prefix.admin'). '.items.editinput', [
 			                        	'moduleId' => Session::get('module_id') , 
 				                    	'id' => $input['id']
 					                ]) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
                                 <li class="list-inline-item">
                                     {!! Form::open([
                                         'class'=>'delete',
-                                        'url'  => route(ADMIN . '.items.destroyinput', $input['input_id']), 
+                                        'url'  => route(config('pakka.prefix.admin'). '.items.destroyinput', $input['input_id']), 
                                         'method' => 'DELETE',
                                         ]) 
                                     !!}

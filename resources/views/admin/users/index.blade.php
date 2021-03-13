@@ -7,7 +7,7 @@
 @section('content')
 
     <div class="mB-20">
-        <a href="{{ route(ADMIN . '.users.create') }}" class="btn btn-info">
+        <a href="{{ route(config('pakka.prefix.admin'). '.users.create') }}" class="btn btn-info">
             {{ trans('pakka::app.add_button') }}
         </a>
     </div>
@@ -37,16 +37,16 @@
                 @foreach ($items as $item)
                 	@if(($item->role == 10 && checkAcces("permission_user_admin_edit")) || $item->role !== 10)
 	                    <tr>
-	                        <td><a href="{{ route(ADMIN . '.users.edit', $item->id) }}">{{ $item->name }}</a></td>
+	                        <td><a href="{{ route(config('pakka.prefix.admin'). '.users.edit', $item->id) }}">{{ $item->name }}</a></td>
 	                        <td>{{ $item->email }}</td>
 	                        <td>
 	                            <ul class="list-inline">
 	                                <li class="list-inline-item">
-	                                    <a href="{{ route(ADMIN . '.users.edit', $item->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+	                                    <a href="{{ route(config('pakka.prefix.admin'). '.users.edit', $item->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
 	                                <li class="list-inline-item">
 	                                    {!! Form::open([
 	                                        'class'=>'delete',
-	                                        'url'  => route(ADMIN . '.users.destroy', $item->id), 
+	                                        'url'  => route(config('pakka.prefix.admin'). '.users.destroy', $item->id), 
 	                                        'method' => 'DELETE',
 	                                        ]) 
 	                                    !!}

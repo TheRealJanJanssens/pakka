@@ -6,7 +6,7 @@
 
 @section('content')
 	{!! Form::model($item, [
-			'action' => ['MenuController@updateMenu', $item->id],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\MenuController@updateMenu', $item->id],
 			'method' => 'put', 
 			'files' => true
 		])

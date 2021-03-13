@@ -26,7 +26,7 @@ class BookingController extends Controller
     public function index()
     {
       $services = Service::getServices();
-      return view('admin.bookings.index', compact('services'));
+      return view('pakka::admin.bookings.index', compact('services'));
     }
 
     /**
@@ -36,7 +36,7 @@ class BookingController extends Controller
      */
     public function create()
     {
-      return view('admin.bookings.create');
+      return view('pakka::admin.bookings.create');
     }
 
     /**
@@ -51,7 +51,7 @@ class BookingController extends Controller
 	    $inputs = Booking::convertDates($request->all());
       $bookings = Booking::create($inputs);
 
-      //return redirect()->route(ADMIN . '.bookings.index')->withSuccess(trans('app.success_store'));
+      //return redirect()->route(config('pakka.prefix.admin'). '.bookings.index')->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -75,7 +75,7 @@ class BookingController extends Controller
     {
 		  $booking = Booking::getBooking($id);
 		
-      return view('admin.bookings.edit', compact('booking'));
+      return view('pakka::admin.bookings.edit', compact('booking'));
     }
 
     /**
@@ -93,7 +93,7 @@ class BookingController extends Controller
       $inputs = Booking::convertDates($request->all());
       $booking->update($inputs);
       
-      //return redirect()->route(ADMIN . '.bookings.index')->withSuccess(trans('app.success_update'));
+      //return redirect()->route(config('pakka.prefix.admin'). '.bookings.index')->withSuccess(trans('app.success_update'));
     }
 
     /**

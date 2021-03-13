@@ -11,7 +11,7 @@
 @section('content')
 
     <div class="mB-20">
-        <a href="{{ route(ADMIN . '.shipments.create') }}" class="btn btn-info">
+        <a href="{{ route(config('pakka.prefix.admin'). '.shipments.create') }}" class="btn btn-info">
             {{ trans('pakka::app.add_button') }}
         </a>
     </div>
@@ -32,7 +32,7 @@
             <tbody>
                 @foreach ($shipments as $shipment)
                     <tr>
-                        <td><a href="{{ route(ADMIN . '.shipments.edit', $shipment['id']) }}">{{ $shipment['name'] }}</a></td>
+                        <td><a href="{{ route(config('pakka.prefix.admin'). '.shipments.edit', $shipment['id']) }}">{{ $shipment['name'] }}</a></td>
                         <td>
 	                        <b>€{{ $shipment['price'] }}</b>
                         </td>
@@ -52,11 +52,11 @@
                         <td>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <a href="{{ route(ADMIN . '.shipments.edit', $shipment['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+                                    <a href="{{ route(config('pakka.prefix.admin'). '.shipments.edit', $shipment['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
                                 <li class="list-inline-item">
                                     {!! Form::open([
                                         'class'=>'delete',
-                                        'url'  => route(ADMIN . '.shipments.destroy', $shipment['id']), 
+                                        'url'  => route(config('pakka.prefix.admin'). '.shipments.destroy', $shipment['id']), 
                                         'method' => 'DELETE',
                                         ]) 
                                     !!}

@@ -14,7 +14,7 @@ use TheRealJanJanssens\Pakka\Models\InvoiceDetail;
 
 use PDF;
 
-use App\Translation;
+use TheRealJanJanssens\Pakka\Models\Translation;
 
 class OrderController extends Controller
 {
@@ -32,7 +32,7 @@ class OrderController extends Controller
     public function index()
     {   
         $orders = Order::getOrders();
-        return view('admin.orders.index', compact('orders'));
+        return view('pakka::admin.orders.index', compact('orders'));
     }
 
     /**
@@ -65,7 +65,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Order::getOrder($id);
-        return view('admin.orders.detail', compact('order'));
+        return view('pakka::admin.orders.detail', compact('order'));
     }
 
     /**
@@ -106,7 +106,7 @@ class OrderController extends Controller
     {
 		$order = Order::getOrder($id);
 		
-        return view('admin.orders.form_details', compact('order'));
+        return view('pakka::admin.orders.form_details', compact('order'));
     }
     
     public function updateDetails(Request $request, $id)
@@ -154,14 +154,14 @@ class OrderController extends Controller
 		
 		$orderDetails->update($array);
 		
-        return redirect()->route(ADMIN . '.orders.show', $orderDetails->order_id)->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.orders.show', $orderDetails->order_id)->withSuccess(trans('app.success_update'));
     }
     
     public function editShipment($id)
     {
 		$order = Order::getOrder($id);
 		
-        return view('admin.orders.form_shipment', compact('order'));
+        return view('pakka::admin.orders.form_shipment', compact('order'));
     }
     
     public function updateShipment(Request $request, $id)
@@ -174,7 +174,7 @@ class OrderController extends Controller
 			Order::resendShippingMail($item->order_id);
 		}
 		
-        return redirect()->route(ADMIN . '.orders.show', $item->order_id)->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.orders.show', $item->order_id)->withSuccess(trans('app.success_update'));
     }
     
     public function viewPackslip($id)

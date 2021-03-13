@@ -27,7 +27,7 @@
             <tbody>
                 @foreach ($orders as $order)
                     <tr>
-                        <td><a href="{{ route(ADMIN . '.orders.show', $order['id']) }}">{{ $order['order_id'] }}</a></td>
+                        <td><a href="{{ route(config('pakka.prefix.admin'). '.orders.show', $order['id']) }}">{{ $order['order_id'] }}</a></td>
                         <td>
 	                        <p>{{ $order['firstname'] }} {{ $order['lastname'] }}</p>
                         </td>
@@ -46,7 +46,7 @@
                         <td>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <a href="{{ route(ADMIN . '.orders.show', $order['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-eye"></span></a></li>
+                                    <a href="{{ route(config('pakka.prefix.admin'). '.orders.show', $order['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-eye"></span></a></li>
                             </ul>
                         </td>
                     </tr>

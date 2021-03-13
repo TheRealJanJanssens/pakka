@@ -24,7 +24,7 @@ class CouponController extends Controller
     {
         $coupons = Coupon::getCoupons();
 
-        return view('admin.coupons.index', compact('coupons'));
+        return view('pakka::admin.coupons.index', compact('coupons'));
     }
 
     /**
@@ -34,7 +34,7 @@ class CouponController extends Controller
      */
     public function create()
     {
-        return view('admin.coupons.create');
+        return view('pakka::admin.coupons.create');
     }
 
     /**
@@ -49,7 +49,7 @@ class CouponController extends Controller
 	    $inputs = Coupon::convertDates($request->all());
         $coupon = Coupon::create($inputs);
 		
-        return redirect()->route(ADMIN . '.coupons.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.coupons.index')->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -73,7 +73,7 @@ class CouponController extends Controller
     {
 		$coupon = Coupon::getCoupon($id);
 		
-        return view('admin.coupons.edit', compact('coupon'));
+        return view('pakka::admin.coupons.edit', compact('coupon'));
     }
 
     /**
@@ -91,7 +91,7 @@ class CouponController extends Controller
         $coupon = Coupon::findOrFail($id);
         $coupon->update($inputs);
 
-        return redirect()->route(ADMIN . '.coupons.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.coupons.index')->withSuccess(trans('app.success_update'));
     }
 
     /**

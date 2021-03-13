@@ -38,7 +38,6 @@
                     <div class="container-fluid">
 						
 						@include('pakka::admin.partials.messages')
-						
 						@if(View::hasSection('page-header'))
 					        <h4 class="c-grey-900 mT-10 mB-30">@yield('page-header')</h4>
 					    @endif

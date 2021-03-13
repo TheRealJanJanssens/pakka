@@ -19,8 +19,7 @@ class ImageController extends Controller
 	public function __construct()
     {
 	    $this->middleware('auth');
-	    
-	    //Cache::tags('content')->flush();
+	    Cache::tags('content')->flush();
 	    
         constructGlobVars();
     }

@@ -62,14 +62,14 @@ class InputController extends Controller
 		    $inputs = AttributeInput::getInputs();
 	    }
 	    
-        return view('admin.inputs.index', compact('inputs'));
+        return view('pakka::admin.inputs.index', compact('inputs'));
     }
     
     public function create($setId)
     {
 	    $this->constructSetId($setId);
 	    
-        return view('admin.inputs.create');
+        return view('pakka::admin.inputs.create');
     }
     
     public function store(Request $request)
@@ -83,7 +83,7 @@ class InputController extends Controller
         
         AttributeInput::create($result);
 
-        return redirect()->route(ADMIN . '.inputs.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));
     }
     
     public function edit($setId, $id)
@@ -92,7 +92,7 @@ class InputController extends Controller
 	    
 	    $input = AttributeInput::getInput($id);
 	    //return $input;
-        return view('admin.inputs.edit', compact('input'));
+        return view('pakka::admin.inputs.edit', compact('input'));
     }
     
     public function update(Request $request, $id)
@@ -111,7 +111,7 @@ class InputController extends Controller
         
         $input->update($result);
 		
-        return redirect()->route(ADMIN . '.inputs.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));     
+        return redirect()->route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));     
     }
     
     public function destroy($id)
@@ -119,7 +119,7 @@ class InputController extends Controller
 	    AttributeInput::where('input_id',$id)->delete();
 	    AttributeOption::where('input_id',$id)->delete();
 	    AttributeValue::where('input_id',$id)->delete();
-        return redirect()->route(ADMIN . '.inputs.index', Session::get('set_id'))->withSuccess(trans('app.success_store')); 
+        return redirect()->route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id'))->withSuccess(trans('app.success_store')); 
     }
     
     public function destroyOption($id)

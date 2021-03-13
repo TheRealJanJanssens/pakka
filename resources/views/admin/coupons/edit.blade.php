@@ -10,7 +10,7 @@
 
 @section('content')
 	{!! Form::model($coupon, [
-			'action' => ['CouponController@update', $coupon['id']],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\CouponController@update', $coupon['id']],
 			'method' => 'put', 
 			'files' => true
 		])

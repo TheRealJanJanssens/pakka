@@ -10,7 +10,7 @@
 
 @section('content')
 	{!! Form::model($shipment, [
-			'action' => ['ShipmentController@update', $shipment['id']],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\ShipmentController@update', $shipment['id']],
 			'method' => 'put', 
 			'files' => true
 		])

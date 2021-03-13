@@ -7,7 +7,7 @@
 @section('content')
 
 	{!! Form::model($input, [
-			'action' => ['ItemController@updateInput', $input['id']], 
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\ItemController@updateInput', $input['id']], 
 			'method' => 'put',
 			'files' => true
 		])

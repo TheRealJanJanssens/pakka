@@ -7,7 +7,7 @@
 @section('content')
 
     <div class="mB-30">
-        <a href="{{ route(ADMIN . '.invoices.create') }}" class="btn btn-primary-gradient">
+        <a href="{{ route(config('pakka.prefix.admin'). '.invoices.create') }}" class="btn btn-primary-gradient">
 	        <i class="ti-plus mR-10"></i>
             {{ trans('pakka::app.add_button') }}
         </a>
@@ -148,10 +148,10 @@
 <!--                         <td>{{ formatDate($item['date']) }}</td> -->
                         
                         <td>
-	                        <a href="{{ route(ADMIN . '.invoices.edit', $item['id']) }}">{{ $item['invoice_no'] }}</a>
+	                        <a href="{{ route(config('pakka.prefix.admin'). '.invoices.edit', $item['id']) }}">{{ $item['invoice_no'] }}</a>
 	                    </td>
 	                    
-                        <td><a href="{{ route(ADMIN . '.clients.edit', $item['client_id']) }}">{{ $item['client_name'] }}</td>
+                        <td><a href="{{ route(config('pakka.prefix.admin'). '.clients.edit', $item['client_id']) }}">{{ $item['client_name'] }}</td>
                         <td>
 	                        <b>
 	                        <?php
@@ -200,11 +200,11 @@
                         <td>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <a href="{{ route(ADMIN . '.invoices.edit', $item['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary-gradient btn-sm"><span class="ti-pencil"></span></a></li>
+                                    <a href="{{ route(config('pakka.prefix.admin'). '.invoices.edit', $item['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary-gradient btn-sm"><span class="ti-pencil"></span></a></li>
                                 <li class="list-inline-item">
                                     {!! Form::open([
                                         'class'=>'delete',
-                                        'url'  => route(ADMIN . '.invoices.destroy', $item['id']), 
+                                        'url'  => route(config('pakka.prefix.admin'). '.invoices.destroy', $item['id']), 
                                         'method' => 'DELETE',
                                         ]) 
                                     !!}
@@ -218,7 +218,7 @@
                                 	<span>
                                 		<i class="ti-more-alt" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                 		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
-	                                		<a class="dropdown-item" href="{{ route(ADMIN . '.invoices.copy', $item['id']) }}"><i class="ti-layers text-primary mR-10"></i>{{ trans('pakka::app.copy_document') }}</a>
+	                                		<a class="dropdown-item" href="{{ route(config('pakka.prefix.admin'). '.invoices.copy', $item['id']) }}"><i class="ti-layers text-primary mR-10"></i>{{ trans('pakka::app.copy_document') }}</a>
 	                                		<a class="dropdown-item" href="/view/invoice/{{ $item['id'] }}" target="_blank"><i class="ti-file text-primary mR-10"></i>{{ trans('pakka::app.view_document') }}</a>
 	                                		<a class="dropdown-item" href="/download/invoice/{{ $item['id'] }}"><i class="ti-download text-primary mR-10"></i>{{ trans('pakka::app.download_document') }}</a>
 <!-- 	                                		<a class="dropdown-item" href="#"><i class="ti-email mR-10"></i>{{ trans('pakka::app.send_to_client') }}</a> -->

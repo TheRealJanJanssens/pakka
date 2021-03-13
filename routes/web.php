@@ -307,7 +307,7 @@ Route::group([
 			//Makes a duplicate route to set a homepage (/) of the first page
 			Route::get("/", [
 				'as' => $page['template'], 
-				'uses' => [WebsiteController::class, 'index'], 
+				'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
 				'pageId' => $page['id'], 
 				'pageName' => $page['trans_name']
 			]);
@@ -317,14 +317,14 @@ Route::group([
 		//route without locale
 		Route::get($page['slug']."/{param1?}/{param2?}", [
 			'as' => $page['template'], 
-			'uses' => [WebsiteController::class, 'index'], 
+			'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
 			'pageId' => $page['id'], 
 			'pageName' =>  $page['trans_name']
 		]);
 		
 	 	Route::get("{locale?}/".$page['slug']."/{param1?}/{param2?}", [
 		 	'as' => $page['template'], 
-		 	'uses' => [WebsiteController::class, 'index'], 
+		 	'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
 		 	'pageId' => $page['id'], 
 		 	'pageName' =>  $page['trans_name']
 	 	]);

@@ -33,7 +33,7 @@ class InvoiceController extends Controller
     {
         $items = Invoice::getInvoices();
 
-        return view('admin.invoices.index', compact('items'));
+        return view('pakka::admin.invoices.index', compact('items'));
     }
 	
 	public function saveInvoice($request, $id=null){
@@ -146,7 +146,7 @@ class InvoiceController extends Controller
     public function create()
     {
 	    $document = Invoice::getNewInvoiceDetails();
-        return view('admin.invoices.create', compact('document'));
+        return view('pakka::admin.invoices.create', compact('document'));
     }
 
     /**
@@ -206,7 +206,7 @@ class InvoiceController extends Controller
 			$document['other_shipping_info'] = 1;
 		}
 		
-        return view('admin.invoices.edit', compact('document'));
+        return view('pakka::admin.invoices.edit', compact('document'));
     }
 
     /**
@@ -244,7 +244,7 @@ class InvoiceController extends Controller
 		if($document['ship_address']){
 			$document['other_shipping_info'] = 1;
 		}
-        return view('admin.invoices.copy', compact('document'));
+        return view('pakka::admin.invoices.copy', compact('document'));
     }
 	
     /**

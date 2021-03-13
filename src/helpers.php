@@ -1,14 +1,16 @@
 <?php 
-
-use Illuminate\Support\Facades\Auth;
-
 /*
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Html\Facades\Form;
 */
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+
+
 //use Session;
+//use Auth;
 use TheRealJanJanssens\Pakka\Models\Menu;
 use TheRealJanJanssens\Pakka\Models\MenuItem;
 use TheRealJanJanssens\Pakka\Models\Translation;
@@ -245,22 +247,22 @@ if (! function_exists('constructGlobVars')) {
 			exit();
 		}
 		
-	    if(Auth::user()){
-        $userId = auth()->user()->id;
-        
-        if(Session::get('logged_in') == false){
-	        //refreshes session variables when logged in and register it
-	        Session::forget('settings');
-	        Session::forget('menus');
-	        Session::put('logged_in', true);
-        }
-        
-      }else{
-        Session::put('logged_in', false);
-      }
+	    if(Auth::check()){
+			$userId = auth()->user()->id;
+			
+			if(Session::get('logged_in') == false){
+				//refreshes session variables when logged in and register it
+				Session::forget('settings');
+				Session::forget('menus');
+				Session::put('logged_in', true);
+			}
+			
+		}else{
+			Session::put('logged_in', false);
+		}
       
-      if(!Session::has('locale')){
-        $locale = App::getLocale();
+      	if(!Session::has('locale')){
+        	$locale = App::getLocale();
 	    	Session::put('locale', $locale);
 	    }else{
 		    $locale = Session::get('locale');
@@ -336,7 +338,7 @@ if (! function_exists('constructGlobVars')) {
 			   	}
 		   	}
 	   }
-	   
+	   echo Auth::check();
 	}
 }
 
@@ -465,6 +467,22 @@ if (! function_exists('getBladeList')) {
 
 /*
 |--------------------------------------------------------------------------
+| Get json
+|--------------------------------------------------------------------------
+|
+| Gets and decodes json from a local file
+| $path = file path
+|
+*/
+
+if (! function_exists('getJson')) {
+	function getJson($path){
+		return json_decode(file_get_contents($path),true);
+	}
+}
+
+/*
+|--------------------------------------------------------------------------
 | Gets component metadata
 |--------------------------------------------------------------------------
 |
@@ -477,11 +495,22 @@ if (! function_exists('getBladeList')) {
 
 if (! function_exists('getCompMeta')) {
 	function getCompMeta($name,$data){
+		//Get File if exists in 
 		$path = resource_path('views/sections/'.$name.'/'.$data.'.json');
 		if(file_exists($path)){
-			$string = file_get_contents($path);
-			$result = json_decode($string,true);
-			return $result;
+			return getJson($path);
+		}
+
+		//Get File if exists in production package
+		$path = base_path('vendor/TheRealJanJanssens/resources/views/sections/'.$name.'/'.$data.'.json');
+		if(file_exists($path)){
+			return getJson($path);
+		}
+
+		//Get File if exists in development package
+		$path = base_path('package/resources/views/sections/'.$name.'/'.$data.'.json');
+		if(file_exists($path)){
+			return getJson($path);
 		}
 	}
 }
@@ -1009,22 +1038,22 @@ if (! function_exists('constructTranslatableValues')) {
 		    }
 		    
 		    foreach($item->getAttributes() as $key => $value){
-          $iI=0;
-          
-          if(in_array($key, $inputs) && isset($languageCodes)){
-            $options = explode("(~)", $value);
-            
-            foreach($languageCodes as $languageCode){
-	            $result[$i]['translation_id'][$key] = $array[$i][$key.'_trans'];
-					    $result[$i][$languageCode.':'.$key] = $options[$iI];
-					    $iI++;
-				    }
-				    
-				    unset($array[$i][$key.'_trans']);
-				    unset($array[$i][$key]);
-          }else{
-            $result[$i][$key] = $value;
-          }
+			//foreach($item as $key => $value){	
+				$iI=0;
+				if(in_array($key, $inputs) && isset($languageCodes)){
+					$options = explode("(~)", $value);
+
+					foreach($languageCodes as $languageCode){
+						$result[$i]['translation_id'][$key] = $array[$i][$key.'_trans'];
+						$result[$i][$languageCode.':'.$key] = $options[$iI];
+						$iI++;
+					}
+					
+					unset($array[$i][$key.'_trans']);
+					unset($array[$i][$key]);
+				}else{
+					$result[$i][$key] = $value;
+				}
 		    }
 		    $i++;
 	    }
@@ -1052,23 +1081,45 @@ if (! function_exists('constructTranslatableValues')) {
 |
 */
 
+// if (! function_exists('constructAttributes')) {    
+// 	function constructAttributes($items,$mode = 1){
+// 		$items->map(function ($item, $mode) {
+
+// 			dd($item);
+
+// 			if(isset($item->images)){
+// 				//CONSTRUCT IMAGES
+// 				if($item['images'] !== null){
+// 					$images = explode("(~)", $item['images']);
+// 					$item["images"] = $images;
+// 				}else{
+// 					//fixes PHP Laravel Error: Trying to access array offset on value of type null introduced in php 7.4. This fix doesn't throw an error but is not a clean solution. This same fixed is not made within mode 2 because it will display an image in the dropzone editor that is not present.
+// 					$item['images'][0] = null;
+// 				}
+// 			}
+
+// 			$item[$key] = $val;
+// 			$item["attributes"][$key] = $val; //gets used in product sections
+
+// 			dd($item);
+
+// 			return $item;
+// 		});
+// 	}
+// }
+
 if (! function_exists('constructAttributes')) {    
     function constructAttributes($items,$mode = 1){
 	    
 	    $i = 0;
 	    foreach($items as $item){
-		    
-		    if(isset($item->images)){
-			    //CONSTRUCT IMAGES
-			    if($item['images'] !== null){
-				    $images = explode("(~)", $item['images']);
-					$items[$i]["images"] = $images;
-			    }else{
-				    //fixes PHP Laravel Error: Trying to access array offset on value of type null introduced in php 7.4. This fix doesn't throw an error but is not a clean solution. This same fixed is not made within mode 2 because it will display an image in the dropzone editor that is not present.
-				    $items[$i]['images'][0] = null;
-			    }
+			//CONSTRUCT IMAGES
+			$images = [0 => null]; //fixes PHP Laravel Error: Trying to access array offset on value of type null introduced in php 7.4. This fix doesn't throw an error but is not a clean solution. This same fixed is not made within mode 2 because it will display an image in the dropzone editor that is not present.
+		    if(isset($item->images) && !empty($item->images)){
+				$images = explode("(~)", $item['images']);
 		    }
-		    
+			$items[$i]->setAttribute("images", $images);
+			
 		    if(isset($item->attributes)){
 		    	$attributes = explode("(~)", $item['attributes']);
 		    	unset($items[$i]["attributes"]);
@@ -1085,9 +1136,15 @@ if (! function_exists('constructAttributes')) {
 						        	$key = $attribute[0];
 									$val = $attribute[1];
 								
-									$items[$i][$key] = $val;
-									$items[$i]["attributes"][$key] = $val; //gets used in product sections
-					        	}
+									$items[$i]->setAttribute($key, $val);
+
+									$getAttr = [];
+									if($items[$i]->getAttribute("attributes")){
+										$getAttr = $items[$i]->getAttribute("attributes");
+									}
+
+									$items[$i]->setAttribute("attributes", array_merge($getAttr,[$key=>$val])); //gets used in product sections
+								}
 					        	
 					        	$iA++;
 				        	}
@@ -1553,10 +1610,10 @@ if (! function_exists('constructPage')) {
 		        break;
 		}
 		
-		$sectionsHeader = Section::getSectionsByType(1,null,$status);
-	    $sectionsFooter = Section::getSectionsByType(3,null,$status);
+		$sectionsHeader = Section::getSectionsByType(1,null,$status)->toArray();
+	    $sectionsFooter = Section::getSectionsByType(3,null,$status)->toArray();
 
-	    $sections = Section::getSectionsByType(2,$id,$status);
+	    $sections = Section::getSectionsByType(2,$id,$status)->toArray();
 
 	    if(!empty($sectionsHeader)){
 		    $sectionsHeader = array_reverse($sectionsHeader); //to make sure the position is correct otherwise it pushes the last item on top
@@ -1579,6 +1636,10 @@ if (! function_exists('constructPage')) {
 			if(!empty($sectionMeta)){
 				$css = array_merge($css, $sectionMeta["css"]);
 				$js = array_merge($js, $sectionMeta["js"]);
+			}
+
+			if(!isset($sectionMeta["editable"])){
+				$sectionMeta["editable"] = [];
 			}
 			
 			$result['sections'][$i] = $section;
@@ -1626,37 +1687,37 @@ if (! function_exists('constructPage')) {
 		    if($mode == 2){
 		    	$css = array_merge(array(
 			    //below standard resources
-			    "css/components/bootstrap.css",
-				"css/components/stack-interface.css",
-				"css/components/slick.css",
-				"css/components/theme.css",
-				"css/components/custom.css",),$css); //places the css on top to prevent overwritting
+			    "vendor/css/components/bootstrap.css",
+				"vendor/css/components/stack-interface.css",
+				"vendor/css/components/slick.css",
+				"vendor/css/components/theme.css",
+				"vendor/css/components/custom.css",),$css); //places the css on top to prevent overwritting
 			    $js = array_merge($js,array(
 			    //below standard resources
-				"js/components/parallax.js",
-				"js/components/slick.min.js",
-				"js/components/smooth-scroll.min.js",
-				"js/components/scripts.js"));
+				"vendor/js/components/parallax.js",
+				"vendor/js/components/slick.min.js",
+				"vendor/js/components/smooth-scroll.min.js",
+				"vendor/js/components/scripts.js"));
 			}
 	    }
 	    
 	    //Standard editor resources
 	    if($mode == 2){
 	    	$css = array_merge(array(
-		    "css/dropzone.css",
-		    //"css/components/vanilla-color-picker.min.js",
-		    "css/components/builder.css",
-		    "css/components/builder-icons.css",
-		    "css/components/themify-icons-min.css",
-		    "css/components/mediumEditor.css"),$css); //places the css on top to prevent overwritting
+		    "vendor/css/dropzone.css",
+		    //"vendor/css/components/vanilla-color-picker.min.js",
+		    "vendor/css/components/builder.css",
+		    "vendor/css/components/builder-icons.css",
+		    "vendor/css/components/themify-icons-min.css",
+		    "vendor/css/components/mediumEditor.css"),$css); //places the css on top to prevent overwritting
 		    $js = array_merge(array(
-			"js/components/jquery-3.1.1.min.js",
-		    "js/components/jquery-ui-1.12.js",
-		    "js/components/vanilla-color-picker.min.js",
-		    "js/components/custom-item-picker.js",
-		    "js/components/mediumEditor.min.js",
-		    "js/dropzone.js",
-		    "js/components/builder.js"),$js);
+			"vendor/js/components/jquery-3.1.1.min.js",
+		    "vendor/js/components/jquery-ui-1.12.js",
+		    "vendor/js/components/vanilla-color-picker.min.js",
+		    "vendor/js/components/custom-item-picker.js",
+		    "vendor/js/components/mediumEditor.min.js",
+		    "vendor/js/dropzone.js",
+		    "vendor/js/components/builder.js"),$js);
 	    }
 		
 		$result['meta']["css"] = array_unique($css);
@@ -1849,6 +1910,22 @@ if (! function_exists('getSection')) {
 			return $page['sections'][$id];
 		}
     }
+}
+
+if (! function_exists('getSectionView')) {
+	function getSectionView($name){
+		switch (true) {
+			//Get File if exists on app level
+			case file_exists(resource_path('views/sections/'.$name.'/section.blade.php')):
+				return 'sections.'.$name.'.section';
+				break;
+			//Get File if exists on package level
+			case file_exists(base_path('vendor/TheRealJanJanssens/resources/views/sections/'.$name.'/section.blade.php')):
+			case file_exists(base_path('package/resources/views/sections/'.$name.'/section.blade.php')):
+				return 'pakka::sections.'.$name.'.section';
+				break;
+		}
+	}
 }
 
 /*
@@ -2069,7 +2146,7 @@ if (! function_exists('constructMenu')) {
 	        
 	        $result[$menuId] = $menu;
 	        
-	        $items = MenuItem::getMenuItems($menuId,$currentAuth);
+	        $items = MenuItem::getMenuItems($menuId,$currentAuth)->toArray();
 	        	        
 	        //Duplicate $items with true position for constructing parents
 	        $itemsDuplicate = $items;
@@ -2139,7 +2216,7 @@ if (! function_exists('constructGoogleFontLink')) {
 	function constructGoogleFontLink() {
 	    $settings = session('settings');
 	    $fontList = config('_fonts');
-	    
+
 	    $fonts="";
 	    foreach($fontList as $font){
 		    if($settings['body_font'] == $font['option_id'] && $font['gfont'] == true){
@@ -2422,7 +2499,7 @@ if (! function_exists('getIGInfo')) {
 function checkActiveAdminRoute($array){
 	$id = $array['id'];
 	$storedId = Session::get('set_id');
-	$route = ADMIN . '.' . $array['link'] . '.index';
+	$route = config('pakka.prefix.admin'). '.' . $array['link'] . '.index';
 	$output['link_class'] = "";
 	$output['icon_class'] = "";
 	
