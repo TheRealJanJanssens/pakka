@@ -3,22 +3,21 @@
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB; //querybuilder used in sort
+//querybuilder used in sort
+use Cache;
 use Illuminate\Http\Request;
-use TheRealJanJanssens\Pakka\Models\Page;
+use Session;
 use TheRealJanJanssens\Pakka\Models\Menu;
 use TheRealJanJanssens\Pakka\Models\MenuItem;
-use TheRealJanJanssens\Pakka\Models\Language;
-use TheRealJanJanssens\Pakka\Models\Translation;
 
-use Session;
-use Cache;
+use TheRealJanJanssens\Pakka\Models\Page;
+use TheRealJanJanssens\Pakka\Models\Translation;
 
 class MenuController extends Controller
 {
-	public function __construct()
+    public function __construct()
     {
-	    $this->middleware('auth');
+        $this->middleware('auth');
         constructGlobVars();
     }
     
@@ -29,46 +28,46 @@ class MenuController extends Controller
      */
     public function index()
     {
-	    $menus = Session::get('menus');
-		if(!checkAcces("permission_edit_app_menu")){
-			unset($menus[1]);   
-	    }
-		
+        $menus = Session::get('menus');
+        if (! checkAcces("permission_edit_app_menu")) {
+            unset($menus[1]);
+        }
+        
         return view('pakka::admin.menu.index', compact('menus'));
     }
-	
-	/**
+    
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function createMenu()
     {
-	    if(checkAcces("permission_add_menus")){
-		    return view('pakka::admin.menu.createmenu');
-	    }else{
-		    return back();
-	    }
+        if (checkAcces("permission_add_menus")) {
+            return view('pakka::admin.menu.createmenu');
+        } else {
+            return back();
+        }
     }
-	
-	public function createMenuItem()
+    
+    public function createMenuItem()
     {
-	    if(checkAcces("permission_edit_app_menu")){
-		    $menuResults = Menu::get();
-	    }else{
-		    $menuResults = Menu::get()->where('id', '!=', 1);
-	    }
+        if (checkAcces("permission_edit_app_menu")) {
+            $menuResults = Menu::get();
+        } else {
+            $menuResults = Menu::get()->where('id', '!=', 1);
+        }
         
 
-		foreach($menuResults as $menu){
-			$menus[$menu['id']] = $menu['name'];
-		}
+        foreach ($menuResults as $menu) {
+            $menus[$menu['id']] = $menu['name'];
+        }
 
-		$pages = Page::getPagesLinks();
-		
-        return view('pakka::admin.menu.createmenuitem', compact('menus','pages'));
+        $pages = Page::getPagesLinks();
+        
+        return view('pakka::admin.menu.createmenuitem', compact('menus', 'pages'));
     }
-	
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -80,8 +79,9 @@ class MenuController extends Controller
         $this->validate($request, Menu::rules());
         
         Menu::create($request->all());
-		Session::forget('menus');
-		Cache::tags('translations')->flush();
+        Session::forget('menus');
+        Cache::tags('translations')->flush();
+
         return back()->withSuccess(trans('app.success_store'));
     }
     
@@ -90,8 +90,9 @@ class MenuController extends Controller
         $this->validate($request, Menu::rules());
         
         Menu::create($request->all());
-		Session::forget('menus');
-		Cache::tags('translations')->flush();
+        Session::forget('menus');
+        Cache::tags('translations')->flush();
+
         return back()->withSuccess(trans('app.success_store'));
     }
     
@@ -103,13 +104,14 @@ class MenuController extends Controller
         $result = constructTranslations($request->all());
         
         $result['position'] = 10;
-        if(!$result['permission']){
-	        $result['permission'] = 0;
+        if (! $result['permission']) {
+            $result['permission'] = 0;
         }
         
         $menu = MenuItem::create($result);
         Session::forget('menus');
         Cache::tags('translations')->flush();
+
         return back()->withSuccess(trans('app.success_store'));
     }
 
@@ -122,6 +124,7 @@ class MenuController extends Controller
     public function show($id)
     {
         $item = Menu::findOrFail($id);
+
         return view('pakka::admin.menu.show', compact('item'));
     }
 
@@ -134,30 +137,30 @@ class MenuController extends Controller
     public function editMenu($id)
     {
         $item = Menu::findOrFail($id);
-		$items = Menu::latest('updated_at')->get();
-		
-        if(checkAcces("permission_add_menus")){
-		    return view('pakka::admin.menu.editmenu', compact('item','items'));
-	    }else{
-		    return back();
-	    }
-    }
-	
-	public function editMenuItem($id)
-    {
-	    $menuResults = Menu::get();
-
-		foreach($menuResults as $menu){
-			$menus[$menu['id']] = $menu['name'];
-		}
-
-		$pages = Page::getPagesLinks();
-	    
-        $menuItem = MenuItem::getMenuItem($id);	
+        $items = Menu::latest('updated_at')->get();
         
-        return view('pakka::admin.menu.editmenuitem', compact('menus', 'menuItem','pages'));
+        if (checkAcces("permission_add_menus")) {
+            return view('pakka::admin.menu.editmenu', compact('item', 'items'));
+        } else {
+            return back();
+        }
     }
-	
+    
+    public function editMenuItem($id)
+    {
+        $menuResults = Menu::get();
+
+        foreach ($menuResults as $menu) {
+            $menus[$menu['id']] = $menu['name'];
+        }
+
+        $pages = Page::getPagesLinks();
+        
+        $menuItem = MenuItem::getMenuItem($id);
+        
+        return view('pakka::admin.menu.editmenuitem', compact('menus', 'menuItem', 'pages'));
+    }
+    
     /**
      * Update the specified resource in storage.
      *
@@ -172,8 +175,9 @@ class MenuController extends Controller
         $item = Menu::findOrFail($id);
 
         $item->update($request->all());
-		Session::forget('menus');
-		Cache::tags('translations')->flush();
+        Session::forget('menus');
+        Cache::tags('translations')->flush();
+
         return redirect()->route(config('pakka.prefix.admin').'.menu.index')->withSuccess(trans('app.success_update'));
     }
     
@@ -182,13 +186,14 @@ class MenuController extends Controller
         $this->validate($request, MenuItem::rules(true, $id));
 
         $item = MenuItem::findOrFail($id);
-		
-		//converts lang inputs
-		$result = constructTranslations($request->all());
-		
+        
+        //converts lang inputs
+        $result = constructTranslations($request->all());
+        
         $item->update($result);
-		Session::forget('menus');
-		Cache::tags('translations')->flush();
+        Session::forget('menus');
+        Cache::tags('translations')->flush();
+
         return redirect()->route(config('pakka.prefix.admin').'.menu.index')->withSuccess(trans('app.success_update'));
     }
 
@@ -202,54 +207,53 @@ class MenuController extends Controller
     {
         Menu::destroy($id);
         
-        $items = MenuItem::where('menu',$id)->get()->toArray();
+        $items = MenuItem::where('menu', $id)->get()->toArray();
         
-        foreach($items as $item){
-	        $transId = $item['name'];
-	        Translation::where('translation_id', $transId)->delete();
-	        MenuItem::where('menu',$id)->delete();
+        foreach ($items as $item) {
+            $transId = $item['name'];
+            Translation::where('translation_id', $transId)->delete();
+            MenuItem::where('menu', $id)->delete();
         }
-		Session::forget('menus');
-		Cache::tags('translations')->flush();
-        return back()->withSuccess(trans('app.success_destroy')); 
+        Session::forget('menus');
+        Cache::tags('translations')->flush();
+
+        return back()->withSuccess(trans('app.success_destroy'));
     }
     
     public function destroyMenuItem($id)
     {
-	    $item = MenuItem::findOrFail($id)->toArray();
-	    $transId = $item['name'];
-	    
+        $item = MenuItem::findOrFail($id)->toArray();
+        $transId = $item['name'];
+        
         MenuItem::destroy($id);
         
         //only deletes the admin menu translations
-        if($item['menu'] == 1){
-	        Translation::where('translation_id', $transId)->delete(); //ALSO deletes page name translation
+        if ($item['menu'] == 1) {
+            Translation::where('translation_id', $transId)->delete(); //ALSO deletes page name translation
         }
         
-		Session::forget('menus');
-		Cache::tags('translations')->flush();
-        return back()->withSuccess(trans('app.success_destroy')); 
+        Session::forget('menus');
+        Cache::tags('translations')->flush();
+
+        return back()->withSuccess(trans('app.success_destroy'));
     }
     
     public function sortMenu(Request $request)
     {
-	    if($request->isMethod('post')){
-		    
-		    $items = $request->all();
-		    $items = json_decode($items['data'], true);
+        if ($request->isMethod('post')) {
+            $items = $request->all();
+            $items = json_decode($items['data'], true);
 
-			$query = "";
-			foreach($items as $item){
-				
-				if(empty($item[0]['parent'])){
-					$item[0]['parent'] = 'NULL';
-				}
-				
-				MenuItem::find($item[0]['id'])->update(['position' => $item[0]['position'], 'parent' => $item[0]['parent'], 'menu' => $item[0]['menu']]);
-			}
+            $query = "";
+            foreach ($items as $item) {
+                if (empty($item[0]['parent'])) {
+                    $item[0]['parent'] = 'NULL';
+                }
+                
+                MenuItem::find($item[0]['id'])->update(['position' => $item[0]['position'], 'parent' => $item[0]['parent'], 'menu' => $item[0]['menu']]);
+            }
 
-		    Session::forget('menus');   
-		}
+            Session::forget('menus');
+        }
     }
 }
-

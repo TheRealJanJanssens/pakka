@@ -2,9 +2,9 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers\Auth;
 
-use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ConfirmsPasswords;
+use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
 
 class ConfirmPasswordController extends Controller
 {

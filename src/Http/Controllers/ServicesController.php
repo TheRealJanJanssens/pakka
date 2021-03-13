@@ -10,9 +10,9 @@ use TheRealJanJanssens\Pakka\Models\Translation;
 
 class ServicesController extends Controller
 {
-	public function __construct()
+    public function __construct()
     {
-	    $this->middleware('auth');
+        $this->middleware('auth');
         constructGlobVars();
     }
     
@@ -46,16 +46,16 @@ class ServicesController extends Controller
      */
     public function store(Request $request)
     {
-	    //$this->validate($result, Service::rules());
-	    $array =  $request->all();
-      $result = constructTranslations($request->all());
+        //$this->validate($result, Service::rules());
+        $array = $request->all();
+        $result = constructTranslations($request->all());
 
-      $service = Service::create($result);
-      if(isset($array['providers'])){
-        ServiceAssignment::storeAssignments($service->id, $array['providers']);
-      }
-	
-      return redirect()->route(config('pakka.prefix.admin'). '.services.index')->withSuccess(trans('app.success_store'));
+        $service = Service::create($result);
+        if (isset($array['providers'])) {
+            ServiceAssignment::storeAssignments($service->id, $array['providers']);
+        }
+    
+        return redirect()->route(config('pakka.prefix.admin'). '.services.index')->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -77,8 +77,9 @@ class ServicesController extends Controller
      */
     public function edit($id)
     {
-		  $service = Service::getService($id,2);
-      return view('pakka::admin.services.edit', compact('service'));
+        $service = Service::getService($id, 2);
+
+        return view('pakka::admin.services.edit', compact('service'));
     }
 
     /**
@@ -90,19 +91,20 @@ class ServicesController extends Controller
      */
     public function update(Request $request, $id)
     {
-      //$this->validate($request, Service::rules(true, $id));
-		
-      $array =  $request->all();
-      $service = Service::findOrFail($id);
-
-      //converts lang inputs
-		  $result = constructTranslations($request->all());
-      $service->update($request->all());
+        //$this->validate($request, Service::rules(true, $id));
         
-      if(isset($array['providers'])){
-	       ServiceAssignment::storeAssignments($id, $array['providers']);
-      }
-      return redirect()->route(config('pakka.prefix.admin'). '.services.index')->withSuccess(trans('app.success_update'));
+        $array = $request->all();
+        $service = Service::findOrFail($id);
+
+        //converts lang inputs
+        $result = constructTranslations($request->all());
+        $service->update($request->all());
+        
+        if (isset($array['providers'])) {
+            ServiceAssignment::storeAssignments($id, $array['providers']);
+        }
+
+        return redirect()->route(config('pakka.prefix.admin'). '.services.index')->withSuccess(trans('app.success_update'));
     }
 
     /**
@@ -113,20 +115,19 @@ class ServicesController extends Controller
      */
     public function destroy($id)
     {
-	    $items = Service::where('id',$id)->get();
+        $items = Service::where('id', $id)->get();
         
-      foreach($items as $item){
-        $transName = $item->name;
-        $transDescription = $item->description;
+        foreach ($items as $item) {
+            $transName = $item->name;
+            $transDescription = $item->description;
         
-        Translation::where('translation_id', $transName)->delete();
-        Translation::where('translation_id', $transDescription)->delete();
-      }
+            Translation::where('translation_id', $transName)->delete();
+            Translation::where('translation_id', $transDescription)->delete();
+        }
         
-      Service::destroy($id);
-      //ServiceSchedule::where('Service_id',$id)->delete();
-		
-      return back()->withSuccess(trans('app.success_destroy')); 
+        Service::destroy($id);
+        //ServiceSchedule::where('Service_id',$id)->delete();
+        
+        return back()->withSuccess(trans('app.success_destroy'));
     }
 }
-

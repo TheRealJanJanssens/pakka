@@ -2,12 +2,12 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers\Auth;
 
-use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use TheRealJanJanssens\Pakka\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
+use TheRealJanJanssens\Pakka\Models\User;
 
 class RegisterController extends Controller
 {

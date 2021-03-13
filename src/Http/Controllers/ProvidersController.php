@@ -9,10 +9,10 @@ use TheRealJanJanssens\Pakka\Models\ProviderSchedule;
 
 class ProvidersController extends Controller
 {
-	public function __construct()
+    public function __construct()
     {
-	    $this->middleware('auth');
-      constructGlobVars();
+        $this->middleware('auth');
+        constructGlobVars();
     }
     
     /**
@@ -22,9 +22,9 @@ class ProvidersController extends Controller
      */
     public function index()
     {
-      $providers = Provider::getProviders();
+        $providers = Provider::getProviders();
 
-      return view('pakka::admin.providers.index', compact('providers'));
+        return view('pakka::admin.providers.index', compact('providers'));
     }
 
     /**
@@ -34,7 +34,7 @@ class ProvidersController extends Controller
      */
     public function create()
     {
-      return view('pakka::admin.providers.create')->with('warning','test');
+        return view('pakka::admin.providers.create')->with('warning', 'test');
     }
 
     /**
@@ -45,16 +45,16 @@ class ProvidersController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request, Provider::rules());
+        $this->validate($request, Provider::rules());
       
-      $array = $request->all();
+        $array = $request->all();
 
-      $provider = Provider::create($array);
-      if(isset($array['schedule'])){
-        ProviderSchedule::storeSchedule($provider['id'], $array['schedule']);
-      }
-	
-      return redirect()->route(config('pakka.prefix.admin'). '.providers.index')->withSuccess(trans('app.success_store'));
+        $provider = Provider::create($array);
+        if (isset($array['schedule'])) {
+            ProviderSchedule::storeSchedule($provider['id'], $array['schedule']);
+        }
+    
+        return redirect()->route(config('pakka.prefix.admin'). '.providers.index')->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -76,9 +76,9 @@ class ProvidersController extends Controller
      */
     public function edit($id)
     {
-		  $provider = Provider::getProvider($id);
+        $provider = Provider::getProvider($id);
 
-      return view('pakka::admin.providers.edit', compact('provider'));
+        return view('pakka::admin.providers.edit', compact('provider'));
     }
 
     /**
@@ -90,17 +90,17 @@ class ProvidersController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $this->validate($request, Provider::rules(true, $id));
-      $array =  $request->all();
-	
-      $provider = Provider::findOrFail($id);
-      $provider->update($request->all());
+        $this->validate($request, Provider::rules(true, $id));
+        $array = $request->all();
+    
+        $provider = Provider::findOrFail($id);
+        $provider->update($request->all());
 
-      if(isset($array['schedule'])){
-        ProviderSchedule::storeSchedule($id, $array['schedule']);
-      }
+        if (isset($array['schedule'])) {
+            ProviderSchedule::storeSchedule($id, $array['schedule']);
+        }
 
-      return redirect()->route(config('pakka.prefix.admin'). '.providers.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.providers.index')->withSuccess(trans('app.success_update'));
     }
 
     /**
@@ -111,10 +111,9 @@ class ProvidersController extends Controller
      */
     public function destroy($id)
     {
-      Provider::destroy($id);
-      ProviderSchedule::where('provider_id',$id)->delete();
-		
-      return back()->withSuccess(trans('app.success_destroy')); 
+        Provider::destroy($id);
+        ProviderSchedule::where('provider_id', $id)->delete();
+        
+        return back()->withSuccess(trans('app.success_destroy'));
     }
 }
-

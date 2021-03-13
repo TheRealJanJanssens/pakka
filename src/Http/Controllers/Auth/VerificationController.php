@@ -2,9 +2,9 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers\Auth;
 
-use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
 
 class VerificationController extends Controller
 {

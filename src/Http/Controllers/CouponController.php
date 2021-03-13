@@ -5,13 +5,12 @@ namespace TheRealJanJanssens\Pakka\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use TheRealJanJanssens\Pakka\Models\Coupon;
-use TheRealJanJanssens\Pakka\Models\Translation;
 
 class CouponController extends Controller
 {
-	public function __construct()
+    public function __construct()
     {
-	    $this->middleware('auth');
+        $this->middleware('auth');
         constructGlobVars();
     }
     
@@ -45,10 +44,10 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-	    $this->validate($request, Coupon::rules());
-	    $inputs = Coupon::convertDates($request->all());
+        $this->validate($request, Coupon::rules());
+        $inputs = Coupon::convertDates($request->all());
         $coupon = Coupon::create($inputs);
-		
+        
         return redirect()->route(config('pakka.prefix.admin'). '.coupons.index')->withSuccess(trans('app.success_store'));
     }
 
@@ -71,8 +70,8 @@ class CouponController extends Controller
      */
     public function edit($id)
     {
-		$coupon = Coupon::getCoupon($id);
-		
+        $coupon = Coupon::getCoupon($id);
+        
         return view('pakka::admin.coupons.edit', compact('coupon'));
     }
 
@@ -102,12 +101,11 @@ class CouponController extends Controller
      */
     public function destroy($id)
     {
-	    $coupon = Coupon::where('id',$id)->get()->toArray();
+        $coupon = Coupon::where('id', $id)->get()->toArray();
         
         Coupon::destroy($id);
-		//couponschedule::where('Service_id',$id)->delete();
-		
-        return back()->withSuccess(trans('app.success_destroy')); 
+        //couponschedule::where('Service_id',$id)->delete();
+        
+        return back()->withSuccess(trans('app.success_destroy'));
     }
 }
-

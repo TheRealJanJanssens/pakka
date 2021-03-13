@@ -4,16 +4,16 @@ namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use TheRealJanJanssens\Pakka\Models\ShipmentOption;
 use TheRealJanJanssens\Pakka\Models\ShipmentCondition;
+use TheRealJanJanssens\Pakka\Models\ShipmentOption;
 
 use TheRealJanJanssens\Pakka\Models\Translation;
 
 class ShipmentController extends Controller
 {
-	public function __construct()
+    public function __construct()
     {
-	    $this->middleware('auth');
+        $this->middleware('auth');
         constructGlobVars();
     }
     
@@ -25,6 +25,7 @@ class ShipmentController extends Controller
     public function index()
     {
         $shipments = ShipmentOption::getShipments();
+
         return view('pakka::admin.shipments.index', compact('shipments'));
     }
 
@@ -46,17 +47,17 @@ class ShipmentController extends Controller
      */
     public function store(Request $request)
     {
-	    //$this->validate($result, ShipmentOption::rules());
-	    $array =  $request->all();
-		$result = constructTranslations($request->all());
-		$shipment = ShipmentOption::create($result);
-		if(isset($result['value']) && is_array($result['value']) ){
-			for ($i = 0; $i < count($result['value']); $i++){
-				$conditions[$i] = array("operator" => $result['operator'][$i], "value" => $result['value'][$i], "type" => $result['type'][$i]);
-			}			
-			ShipmentCondition::storeCondition($shipment['id'], $conditions);
+        //$this->validate($result, ShipmentOption::rules());
+        $array = $request->all();
+        $result = constructTranslations($request->all());
+        $shipment = ShipmentOption::create($result);
+        if (isset($result['value']) && is_array($result['value'])) {
+            for ($i = 0; $i < count($result['value']); $i++) {
+                $conditions[$i] = ["operator" => $result['operator'][$i], "value" => $result['value'][$i], "type" => $result['type'][$i]];
+            }
+            ShipmentCondition::storeCondition($shipment['id'], $conditions);
         }
-		
+        
         return redirect()->route(config('pakka.prefix.admin'). '.shipments.index')->withSuccess(trans('app.success_store'));
     }
 
@@ -79,8 +80,8 @@ class ShipmentController extends Controller
      */
     public function edit($id)
     {
-		$shipment = ShipmentOption::getShipment($id,2);
-		
+        $shipment = ShipmentOption::getShipment($id, 2);
+        
         return view('pakka::admin.shipments.edit', compact('shipment'));
     }
 
@@ -95,21 +96,21 @@ class ShipmentController extends Controller
     {
         //$this->validate($request, ShipmentOption::rules(true, $id));
 
-		$array =  $request->all();
-		
-		$result = constructTranslations($request->all());
-		
-		$shipment = ShipmentOption::findOrFail($id);
-		$shipment->update($result);
-		
-		if(isset($result['value']) && is_array($result['value']) ){
-			for ($i = 0; $i < count($result['value']); $i++){
-				$conditions[$i] = array("operator" => $result['operator'][$i], "value" => $result['value'][$i], "type" => $result['type'][$i]);
-			}			
-			ShipmentCondition::storeCondition($shipment['id'], $conditions);
+        $array = $request->all();
+        
+        $result = constructTranslations($request->all());
+        
+        $shipment = ShipmentOption::findOrFail($id);
+        $shipment->update($result);
+        
+        if (isset($result['value']) && is_array($result['value'])) {
+            for ($i = 0; $i < count($result['value']); $i++) {
+                $conditions[$i] = ["operator" => $result['operator'][$i], "value" => $result['value'][$i], "type" => $result['type'][$i]];
+            }
+            ShipmentCondition::storeCondition($shipment['id'], $conditions);
         }
-		
-		
+        
+        
         return redirect()->route(config('pakka.prefix.admin'). '.shipments.index')->withSuccess(trans('app.success_update'));
     }
 
@@ -121,20 +122,19 @@ class ShipmentController extends Controller
      */
     public function destroy($id)
     {
-	    $items = ShipmentOption::where('id',$id)->get()->toArray();
+        $items = ShipmentOption::where('id', $id)->get()->toArray();
         
-        foreach($items as $item){
-	        $transName = $item['name'];
-	        $transDescription = $item['description'];
-	        
-	        Translation::where('translation_id', $transName)->delete();
-	        Translation::where('translation_id', $transDescription)->delete();
+        foreach ($items as $item) {
+            $transName = $item['name'];
+            $transDescription = $item['description'];
+            
+            Translation::where('translation_id', $transName)->delete();
+            Translation::where('translation_id', $transDescription)->delete();
         }
         
         ShipmentOption::destroy($id);
-		ShipmentCondition::where('shipment_option_id',$id)->delete();
-		
-        return back()->withSuccess(trans('app.success_destroy')); 
+        ShipmentCondition::where('shipment_option_id', $id)->delete();
+        
+        return back()->withSuccess(trans('app.success_destroy'));
     }
 }
-

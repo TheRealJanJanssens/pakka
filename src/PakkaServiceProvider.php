@@ -5,9 +5,11 @@ namespace TheRealJanJanssens\Pakka;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use TheRealJanJanssens\Pakka\Commands\ShowTextCommand;
+
 class PakkaServiceProvider extends PackageServiceProvider
 {
-    public function bootingPackage(){
+    public function bootingPackage()
+    {
         $this->publishes([
             // Config
             __DIR__.'/../config/database.php' => config_path('database.php'),
@@ -56,13 +58,11 @@ class PakkaServiceProvider extends PackageServiceProvider
         // ], 'pakka-dev');
 
         // Load the helpers in app/Http/helpers.php
-        if (file_exists($file = __DIR__.'/helpers.php'))
-        {
+        if (file_exists($file = __DIR__.'/helpers.php')) {
             require $file;
         }
 
-        if (file_exists($file = __DIR__.'/Macros/form.php'))
-        {
+        if (file_exists($file = __DIR__.'/Macros/form.php')) {
             require $file;
         }
     }
@@ -82,7 +82,7 @@ class PakkaServiceProvider extends PackageServiceProvider
             ->hasRoute('web')
             //->hasMigration('create_pakka_table')
             ->hasCommands([
-                ShowTextCommand::class
+                ShowTextCommand::class,
             ]);
     }
 }

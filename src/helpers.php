@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use TheRealJanJanssens\Pakka\Models\AttributeInput;
 use TheRealJanJanssens\Pakka\Models\AttributeValue;
@@ -234,110 +234,111 @@ if (! function_exists('constructModuleAssets')) {
 */
 
 if (! function_exists('constructGlobVars')) {
-	function constructGlobVars() { 
-		//redirects to cleaner url with no public in it.
-		$baseUrl = getBaseUrl();
-		$requestUri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : "/";
-		if(contains($requestUri, ['/public/'])){
-			$redirect = str_replace('/public/', '/', $requestUri);
+    function constructGlobVars()
+    {
+        //redirects to cleaner url with no public in it.
+        $baseUrl = getBaseUrl();
+        $requestUri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : "/";
+        if (contains($requestUri, ['/public/'])) {
+            $redirect = str_replace('/public/', '/', $requestUri);
 
-			header("Location: ".$baseUrl.ltrim($redirect, '/'));
-			exit();
-		}
-		
-	    if(Auth::check()){
-			$userId = auth()->user()->id;
-			
-			if(Session::get('logged_in') == false){
-				//refreshes session variables when logged in and register it
-				Session::forget('settings');
-				Session::forget('menus');
-				Session::put('logged_in', true);
-			}
-			
-		}else{
-			Session::put('logged_in', false);
-		}
-      
-      	if(!Session::has('locale')){
-        	$locale = App::getLocale();
-	    	Session::put('locale', $locale);
-	    }else{
-		    $locale = Session::get('locale');
-	    }
-	    
-	   //resets to default local when going back to the adminpanel
-	   //but don't do this action when store,insert,sort,edit,update,delete
-	   if(contains($requestUri, ['admin']) && !contains($requestUri, ['store','insert','sort','edit','update','delete'])){
-		   $locale = env('APP_FALLBACK_LOCALE');
-
-		   Session::put('locale', $locale);
-		   App::setLocale($locale);
-		   
-		   //resets menu when going to admin panel
-		   if(Session::get('in_admin') == false){
-			   Session::forget('menus');
-			   Session::forget('settings');
-			   Session::put('in_admin', true);
-		   }
-		   
-	   }else{
-		   Session::put('in_admin', false);
-	   }
-	   
-	    if(!Session::has('menus')){
-	        $menus = constructMenu();
-	        //View::share('adminMenu', $menus[1]);
-	        Session::put('menus', $menus);
+            header("Location: ".$baseUrl.ltrim($redirect, '/'));
+            exit();
         }
-	    
-	    if(!Session::has('lang')){
-		    $lang = Language::get()->toArray();
-		    if(empty($lang)){
-		        Language::create([
-			        'id' => 1,
-			        'language_code' => 'nl',
-			        'name' => 'Nederlands'
-		        ]);
-		    }
-		    
-	    	Session::put('lang', $lang);
-	    }else{
-		    $lang = Session::get('lang');
-	    }
-	    
-	    View::share('lang', $lang);
-	   
-	   switch (true) {
-	       case !Session::has('settings') && isset($userId):
-	           $settings = Setting::getSettings($locale,$userId);
-			   Session::put('settings', $settings);	   
-	           break;
-	       case !Session::has('settings'):
-	           $settings = Setting::getSettings($locale);
-			   Session::put('settings', $settings);
-	           break;
-	   }
-	   
-	   if(Session::has('settings')){
-		   View::share('settings', Session::get('settings'));
-	   }
-	   
-	   //get and set active module name
-	   $menus = Session::get('menus');
-	   $adminMenu = $menus[1];
-	   foreach($adminMenu['items'] as $array){
-		   	constructModuleAssets($array);
-		   	
-		   	//controls the submenu items
-		   	if(isset($array['items'])){
-			   	foreach($array['items'] as $subArray){
-				   constructModuleAssets($subArray);
-			   	}
-		   	}
-	   }
-	   echo Auth::check();
-	}
+        
+        if (Auth::check()) {
+            $userId = auth()->user()->id;
+            
+            if (Session::get('logged_in') == false) {
+                //refreshes session variables when logged in and register it
+                Session::forget('settings');
+                Session::forget('menus');
+                Session::put('logged_in', true);
+            }
+        } else {
+            Session::put('logged_in', false);
+        }
+      
+        if (! Session::has('locale')) {
+            $locale = App::getLocale();
+            Session::put('locale', $locale);
+        } else {
+            $locale = Session::get('locale');
+        }
+        
+        //resets to default local when going back to the adminpanel
+        //but don't do this action when store,insert,sort,edit,update,delete
+        if (contains($requestUri, ['admin']) && ! contains($requestUri, ['store','insert','sort','edit','update','delete'])) {
+            $locale = env('APP_FALLBACK_LOCALE');
+
+            Session::put('locale', $locale);
+            App::setLocale($locale);
+           
+            //resets menu when going to admin panel
+            if (Session::get('in_admin') == false) {
+                Session::forget('menus');
+                Session::forget('settings');
+                Session::put('in_admin', true);
+            }
+        } else {
+            Session::put('in_admin', false);
+        }
+       
+        if (! Session::has('menus')) {
+            $menus = constructMenu();
+            //View::share('adminMenu', $menus[1]);
+            Session::put('menus', $menus);
+        }
+        
+        if (! Session::has('lang')) {
+            $lang = Language::get()->toArray();
+            if (empty($lang)) {
+                Language::create([
+                    'id' => 1,
+                    'language_code' => 'nl',
+                    'name' => 'Nederlands',
+                ]);
+            }
+            
+            Session::put('lang', $lang);
+        } else {
+            $lang = Session::get('lang');
+        }
+        
+        View::share('lang', $lang);
+       
+        switch (true) {
+           case ! Session::has('settings') && isset($userId):
+               $settings = Setting::getSettings($locale, $userId);
+               Session::put('settings', $settings);
+
+               break;
+           case ! Session::has('settings'):
+               $settings = Setting::getSettings($locale);
+               Session::put('settings', $settings);
+
+               break;
+       }
+       
+        if (Session::has('settings')) {
+            View::share('settings', Session::get('settings'));
+        }
+       
+        //get and set active module name
+        $menus = Session::get('menus');
+        $adminMenu = $menus[1];
+        foreach ($adminMenu['items'] as $array) {
+            constructModuleAssets($array);
+            
+            //controls the submenu items
+            if (isset($array['items'])) {
+                foreach ($array['items'] as $subArray) {
+                    constructModuleAssets($subArray);
+                }
+            }
+        }
+        echo Auth::check();
+    }
 }
 
 /*
@@ -474,9 +475,10 @@ if (! function_exists('getBladeList')) {
 */
 
 if (! function_exists('getJson')) {
-	function getJson($path){
-		return json_decode(file_get_contents($path),true);
-	}
+    function getJson($path)
+    {
+        return json_decode(file_get_contents($path), true);
+    }
 }
 
 /*
@@ -492,25 +494,26 @@ if (! function_exists('getJson')) {
 */
 
 if (! function_exists('getCompMeta')) {
-  function getCompMeta($name,$data){
-		//Get File if exists in 
-		$path = resource_path('views/sections/'.$name.'/'.$data.'.json');
-		if(file_exists($path)){
-			return getJson($path);
-		}
+    function getCompMeta($name, $data)
+    {
+        //Get File if exists in
+        $path = resource_path('views/sections/'.$name.'/'.$data.'.json');
+        if (file_exists($path)) {
+            return getJson($path);
+        }
 
-		//Get File if exists in production package
-		$path = base_path('vendor/TheRealJanJanssens/resources/views/sections/'.$name.'/'.$data.'.json');
-		if(file_exists($path)){
-			return getJson($path);
-		}
+        //Get File if exists in production package
+        $path = base_path('vendor/TheRealJanJanssens/resources/views/sections/'.$name.'/'.$data.'.json');
+        if (file_exists($path)) {
+            return getJson($path);
+        }
 
-		//Get File if exists in development package
-		$path = base_path('package/resources/views/sections/'.$name.'/'.$data.'.json');
-		if(file_exists($path)){
-			return getJson($path);
-		}
-	}
+        //Get File if exists in development package
+        $path = base_path('package/resources/views/sections/'.$name.'/'.$data.'.json');
+        if (file_exists($path)) {
+            return getJson($path);
+        }
+    }
 }
 
 /*
@@ -1058,47 +1061,47 @@ function constructTranslations($array)
 |
 */
 
-if (! function_exists('constructTranslatableValues')) {    
-    function constructTranslatableValues($array,$inputs,$ascon = false){
-	    
-	    $i = 0;
-	    foreach($array as $item){
-		    if(isset($item['language_code'])){
-			    $languageCodes = explode("(~)", $item['language_code']);
-		    }
-		    
-		    foreach($item->getAttributes() as $key => $value){
-			//foreach($item as $key => $value){	
-				$iI=0;
-				if(in_array($key, $inputs) && isset($languageCodes)){
-					$options = explode("(~)", $value);
+if (! function_exists('constructTranslatableValues')) {
+    function constructTranslatableValues($array, $inputs, $ascon = false)
+    {
+        $i = 0;
+        foreach ($array as $item) {
+            if (isset($item['language_code'])) {
+                $languageCodes = explode("(~)", $item['language_code']);
+            }
+            
+            foreach ($item->getAttributes() as $key => $value) {
+                //foreach($item as $key => $value){
+                $iI = 0;
+                if (in_array($key, $inputs) && isset($languageCodes)) {
+                    $options = explode("(~)", $value);
 
-					foreach($languageCodes as $languageCode){
-						$result[$i]['translation_id'][$key] = $array[$i][$key.'_trans'];
-						$result[$i][$languageCode.':'.$key] = $options[$iI];
-						$iI++;
-					}
-					
-					unset($array[$i][$key.'_trans']);
-					unset($array[$i][$key]);
-				}else{
-					$result[$i][$key] = $value;
-				}
-		    }
-		    $i++;
-	    }
-	    
-	    if(isset($result)){
-		    //removes associate construct if it is a single result
-		    if(count($result) == 1 && $ascon == false){
-			    $result = $result[0];
-		    }
-		    
-		    return $result;
-	    }else{
-		    return null;
-	    }
-	}
+                    foreach ($languageCodes as $languageCode) {
+                        $result[$i]['translation_id'][$key] = $array[$i][$key.'_trans'];
+                        $result[$i][$languageCode.':'.$key] = $options[$iI];
+                        $iI++;
+                    }
+                    
+                    unset($array[$i][$key.'_trans']);
+                    unset($array[$i][$key]);
+                } else {
+                    $result[$i][$key] = $value;
+                }
+            }
+            $i++;
+        }
+        
+        if (isset($result)) {
+            //removes associate construct if it is a single result
+            if (count($result) == 1 && $ascon == false) {
+                $result = $result[0];
+            }
+            
+            return $result;
+        } else {
+            return null;
+        }
+    }
 }
 
 /*
@@ -1111,7 +1114,7 @@ if (! function_exists('constructTranslatableValues')) {
 |
 */
 
-// if (! function_exists('constructAttributes')) {    
+// if (! function_exists('constructAttributes')) {
 // 	function constructAttributes($items,$mode = 1){
 // 		$items->map(function ($item, $mode) {
 
@@ -1138,104 +1141,106 @@ if (! function_exists('constructTranslatableValues')) {
 // 	}
 // }
 
-if (! function_exists('constructAttributes')) {    
-    function constructAttributes($items,$mode = 1){
-	    
-	    $i = 0;
-	    foreach($items as $item){
-			//CONSTRUCT IMAGES
-			$images = [0 => null]; //fixes PHP Laravel Error: Trying to access array offset on value of type null introduced in php 7.4. This fix doesn't throw an error but is not a clean solution. This same fixed is not made within mode 2 because it will display an image in the dropzone editor that is not present.
-		    if(isset($item->images) && !empty($item->images)){
-				$images = explode("(~)", $item['images']);
-		    }
-			$items[$i]->setAttribute("images", $images);
-			
-		    if(isset($item->attributes)){
-		    	$attributes = explode("(~)", $item['attributes']);
-		    	unset($items[$i]["attributes"]);
-		    	
-			    switch ($mode) {
-			        case 1:
-			            //CONSTRUCT ATTRIBUTES
-			            if(!empty($attributes[0]) && $attributes[0] !== null){
-							$iA = 0; // general attribute int
-				        	foreach($attributes as $attribute){
-					        	
-					        	$attribute = explode("(:)", $attribute);
-					        	if(isset($attribute[1])){
-						        	$key = $attribute[0];
-									$val = $attribute[1];
-								
-									$items[$i]->setAttribute($key, $val);
+if (! function_exists('constructAttributes')) {
+    function constructAttributes($items, $mode = 1)
+    {
+        $i = 0;
+        foreach ($items as $item) {
+            //CONSTRUCT IMAGES
+            $images = [0 => null]; //fixes PHP Laravel Error: Trying to access array offset on value of type null introduced in php 7.4. This fix doesn't throw an error but is not a clean solution. This same fixed is not made within mode 2 because it will display an image in the dropzone editor that is not present.
+            if (isset($item->images) && ! empty($item->images)) {
+                $images = explode("(~)", $item['images']);
+            }
+            $items[$i]->setAttribute("images", $images);
+            
+            if (isset($item->attributes)) {
+                $attributes = explode("(~)", $item['attributes']);
+                unset($items[$i]["attributes"]);
+                
+                switch ($mode) {
+                    case 1:
+                        //CONSTRUCT ATTRIBUTES
+                        if (! empty($attributes[0]) && $attributes[0] !== null) {
+                            $iA = 0; // general attribute int
+                            foreach ($attributes as $attribute) {
+                                $attribute = explode("(:)", $attribute);
+                                if (isset($attribute[1])) {
+                                    $key = $attribute[0];
+                                    $val = $attribute[1];
+                                
+                                    $items[$i]->setAttribute($key, $val);
 
-									$getAttr = [];
-									if($items[$i]->getAttribute("attributes")){
-										$getAttr = $items[$i]->getAttribute("attributes");
-									}
+                                    $getAttr = [];
+                                    if ($items[$i]->getAttribute("attributes")) {
+                                        $getAttr = $items[$i]->getAttribute("attributes");
+                                    }
 
-									$items[$i]->setAttribute("attributes", array_merge($getAttr,[$key=>$val])); //gets used in product sections
-								}
-					        	
-					        	$iA++;
-				        	}
-			        	}
-					break;
-					case 2:
-			            //CONSTRUCT SLUG
-			            if(isset($item['slug']) && !empty($item['slug']) && isset($items[$i]['translation_id_slug'])){
-				            $langs = Session::get('lang');
-							
-				            $slugs = explode("(~)", $item['slug']);
-				            $iS=0;
-				            
-				            foreach($langs as $lang){
-					            
-					            //SAFETY INCASE OF NEW LANGUAGES
-					            if ( ! isset($slugs[$iS])) {
-								   $slugs[$iS] = null;
-								}
-					            
-					            $items[$i][$lang["language_code"].":slug:translation_id"] = $items[$i]['translation_id_slug'];
-					            $items[$i][$lang["language_code"].":slug"] = $slugs[$iS];
-					            $iS++;
-				            }
-				            unset($items[$i]['translation_id_slug']);
-			            }
-			            
-			            //CONSTRUCT ATTRIBUTES
-			            if(!empty($attributes[0])){
-							$iA = 0; // general attribute int
-				        	foreach($attributes as $attribute){
-					        	$attribute = explode("(:)", $attribute);
-					        	
-					        	//if lang code is empty remove and reset the array
-					        	if(empty($attribute[0])){
-						        	unset($attribute[0]);
-						        	$attribute = array_values($attribute);
-					        	}
-					        	
-					        	if(isset($attribute[2])){
-						        	//with lang code
-						        	$lang = $attribute[0];
-									$key = $attribute[1];
-									$val = $attribute[2];
-									$items[$i][$lang.':'.$key] = $val;
-					        	}else{
-						        	//without lang code
-						        	$key = $attribute[0];
-									$val = $attribute[1];
-									$items[$i][$key] = $val;
-					        	}
-				        	}
-				        	
-				        	unset($items[$i]["attributes"]);
-			        	}
-					break;
-				}
-			}
-			$i++;
-		}
-	    return $items;
+                                    $items[$i]->setAttribute("attributes", array_merge($getAttr, [$key => $val])); //gets used in product sections
+                                }
+                                
+                                $iA++;
+                            }
+                        }
+
+                    break;
+                    case 2:
+                        //CONSTRUCT SLUG
+                        if (isset($item['slug']) && ! empty($item['slug']) && isset($items[$i]['translation_id_slug'])) {
+                            $langs = Session::get('lang');
+                            
+                            $slugs = explode("(~)", $item['slug']);
+                            $iS = 0;
+                            
+                            foreach ($langs as $lang) {
+                                
+                                //SAFETY INCASE OF NEW LANGUAGES
+                                if (! isset($slugs[$iS])) {
+                                    $slugs[$iS] = null;
+                                }
+                                
+                                $items[$i][$lang["language_code"].":slug:translation_id"] = $items[$i]['translation_id_slug'];
+                                $items[$i][$lang["language_code"].":slug"] = $slugs[$iS];
+                                $iS++;
+                            }
+                            unset($items[$i]['translation_id_slug']);
+                        }
+                        
+                        //CONSTRUCT ATTRIBUTES
+                        if (! empty($attributes[0])) {
+                            $iA = 0; // general attribute int
+                            foreach ($attributes as $attribute) {
+                                $attribute = explode("(:)", $attribute);
+                                
+                                //if lang code is empty remove and reset the array
+                                if (empty($attribute[0])) {
+                                    unset($attribute[0]);
+                                    $attribute = array_values($attribute);
+                                }
+                                
+                                if (isset($attribute[2])) {
+                                    //with lang code
+                                    $lang = $attribute[0];
+                                    $key = $attribute[1];
+                                    $val = $attribute[2];
+                                    $items[$i][$lang.':'.$key] = $val;
+                                } else {
+                                    //without lang code
+                                    $key = $attribute[0];
+                                    $val = $attribute[1];
+                                    $items[$i][$key] = $val;
+                                }
+                            }
+                            
+                            unset($items[$i]["attributes"]);
+                        }
+
+                    break;
+                }
+            }
+            $i++;
+        }
+
+        return $items;
     }
 }
 
@@ -1559,222 +1564,224 @@ if (! function_exists('constructPageStructure')) {
 |
 */
 
-if (! function_exists('constructPage')) {    
-    function constructPage($id,$mode=1,$param=null){
-	    
-	    $page = Page::getPage($id,1);
-		$settings = session('settings');
-		
-		$result['meta']['id'] = $id; //page id
-		$result['meta']['mode'] = $mode;
-		$result['meta']['title'] = ucfirst($settings['site_title'])." - ".ucfirst($page['name']);
-		$result['meta']['description'] = $settings['site_description'];
-		$result['meta']['keywords'] = $settings['site_keywords'];
-		$result['meta']['settings'] = $settings;
-		$result['meta']['slug'] = $page['slug'];
-		$result['meta']['url'] = URL::to('/');
-		
-		//get an item if one is requested
-		if(!empty($param)){
-			$item = Item::getItem($param);
-			if($item){
-				$result['item'] = $item;
-			}
-		}
-		
-		//gives extra meta data for editing purposes
-		if(isset(auth()->user()->role)){			
-			//Construct all defined menus
-			$menus = Session::get('menus');
-			foreach($menus as $menu){
-				$menuId = $menu['id'];
-				if($menuId !== 1){
-					$menusResult[$menuId] = $menu['name'];
-				}
-			}
-			
-			$result['meta']['menus'] = json_encode($menusResult);
-			
-			//Construct all defined pages
-			$result['meta']['pages'] = json_encode(Page::getPagesLinks());
-			
-			//Constructs json of all items defined
-			$items = $menus[1];
+if (! function_exists('constructPage')) {
+    function constructPage($id, $mode = 1, $param = null)
+    {
+        $page = Page::getPage($id, 1);
+        $settings = session('settings');
+        
+        $result['meta']['id'] = $id; //page id
+        $result['meta']['mode'] = $mode;
+        $result['meta']['title'] = ucfirst($settings['site_title'])." - ".ucfirst($page['name']);
+        $result['meta']['description'] = $settings['site_description'];
+        $result['meta']['keywords'] = $settings['site_keywords'];
+        $result['meta']['settings'] = $settings;
+        $result['meta']['slug'] = $page['slug'];
+        $result['meta']['url'] = URL::to('/');
+        
+        //get an item if one is requested
+        if (! empty($param)) {
+            $item = Item::getItem($param);
+            if ($item) {
+                $result['item'] = $item;
+            }
+        }
+        
+        //gives extra meta data for editing purposes
+        if (isset(auth()->user()->role)) {
+            //Construct all defined menus
+            $menus = Session::get('menus');
+            foreach ($menus as $menu) {
+                $menuId = $menu['id'];
+                if ($menuId !== 1) {
+                    $menusResult[$menuId] = $menu['name'];
+                }
+            }
+            
+            $result['meta']['menus'] = json_encode($menusResult);
+            
+            //Construct all defined pages
+            $result['meta']['pages'] = json_encode(Page::getPagesLinks());
+            
+            //Constructs json of all items defined
+            $items = $menus[1];
 
-			foreach($items['items'] as $item){
-				if($item['link'] == "items"){
-					$itemsResult[$item['id']] = $item['name'];
-					
-					//sub items
-					if(isset($item['items'])){
-						foreach($item['items'] as $subItem){
-							if($item['link'] == "items"){
-								$itemsResult[$subItem['id']] = $subItem['name'];
-							}
-						}
-					}
-				}
-			}
-			
-			if(!empty($itemsResult)){
-				$result['meta']['items'] = json_encode($itemsResult);
-				
-				//Construct array with all item variables
-				$iV=0;
-				foreach($itemsResult as $key => $item){
-					$set_id = $key; //set_id
-					$inputs = AttributeInput::where('set_id',$set_id)->orderBy('position')->get()->toArray();
-					foreach($inputs as $input){
-						$key = $input['name'];
-						$value = $input['label'];
-						$inputsResult[$item][$key] = $value;
-					}
-					$iV++;
-				}
-				if(!empty($inputsResult)){
-					$result['meta']['inputs'] = json_encode($inputsResult);
-				}
-			}
-		}
-		
-		$css = array();
-		$js = array();
-		
-		switch ($mode) {
-		    case 1:
-		        $status = 1;
-		        break;
-		    case 2:
-		        $status = null;
-		        break;
-		}
-		
-		$sectionsHeader = Section::getSectionsByType(1,null,$status)->toArray();
-	    $sectionsFooter = Section::getSectionsByType(3,null,$status)->toArray();
+            foreach ($items['items'] as $item) {
+                if ($item['link'] == "items") {
+                    $itemsResult[$item['id']] = $item['name'];
+                    
+                    //sub items
+                    if (isset($item['items'])) {
+                        foreach ($item['items'] as $subItem) {
+                            if ($item['link'] == "items") {
+                                $itemsResult[$subItem['id']] = $subItem['name'];
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if (! empty($itemsResult)) {
+                $result['meta']['items'] = json_encode($itemsResult);
+                
+                //Construct array with all item variables
+                $iV = 0;
+                foreach ($itemsResult as $key => $item) {
+                    $set_id = $key; //set_id
+                    $inputs = AttributeInput::where('set_id', $set_id)->orderBy('position')->get()->toArray();
+                    foreach ($inputs as $input) {
+                        $key = $input['name'];
+                        $value = $input['label'];
+                        $inputsResult[$item][$key] = $value;
+                    }
+                    $iV++;
+                }
+                if (! empty($inputsResult)) {
+                    $result['meta']['inputs'] = json_encode($inputsResult);
+                }
+            }
+        }
+        
+        $css = [];
+        $js = [];
+        
+        switch ($mode) {
+            case 1:
+                $status = 1;
 
-	    $sections = Section::getSectionsByType(2,$id,$status)->toArray();
+                break;
+            case 2:
+                $status = null;
 
-	    if(!empty($sectionsHeader)){
-		    $sectionsHeader = array_reverse($sectionsHeader); //to make sure the position is correct otherwise it pushes the last item on top
-		    foreach($sectionsHeader as $section){
-			    array_unshift($sections,$section);
-		    }
-	    }
-	    
-	    if(!empty($sectionsFooter)){
-		    foreach($sectionsFooter as $section){
-			    array_push($sections,$section);
-		    }
-	    }
-	    
-	    $i=0;
-	    foreach($sections as $section){
-		    //Construct Metadata
-			$sectionMeta = getCompMeta($section['section'],"assets");
-			
-			if(!empty($sectionMeta)){
-				$css = array_merge($css, $sectionMeta["css"]);
-				$js = array_merge($js, $sectionMeta["js"]);
-			}
+                break;
+        }
+        
+        $sectionsHeader = Section::getSectionsByType(1, null, $status)->toArray();
+        $sectionsFooter = Section::getSectionsByType(3, null, $status)->toArray();
 
-			if(!isset($sectionMeta["editable"])){
-				$sectionMeta["editable"] = [];
-			}
-			
-			$result['sections'][$i] = $section;
-			$result['sections'][$i]['editable'] = json_encode(array_merge(config('pakka.base_section_editables'),$sectionMeta["editable"]));
-			
-			//construct classes and attributes
-			$result['sections'][$i]['classes'] = unserialize($section['classes']);
-			$result['sections'][$i]['attributes'] = unserialize($section['attributes']);
-			$result['sections'][$i]['extras'] = unserialize($section['extras']);
-			
-			//Construct Content
-			$component = Component::getSectionContent($section["id"],1);
-			$result['sections'][$i]['component'] = $component;
-			
-			$iC=0;
-			foreach($result['sections'][$i]['component'] as $content){
-				$key = $content['slug'];
-				
-/*
-				if(!empty($content['attributes'])){
-					$values = array_filter($content['attributes']);
-				}else{
-					$values = array("");
-				}
-*/
-				
-/*
-				if(!empty($content['images'])){
-					$values['images'] = $content['images'];
-				}else{
-					$values['images'] = array("");
-				}
-				$values['id'] = $content['id'];
-*/
-				
-				$result['sections'][$i][$key] = $content;
-				$iC++;
-			}
-			
-			$i++;
-	    }
-	    
-	    if (strpos($page['template'], 'component') !== false) {
-		    //Component resources
-		    if($mode == 2){
-		    	$css = array_merge(array(
-			    //below standard resources
-			    "vendor/css/components/bootstrap.css",
-				"vendor/css/components/stack-interface.css",
-				"vendor/css/components/slick.css",
-				"vendor/css/components/theme.css",
-				"vendor/css/components/custom.css",),$css); //places the css on top to prevent overwritting
-			    $js = array_merge($js,array(
-			    //below standard resources
-				"vendor/js/components/parallax.js",
-				"vendor/js/components/slick.min.js",
-				"vendor/js/components/smooth-scroll.min.js",
-				"vendor/js/components/scripts.js"));
-			}
-	    }
-	    
-	    //Standard editor resources
-	    if($mode == 2){
-	    	$css = array_merge(array(
-		    "vendor/css/dropzone.css",
-		    //"vendor/css/components/vanilla-color-picker.min.js",
-		    "vendor/css/components/builder.css",
-		    "vendor/css/components/builder-icons.css",
-		    "vendor/css/components/themify-icons-min.css",
-		    "vendor/css/components/mediumEditor.css"),$css); //places the css on top to prevent overwritting
-		    $js = array_merge(array(
-			"vendor/js/components/jquery-3.1.1.min.js",
-		    "vendor/js/components/jquery-ui-1.12.js",
-		    "vendor/js/components/vanilla-color-picker.min.js",
-		    "vendor/js/components/custom-item-picker.js",
-		    "vendor/js/components/mediumEditor.min.js",
-		    "vendor/js/dropzone.js",
-		    "vendor/js/components/builder.js"),$js);
-	    }
-		
-		$result['meta']["css"] = array_unique($css);
-		$result['meta']["js"] = array_unique($js);
-				
-/*
-	    if (strpos($page['template'], 'component') !== false) {
-		    //Component template
-		    
-		    
-	    }else{
-		    //Custom template
-		    
-	    }
-*/
-		
-	    return $result;
-	}
+        $sections = Section::getSectionsByType(2, $id, $status)->toArray();
+
+        if (! empty($sectionsHeader)) {
+            $sectionsHeader = array_reverse($sectionsHeader); //to make sure the position is correct otherwise it pushes the last item on top
+            foreach ($sectionsHeader as $section) {
+                array_unshift($sections, $section);
+            }
+        }
+        
+        if (! empty($sectionsFooter)) {
+            foreach ($sectionsFooter as $section) {
+                array_push($sections, $section);
+            }
+        }
+        
+        $i = 0;
+        foreach ($sections as $section) {
+            //Construct Metadata
+            $sectionMeta = getCompMeta($section['section'], "assets");
+            
+            if (! empty($sectionMeta)) {
+                $css = array_merge($css, $sectionMeta["css"]);
+                $js = array_merge($js, $sectionMeta["js"]);
+            }
+
+            if (! isset($sectionMeta["editable"])) {
+                $sectionMeta["editable"] = [];
+            }
+            
+            $result['sections'][$i] = $section;
+            $result['sections'][$i]['editable'] = json_encode(array_merge(config('pakka.base_section_editables'), $sectionMeta["editable"]));
+            
+            //construct classes and attributes
+            $result['sections'][$i]['classes'] = unserialize($section['classes']);
+            $result['sections'][$i]['attributes'] = unserialize($section['attributes']);
+            $result['sections'][$i]['extras'] = unserialize($section['extras']);
+            
+            //Construct Content
+            $component = Component::getSectionContent($section["id"], 1);
+            $result['sections'][$i]['component'] = $component;
+            
+            $iC = 0;
+            foreach ($result['sections'][$i]['component'] as $content) {
+                $key = $content['slug'];
+                
+                /*
+                                if(!empty($content['attributes'])){
+                                    $values = array_filter($content['attributes']);
+                                }else{
+                                    $values = array("");
+                                }
+                */
+                
+                /*
+                                if(!empty($content['images'])){
+                                    $values['images'] = $content['images'];
+                                }else{
+                                    $values['images'] = array("");
+                                }
+                                $values['id'] = $content['id'];
+                */
+                
+                $result['sections'][$i][$key] = $content;
+                $iC++;
+            }
+            
+            $i++;
+        }
+        
+        if (strpos($page['template'], 'component') !== false) {
+            //Component resources
+            if ($mode == 2) {
+                $css = array_merge([
+                //below standard resources
+                "vendor/css/components/bootstrap.css",
+                "vendor/css/components/stack-interface.css",
+                "vendor/css/components/slick.css",
+                "vendor/css/components/theme.css",
+                "vendor/css/components/custom.css",], $css); //places the css on top to prevent overwritting
+                $js = array_merge($js, [
+                //below standard resources
+                "vendor/js/components/parallax.js",
+                "vendor/js/components/slick.min.js",
+                "vendor/js/components/smooth-scroll.min.js",
+                "vendor/js/components/scripts.js", ]);
+            }
+        }
+        
+        //Standard editor resources
+        if ($mode == 2) {
+            $css = array_merge([
+            "vendor/css/dropzone.css",
+            //"vendor/css/components/vanilla-color-picker.min.js",
+            "vendor/css/components/builder.css",
+            "vendor/css/components/builder-icons.css",
+            "vendor/css/components/themify-icons-min.css",
+            "vendor/css/components/mediumEditor.css", ], $css); //places the css on top to prevent overwritting
+            $js = array_merge([
+            "vendor/js/components/jquery-3.1.1.min.js",
+            "vendor/js/components/jquery-ui-1.12.js",
+            "vendor/js/components/vanilla-color-picker.min.js",
+            "vendor/js/components/custom-item-picker.js",
+            "vendor/js/components/mediumEditor.min.js",
+            "vendor/js/dropzone.js",
+            "vendor/js/components/builder.js", ], $js);
+        }
+        
+        $result['meta']["css"] = array_unique($css);
+        $result['meta']["js"] = array_unique($js);
+                
+        /*
+                if (strpos($page['template'], 'component') !== false) {
+                    //Component template
+
+
+                }else{
+                    //Custom template
+
+                }
+        */
+        
+        return $result;
+    }
 }
 
 /*
@@ -1957,19 +1964,22 @@ if (! function_exists('getSection')) {
 }
 
 if (! function_exists('getSectionView')) {
-	function getSectionView($name){
-		switch (true) {
-			//Get File if exists on app level
-			case file_exists(resource_path('views/sections/'.$name.'/section.blade.php')):
-				return 'sections.'.$name.'.section';
-				break;
-			//Get File if exists on package level
-			case file_exists(base_path('vendor/TheRealJanJanssens/resources/views/sections/'.$name.'/section.blade.php')):
-			case file_exists(base_path('package/resources/views/sections/'.$name.'/section.blade.php')):
-				return 'pakka::sections.'.$name.'.section';
-				break;
-		}
-	}
+    function getSectionView($name)
+    {
+        switch (true) {
+            //Get File if exists on app level
+            case file_exists(resource_path('views/sections/'.$name.'/section.blade.php')):
+                return 'sections.'.$name.'.section';
+
+                break;
+            //Get File if exists on package level
+            case file_exists(base_path('vendor/TheRealJanJanssens/resources/views/sections/'.$name.'/section.blade.php')):
+            case file_exists(base_path('package/resources/views/sections/'.$name.'/section.blade.php')):
+                return 'pakka::sections.'.$name.'.section';
+
+                break;
+        }
+    }
 }
 
 /*
@@ -2185,50 +2195,48 @@ if (! function_exists('constructMenu')) {
         }
         
         $i = 0;
-        foreach($menus as $menu){
-	        
-	        $menuId = $menu['id'];
-	        
-	        $result[$menuId] = $menu;
-	        
-	        $items = MenuItem::getMenuItems($menuId,$currentAuth)->toArray();
-	        	        
-	        //Duplicate $items with true position for constructing parents
-	        $itemsDuplicate = $items;
-	        
-	        //reverses all menu items so if proper positioned subitems can be constructed
-	        $items = array_reverse($items);
-	
-	        foreach($items as $masterKey => $item){
-		        //edit to allow parents
-		        if(isset($item['parent'])){
-			        //Loops to find its parent
-			        foreach($items as $key => $subitem){
-				        if($subitem['id'] == $item['parent']){
-					        if(!isset($items[$key]['items'])){
-						        //makes new item
-						        $items[$key]['items'][0] = $items[$masterKey];
-					        }else{
-						        //Puts new elemen in front to respect correct position
-						        array_unshift($items[$key]['items'], $items[$masterKey]);
-					        }
-							
-				        }
-			        }
-		        }    
-		    }
-		    
-	        //Removes subitems that are not in their parent
-	        foreach($items as $key => $item){
-		        if(!empty($item["parent"])){ //!isset($item["items"]) && 
-			        unset($items[$key]);
-		        }
-	        }
-	       
-	        //Restores true position in menu
-	        $items = array_reverse($items);
-	        
-	        $result[$menuId]['items'] = $items;
+        foreach ($menus as $menu) {
+            $menuId = $menu['id'];
+            
+            $result[$menuId] = $menu;
+            
+            $items = MenuItem::getMenuItems($menuId, $currentAuth)->toArray();
+                        
+            //Duplicate $items with true position for constructing parents
+            $itemsDuplicate = $items;
+            
+            //reverses all menu items so if proper positioned subitems can be constructed
+            $items = array_reverse($items);
+    
+            foreach ($items as $masterKey => $item) {
+                //edit to allow parents
+                if (isset($item['parent'])) {
+                    //Loops to find its parent
+                    foreach ($items as $key => $subitem) {
+                        if ($subitem['id'] == $item['parent']) {
+                            if (! isset($items[$key]['items'])) {
+                                //makes new item
+                                $items[$key]['items'][0] = $items[$masterKey];
+                            } else {
+                                //Puts new elemen in front to respect correct position
+                                array_unshift($items[$key]['items'], $items[$masterKey]);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            //Removes subitems that are not in their parent
+            foreach ($items as $key => $item) {
+                if (! empty($item["parent"])) { //!isset($item["items"]) &&
+                    unset($items[$key]);
+                }
+            }
+           
+            //Restores true position in menu
+            $items = array_reverse($items);
+            
+            $result[$menuId]['items'] = $items;
         }
 
         return $result;
@@ -2259,27 +2267,28 @@ if (! function_exists('isLocalhost')) {
 |
 */
 if (! function_exists('constructGoogleFontLink')) {
-	function constructGoogleFontLink() {
-	    $settings = session('settings');
-	    $fontList = config('_fonts');
+    function constructGoogleFontLink()
+    {
+        $settings = session('settings');
+        $fontList = config('_fonts');
 
-	    $fonts="";
-	    foreach($fontList as $font){
-		    if($settings['body_font'] == $font['option_id'] && $font['gfont'] == true){
-			    $fonts .= $font['slug'].'|';
-		    }
-		    
-		    //last condition prevents duplicates in the fonts variable
-		    if($settings['heading_font'] == $font['option_id'] && $font['gfont'] == true && strpos($fonts, $font['slug']) == false){
-			    $fonts .= $font['slug'].'|';
-		    }
-	    }
-	    
-		$fonts = substr($fonts, 0, -1);
-	    $link = '<link href="https://fonts.googleapis.com/css?family='.$fonts.'&display=swap" rel="stylesheet">';
-	    
-	    return $link;
-	}
+        $fonts = "";
+        foreach ($fontList as $font) {
+            if ($settings['body_font'] == $font['option_id'] && $font['gfont'] == true) {
+                $fonts .= $font['slug'].'|';
+            }
+            
+            //last condition prevents duplicates in the fonts variable
+            if ($settings['heading_font'] == $font['option_id'] && $font['gfont'] == true && strpos($fonts, $font['slug']) == false) {
+                $fonts .= $font['slug'].'|';
+            }
+        }
+        
+        $fonts = substr($fonts, 0, -1);
+        $link = '<link href="https://fonts.googleapis.com/css?family='.$fonts.'&display=swap" rel="stylesheet">';
+        
+        return $link;
+    }
 }
 
 /*
@@ -2547,32 +2556,32 @@ if (! function_exists('getIGInfo')) {
 
 /*
 function checkActiveAdminRoute($array){
-	$id = $array['id'];
-	$storedId = Session::get('set_id');
-	$route = config('pakka.prefix.admin'). '.' . $array['link'] . '.index';
-	$output['link_class'] = "";
-	$output['icon_class'] = "";
-	
-	if($array['link'] == 'items'){
-		$output['route'] = route($route,$id);
-		
-		if(Route::currentRouteName() == $route && $storedId == $id){
-			$output['link_class'] = "active";
-			$output['icon_class'] = "c-blue-500";
-			//Session::put('module_name', $array['name']);
-		}
-	}else{
-		$output['route'] = route($route);
-		
-		if(Route::currentRouteName() == $route){
-			$output['link_class'] = "active";
-			$output['icon_class'] = "c-blue-500";
-			//Session::put('module_name', $array['name']);
-			//Session::put('set_id', $id);
-		}
-	}
-	
-	return $output;
+    $id = $array['id'];
+    $storedId = Session::get('set_id');
+    $route = config('pakka.prefix.admin'). '.' . $array['link'] . '.index';
+    $output['link_class'] = "";
+    $output['icon_class'] = "";
+
+    if($array['link'] == 'items'){
+        $output['route'] = route($route,$id);
+
+        if(Route::currentRouteName() == $route && $storedId == $id){
+            $output['link_class'] = "active";
+            $output['icon_class'] = "c-blue-500";
+            //Session::put('module_name', $array['name']);
+        }
+    }else{
+        $output['route'] = route($route);
+
+        if(Route::currentRouteName() == $route){
+            $output['link_class'] = "active";
+            $output['icon_class'] = "c-blue-500";
+            //Session::put('module_name', $array['name']);
+            //Session::put('set_id', $id);
+        }
+    }
+
+    return $output;
 }
 */
 
