@@ -2,11 +2,11 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers\Auth;
 
-use Session;
-
 use App\Providers\RouteServiceProvider;
+
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Session;
 use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
 
 class LoginController extends Controller
