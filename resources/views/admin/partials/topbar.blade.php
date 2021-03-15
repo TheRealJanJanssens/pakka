@@ -198,7 +198,6 @@
 	                    	<span class="placeholder-avatar"><i class="ti-user"></i></span>
 	                    @endif
 	                    
-                        
                     </div>
                     <div class="peer">
                         <span class="fsz-sm c-grey-900">{{ auth()->user()->name }}</span>

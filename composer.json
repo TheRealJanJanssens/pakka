@@ -47,9 +47,6 @@
         }
     ],
     "autoload": {
-        "files": [
-            "src/Http/helpers.php"
-        ],
         "psr-4": {
             "TheRealJanJanssens\\Pakka\\": "src",
             "TheRealJanJanssens\\Pakka\\Database\\Factories\\": "database/factories"

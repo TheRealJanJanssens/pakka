@@ -2,8 +2,11 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers\Auth;
 
+use Session;
+
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
 
 class LoginController extends Controller
@@ -36,5 +39,18 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function showLoginForm()
+    {
+        return view('pakka::auth.login');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        //This is getting used as a fallback on the empty Auth::user() in helpers.php
+        Session::put('auth.id', $user->id);
+        Session::put('auth.email', $user->email);
+        Session::put('auth.role', $user->role);
     }
 }

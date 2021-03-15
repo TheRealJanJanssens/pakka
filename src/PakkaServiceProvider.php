@@ -12,11 +12,13 @@ class PakkaServiceProvider extends PackageServiceProvider
     {
         $this->publishes([
             // Config
-            __DIR__.'/../config/database.php' => config_path('database.php'),
-            __DIR__.'/../config/pakka.php' => config_path('pakka.php'),
-            __DIR__.'/../config/image.php' => config_path('image.php'),
-            __DIR__.'/../config/settings.php' => config_path('settings.php'),
             __DIR__.'/../config/_fonts.php' => config_path('_fonts.php'),
+            __DIR__.'/../config/database.php' => config_path('database.php'),
+            __DIR__.'/../config/debugbar.php' => config_path('debugbar.php'),
+            __DIR__.'/../config/auth.php' => config_path('auth.php'),
+            __DIR__.'/../config/image.php' => config_path('image.php'),
+            __DIR__.'/../config/pakka.php' => config_path('pakka.php'),
+            __DIR__.'/../config/settings.php' => config_path('settings.php'),
 
             // NPM json
             __DIR__.'/../resources/dev/package.json' => base_path('package.json'),
@@ -59,11 +61,11 @@ class PakkaServiceProvider extends PackageServiceProvider
 
         // Load the helpers in app/Http/helpers.php
         if (file_exists($file = __DIR__.'/helpers.php')) {
-            require $file;
+            //require_once $file;
         }
 
         if (file_exists($file = __DIR__.'/Macros/form.php')) {
-            require $file;
+            require_once $file;
         }
     }
     
