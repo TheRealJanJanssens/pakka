@@ -2,7 +2,9 @@
 
 All notable changes to `pakka` will be documented in this file.
 
-## 0.0.3 - 2020-03-xx
+## 0.0.4 - 2020-03-xx
+
+## 0.0.3 - 2020-03-15
 
 - Helper constructAttributes fix (setAttribute and null failsafes)
 - Added a functionality to support custom sections
@@ -14,6 +16,7 @@ All notable changes to `pakka` will be documented in this file.
 - Resolved "ADMIN . " issues
 - Resolved Form actions
 - Resolved route() issues in controllers
+- Kernel fix (Session and Auth problems)
 
 ## 0.0.2 - 2020-02-27
 
