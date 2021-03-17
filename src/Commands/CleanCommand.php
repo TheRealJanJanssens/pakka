@@ -3,7 +3,6 @@
 namespace TheRealJanJanssens\Pakka\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 
 class CleanCommand extends Command
 {
@@ -11,23 +10,26 @@ class CleanCommand extends Command
 
     public $description = 'My command';
 
-    public function clean($str) {
+    public function clean($str)
+    {
         if (is_file($str)) {
             chmod($str, 0777);
+
             return unlink($str);
-        }
-        elseif (is_dir($str)) {
-            $scan = glob(rtrim($str,'/').'/*');
-            foreach($scan as $index=>$path) {
+        } elseif (is_dir($str)) {
+            $scan = glob(rtrim($str, '/').'/*');
+            foreach ($scan as $index => $path) {
                 $this->clean($path);
             }
             chmod($str, 0777);
+
             return @rmdir($str);
         }
     }
 
-    public function replace($path, $data){
-        if(file_exists($path)){
+    public function replace($path, $data)
+    {
+        if (file_exists($path)) {
             file_put_contents($path, $data);
         }
     }

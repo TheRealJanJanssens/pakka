@@ -11,8 +11,9 @@ class InstallCommand extends Command
 
     public $description = 'My command';
 
-    public function clean($path){
-        if(file_exists($path)){
+    public function clean($path)
+    {
+        if (file_exists($path)) {
             unlink($path);
         }
     }
