@@ -9,21 +9,21 @@
 			
 			<?php
                 //Translates all the condition operators
-				$delivery = translateConfigArray("variables.shipment_delivery");
+				$delivery = translateConfigArray("pakka.shipment_delivery");
             ?>
 
 			{!! Form::mySelect('delivery', 'Soort levering', $delivery, null, ['class' => 'form-control select2', 'data-search' => '-1']) !!}
 			
 			<?php
                 //Translates all the condition operators
-				$carriers = translateConfigArray("variables.shipment_carrier");
+				$carriers = translateConfigArray("pakka.shipment_carrier");
             ?>
 
 			{!! Form::mySelect('carrier', 'Koerier', $carriers, null, ['class' => 'form-control select2', 'data-search' => '-1']) !!}
 				
 			<?php
                 //Translates all the condition operators
-				$region = translateConfigArray("variables.regions");
+				$region = translateConfigArray("pakka.regions");
             ?>
 
 			{!! Form::mySelect('region', 'Regio', $region, null, ['class' => 'form-control select2', 'data-search' => '-1']) !!}
@@ -72,7 +72,7 @@
 					    <td width="25%" class="pL-0">
 			                <?php
 				                //Translates all the condition operators
-								$cond_operators = translateConfigArray("variables.shipment_condition_operator");
+								$cond_operators = translateConfigArray("pakka.shipment_condition_operator");
 			                ?>
 
 							{!! Form::mySelect('operator[]', null, $cond_operators, null, ['class' => 'form-control select2', 'data-search' => '-1']) !!}
@@ -85,7 +85,7 @@
 			            <td width="25%">
 				            <?php
 								//Translates all the condition operators
-								$cond_types = translateConfigArray("variables.shipment_condition_type");
+								$cond_types = translateConfigArray("pakka.shipment_condition_type");
 			                ?>
 			                {!! Form::mySelect('type[]', null, $cond_types, null, ['class' => 'form-control select2', 'data-search' => '-1']) !!}
 				        </td>

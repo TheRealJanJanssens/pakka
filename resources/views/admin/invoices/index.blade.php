@@ -117,7 +117,7 @@
 <!--                     <th>{{ trans('pakka::app.date') }}</th> -->
                     <th>{{ trans('pakka::app.document_no') }}</th>
                     <th>{{ trans('pakka::app.name') }}</th>
-                    <th>{{ trans('pakka::app.total') }}</th>
+                    <th style="width:125px;">{{ trans('pakka::app.total') }}</th>
                     <th>{{ trans('pakka::app.due_date') }}</th>
                     <th>{{ trans('pakka::app.status') }}</th>
                     <th></th>
@@ -153,14 +153,14 @@
 	                    
                         <td><a href="{{ route(config('pakka.prefix.admin'). '.clients.edit', $item['client_id']) }}">{{ $item['client_name'] }}</td>
                         <td>
-	                        <b>
+	                        <b class="d-block" style="width: 90px;">
 	                        <?php
-		                        if($item['total'] < 0){
-			                        echo str_replace ("-", "-".$settings['invoice_valuta'], formatNumber($item['total']));
-		                        }else{
-			                        echo $settings['invoice_valuta'].formatNumber($item['total']);
-		                        }
-		                    ?>
+  		                        if($item['total'] < 0){
+  			                        echo str_replace ("-", "-".$settings['invoice_valuta'], formatNumber($item['total']));
+  		                        }else{
+  			                        echo $settings['invoice_valuta'].formatNumber($item['total']);
+  		                        }
+  		                    ?>
 	                        </b>
 	                    </td>
                         <td>{{ formatDate($item['due_date']) }}</td>
@@ -198,7 +198,7 @@
 	                        
 	                    </td>
                         <td>
-                            <ul class="list-inline">
+                            <ul class="list-inline" style="width:95px;">
                                 <li class="list-inline-item">
                                     <a href="{{ route(config('pakka.prefix.admin'). '.invoices.edit', $item['id']) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary-gradient btn-sm"><span class="ti-pencil"></span></a></li>
                                 <li class="list-inline-item">

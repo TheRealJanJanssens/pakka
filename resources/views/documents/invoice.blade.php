@@ -208,13 +208,13 @@
 
 	   <table class="table invoice-table table-condensed">
 			<thead>
-                <tr>
-	                <td class="text-center"><strong>{{ trans('pakka::app.description') }}</strong></td>
-					<td><strong>{{ trans('pakka::app.quantity') }}</strong></td>
-					<td class="text-center"><strong>{{ trans('pakka::app.price') }}</strong></td>
-					<td class="text-right"><strong>{{ trans('pakka::app.vatper') }}</strong></td>
-					<td class="text-right"><strong>{{ trans('pakka::app.total') }}</strong></td>
-                </tr>
+          <tr>
+            <td class="text-center"><strong>{{ trans('app.description') }}</strong></td>
+  					<td style="width: 20px;"><strong>{{ trans('app.quantity') }}</strong></td>
+  					<td class="text-center" style="width: 70px;"><strong>{{ trans('app.price') }}</strong></td>
+  					<td class="text-right" style="width: 50px;"><strong>{{ trans('app.vatper') }}</strong></td>
+  					<td class="text-right" style="width: 80px;"><strong>{{ trans('app.total') }}</strong></td>
+          </tr>
 			</thead>
 			<tbody class="f-12">
 				@foreach($invoice['items'] as $item)

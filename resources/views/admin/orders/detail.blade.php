@@ -137,7 +137,7 @@
 					        <tr>
 						        <td>
 							        @if(!empty($item['product_id']))
-							        	@php( $image = App\Images::where('item_id', $item['product_id'])->orderBy('position')->first() )
+							        	@php( $image = TheRealJanJanssens\Pakka\Models\Images::where('item_id', $item['product_id'])->orderBy('position')->first() )
 							        	@if(isset($image->item_id))
 							        		<img src="{!! url('/').imgUrl($image->item_id, $image->file, 100) !!}" alt="{!! $item['name'] !!}" title="{!! $item['name'] !!}" width="100" class="bdrs-3"></a>
 							        	@endif
@@ -181,7 +181,7 @@
 					{{ getOrderFinancialStatus($order['financial_status']) }}
 				</p>
 			    
-			    @php( $calculate = App\Invoice::calculateInvoice($order,true) )
+			    @php( $calculate = TheRealJanJanssens\Pakka\Models\Invoice::calculateInvoice($order,true) )
 			    
 			    <table class="table table-sm mb-0" width="100%">
 			        <tbody>

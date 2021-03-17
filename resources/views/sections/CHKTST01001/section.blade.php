@@ -51,10 +51,10 @@
 	                    
 	                    <div class="col-md-12 mt-3">
 	                        <label>{{ trans('pakka::form.address') }}:</label>
-	                        <input type="text" name="apt" placeholder="{{ trans('pakka::form.apt') }}" class="e {{ parseSecAttr('.e', $section['classes']) }}">
-	                        <input type="text" name="street" placeholder="{{ trans('pakka::form.street') }}" class="e {{ parseSecAttr('.e', $section['classes']) }}">
-	                        <input type="text" name="city" placeholder="{{ trans('pakka::form.city') }}" class="e {{ parseSecAttr('.e', $section['classes']) }}">
-	                        <input type="text" name="zip" placeholder="{{ trans('pakka::form.zip') }}" class="e {{ parseSecAttr('.e', $section['classes']) }}">
+	                        <input type="text" name="apt" placeholder="{{ trans('pakka::form.apt') }}" class="validate-required e {{ parseSecAttr('.e', $section['classes']) }}">
+	                        <input type="text" name="street" placeholder="{{ trans('pakka::form.street') }}" class="validate-required e {{ parseSecAttr('.e', $section['classes']) }}">
+	                        <input type="text" name="city" placeholder="{{ trans('pakka::form.city') }}" class="validate-required e {{ parseSecAttr('.e', $section['classes']) }}">
+	                        <input type="text" name="zip" placeholder="{{ trans('pakka::form.zip') }}" class="validate-required e {{ parseSecAttr('.e', $section['classes']) }}">
 	                        <div class="select-option my-3 e {{ parseSecAttr('.e', $section['classes']) }}">
 		                        <i class="fa fa-angle-down"></i>
 		                        <select class="cart-region" name="country" data-ca='set-region' data-input=".cart-region">

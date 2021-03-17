@@ -2,7 +2,20 @@
 
 All notable changes to `pakka` will be documented in this file.
 
-## 0.0.4 - 2020-03-xx
+## 0.0.5 - 2020-03-xx
+## 0.0.4 - 2020-03-18
+- Connected old 'variable.' configs to 'pakka.'
+- Connect Helpers directory
+- Connect Providers
+- Added HelperServiceProvider
+- Added app.php config in package
+- Added Install & Clean Command
+- Added make:user Command
+- README.md update
+- Invoice template added hardcoded widths in table
+- Invoice overview added fixed widths to total and actions
+- Fixed locale and fallback locale reverting back to en due to limited config (app.php)
+- Checkout form block added validation to address fields
 
 ## 0.0.3 - 2020-03-15
 

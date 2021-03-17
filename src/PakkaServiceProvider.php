@@ -4,15 +4,19 @@ namespace TheRealJanJanssens\Pakka;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use TheRealJanJanssens\Pakka\Commands\ShowTextCommand;
+use TheRealJanJanssens\Pakka\Commands\InstallCommand;
+use TheRealJanJanssens\Pakka\Commands\CleanCommand;
+use TheRealJanJanssens\Pakka\Commands\UserMakeCommand;
 
 class PakkaServiceProvider extends PackageServiceProvider
 {
     public function bootingPackage()
     {
+        //php artisan vendor:publish --tag=pakka
         $this->publishes([
             // Config
             __DIR__.'/../config/_fonts.php' => config_path('_fonts.php'),
+            __DIR__.'/../config/app.php' => config_path('app.php'),
             __DIR__.'/../config/database.php' => config_path('database.php'),
             __DIR__.'/../config/debugbar.php' => config_path('debugbar.php'),
             __DIR__.'/../config/auth.php' => config_path('auth.php'),
@@ -26,8 +30,17 @@ class PakkaServiceProvider extends PackageServiceProvider
             // Webpack Mix
              __DIR__.'/../resources/dev/webpack.mix.js' => public_path('../webpack.mix.js'),
 
+            // Helpers
+            __DIR__.'/../src/Helpers' => app_path('Helpers'),
+
+            // Providers
+            __DIR__.'/../src/Providers/HelperServiceProvider.php' => app_path('Providers/HelperServiceProvider.php'),
+            __DIR__.'/../src/Providers/MacroServiceProvider.php' => app_path('Providers/MacroServiceProvider.php'),
+
             // Middleware
-            __DIR__.'/../src/Http/Middleware' => app_path('Http/Middleware'),
+            __DIR__.'/../src/Http/Middleware/Locale.php' => app_path('Http/Middleware/Locale.php'),
+            __DIR__.'/../src/Http/Middleware/Role.php' => app_path('Http/Middleware/Role.php'),
+            __DIR__.'/../src/Http/Middleware/VerifyCsrfToken.php' => app_path('Http/Middleware/VerifyCsrfToken.php'),
 
             // Kernel
             __DIR__.'/../src/Http/Kernel/Kernel.php' => app_path('Http/Kernel.php'),
@@ -59,11 +72,6 @@ class PakkaServiceProvider extends PackageServiceProvider
 
         // ], 'pakka-dev');
 
-        // Load the helpers in app/Http/helpers.php
-        if (file_exists($file = __DIR__.'/helpers.php')) {
-            //require_once $file;
-        }
-
         if (file_exists($file = __DIR__.'/Macros/form.php')) {
             require_once $file;
         }
@@ -84,7 +92,9 @@ class PakkaServiceProvider extends PackageServiceProvider
             ->hasRoute('web')
             //->hasMigration('create_pakka_table')
             ->hasCommands([
-                ShowTextCommand::class,
+                InstallCommand::class,
+                CleanCommand::class,
+                UserMakeCommand::class,
             ]);
     }
 }

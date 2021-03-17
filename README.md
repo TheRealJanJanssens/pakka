@@ -7,20 +7,17 @@
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/package-pakka-laravel.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/package-pakka-laravel)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
-
 ## Installation
 
 You can install the package via composer:
 
 ```bash
 composer require therealjanjanssens/pakka
+```
+
+We also prepared a complete setup for the pakka package with following command
+```bash
+php artisan pakka-install
 ```
 
 You can publish and run the migrations with:
@@ -55,6 +52,9 @@ echo $pakka->echoPhrase('Hello, TheRealJanJanssens!');
 composer test
 ```
 
+## Custom sections
+If you need to change a particular section for your needs you can simply add a 'sections' folder in your views. You can put a copy of that section in the folder you just made and do all the changes you want. When you update the package this folder won't be updated so your custom sections will be untouched.
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
@@ -72,6 +72,6 @@ Please review [our security policy](../../security/policy) on how to report secu
 - [Jan Janssens](https://github.com/TheRealJanJanssens)
 - [All Contributors](../../contributors)
 
-## License
+<!-- ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information. -->

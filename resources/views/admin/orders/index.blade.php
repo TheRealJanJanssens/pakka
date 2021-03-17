@@ -14,7 +14,7 @@
         <table id="dataTable" class="table table-list table-striped" cellspacing="0" width="100%"> <!-- table-bordered -->
             <thead>
                 <tr>
-                    <th>{{ trans('pakka::app.number') }}</th>
+                    <th>{{ trans('pakka::app.order_no') }}</th>
                     <th>{{ trans('pakka::app.name') }}</th>
                     <th>{{ trans('pakka::app.total') }}</th>
                     <th>{{ trans('pakka::app.fulfillment') }}</th>

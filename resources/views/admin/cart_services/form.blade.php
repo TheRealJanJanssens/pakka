@@ -9,7 +9,7 @@
 			
 			<?php
                 //Translates all the condition operators
-				$delivery = translateConfigArray("variables.cart_service_icons");
+				$delivery = translateConfigArray("pakka.cart_service_icons");
             ?>
 
 			{!! Form::mySelect('icon', 'Icoon', config("pakka.cart_service_icons"), null, ['class' => 'form-control select2', 'data-search' => '-1']) !!}
@@ -30,7 +30,7 @@
 					    <td width="25%" class="pL-0">
 			                <?php
 				                //Translates all the condition operators
-								$cond_operators = translateConfigArray("variables.shipment_condition_operator");
+								$cond_operators = translateConfigArray("pakka.shipment_condition_operator");
 			                ?>
 
 							{!! Form::mySelect('operator[]', null, $cond_operators, null, ['class' => 'form-control select2', 'data-search' => '-1']) !!}
@@ -43,7 +43,7 @@
 			            <td width="25%">
 				            <?php
 								//Translates all the condition operators
-								$cond_types = translateConfigArray("variables.shipment_condition_type");
+								$cond_types = translateConfigArray("pakka.shipment_condition_type");
 			                ?>
 			                {!! Form::mySelect('type[]', null, $cond_types, null, ['class' => 'form-control select2', 'data-search' => '-1']) !!}
 				        </td>

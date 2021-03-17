@@ -2,21 +2,20 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use App\Invoice;
-use App\InvoiceDetail;
-
-use App\InvoiceItem;
+use TheRealJanJanssens\Pakka\Models\Invoice;
+use TheRealJanJanssens\Pakka\Models\InvoiceDetail;
+use TheRealJanJanssens\Pakka\Models\InvoiceItem;
 
 use App\Mail\OrderConfirmationClient;
 use App\Mail\OrderConfirmationCompany;
 use App\Mail\OrderShipment as MailOrderShipment;
 
-use App\OrderDetail;
-use App\OrderDocument;
-use App\OrderItem;
-use App\OrderPayment;
-use App\OrderShipment;
-use App\ShipmentOption;
+use TheRealJanJanssens\Pakka\Models\OrderDetail;
+use TheRealJanJanssens\Pakka\Models\OrderDocument;
+use TheRealJanJanssens\Pakka\Models\OrderItem;
+use TheRealJanJanssens\Pakka\Models\OrderPayment;
+use TheRealJanJanssens\Pakka\Models\OrderShipment;
+use TheRealJanJanssens\Pakka\Models\ShipmentOption;
 use Carbon\Carbon;
 use Cart;
 use Illuminate\Database\Eloquent\Model;

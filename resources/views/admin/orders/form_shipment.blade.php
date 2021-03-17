@@ -51,7 +51,7 @@
 					
 					<?php
 		                //Translates all the condition operators
-						$carriers = translateConfigArray("variables.shipment_carrier");
+						$carriers = translateConfigArray("pakka.shipment_carrier");
 		            ?>
 		
 					{!! Form::mySelect('carrier', 'Koerier', $carriers, null, ['class' => 'form-control select2', 'data-search' => '-1']) !!}

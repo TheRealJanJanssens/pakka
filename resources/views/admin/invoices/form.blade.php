@@ -128,10 +128,10 @@
 					
 					<?php
 						//Translates all the status types
-						$status = translateConfigArray("variables.invoice_status");
+						$status = translateConfigArray("pakka.invoice_status");
 						
 						//Translates all the invoice types
-						$types = translateConfigArray("variables.document_type");
+						$types = translateConfigArray("pakka.document_type");
 
 						//invoiceNo input
 						if(isset($document['document_numbers'])){

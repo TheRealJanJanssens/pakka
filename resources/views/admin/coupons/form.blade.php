@@ -8,7 +8,7 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<?php
-		                $types = translateConfigArray("variables.coupon_type");
+		                $types = translateConfigArray("pakka.coupon_type");
 	                ?>
 
 					{!! Form::mySelect('type', 'Soort coupon', $types, null, ['class' => 'form-control select2', 'data-search' => '-1']) !!}
