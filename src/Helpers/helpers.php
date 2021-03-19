@@ -164,28 +164,29 @@ if (! function_exists('translateConfigArray')) {
 if (! function_exists('getAuth')) {
     function getAuth()
     {
-		$result = null;
-        if(Auth::check()){
-			$user = Auth::user();
-			$result = ['id' => $user->id, 'role' => $user->role, 'email'=> $user->email];
-		}else{
-			if (Session::has('auth')) {
-				$result = Session::get('auth');
-			}
-		}
-		return $result;
+        $result = null;
+        if (Auth::check()) {
+            $user = Auth::user();
+            $result = ['id' => $user->id, 'role' => $user->role, 'email' => $user->email];
+        } else {
+            if (Session::has('auth')) {
+                $result = Session::get('auth');
+            }
+        }
+
+        return $result;
     }
 }
 
 if (! function_exists('getAuthRole')) {
     function getAuthRole()
     {
-		$auth = getAuth();
-		if(!empty($auth)){
-			return $auth['role'];
-		}else{
-			return 0;
-		}
+        $auth = getAuth();
+        if (! empty($auth)) {
+            return $auth['role'];
+        } else {
+            return 0;
+        }
     }
 }
 

@@ -4,8 +4,8 @@ namespace TheRealJanJanssens\Pakka;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use TheRealJanJanssens\Pakka\Commands\InstallCommand;
 use TheRealJanJanssens\Pakka\Commands\CleanCommand;
+use TheRealJanJanssens\Pakka\Commands\InstallCommand;
 use TheRealJanJanssens\Pakka\Commands\UserMakeCommand;
 
 class PakkaServiceProvider extends PackageServiceProvider
