@@ -821,16 +821,19 @@ if (! function_exists('checkAcces')) {
     {
         if (isset(auth()->user()->role)) {
             $settings = Session::get('settings');
-            if (!empty($settings) && array_key_exists($setting, $settings)) {
+            if (! empty($settings) && array_key_exists($setting, $settings)) {
                 switch (true) {
                     case auth()->user()->role == 10:
                         return true;
+
                         break;
                     case auth()->user()->role !== 10 && $settings[$setting] == 1:
                         return true;
+
                         break;
                     default:
                         return false;
+
                         break;
                 }
             } else {

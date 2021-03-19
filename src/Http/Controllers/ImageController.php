@@ -70,7 +70,7 @@ class ImageController extends Controller
                     }
     
                     //Keeps same aspect ratio when resize
-                    if($format !== 0){
+                    if ($format !== 0) {
                         $img->resize($format, null, function ($constraint) {
                             $constraint->aspectRatio();
                         });
@@ -79,7 +79,7 @@ class ImageController extends Controller
                     //$img->encode('webp', 90)->save(public_path('uploads/'  .  $filename . '.webp')
 
                     //encodes the image
-                    $img->stream($file->getClientOriginalExtension(), $settings['image_compression']); 
+                    $img->stream($file->getClientOriginalExtension(), $settings['image_compression']);
 
                     //Makes the format dir if not exists
                     if (! Storage::exists($storageUrl.$format)) {
@@ -89,7 +89,7 @@ class ImageController extends Controller
                     Storage::disk('public')->put($baseLocation.$format.'/'.$name.'.'.$ext, $img);
                     
                     //store webp if enabled
-                    if($settings['image_webp_convert'] == 1){
+                    if ($settings['image_webp_convert'] == 1) {
                         $img->encode('webp')->save($baseLocation.$format.'/'.$name);
                     }
 

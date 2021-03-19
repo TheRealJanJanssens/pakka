@@ -250,11 +250,12 @@ class ContentController extends Controller
         }
         
         //before sorting the sections the new ID has to be set
-        $i=0;
+        $i = 0;
         $list = json_decode($post['list'], true);
-        foreach($list as $item){
-            if($item[0]['id'] == 0){
+        foreach ($list as $item) {
+            if ($item[0]['id'] == 0) {
                 $list[$i][0]['id'] = $section->id;
+
                 break;
             }
             $i++;
@@ -311,7 +312,8 @@ class ContentController extends Controller
         $item->update($result);
     }
     
-    public function processOrderSections($items){
+    public function processOrderSections($items)
+    {
         foreach ($items as $item) {
             if (isset($item[0]['id'])) {
                 Section::find($item[0]['id'])->update(['position' => $item[0]['position']]);
