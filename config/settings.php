@@ -479,6 +479,19 @@ return [
 				'label' => "app.settings_assets.permission_image_optimization",
 				'type' => "switch",
 				'level' => "global",
+			],
+			[
+			    'name' => "image_webp_convert",
+				'label' => "app.settings_assets.image_webp_convert",
+				'type' => "switch",
+				'level' => "global",
+		    ],
+			[
+			    'name' => "image_compression",
+				'label' => "app.settings_assets.image_compression",
+				'type' => "number",
+				'level' => "global",
+				'default' => 90
 		    ]
 		]
 	],

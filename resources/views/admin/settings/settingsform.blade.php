@@ -28,9 +28,9 @@
 			
 			@if($parseGroup ==  true)
 				<div class="settings-group bgc-white mB-20 p-20 bd">
-					@php( $categories[$i] = trans($group['category']))
+					@php( $categories[$i] = trans('pakka::'.$group['category']))
 					<p id="{{ $i }}" class="mB-0 settings-link" data-id="{{ $i }}">
-						<b>{{ trans($group['category']) }}:</b>
+						<b>{{ trans('pakka::'.$group['category']) }}:</b>
 						<i class="ti-angle-left"></i>
 					</p>
 					

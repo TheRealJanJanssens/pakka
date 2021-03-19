@@ -248,7 +248,20 @@ class ContentController extends Controller
                 $iC++;
             }
         }
-                
+        
+        //before sorting the sections the new ID has to be set
+        $i=0;
+        $list = json_decode($post['list'], true);
+        foreach($list as $item){
+            if($item[0]['id'] == 0){
+                $list[$i][0]['id'] = $section->id;
+                break;
+            }
+            $i++;
+        }
+
+        $this->processOrderSections($list);
+        
         return $section->id; //so js knows which section to reload
     }
     
@@ -295,21 +308,22 @@ class ContentController extends Controller
 
         $item = Section::findOrFail($id);
         
-        $test = $item->update($result);
+        $item->update($result);
     }
     
+    public function processOrderSections($items){
+        foreach ($items as $item) {
+            if (isset($item[0]['id'])) {
+                Section::find($item[0]['id'])->update(['position' => $item[0]['position']]);
+            }
+        }
+    }
+
     public function orderSections(Request $request)
     {
         if ($request->isMethod('post')) {
             $items = $request->all();
-            $items = json_decode($items['data'], true);
-
-            $query = "";
-            foreach ($items as $item) {
-                if (isset($item[0]['id'])) {
-                    Section::find($item[0]['id'])->update(['position' => $item[0]['position']]);
-                }
-            }
+            $this->processOrderSections(json_decode($items['data'], true));
 
             Session::forget('menus');
         }

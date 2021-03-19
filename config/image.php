@@ -20,6 +20,7 @@ return [
     'public' => '/public/storage/uploads/',
     'folder' => 'uploads',
     'formats' => [
+        0,
 		2500,
 		1500,
 		1000,

@@ -2073,7 +2073,7 @@ console.log(this.selectionState);
 		var type = elem.attr('data-type');
 		
 		//Parses the placholder
-		var placeholder = "<div class='manageable-placeholder remove'><i class='fa fa-plus'></i><p>Sleep en plaats je nieuwe sectie hier!</p></div>";
+		var placeholder = "<section class='manageable-placeholder remove'><i class='fa fa-plus'></i><p>Sleep en plaats je nieuwe sectie hier!</p></section>";
 		
 		switch(true) {
 		  case elem.hasClass("se-add-top"):
@@ -2151,14 +2151,34 @@ console.log(this.selectionState);
 						}else{
 							var page = $('meta[name="page"]').attr('content');
 						}
-						
+
+						//give correct position
+						var position = 1;
+						var list = new Array();
+						$('.manageable-placeholder').parent().find("section").each(function() {
+							if($(this).hasClass('remove')){
+								var listItem =[{
+									id:0,
+									position:position,
+								}];
+							}else{
+								var listItem =[{
+									id:$(this).attr("data-id"),
+									position:position,
+								}];
+							}
+							list.push(listItem)
+							position++;
+						});
+
 						var dataArray = {
 							id: ui.draggable.attr("data-id"),
 							type: placeholder.attr("data-type"),
 							page: page,
-							name: ui.draggable.attr("data-name")
+							name: ui.draggable.attr("data-name"),
+							list: JSON.stringify(list)
 						};
-						
+console.log(dataArray);
 						$.ajax({
 						   url: "/admin/content/insert/section",
 						   data: dataArray,

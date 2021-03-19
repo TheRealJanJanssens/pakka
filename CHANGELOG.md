@@ -2,7 +2,18 @@
 
 All notable changes to `pakka` will be documented in this file.
 
-## 0.0.5 - 2020-03-xx
+## 0.0.6 - 2020-03-xx
+## 0.0.5 - 2020-03-20
+- Added a 0 format to the images to save uploaded images in their original size
+- Support webp image upload
+- updated ytplayer.min.js
+- Fixed failed login error message
+- Remove dd in parse content helper
+- Fix translate labels in constructInputs
+- added image compression option
+- added webp convert optiion (not tested due wrong enviroment)
+- Fixed position issues when adding a new section
+
 ## 0.0.4 - 2020-03-18
 - Connected old 'variable.' configs to 'pakka.'
 - Connect Helpers directory

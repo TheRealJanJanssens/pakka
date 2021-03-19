@@ -38,7 +38,7 @@ class ImageController extends Controller
             
             $this->validate($request, [
                 'file' => 'required',
-                'file.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+                'file.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240',
             ]);
             
             //Get all files
@@ -57,7 +57,8 @@ class ImageController extends Controller
 
             foreach ($files as $file) {
                 $img = Image::make($file->getRealPath())->orientate(); //->orientate() fixes wrong orientation from phone uploads
-                $name = generateString(10).".".$file->getClientOriginalExtension();
+                $name = generateString(10);
+                $ext = $file->getClientOriginalExtension();
                 
                 //Gets all the image formats in the config
                 $formats = config('image.formats');
@@ -69,22 +70,32 @@ class ImageController extends Controller
                     }
     
                     //Keeps same aspect ratio when resize
-                    $img->resize($format, null, function ($constraint) {
-                        $constraint->aspectRatio();
-                    });
+                    if($format !== 0){
+                        $img->resize($format, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                        });
+                    }
                     
-                    $img->stream(); //encodes the image
-                    
+                    //$img->encode('webp', 90)->save(public_path('uploads/'  .  $filename . '.webp')
+
+                    //encodes the image
+                    $img->stream($file->getClientOriginalExtension(), $settings['image_compression']); 
+
                     //Makes the format dir if not exists
                     if (! Storage::exists($storageUrl.$format)) {
                         Storage::makeDirectory($baseLocation.$format);
                     }
+
+                    Storage::disk('public')->put($baseLocation.$format.'/'.$name.'.'.$ext, $img);
                     
-                    Storage::disk('public')->put($baseLocation.$format.'/'.$name, $img);
-                    
+                    //store webp if enabled
+                    if($settings['image_webp_convert'] == 1){
+                        $img->encode('webp')->save($baseLocation.$format.'/'.$name);
+                    }
+
                     //optimize image (if turned on)
                     if ($settings['image_optimization']) {
-                        $path = Storage::disk('public')->path($baseLocation.$format.'/'.$name);
+                        $path = Storage::disk('public')->path($baseLocation.$format.'/'.$name.'.'.$ext);
                         ImageOptimizer::optimize($path);
                     }
                 }
@@ -97,7 +108,7 @@ class ImageController extends Controller
                 $uploadImages[$i]["name"] = $name;
                 Session::put('uploadImages', $uploadImages);
                 
-                $result[$i] = ['item_id' => $itemId, 'file' => $name, 'position' => $i];
+                $result[$i] = ['item_id' => $itemId, 'file' => $name.'.'.$ext, 'position' => $i];
                 
                 Images::create($result[$i]);
                 
