@@ -37,6 +37,12 @@
 	                            <ul class="list-inline">
 		                            
 		                            @if(checkAcces("permission_content_edit"))
+
+										@if(checkAcces("permission_template_managment"))
+										<li class="list-inline-item">
+											<a href="{{ route(config('pakka.prefix.admin'). '.content.generatetemplate', [$page->id]) }}" title="{{ trans('pakka::app.generate_template') }}" class="btn btn-secondary btn-sm"><span class="ti-hummer"></span></a></li>
+										@endif
+
 			                            <li class="list-inline-item">
 											<a href="{{ route(config('pakka.prefix.admin'). '.content.createsection', $page->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-secondary btn-sm"><span class="ti-plus"></span></a></li>
 											

@@ -22,6 +22,7 @@ class PakkaServiceProvider extends PackageServiceProvider
             __DIR__.'/../config/auth.php' => config_path('auth.php'),
             __DIR__.'/../config/image.php' => config_path('image.php'),
             __DIR__.'/../config/pakka.php' => config_path('pakka.php'),
+            __DIR__.'/../config/placeholders.php' => config_path('placeholders.php'),
             __DIR__.'/../config/settings.php' => config_path('settings.php'),
 
             // NPM json

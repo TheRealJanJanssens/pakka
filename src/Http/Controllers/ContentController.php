@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Session;
+use Storage;
 
 use Spatie\Sitemap\SitemapGenerator;
 use TheRealJanJanssens\Pakka\Models\AttributeInput;
@@ -20,7 +21,7 @@ use TheRealJanJanssens\Pakka\Models\MenuItem;
 use TheRealJanJanssens\Pakka\Models\Page;
 use TheRealJanJanssens\Pakka\Models\Section;
 use TheRealJanJanssens\Pakka\Models\SectionItem;
-
+use TheRealJanJanssens\Pakka\Models\Template;
 use TheRealJanJanssens\Pakka\Models\Translation;
 
 class ContentController extends Controller
@@ -61,8 +62,9 @@ class ContentController extends Controller
     {
         $templates = getBladeList("templates");
         $sections = getBladeList("sections");
-        
-        return view('pakka::admin.content.createpage', compact('templates', 'sections'));
+        $jsonTemplates = Template::getSelect();
+
+        return view('pakka::admin.content.createpage', compact('templates', 'sections', 'jsonTemplates'));
     }
     
     public function storePage(Request $request)
@@ -79,7 +81,10 @@ class ContentController extends Controller
         $page = Page::create($result);
         $langs = Session::get('lang');
 
-        constructPageStructure($post['json'], $page->id);
+        if(isset($post['json'])){
+            $json = file_get_contents(storage_path() . "/app/public/templates/".$post['json']);
+            constructPageStructure($json, $page->id);
+        }
         
         if ($result['status'] !== 0) {
             //Automaticly generates a menu item for this new page
@@ -135,8 +140,10 @@ class ContentController extends Controller
         $result = slugControl($request->all());
         $result = constructTranslations($result);
         
-        constructPageStructure($post['json'], $id);
-        
+        if(isset($post['json'])){
+            constructPageStructure($post['json'], $id);
+        }
+
         $item->update($result);
         
         //resets menu
@@ -520,5 +527,19 @@ class ContentController extends Controller
         $tags = array_unique($tags);
         
         return view('pakka::admin.content.sectionlist', compact('sections', 'tags'));
+    }
+
+    public function generateTemplate($id){
+        $page = Page::getPage($id, 1);
+        $template = Page::generateTemplate($id);
+
+        $fileName = 'template_'.time().'.json'; 
+        Storage::disk('public')->put('templates/'.$fileName, $template);
+        Template::create(['name'=> $page->name.' template', 'file'=>$fileName]);
+
+        //Download
+        //Storage::disk('public')->download('templates/'.$fileName);
+
+        return redirect('/admin/templates');
     }
 }

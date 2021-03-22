@@ -10,8 +10,20 @@
 			
 			{!! Form::mySelect('template', 'Template', $templates, null, ['class' => 'form-control select2']) !!}
 			
-			@if(checkAcces("permission_content_edit"))
-				{!! Form::myTextArea('json', 'Input Json') !!}
+			@if(checkAcces("permission_template_managment") && isset($jsonTemplates))
+				<div class="form-group">
+					<label for="json" class="col-form-label">Layout Template</label>
+					
+					<select id="json" class="form-control select2 json select2-hidden-accessible" data-placeholder="Selecteer een template" name="json" aria-hidden="true">
+						<option></option>
+						
+						@if($jsonTemplates)
+							@foreach($jsonTemplates as $key => $item)
+								<option value="{{ $key }}">{{ $item }}</option>
+							@endforeach
+						@endif
+					</select>
+				</div>
 			@endif
 				
 		</div>

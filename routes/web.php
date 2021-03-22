@@ -18,6 +18,7 @@ use TheRealJanJanssens\Pakka\Http\Controllers\ProductController;
 use TheRealJanJanssens\Pakka\Http\Controllers\BookingController;
 use TheRealJanJanssens\Pakka\Http\Controllers\SettingController;
 use TheRealJanJanssens\Pakka\Http\Controllers\InvoiceController;
+use TheRealJanJanssens\Pakka\Http\Controllers\TemplateController;
 use TheRealJanJanssens\Pakka\Http\Controllers\ShipmentController;
 use TheRealJanJanssens\Pakka\Http\Controllers\ServicesController;
 use TheRealJanJanssens\Pakka\Http\Controllers\DashboardController;
@@ -58,6 +59,10 @@ Route::group([
 	//Route::auth();
     
     Route::resource('users', UserController::class);
+    Route::resource('templates', TemplateController::class);
+
+    //Templates
+    Route::get('templates/{id}/download', [TemplateController::class, "download"])->name('templates.download');
     
     //INPUT
     Route::get('inputs/{setId}', [InputController::class, "index"])->name('inputs.index');
@@ -150,6 +155,8 @@ Route::group([
     Route::post('content/{id}/update/section/attributes', [ContentController::class, 'updateSectionAttributes']);
     Route::post('content/update/fields', [ContentController::class, 'updateFields']);
     Route::post('content/{id}/update/images', [ContentController::class, 'updateImages']);
+
+    Route::get('content/{id}/template/generate', [ContentController::class, 'generateTemplate'])->name('content.generatetemplate');
     
     //CLIENTS
     Route::get('clients/{id}/get/info', [ClientController::class, 'getInfo']);

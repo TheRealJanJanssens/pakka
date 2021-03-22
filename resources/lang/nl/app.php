@@ -80,6 +80,7 @@ return [
         'permission_edit' => 'Bewerken van toegangsinstellingen',
         'input_edit' => 'Toevoegen en bewerken van input velden',
         'content_edit' => "Toevoegen en bewerken van Pagina's, Secties en Componenten",
+        'permission_template_managment' => "Toevoegen en gebruiken van templates",
         'user_admin_edit' => "Toevoegen en bewerken van gebruikers met een admin rol",
         'content_edit_advanced' => "Toegang tot geavanceerde content edit functies",
         'layout_edit' => "Toegang tot de layout editor",
@@ -254,6 +255,7 @@ return [
     "copy_document" => "Dupliceer document",
     "view_document" => "Bekijk document",
     "download_document" => "Download document",
+    "download" => "Download",
     "send_to_client" => "Verzend naar klant",
     "view_client" => "Klant bekijken",
     

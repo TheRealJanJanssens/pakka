@@ -488,6 +488,11 @@ if (! function_exists('getBladeList')) {
             array_unshift($result, ''); //puts an empty value in front for when you don't use components
         }
         
+        //fallback if no view templates are set
+        if(!isset($result)){
+            $result = ["templates.component" => "component"];
+        }
+
         return $result;
     }
 }
@@ -690,7 +695,6 @@ if (! function_exists('constructInputs')) {
                                 echo '<div id="dropzone__json">';
                                 $imgJSON = [];
                                 $i = 0;
-        
                                 foreach ($item['images'] as $image) {
                                     $imgJSON[$i]["id"] = $itemId;
                                     $imgJSON[$i]["file"] = $image;
@@ -763,8 +767,12 @@ if (! function_exists('listImages')) {
         if (! empty($item[$name])) {
             $imgJSON = [];
             $i = 0;
-
             foreach ($item['images'] as $image) {
+                //failsafe to prevent non existing placeholder images in dropzone
+                if($image == null){
+                    break;
+                }
+
                 $imgJSON[$i]["id"] = $itemId;
                 $imgJSON[$i]["file"] = $image;
                 $imgJSON[$i]["url"] = imgUrl($itemId, $image, 100);
@@ -1524,57 +1532,63 @@ if (! function_exists('constructPageStructure')) {
             }
             
             $iS = 1;
-            foreach ($array as $section) {
+            foreach ($array['sections'] as $section) {
                 $sectionResult = Section::create([
                     'page_id' => $page_id,
-                    'type' => $section['type'],
+                    'type' => $section['type'] ?? 2,
                     'name' => $section['name'],
+                    'status' => $section['status'] ?? 1,
+                    'section' => $section['section'] ?? null,
+                    'classes' => $section['classes'] ?? null,
+                    'attributes' => $section['attributes'] ?? null,
+                    'extras' => $section['extras'] ?? null,
                     'position' => $iS,
                 ]);
                 
-                $iC = 1;
-                foreach ($section['components'] as $component) {
-                    $compResult = Component::create([
-                        'id' => generateString(8),
-                        'page_id' => $page_id,
-                        'section_id' => $sectionResult->id,
-                        'position' => $iC,
-                        'slug' => $component['slug'],
-                        'name' => $component['name'],
-                    ]);
-                    
-                    $iI = 1;
-                    foreach ($component['inputs'] as $input) {
-                        $types = ["select","checkbox","radio"]; //illegal inputs
+                if(isset($section['components'])){
+                    $iC = 1;
+                    foreach ($section['components'] as $component) {
+                        $compResult = Component::create([
+                            'id' => generateString(8),
+                            'page_id' => $page_id,
+                            'section_id' => $sectionResult->id,
+                            'position' => $iC,
+                            'slug' => $component['slug'],
+                            'name' => $component['name'],
+                        ]);
                         
-                        if (contains($input['type'], $types) && isset($input['options'])) {
-                            //inputs with options
-                        } else {
-                            $inputInsert = AttributeInput::create([
-                                'input_id' => generateString(8),
-                                'set_id' => $compResult->id,
-                                'position' => $iI,
-                                'label' => $input['label'],
-                                'name' => $input['name'],
-                                'type' => $input['type'],
-                            ]);
-                            foreach ($langs as $lang) {
-                                if (isset($input['default']) && ! empty($input['default'])) {
-                                    $input = AttributeValue::create([
-                                        'input_id' => $inputInsert->input_id,
-                                        'item_id' => $compResult->id,
-                                        'language_code' => $lang["language_code"],
-                                        'value' => $input['default'],
-                                    ]);
+                        $iI = 1;
+                        foreach ($component['inputs'] as $input) {
+                            $types = ["select","checkbox","radio"]; //illegal inputs
+                            
+                            if (contains($input['type'], $types) && isset($input['options'])) {
+                                //inputs with options
+                            } else {
+                                $inputInsert = AttributeInput::create([
+                                    'input_id' => generateString(8),
+                                    'set_id' => $compResult->id,
+                                    'position' => $iI,
+                                    'label' => $input['label'],
+                                    'name' => $input['name'],
+                                    'type' => $input['type'],
+                                ]);
+                                foreach ($langs as $lang) {
+                                    if (isset($input['default']) && ! empty($input['default'])) {
+                                        $input = AttributeValue::create([
+                                            'input_id' => $inputInsert->input_id,
+                                            'item_id' => $compResult->id,
+                                            'language_code' => $lang["language_code"],
+                                            'value' => $input['default'],
+                                        ]);
+                                    }
                                 }
                             }
+                            $iI++;
                         }
-                        $iI++;
+                        
+                        $iC++;
                     }
-                    
-                    $iC++;
                 }
-                
                 $iS++;
             }
         }
@@ -2406,7 +2420,7 @@ if (! function_exists('constructDividers')) {
             $shape = isset($extras['divider_shape_top']) ? $extras['divider_shape_top'] : "";
             $classes = isset($sClasses['.divider-top']) ? $sClasses['.divider-top'] : "";
             $classes = "$orientation $classes";
-            include "../resources/views/partials/dividers/".$shape.".blade.php";
+            echo view('pakka::partials.dividers.'.$shape, ['classes' => $classes]);
         }
         
         if (isset($extras['divider_shape_bottom'])) {
@@ -2414,7 +2428,7 @@ if (! function_exists('constructDividers')) {
             $shape = isset($extras['divider_shape_bottom']) ? $extras['divider_shape_bottom'] : "";
             $classes = isset($sClasses['.divider-bottom']) ? $sClasses['.divider-bottom'] : "";
             $classes = "$orientation $classes";
-            include "../resources/views/partials/dividers/".$shape.".blade.php";
+            echo view('pakka::partials.dividers.'.$shape, ['classes' => $classes]);
         }
     }
 }

@@ -38,6 +38,7 @@ return [
         'coupons' => 'Coupons',
         'shipments' => 'Levering',
         'orders' => 'Bestellingen',
+        'templates' => 'Templates',
     ],
     
     'icons' => [
@@ -66,19 +67,19 @@ return [
     ],
     
     'invoice_status' => [
-        '1' => 'app.generated',
-        '2' => 'app.sent',
-        '3' => 'app.payment_received',
-        '4' => 'app.canceled',
-        '5' => 'app.overdue',
+        '1' => 'pakka::app.generated',
+        '2' => 'pakka::app.sent',
+        '3' => 'pakka::app.payment_received',
+        '4' => 'pakka::app.canceled',
+        '5' => 'pakka::app.overdue',
     ],
     
     'document_type' => [
-        '1' => 'app.invoice',
-        '2' => 'app.credit_invoice',
-        '3' => 'app.proforma',
-        '4' => 'app.quotation',
-        '5' => 'app.order_form',
+        '1' => 'pakka::app.invoice',
+        '2' => 'pakka::app.credit_invoice',
+        '3' => 'pakka::app.proforma',
+        '4' => 'pakka::app.quotation',
+        '5' => 'pakka::app.order_form',
     ],
     
     'type' => [
@@ -91,45 +92,45 @@ return [
     ],
 	
 	'coupon_type' => [
-		"1" => 'app.voucher',
-		"2" => 'app.action'
+		"1" => 'pakka::app.voucher',
+		"2" => 'pakka::app.action'
 	],
 	
 	'shipment_delivery' => [
-        '0' => 'app.pick_up',
-        '1' => 'app.delivery'
+        '0' => 'pakka::app.pick_up',
+        '1' => 'pakka::app.delivery'
     ],
     
     'shipment_carrier' => [
-	    '1' => 'app.own_business',
-	    '2' => 'app.bpost',
-        '3' => 'app.dhl',
-        '4' => 'app.dpd',
-        '5' => 'app.gls',
-        '6' => 'app.postnl',
-        '7' => 'app.ups'
+	    '1' => 'pakka::app.own_business',
+	    '2' => 'pakka::app.bpost',
+        '3' => 'pakka::app.dhl',
+        '4' => 'pakka::app.dpd',
+        '5' => 'pakka::app.gls',
+        '6' => 'pakka::app.postnl',
+        '7' => 'pakka::app.ups'
     ],
     
     'shipment_condition_operator' => [
-        '1' => 'app.upward_of',
-        '2' => 'app.up_to_and_including'
+        '1' => 'pakka::app.upward_of',
+        '2' => 'pakka::app.up_to_and_including'
     ],
 	
 	'shipment_condition_type' => [
-		'1' => 'app.eur',
-		'2' => 'app.grams'
+		'1' => 'pakka::app.eur',
+		'2' => 'pakka::app.grams'
 /*
-        '1' => 'app.valuta',
-        '2' => 'app.weight'
+        '1' => 'pakka::app.valuta',
+        '2' => 'pakka::app.weight'
 */
     ],
 	
 	'regions' => [
-        'BE' => 'app.belgium',
-        'NL' => 'app.netherlands',
-        'LU' => 'app.luxembourg',
-        'FR' => 'app.france',
-        'DE' => 'app.germany'
+        'BE' => 'pakka::app.belgium',
+        'NL' => 'pakka::app.netherlands',
+        'LU' => 'pakka::app.luxembourg',
+        'FR' => 'pakka::app.france',
+        'DE' => 'pakka::app.germany'
     ],
 	
 	'cart_service_icons' => [

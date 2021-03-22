@@ -586,6 +586,12 @@ return [
 				'type' => "switch",
 				'level' => "global",
 		    ],
+			[
+			    'name' => "permission_template_managment",
+				'label' => "app.settings_assets.permission_template_managment",
+				'type' => "switch",
+				'level' => "global",
+		    ],
 		    [
 			    'name' => "permission_user_admin_edit",
 				'label' => "app.settings_assets.user_admin_edit",

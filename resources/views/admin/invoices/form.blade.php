@@ -13,7 +13,7 @@
 	      </div>
 	      <div class="modal-body">
 		    <div class="row justify-center">
-			    @php( $presets = App\InvoicePreset::all()->toArray() )
+			    @php( $presets = TheRealJanJanssens\Pakka\Models\InvoicePreset::all()->toArray() )
 				@foreach($presets as $preset)
 				
 					<div class="col-sm-3">
@@ -43,7 +43,7 @@
 						<div class="row justify-center">
 							<div class="col-sm-6">
 
-								@php($clients = App\User::constructSelect(1))
+								@php($clients = TheRealJanJanssens\Pakka\Models\User::constructSelect(1))
 								
 								<div class="form-group row">
 									<label for="client-select" class="col-sm-3 col-form-label">{{ trans("pakka::app.client") }}</label>

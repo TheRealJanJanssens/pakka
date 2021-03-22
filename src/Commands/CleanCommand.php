@@ -44,6 +44,7 @@ class CleanCommand extends Command
         $this->clean(config_path('auth.php'));
         $this->clean(config_path('image.php'));
         $this->clean(config_path('pakka.php'));
+        $this->clean(config_path('placeholders.php'));
         $this->clean(config_path('settings.php'));
 
         // Clean Helpers

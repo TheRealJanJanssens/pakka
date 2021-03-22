@@ -242,4 +242,32 @@ class Section extends Model
         
         return $result;
     }
+
+    public static function generateSectionTemplate($type, $id = null, $status = null)
+    {
+        $result = Section::select([
+        'sections.id',
+        'sections.status',
+        'sections.name',
+        'sections.page_id',
+        'sections.position',
+        'sections.type',
+        'sections.section',
+        'section_items.section as slug',
+        'sections.classes',
+        'sections.attributes',
+        'sections.extras',
+        ])
+        ->where('page_id', $id)
+        ->where('sections.type', $type);
+        
+        if ($status !== null) {
+            $result->where('sections.status', $status);
+        }
+        
+        $result->leftJoin('section_items', 'section_items.id', '=', 'sections.section')
+        ->orderBy('position');
+        
+        return $result->get();
+    }
 }

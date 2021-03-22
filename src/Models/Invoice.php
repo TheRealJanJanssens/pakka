@@ -33,7 +33,6 @@ class Invoice extends Model
     {
         $commun = [
             'id' => "required",
-            'invoice_no' => "required",
             'client_id' => "required",
         ];
 
@@ -43,7 +42,6 @@ class Invoice extends Model
 
         return array_merge($commun, [
             'id' => "required",
-            'invoice_no' => "required",
             'client_id' => "required",
         ]);
     }

@@ -2,7 +2,23 @@
 
 All notable changes to `pakka` will be documented in this file.
 
-## 0.0.6 - 2020-03-xx
+## 0.1.1 - 2020-03-xx
+
+## 0.1.0 - 2020-03-23
+- Invoice form models reconnect
+- Select options defined in config translation connect
+- Removed invoice_no from required fields in invoice model due to errors when creating a proforma
+- added Template module to manage templates
+- Added a generateTemplate function to the page model to get a json file with the pagestructure and textual content
+- invoice detail change client_country to allow null
+- Added a generate template button for each page in the content module
+- Altered the constructPageStructure() helper to allow templates
+- Connected placholders config
+- Fixed the placeholder images paths
+- Fixed the "non-existing placeholder image in dropzone" bug
+- Connected section dividers
+- Added ability to remove dividers
+
 ## 0.0.5 - 2020-03-20
 - Added a 0 format to the images to save uploaded images in their original size
 - Support webp image upload

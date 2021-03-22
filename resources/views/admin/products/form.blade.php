@@ -58,7 +58,7 @@
 					<div id="preview-template" style="display:none">
 						<div class="dz-preview dz-file-preview">
 							<div class="dz-overlay">
-								<img src="/images/app/loading_white.gif" alt="loading" title="loading">
+								<img src="/images/vendor/app/loading_white.gif" alt="loading" title="loading">
 							</div>
 							<div class="dz-image">
 								<img data-dz-thumbnail />

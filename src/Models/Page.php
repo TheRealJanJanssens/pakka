@@ -262,4 +262,36 @@ class Page extends Model
         
         return $result;
     }
+
+    public static function generateTemplate($id, $content = true){
+        $sections = Section::generateSectionTemplate(2, $id)->toArray();
+
+        $i = 0;
+        foreach($sections as $section){
+            $result['sections'][$i] = $section;
+            $components = getCompMeta($section['slug'], "component");
+
+            if($content == true){
+                $iC=0;
+                $componentInputs = Component::getSectionContent($section["id"], 1)->toArray();
+                if(!empty($components)){
+                    foreach($components as $component){
+                        $iI=0;
+                        foreach($component['inputs'] as $input){
+                            $key = $components[$iC]['inputs'][$iI]["name"];
+                            if(isset($componentInputs[$iC][$key]) && !is_array($componentInputs[$iC][$key])){
+                                $components[$iC]['inputs'][$iI]["default"] = $componentInputs[$iC][$key];
+                            }               
+                            $iI++;
+                        }
+                        $iC++;
+                    }
+                }
+            }
+            
+            $result['sections'][$i]['components'] = $components;
+            $i++;
+        }
+        return json_encode($result);
+    }
 }
