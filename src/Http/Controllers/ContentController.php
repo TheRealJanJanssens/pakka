@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Session;
-use Storage;
-
 use Spatie\Sitemap\SitemapGenerator;
+
+use Storage;
 use TheRealJanJanssens\Pakka\Models\AttributeInput;
 use TheRealJanJanssens\Pakka\Models\AttributeOption;
 use TheRealJanJanssens\Pakka\Models\AttributeValue;
@@ -81,7 +81,7 @@ class ContentController extends Controller
         $page = Page::create($result);
         $langs = Session::get('lang');
 
-        if(isset($post['json'])){
+        if (isset($post['json'])) {
             $json = file_get_contents(storage_path() . "/app/public/templates/".$post['json']);
             constructPageStructure($json, $page->id);
         }
@@ -140,7 +140,7 @@ class ContentController extends Controller
         $result = slugControl($request->all());
         $result = constructTranslations($result);
         
-        if(isset($post['json'])){
+        if (isset($post['json'])) {
             constructPageStructure($post['json'], $id);
         }
 
@@ -529,13 +529,14 @@ class ContentController extends Controller
         return view('pakka::admin.content.sectionlist', compact('sections', 'tags'));
     }
 
-    public function generateTemplate($id){
+    public function generateTemplate($id)
+    {
         $page = Page::getPage($id, 1);
         $template = Page::generateTemplate($id);
 
-        $fileName = 'template_'.time().'.json'; 
+        $fileName = 'template_'.time().'.json';
         Storage::disk('public')->put('templates/'.$fileName, $template);
-        Template::create(['name'=> $page->name.' template', 'file'=>$fileName]);
+        Template::create(['name' => $page->name.' template', 'file' => $fileName]);
 
         //Download
         //Storage::disk('public')->download('templates/'.$fileName);

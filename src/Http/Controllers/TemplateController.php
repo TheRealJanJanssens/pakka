@@ -4,8 +4,8 @@ namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use TheRealJanJanssens\Pakka\Models\Template;
 use Storage;
+use TheRealJanJanssens\Pakka\Models\Template;
 
 class TemplateController extends Controller
 {
@@ -71,6 +71,7 @@ class TemplateController extends Controller
     public function edit($id)
     {
         $template = Template::findOrFail($id);
+
         return view('pakka::admin.templates.edit', compact('template'));
     }
 
@@ -96,8 +97,10 @@ class TemplateController extends Controller
         // return redirect()->route(config('pakka.prefix.admin'). '.templates.index')->withSuccess(trans('app.success_update'));
     }
 
-    public function download($id){
+    public function download($id)
+    {
         $template = Template::findOrFail($id);
+
         return Storage::disk('public')->download('templates/'.$template->file);
     }
 
