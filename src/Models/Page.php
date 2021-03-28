@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 use Illuminate\Support\Facades\DB;
 use Session;
+use Schema;
 
 class Page extends Model
 {
@@ -193,29 +194,29 @@ class Page extends Model
 
               break;
             case 2:
-                $langs = Language::all(); //Session::get('lang') session not accesable in route sessionstart happens after route
                 $result = [];
-                
-            foreach ($langs as $lang) {
-                $locale = $lang->language_code;
-                
-                $resultPages = Page::select([
-              'pages.id',
-                    'pages.status',
-                    DB::raw(' (SELECT `translations`.`text` FROM `translations` WHERE `translations`.`translation_id` = `pages`.`slug` AND `translations`.`language_code` = "'.$locale.'") AS slug'),
-                    'pages.template',
-                    DB::raw(' (SELECT `translations`.`text` FROM `translations` WHERE `translations`.`translation_id` = `pages`.`name` AND `translations`.`language_code` = "'.$locale.'") AS name'),
-                    'pages.name AS trans_name',
-                    'pages.slug as link',
-                    ])
-                    ->orderBy('pages.position')
-                    ->get();
+                if(Schema::hasTable('languages')){
+                    $langs = Language::all(); //Session::get('lang') session not accesable in route sessionstart happens after route
+                    foreach ($langs as $lang) {
+                        $locale = $lang->language_code;
+                        
+                        $resultPages = Page::select([
+                            'pages.id',
+                            'pages.status',
+                            DB::raw(' (SELECT `translations`.`text` FROM `translations` WHERE `translations`.`translation_id` = `pages`.`slug` AND `translations`.`language_code` = "'.$locale.'") AS slug'),
+                            'pages.template',
+                            DB::raw(' (SELECT `translations`.`text` FROM `translations` WHERE `translations`.`translation_id` = `pages`.`name` AND `translations`.`language_code` = "'.$locale.'") AS name'),
+                            'pages.name AS trans_name',
+                            'pages.slug as link',
+                        ])
+                        ->orderBy('pages.position')
+                        ->get();
 
-                foreach ($resultPages as $p) {
-                    array_push($result, $p);
+                        foreach ($resultPages as $p) {
+                            array_push($result, $p);
+                        }
+                    }
                 }
-            }
-
             break;
         }
 

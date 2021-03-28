@@ -1,6 +1,6 @@
 {
 	"classes":"a:0:{}",
-	"attributes":"a:1:{s:2:\".e\";s:73:\"data-marker-image='/public/images/marker/standard.png' data-map-zoom='14'\";}",
+	"attributes":"a:1:{s:2:\".e\";s:73:\"data-marker-image='/public/vendor/images/marker/standard.png' data-map-zoom='14'\";}",
 	"extras":"a:1:{s:13:\"map_style_key\";s:23:\"maps.maps_styles.silver\";}",
 	"css":[
 		"vendor/css/components/bootstrap.css",

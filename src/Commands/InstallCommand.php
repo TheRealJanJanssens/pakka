@@ -29,6 +29,9 @@ class InstallCommand extends Command
         $this->info('Copied all files');
 
         //migrate
+        //Artisan::call('vendor:publish --tag=pakka-migrations');
+        Artisan::call('migrate');
+        $this->info('Done all migrations');
 
         //clear cache
         Artisan::call('cache:clear');

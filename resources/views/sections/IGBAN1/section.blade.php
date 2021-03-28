@@ -65,7 +65,7 @@
 								for($x = 0; $x <= 4; $x++){
 								?>
 									<div class="col-6 col-md-3 col-lg">
-										<div class="social-banner-img transistion" style="background-image: url(/public/images/placeholders/image.jpg)" {{ parseImage($section['IGBAN1_IMG'], "", 500) }}></div>
+										<div class="social-banner-img transistion" style="background-image: url(/public/vendor/images/placeholders/image.jpg)" {{ parseImage($section['IGBAN1_IMG'], "", 500) }}></div>
 									</div>
 								<?php
 								}

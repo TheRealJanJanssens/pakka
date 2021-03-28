@@ -12,6 +12,8 @@ class PakkaServiceProvider extends PackageServiceProvider
 {
     public function bootingPackage()
     {
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
         //php artisan vendor:publish --tag=pakka
         $this->publishes([
             // Config
@@ -91,7 +93,9 @@ class PakkaServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasTranslations()
             ->hasRoute('web')
-            //->hasMigration('create_pakka_table')
+            // ->hasMigrations([
+            //     'create_attribute_inputs_table'
+            // ])
             ->hasCommands([
                 InstallCommand::class,
                 CleanCommand::class,

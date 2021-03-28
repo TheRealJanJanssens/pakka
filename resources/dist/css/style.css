@@ -4529,7 +4529,7 @@ img {
 /* Slider */
 
 .slick-loading .slick-list {
-  background: #fff url("/public/images/ajax-loader.gif") center center no-repeat;
+  background: #fff url("/public/vendor/images/ajax-loader.gif") center center no-repeat;
 }
 
 /* Icons */

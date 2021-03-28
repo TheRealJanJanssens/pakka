@@ -3,6 +3,13 @@
 All notable changes to `pakka` will be documented in this file.
 
 ## 0.1.1 - 2020-03-xx
+- Reconnect asset images who where missing (mapmarkers, etc.)
+- Section preview loading background to prevent invisible sections in list
+- Added all current tables as migrations
+- Added inserts for the languages and section_items tables
+- Added failsafe to first check if the language table exists in the getPages() method to prevent an error is being thrown
+- Added migrations
+- Updated pakka-install command to cover migrations
 
 ## 0.1.0 - 2020-03-23
 - Invoice form models reconnect

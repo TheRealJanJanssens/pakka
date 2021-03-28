@@ -50,7 +50,7 @@
 			<div class="bgc-white p-20 bd">
 				
 				<div class="peanut-jar">
-					<img src="/public/images/pindakaas.svg">
+					<img src="/public/vendor/images/pindakaas.svg">
 				</div>
 				
 				<div class="alert alert-danger text-center" role="alert">Helaas pindakaas! Jij hebt geen toegang om deze gebruiker te bewerken.</div>

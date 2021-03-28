@@ -304,40 +304,43 @@ Route::group([
 	Route::get('cart/webhook/test', 'CartController@webhookTest');
 	Route::get('cart/resendmail/test', 'CartController@resendmailTest');
 */
-		
-	// Website url generation
-	$pages = Page::getPages(2);
-	//dd($pages);
-	$i = 0;
-	foreach($pages as $page){
-		if($i == 0){
-			//Makes a duplicate route to set a homepage (/) of the first page
-			Route::get("/", [
-				'as' => $page['template'], 
-				'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
-				'pageId' => $page['id'], 
-				'pageName' => $page['trans_name']
-			]);
-		}
-		
-		//example: www.website.be/page/8sdfDF5d/this-is-a-slug
-		//route without locale
-		Route::get($page['slug']."/{param1?}/{param2?}", [
-			'as' => $page['template'], 
-			'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
-			'pageId' => $page['id'], 
-			'pageName' =>  $page['trans_name']
-		]);
-		
-	 	Route::get("{locale?}/".$page['slug']."/{param1?}/{param2?}", [
-		 	'as' => $page['template'], 
-		 	'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
-		 	'pageId' => $page['id'], 
-		 	'pageName' =>  $page['trans_name']
-	 	]);
-		
-		$i++;
-	}
+
+    if(DB::connection()->getDatabaseName()){
+        // Website url generation
+        $pages = Page::getPages(2);
+        
+        $i = 0;
+        foreach($pages as $page){
+            if($i == 0){
+                //Makes a duplicate route to set a homepage (/) of the first page
+                Route::get("/", [
+                    'as' => $page['template'], 
+                    'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
+                    'pageId' => $page['id'], 
+                    'pageName' => $page['trans_name']
+                ]);
+            }
+            
+            //example: www.website.be/page/8sdfDF5d/this-is-a-slug
+            //route without locale
+            Route::get($page['slug']."/{param1?}/{param2?}", [
+                'as' => $page['template'], 
+                'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
+                'pageId' => $page['id'], 
+                'pageName' =>  $page['trans_name']
+            ]);
+            
+            Route::get("{locale?}/".$page['slug']."/{param1?}/{param2?}", [
+                'as' => $page['template'], 
+                'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
+                'pageId' => $page['id'], 
+                'pageName' =>  $page['trans_name']
+            ]);
+            
+            $i++;
+        }
+    }
+	
 	
 	//Auto generates a storage link if non is present
 	if(!file_exists("/public/storage")) {

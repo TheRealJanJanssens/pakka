@@ -6,7 +6,7 @@
 	        foreach($langs as $lang){
 		        ?>
 		        <a href="/{{ $lang['language_code'] }}/{{ $page['meta']['slug'] }}" class="lang d-inline ml-1 mr-1">
-			        <img src="/public/images/lang/{{ $lang['language_code'] }}.png" alt="{{ $lang['name'] }}">
+			        <img src="/public/vendor/images/lang/{{ $lang['language_code'] }}.png" alt="{{ $lang['name'] }}">
 			    </a>
 		        <?php
 	        }

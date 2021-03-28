@@ -368,7 +368,7 @@ function initialize_full_width_map() {
 			position: myLatLng,
 			map: map,
 			title: 'Provad',
-			icon: '/public/images/mapmarker.png'
+			icon: '/public/vendor/images/mapmarker.png'
 		});
 		
 		if ($('#map-project').length) {
@@ -386,7 +386,7 @@ function initialize_full_width_map() {
 		            position: results[0].geometry.location,
 		            map: map,
 					title: 'Provad',
-					icon: '/public/images/mapmarker.png'
+					icon: '/public/vendor/images/mapmarker.png'
 		         });
 		         map.setCenter(results[0].geometry.location);
 		      }
@@ -398,7 +398,7 @@ function initialize_full_width_map() {
 				position: myLatLng,
 				map: map,
 				title: 'Provad',
-				icon: '/public/images/mapmarker.png'
+				icon: '/public/vendor/images/mapmarker.png'
 			});
 */
 			

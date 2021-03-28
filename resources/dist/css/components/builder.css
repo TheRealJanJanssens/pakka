@@ -1227,10 +1227,32 @@ nav .ui-sortable-handle{
 }
 
 .section-thumbnail{
+	position: relative;
 	display: none;
 	cursor: pointer;
 	margin-bottom: 20px;
 	width: 100%;
+	border-radius: 3px;
+}
+
+.section-thumbnail::after{
+	content: "";
+	display: block;
+	overflow: hidden;
+	border-radius: 6px;
+	height: 100%;
+	width: 100%;
+	top:0;
+    position: absolute;
+	z-index: -1;
+	animation-duration: 1.25s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f0f0f0;
+    background: linear-gradient(to right, #f0f0f0 10%, #f3f3f3 18%, #f0f0f0 33%);
+    background-size: 800px 104px;
 }
 
 .section-thumbnail img{
@@ -1238,6 +1260,10 @@ nav .ui-sortable-handle{
 	border: 1px solid rgba(148, 160, 190, 0.2);
 	border-radius: 6px;
 	width: 100%;
+	transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+	-webkit-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+	-moz-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+	-o-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .section-thumbnail:hover img{
@@ -1249,11 +1275,20 @@ nav .ui-sortable-handle{
 	transition: none;	
 }
 
+@keyframes placeHolderShimmer{
+    0%{
+        background-position: -468px 0
+    }
+    100%{
+        background-position: 468px 0
+    }
+}
+
 .manageable-placeholder{
 	overflow: hidden;
 	text-align: center;
 	z-index: 101;
-	border: 2px dashed rgba(148, 160, 190, 0.4);
+	border: 2px dashed rgba(148, 160, 190, 0.4) !important;
 	border-radius: 5px;
 	height: 0px;
 	padding: 0px;
