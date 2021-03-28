@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
 use Illuminate\Support\Facades\DB;
-use Session;
 use Schema;
+use Session;
 
 class Page extends Model
 {
@@ -195,7 +195,7 @@ class Page extends Model
               break;
             case 2:
                 $result = [];
-                if(Schema::hasTable('languages')){
+                if (Schema::hasTable('languages')) {
                     $langs = Language::all(); //Session::get('lang') session not accesable in route sessionstart happens after route
                     foreach ($langs as $lang) {
                         $locale = $lang->language_code;
@@ -217,6 +217,7 @@ class Page extends Model
                         }
                     }
                 }
+
             break;
         }
 
