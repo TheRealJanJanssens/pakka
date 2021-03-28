@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateProviderSchedulesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('provider_schedules', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('provider_id');
+            $table->unsignedInteger('mon')->default(0);
+            $table->unsignedInteger('tue')->default(0);
+            $table->unsignedInteger('wed')->default(0);
+            $table->unsignedInteger('thu')->default(0);
+            $table->unsignedInteger('fri')->default(0);
+            $table->unsignedInteger('sat')->default(0);
+            $table->unsignedInteger('sun')->default(0);
+            $table->time('start_at');
+            $table->time('end_at');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('provider_schedules');
+    }
+}

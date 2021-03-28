@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateShipmentConditionsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('shipment_conditions', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('shipment_option_id');
+            $table->unsignedInteger('operator')->default(1);
+            $table->float('value', 10, 0)->unsigned();
+            $table->unsignedInteger('type')->default(1);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('shipment_conditions');
+    }
+}

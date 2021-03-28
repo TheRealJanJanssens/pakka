@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateMenuItemsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('menu_items', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('menu')->nullable();
+            $table->integer('parent')->nullable();
+            $table->integer('position')->nullable();
+            $table->string('icon', 191)->nullable();
+            $table->string('name', 191)->nullable();
+            $table->string('link', 191)->nullable();
+            $table->string('parameter', 191)->nullable();
+            $table->string('parameter_slug', 191)->nullable();
+            $table->integer('permission')->default(1);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('menu_items');
+    }
+}
