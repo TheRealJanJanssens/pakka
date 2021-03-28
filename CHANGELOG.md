@@ -2,6 +2,14 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.1.4 - 2020-03-xx
+
+## 0.1.3 - 2020-03-28
+- Migration patch
+
+## 0.1.2 - 2020-03-28
+- Migration patch
+
 ## 0.1.1 - 2020-03-28
 - Reconnect asset images who where missing (mapmarkers, etc.)
 - Section preview loading background to prevent invisible sections in list

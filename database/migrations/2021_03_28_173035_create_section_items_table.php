@@ -22,7 +22,7 @@ class CreateSectionItemsTable extends Migration
             $table->string('tags')->nullable();
         });
 
-        DB::table('languages')->insert(
+        DB::table('section_items')->insert(
             array("id" => 1, "type" => 2, "section" => "AI1", "name" => "Accordion Image", "tags" => "accordion"),
             array("id" => 2, "type" => 2, "section" => "AIBG1", "name" => "Accordion Image background", "tags" => "accordion,achtergrond"),
             array("id" => 3, "type" => 3, "section" => "FOOT1", "name" => "Footer 1", "tags" => "footer"),
