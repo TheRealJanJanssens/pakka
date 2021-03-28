@@ -2,11 +2,9 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
-
-use Illuminate\Support\Facades\DB;
 
 class Template extends Model
 {
@@ -47,18 +45,22 @@ class Template extends Model
         ]);
     }
 
-    public static function store(Request $request){
-        $fileName = 'template_'.time().'.'.$request->file->extension(); 
+    public static function store(Request $request)
+    {
+        $fileName = 'template_'.time().'.'.$request->file->extension();
         $request->file->move(storage_path('app/public/templates'), $fileName);
-        return Template::create(['name'=> $request->name, 'file'=>$fileName]);
+
+        return Template::create(['name' => $request->name, 'file' => $fileName]);
     }
 
-    public static function getSelect(){
+    public static function getSelect()
+    {
         $templates = Template::all();
 
-        foreach($templates as $template){
+        foreach ($templates as $template) {
             $result[$template->file] = $template->name;
         }
+
         return $result;
     }
 }

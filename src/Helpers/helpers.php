@@ -489,7 +489,7 @@ if (! function_exists('getBladeList')) {
         }
         
         //fallback if no view templates are set
-        if(!isset($result)){
+        if (! isset($result)) {
             $result = ["templates.component" => "component"];
         }
 
@@ -769,7 +769,7 @@ if (! function_exists('listImages')) {
             $i = 0;
             foreach ($item['images'] as $image) {
                 //failsafe to prevent non existing placeholder images in dropzone
-                if($image == null){
+                if ($image == null) {
                     break;
                 }
 
@@ -1545,7 +1545,7 @@ if (! function_exists('constructPageStructure')) {
                     'position' => $iS,
                 ]);
                 
-                if(isset($section['components'])){
+                if (isset($section['components'])) {
                     $iC = 1;
                     foreach ($section['components'] as $component) {
                         $compResult = Component::create([

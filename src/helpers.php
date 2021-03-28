@@ -686,7 +686,7 @@ if (! function_exists('constructInputs')) {
 				    	<label for="<?php echo $input['name']."[]"; ?>"><?php echo $label; ?></label>
 				    	
 				    	<?php
-                            if (!empty($item['images'])) {
+                            if (! empty($item['images'])) {
                                 echo '<div id="dropzone__json">';
                                 $imgJSON = [];
                                 $i = 0;
@@ -1176,7 +1176,7 @@ if (! function_exists('constructAttributes')) {
         foreach ($items as $item) {
             //CONSTRUCT IMAGES
             $images = [0 => null]; //fixes PHP Laravel Error: Trying to access array offset on value of type null introduced in php 7.4. This fix doesn't throw an error but is not a clean solution. This same fixed is not made within mode 2 because it will display an image in the dropzone editor that is not present.
-            if (isset($item->images) && !empty($item->images)) {
+            if (isset($item->images) && ! empty($item->images)) {
                 $images = explode("(~)", $item['images']);
             }
             $items[$i]->setAttribute("images", $images);
