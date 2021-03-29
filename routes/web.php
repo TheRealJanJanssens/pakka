@@ -305,7 +305,7 @@ Route::group([
 	Route::get('cart/resendmail/test', 'CartController@resendmailTest');
 */
 
-    if(DB::connection()->getDatabaseName()){
+    if(DB::connection()->getDatabaseName() && Schema::hasTable('languages')){
         // Website url generation
         $pages = Page::getPages(2);
         

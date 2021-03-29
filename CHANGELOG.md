@@ -2,7 +2,9 @@
 
 All notable changes to `pakka` will be documented in this file.
 
-## 0.1.4 - 2020-03-xx
+## 0.1.4 - 2020-03-29
+- Migration section_items insert patch
+- Terminal "Language table not found" fix on fresh install
 
 ## 0.1.3 - 2020-03-28
 - Migration patch
