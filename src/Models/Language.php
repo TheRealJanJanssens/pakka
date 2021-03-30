@@ -9,6 +9,8 @@ class Language extends Model
 {
     use Notifiable;
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *

@@ -1,4 +1,4 @@
-# pakka in a package
+# Pakka in a package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/therealjanjanssens/pakka.svg?style=flat-square)](https://packagist.org/packages/therealjanjanssens/pakka)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/therealjanjanssens/pakka/run-tests?label=tests)](https://github.com/therealjanjanssens/pakka/actions?query=workflow%3ATests+branch%3Amaster)

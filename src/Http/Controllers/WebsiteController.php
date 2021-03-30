@@ -68,7 +68,9 @@ class WebsiteController extends Controller
     public function index(Request $request)
     {
         $pageId = $request->route()->action['pageId'];
+        $template = $request->route()->action['template'];
         
+
         if (isset($request->param1)) {
             $param = $request->param1;
         } else {
@@ -88,7 +90,7 @@ class WebsiteController extends Controller
                 }
         */
         
-        return view('pakka::'.Route::currentRouteName(), compact('page'));
+        return view('pakka::'.$template, compact('page'));
     }
     
     public function sendMail(Request $request, $ajax = null)

@@ -2,6 +2,11 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.1.6 - 2020-03-30
+- Set timestaps on false in Language Model
+- Fix of duplicate naming "login" in routes
+- Changed the route 'as' variable to 'template' to enable unique names for the routes
+
 ## 0.1.5 - 2020-03-29
 - Added added CheckForMaintenanceMode.php
 
@@ -47,7 +52,7 @@ All notable changes to `pakka` will be documented in this file.
 - Remove dd in parse content helper
 - Fix translate labels in constructInputs
 - added image compression option
-- added webp convert optiion (not tested due wrong enviroment)
+- added webp convert option (not tested due wrong enviroment)
 - Fixed position issues when adding a new section
 
 ## 0.0.4 - 2020-03-18
@@ -61,7 +66,7 @@ All notable changes to `pakka` will be documented in this file.
 - README.md update
 - Invoice template added hardcoded widths in table
 - Invoice overview added fixed widths to total and actions
-- Fixed locale and fallback locale reverting back to en due to limited config (app.php)
+- Fixed locale and fallback locale reverting back to 'en' due to limited config (app.php)
 - Checkout form block added validation to address fields
 
 ## 0.0.3 - 2020-03-15

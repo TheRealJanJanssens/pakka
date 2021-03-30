@@ -258,7 +258,7 @@ Route::group([
 	//AUTH
 	Route::get("logout", [LoginController::class, 'logout'])->name('logout');
     Route::get("login", [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post("login", [LoginController::class, 'login'])->name('login');
+    Route::post("login", [LoginController::class, 'login']);
 
     Route::post('password/email', [
         'as' => 'password.email',
@@ -314,9 +314,10 @@ Route::group([
             if($i == 0){
                 //Makes a duplicate route to set a homepage (/) of the first page
                 Route::get("/", [
-                    'as' => $page['template'], 
+                    'as' => 'page.index',
                     'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
                     'pageId' => $page['id'], 
+                    'template' => $page['template'], 
                     'pageName' => $page['trans_name']
                 ]);
             }
@@ -324,16 +325,18 @@ Route::group([
             //example: www.website.be/page/8sdfDF5d/this-is-a-slug
             //route without locale
             Route::get($page['slug']."/{param1?}/{param2?}", [
-                'as' => $page['template'], 
+                'as' => 'page.'.$page['slug'],
                 'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
                 'pageId' => $page['id'], 
+                'template' => $page['template'], 
                 'pageName' =>  $page['trans_name']
             ]);
             
             Route::get("{locale?}/".$page['slug']."/{param1?}/{param2?}", [
-                'as' => $page['template'], 
+                'as' => 'locale.page.'.$page['slug'],
                 'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
                 'pageId' => $page['id'], 
+                'template' => $page['template'], 
                 'pageName' =>  $page['trans_name']
             ]);
             
