@@ -718,10 +718,12 @@ body{
 
 .se-co .bg--secondary{
 	background-color: #fafafa;
+	background-color: var(--grey-color);
 }
 
 .se-co .bg--dark{
 	background-color: #252525;
+	background-color: var(--dark-color);
 }
 
 .se-co .bg--primary{

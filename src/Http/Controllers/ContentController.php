@@ -204,9 +204,9 @@ class ContentController extends Controller
             'type' => $post['type'],
             'name' => $post['name'],
             'section' => $post['id'],
-            'classes' => $assets['classes'],
-            'attributes' => $assets['attributes'],
-            'extras' => $assets['extras'],
+            'classes' => $assets['classes'] ?? null,
+            'attributes' => $assets['attributes'] ?? null,
+            'extras' => $assets['extras'] ?? null,
         ]);
      
         $components = getCompMeta($sectionTemplate['section'], 'component');

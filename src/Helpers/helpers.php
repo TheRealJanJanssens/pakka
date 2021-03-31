@@ -536,7 +536,7 @@ if (! function_exists('getCompMeta')) {
         }
 
         //Get File if exists in production package
-        $path = base_path('vendor/TheRealJanJanssens/resources/views/sections/'.$name.'/'.$data.'.json');
+        $path = base_path('vendor/therealjanjanssens/pakka/resources/views/sections/'.$name.'/'.$data.'.json');
         if (file_exists($path)) {
             return getJson($path);
         }
@@ -2011,13 +2011,13 @@ if (! function_exists('getSectionView')) {
             //Get File if exists on app level
             case file_exists(resource_path('views/sections/'.$name.'/section.blade.php')):
                 return 'sections.'.$name.'.section';
-
                 break;
+            //Catch Placeholder sections
+            case substr($name, 0, 1) == "_":
             //Get File if exists on package level
-            case file_exists(base_path('vendor/TheRealJanJanssens/resources/views/sections/'.$name.'/section.blade.php')):
+            case file_exists(base_path('vendor/therealjanjanssens/pakka/resources/views/sections/'.$name.'/section.blade.php')):
             case file_exists(base_path('package/resources/views/sections/'.$name.'/section.blade.php')):
                 return 'pakka::sections.'.$name.'.section';
-
                 break;
         }
     }
@@ -2361,6 +2361,9 @@ if (! function_exists('constructStyleVar')) {
 					:root {
 						--primary-color: ".$settings['primary_color'].";
 						--secondary-color: ".$settings['secondary_color'].";
+                        --highlight-color: ".$settings['highlight_color'].";
+                        --dark-color: ".$settings['dark_color'].";
+                        --grey-color: ".$settings['grey_color'].";
 						
 						--body-font: ".$body_font.";
 						--heading-font: ".$heading_font.";

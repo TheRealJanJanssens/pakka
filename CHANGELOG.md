@@ -2,6 +2,18 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.1.7 - 2020-03-
+- Template select on Page create failsafe added
+- Fixed unknown $result in Template::getSelect()
+- Route generation now uses the correct object syntax
+- Connected Placeholder sections properly
+- Fixed package paths in helper functions getCompMeta() and getSectionView()
+- Added failsafes (NULL) to classes, attributes, extras when adding new sections
+- Added new dividers curve, curve_invert, paper_rip
+- Added Patrick Hand font
+- Added customizable highlight-, dark- and gray colours
+- Added highlight class in custom css to have a modern marker effect
+
 ## 0.1.6 - 2020-03-30
 - Set timestaps on false in Language Model
 - Fix of duplicate naming "login" in routes

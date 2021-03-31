@@ -316,28 +316,28 @@ Route::group([
                 Route::get("/", [
                     'as' => 'page.index',
                     'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
-                    'pageId' => $page['id'], 
-                    'template' => $page['template'], 
-                    'pageName' => $page['trans_name']
+                    'pageId' => $page->id, 
+                    'template' => $page->template, 
+                    'pageName' => $page->trans_name
                 ]);
             }
             
             //example: www.website.be/page/8sdfDF5d/this-is-a-slug
             //route without locale
-            Route::get($page['slug']."/{param1?}/{param2?}", [
-                'as' => 'page.'.$page['slug'],
+            Route::get($page->slug."/{param1?}/{param2?}", [
+                'as' => 'page.'.$page->slug,
                 'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
-                'pageId' => $page['id'], 
-                'template' => $page['template'], 
-                'pageName' =>  $page['trans_name']
+                'pageId' => $page->id, 
+                'template' => $page->template, 
+                'pageName' => $page->trans_name
             ]);
             
-            Route::get("{locale?}/".$page['slug']."/{param1?}/{param2?}", [
-                'as' => 'locale.page.'.$page['slug'],
+            Route::get("{locale?}/".$page->slug."/{param1?}/{param2?}", [
+                'as' => 'locale.page.'.$page->slug,
                 'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
-                'pageId' => $page['id'], 
-                'template' => $page['template'], 
-                'pageName' =>  $page['trans_name']
+                'pageId' => $page->id, 
+                'template' => $page->template, 
+                'pageName' => $page->trans_name
             ]);
             
             $i++;

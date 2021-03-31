@@ -30,7 +30,7 @@ class InstallCommand extends Command
 
         //migrate
         //Artisan::call('vendor:publish --tag=pakka-migrations');
-        Artisan::call('migrate');
+        //Artisan::call('migrate');
         $this->info('Done all migrations');
 
         //clear cache

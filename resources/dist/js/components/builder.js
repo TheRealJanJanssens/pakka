@@ -37,12 +37,15 @@ $(document).ready(function() {
               "#f39c12",
               "#e67e22",
               "#e74c3c",
-              getComputedStyle(document.documentElement).getPropertyValue('--primary-color').slice(0, -2),
-              getComputedStyle(document.documentElement).getPropertyValue('--secondary-color').slice(0, -2),
-              "#bdc3c7",
+			  "#bdc3c7",
               "#95a5a6",
               "#ffffff",
-              "#000000"
+              "#000000",
+              getComputedStyle(document.documentElement).getPropertyValue('--primary-color').slice(0, -2),
+              getComputedStyle(document.documentElement).getPropertyValue('--secondary-color').slice(0, -2),
+			  getComputedStyle(document.documentElement).getPropertyValue('--highlight-color').slice(0, -2),
+              getComputedStyle(document.documentElement).getPropertyValue('--grey-color').slice(0, -2),
+			  getComputedStyle(document.documentElement).getPropertyValue('--dark-color').slice(0, -2)
             ];
 
             var colorPicker = vanillaColorPicker(this.document.querySelector(".medium-editor-toolbar-active .editor-color-picker"));
@@ -1618,7 +1621,7 @@ console.log(this.selectionState);
 				  fCC++;
 			    break;
 			  case "divider_shape_top":
-				  $("div[data-category='dividers']").append("<div class='se-edit-item se-edit-reload' type='extra' element='divider_shape_top'><p>Vorm divider Top</p><select class='select'><option value='' disabled selected>Selecteer een vorm</option><option value=''>None</option><option value='waves'>Waves</option><option value='waves_opacity'>Waves opacity</option><option value='curve'>Curve</option><option value='curve_asymmetrical'>Curve asymmetrical</option><option value='triangle'>Triangle</option><option value='triangle_asymmetrical'>Triangle asymmetrical</option><option value='tilt'>Tilt</option><option value='arrow'>Arrow</option><option value='split'>Split</option><option value='book'>Book</option></select><li class='hidden active'></li></div></div><hr>");
+				  $("div[data-category='dividers']").append("<div class='se-edit-item se-edit-reload' type='extra' element='divider_shape_top'><p>Vorm divider Top</p><select class='select'><option value='' disabled selected>Selecteer een vorm</option><option value=''>None</option><option value='waves'>Waves</option><option value='waves_opacity'>Waves opacity</option><option value='curve'>Curve</option><option value='curve_invert'>Curve invert</option><option value='curve_asymmetrical'>Curve asymmetrical</option><option value='triangle'>Triangle</option><option value='triangle_asymmetrical'>Triangle asymmetrical</option><option value='tilt'>Tilt</option><option value='arrow'>Arrow</option><option value='paper_rip'>Paper Rip</option><option value='split'>Split</option><option value='book'>Book</option></select><li class='hidden active'></li></div></div><hr>");
 			    break;
 			  case "divider_color_top":
 			  	$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-top'><p>Divider kleur top</p><ul class='se se-co' col='4'><li value=''><span class=''></span></li><li value='divider--secondary'><span class='bg--secondary'></span></li><li value='divider--dark'><span class='bg--dark'></span></li><li value='divider--primary'><span class='bg--primary'></span></li></ul></div><hr>");
@@ -1633,7 +1636,7 @@ console.log(this.selectionState);
 			  	$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-top'><p>Divider breedte Top</p><input class='range' type='range' min='0' max='4' value='0' title='Divider Width'><ul class='se-ra' col='5'><li value='width-100' range='0'>100</li><li value='width-150' range='1'></li><li value='width-200' range='2'></li><li value='width-250' range='3'></li><li value='width-300' range='4'>300</li></ul></div><hr>");
 			  	break;
 			  case "divider_shape_bottom":
-				  $("div[data-category='dividers']").append("<div class='se-edit-item se-edit-reload' type='extra' element='divider_shape_bottom'><p>Vorm divider bottom</p><select class='select'><option value='' disabled selected>Selecteer een vorm</option><option value=''>None</option><option value='waves'>Waves</option><option value='waves_opacity'>Waves opacity</option><option value='curve'>Curve</option><option value='curve_asymmetrical'>Curve asymmetrical</option><option value='triangle'>Triangle</option><option value='triangle_asymmetrical'>Triangle asymmetrical</option><option value='tilt'>Tilt</option><option value='arrow'>Arrow</option><option value='split'>Split</option><option value='book'>Book</option></select><li class='hidden active'></li></div></div><hr>");
+				  $("div[data-category='dividers']").append("<div class='se-edit-item se-edit-reload' type='extra' element='divider_shape_bottom'><p>Vorm divider bottom</p><select class='select'><option value='' disabled selected>Selecteer een vorm</option><option value=''>None</option><option value='waves'>Waves</option><option value='waves_opacity'>Waves opacity</option><option value='curve'>Curve</option><option value='curve_invert'>Curve invert</option><option value='curve_asymmetrical'>Curve asymmetrical</option><option value='triangle'>Triangle</option><option value='triangle_asymmetrical'>Triangle asymmetrical</option><option value='tilt'>Tilt</option><option value='arrow'>Arrow</option><option value='paper_rip'>Paper Rip</option><option value='split'>Split</option><option value='book'>Book</option></select><li class='hidden active'></li></div></div><hr>");
 			    break;
 			  case "divider_color_bottom":
 			  	$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-bottom'><p>Divider kleur bottom</p><ul class='se se-co' col='4'><li value=''><span class=''></span></li><li value='divider--secondary'><span class='bg--secondary'></span></li><li value='divider--dark'><span class='bg--dark'></span></li><li value='divider--primary'><span class='bg--primary'></span></li></ul></div><hr>");

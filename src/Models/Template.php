@@ -55,6 +55,7 @@ class Template extends Model
 
     public static function getSelect()
     {
+        $result = [];
         $templates = Template::all();
 
         foreach ($templates as $template) {

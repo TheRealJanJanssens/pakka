@@ -79,6 +79,24 @@ return [
 				'type' => "color",
 				'level' => "global"
 		    ],
+			[
+			    'name' => "highlight_color",
+				'label' => "app.settings_assets.highlight_color",
+				'type' => "color",
+				'level' => "global"
+		    ],
+			[
+			    'name' => "grey_color",
+				'label' => "app.settings_assets.grey_color",
+				'type' => "color",
+				'level' => "global"
+		    ],
+			[
+			    'name' => "dark_color",
+				'label' => "app.settings_assets.dark_color",
+				'type' => "color",
+				'level' => "global"
+		    ],
 		    [
 			    'name' => "body_font",
 				'label' => "app.settings_assets.body_font",

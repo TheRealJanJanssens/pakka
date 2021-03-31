@@ -259,5 +259,11 @@ return [
 		"value" => "Poiret One",
 		"slug" => "Poiret+One",
 		"gfont" => true
+	],
+	[
+		"option_id" => "gf_44",
+		"value" => "Patrick Hand",
+		"slug" => "Patrick+Hand",
+		"gfont" => true
 	]
 ];

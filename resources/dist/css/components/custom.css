@@ -24,6 +24,25 @@
 	text-decoration: none !important;
 }
 
+u{
+	position: relative;
+	text-decoration: none;
+}
+
+u:after{
+	content: "";
+	display: block;
+	position: absolute;
+	width: 105%;
+	left: -2.5%;
+	height: 10px;
+	border-radius: 3px;
+	background-color: var(--highlight-color);
+	opacity: 0.4;
+	bottom: 4px;
+	z-index: -1;
+}
+
 .social-banner-img{
     background-position: 50%;
     background-size: cover;
