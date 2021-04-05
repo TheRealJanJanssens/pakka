@@ -23,6 +23,14 @@
 		"invert_colours",
 		"flip_layout",
 		"element_border_radius",
-		"section_height"
+		"section_height",
+		"slide_speed",
+		"slide_transition",
+		"slide_autoplay",
+		"section_height",
+		"divider_shape_side",
+		"divider_color_side",
+		"divider_flip_side",
+		"divider_width_side"
 	]
 }

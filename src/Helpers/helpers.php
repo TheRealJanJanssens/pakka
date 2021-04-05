@@ -1961,6 +1961,10 @@ if (! function_exists('parseEditSecAttr')) {
             if (isset($array['extras']['divider_shape_bottom'])) {
                 echo "data-divider_shape_bottom='".$array['extras']['divider_shape_bottom']."' ";
             }
+
+            if (isset($array['extras']['divider_shape_side'])) {
+                echo "data-divider_shape_side='".$array['extras']['divider_shape_side']."' ";
+            }
             
             //FOOTER CONTENT
             for ($i = 1; $i < 5; $i++) {

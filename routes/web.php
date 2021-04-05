@@ -307,7 +307,7 @@ Route::group([
 
     if(DB::connection()->getDatabaseName() && Schema::hasTable('languages')){
         // Website url generation
-        $pages = Page::getPages(2);
+        $pages = Page::getPages(2,1);
         
         $i = 0;
         foreach($pages as $page){

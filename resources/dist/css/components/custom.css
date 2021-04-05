@@ -39,7 +39,7 @@ u:after{
 	border-radius: 3px;
 	background-color: var(--highlight-color);
 	opacity: 0.4;
-	bottom: 4px;
+	bottom: 0.17em;
 	z-index: -1;
 }
 
@@ -146,6 +146,15 @@ div[class*="overlap-"]{
 	transform: rotate(180deg);
 }
 
+.divider-side{
+	min-width: inherit;
+	left: inherit;
+	-webkit-transition: none;
+       -moz-transition: none;
+         -o-transition: none;
+            transition: none;
+}
+
 .divider-flipped{
 	-moz-transform: scaleX(-1);
     -o-transform: scaleX(-1);
@@ -175,10 +184,12 @@ div[class*="overlap-"]{
 
 .divider--secondary path{
 	fill: #fafafa;
+	fill: var(--grey-color);
 }
 
 .divider--dark path{
 	fill: #252525;
+	fill: var(--dark-color);
 }
 
 /* FB FEED */

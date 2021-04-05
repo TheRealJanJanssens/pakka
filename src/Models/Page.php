@@ -174,7 +174,7 @@ class Page extends Model
     |------------------------------------------------------------------------------------
     */
     
-    public static function getPages($mode = 1)
+    public static function getPages($mode = 1, $status = null)
     {
         $locale = app()->getLocale();
         
@@ -208,9 +208,15 @@ class Page extends Model
                             DB::raw(' (SELECT `translations`.`text` FROM `translations` WHERE `translations`.`translation_id` = `pages`.`name` AND `translations`.`language_code` = "'.$locale.'") AS name'),
                             'pages.name AS trans_name',
                             'pages.slug as link',
-                        ])
-                        ->orderBy('pages.position')
-                        ->get();
+                        ]);
+                       
+
+                        if($status !== null){
+                            $resultPages->where('pages.status', $status);
+                            //dd($status);
+                        }    
+
+                        $resultPages = $resultPages->orderBy('pages.position')->get();
 
                         foreach ($resultPages as $p) {
                             array_push($result, $p);

@@ -813,6 +813,7 @@ console.log(this.selectionState);
 		loadMaps();
 		loadLightcase();
 		loadBlazy();
+		calculateSideDividers();
 	};
 	
 	function constructSectionStatus(){
@@ -1303,353 +1304,368 @@ console.log(this.selectionState);
 		    //console.log(element);
 	
 		    switch(element) {
-			  case "text_alignment":
-			    $("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Uitlijning</p><ul class='se se-ic' col='4'><li value=''><span class='oi' data-glyph='align-left'></span></li><li value='text-justify'><span class='oi' data-glyph='justify-left'></span></li><li value='text-center'><span class='oi' data-glyph='align-center'></span></li><li value='text-right'><span class='oi' data-glyph='align-right'></span></li></ul></div><hr>");
-			    break;
+				case "text_alignment":
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Uitlijning</p><ul class='se se-ic' col='4'><li value=''><span class='oi' data-glyph='align-left'></span></li><li value='text-justify'><span class='oi' data-glyph='justify-left'></span></li><li value='text-center'><span class='oi' data-glyph='align-center'></span></li><li value='text-right'><span class='oi' data-glyph='align-right'></span></li></ul></div><hr>");
+					break;
+	/*
+				case "text_alignment_element":
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.row'><p>Uitlijning</p><ul class='se se-ic' col='4'><li value=''><span class='oi' data-glyph='align-left'></span></li><li value='text-justify'><span class='oi' data-glyph='justify-left'></span></li><li value='text-center'><span class='oi' data-glyph='align-center'></span></li><li value='text-right'><span class='oi' data-glyph='align-right'></span></li></ul></div><hr>");
+					break;
+	*/
+				case "text_alignment_row":
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.row--e'><p>Uitlijning</p><ul class='se se-ic' col='4'><li value=''><span class='oi' data-glyph='align-left'></span></li><li value='text-justify'><span class='oi' data-glyph='justify-left'></span></li><li value='text-center'><span class='oi' data-glyph='align-center'></span></li><li value='text-right'><span class='oi' data-glyph='align-right'></span></li></ul></div><hr>");
+					break;
+				case "section_padding":
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Spatiëren</p><input class='range' type='range' min='0' max='7' value='4' title='Spatiëren'><ul class='se-ra' col='8'><li value='space--0' range='0'>0</li><li value='space--xxs' range='1'>XXS</li><li value='space--xs' range='2'>XS</li><li value='space--sm' range='3'>SM</li><li value='' range='4'>Auto</li><li value='space--md' range='5'>MD</li><li value='space--lg' range='6'>LG</li><li value='space--xlg' range='7'>XLG</li></ul></div><hr>");
+					break;
+				case "section_padding_sm":
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Spatiëren</p><input class='range' type='range' min='0' max='5' value='4' title='Spatiëren'><ul class='se-ra' col='6'><li value='py-0' range='0'>0</li><li value='py-1' range='1'>XXS</li><li value='py-2' range='2'>XS</li><li value='py-3' range='3'>SM</li><li value='py-4' range='4'>MD</li><li value='py-5' range='5'>LG</li></ul></div><hr>");
+					break;
+				case "background":
+					$("div[data-category='background']").append("<div class='se-edit-item' type='class'><p>Achtergrond</p><ul class='se se-co' col='5'><li value=''><span class='bg--white'></span></li><li value='bg--secondary'><span class='bg--secondary'></span></li><li value='bg--dark'><span class='bg--dark'></span></li><li value='bg--primary'><span class='bg--primary'></span></li><li value='bg--gradient'><span class='bg--primary gradient'></span></li></ul></div><hr>");
+					break;
+				case "element_background":
+					$("div[data-category='background']").append("<div class='se-edit-item' type='class' element='.e'><p>Element Achtergrond</p><ul class='se se-co' col='4'><li value=''><span class='bg--white'></span></li><li value='bg--secondary'><span class='bg--secondary'></span></li><li value='bg--dark'><span class='bg--dark'></span></li><li value='bg--primary'><span class='bg--primary'></span></li></ul></div><hr>");
+					break;
+				case "background_image":
+					var img = $(".adjustable[data-id='"+id+"'] .background-image-holder img");
+					var imgId = img.attr('data-id');
+					var imgSrc = img.attr('src');
+					
+					var imgElem = '<img src="'+imgSrc+'" contenteditable="true" data-id="'+imgId+'">';
+					
+					$("div[data-category='background']").append("<div class='se-edit-item'><p>Achtergrond Afbeelding</p>"+imgElem+"</div><hr>");
+					break;
+				case "background_position_x":
+					$("div[data-category='background']").append("<div class='se-edit-item' type='class' element='.background-image-holder'><p>Achtergrond positie X</p><ul class='se se-ic' col='3'><li value='background-pos-x-left'>Left</li><li value='background-pos-x-center'>Center</li><li value='background-pos-x-right'>Right</li></ul></div><hr>");
+					break;
+				case "background_position_y":
+					$("div[data-category='background']").append("<div class='se-edit-item' type='class' element='.background-image-holder'><p>Achtergrond positie X</p><ul class='se se-ic' col='3'><li value='background-pos-y-top'>Top</li><li value='background-pos-y-center'>Center</li><li value='background-pos-y-bottom'>Bottom</li></ul></div><hr>");
+					break;
+				case "granim_background":
+					var primary_color = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').slice(0, -2);
+					var secondary_color = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color').slice(0, -2);
+					var colors = ChangeColor(primary_color,10)+','+primary_color+','+secondary_color+','+ChangeColor(secondary_color,-10);
+					$("div[data-category='background']").append("<div class='se-edit-item se-edit-reload' type='attribute' attribute='data-gradient-bg'><p>Geanimeerde gradient</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='"+colors.replace(/\s/g, '')+"'></li></ul></div><hr>");
+					break;
+				case "nav_background":
+					$("div[data-category='background']").append("<div class='se-edit-item' type='class' element='.bar'><p>Achtergrond</p><ul class='se se-co' col='3'><li value=''><span class='bg--white'></span></li><li value='bg--secondary'><span class='bg--secondary'></span></li><li value='bg--dark'><span class='bg--dark'></span></li></ul></div><hr>");
+					break;
+				case "nav_background_transparant":
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.bar'><p>Transparante navigatie</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='bar--absolute bar--transparent'></li></ul></div><hr>");
+					break;
+				case "nav_sticky":
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Sticky navigatie</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='nav-sticky'></li></ul></div><hr>");
+					break;
+				case "nav_shadow":
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.bar'><p>Navigatie schaduw</p><ul class='se se-ic' col='4'><li value=''>Off</li><li value='box-shadow-shallow'>SM</span></li><li value='box-shadow-realistic'>MD</span></li><li value='box-shadow-wide'>LG</li></ul></div><hr>");
+					break;	
+				case "logo_light":
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.logo'><p>Logo Light</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='logo-white'></li></ul></div><hr>");				
+					break;
+				case "overlap_layout":
+					$("div[data-category='layout']").append("<div class='se-edit-item se-edit-reload' type='class' element='.container'><p>Overlap layout</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='overlap-top-100'></li></ul></div><hr>");				
+					break;
+				case "flip_layout":
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Flip Layout</p><ul class='se se-tx' col='2'><li value=''>Origineel</li><li value='switchable--switch'>Flipped</li></ul></div><hr>");
+					break;
+				case "accordion_panels":
+					$("div[data-category='accordion']").append("<div class='se-edit-item' type='class' element='.accordion'><p>Accordion Panelen</p><ul class='se se-tx' col='2'><li value=''>Meerdere open</li><li value='accordion--oneopen'>één open</li></ul></div><hr>");
+					break;
+				case "parallax":
+					$("div[data-category='background']").append("<div class='se-edit-item se-edit-reload' type='class'><p>Parallax</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='parallax'></li></ul></div><hr>");
+					break;
+				case "background_effect":
+					$("div[data-category='background']").append("<div class='se-edit-item se-edit-reload' type='class'><p>Achtergrond Effect</p><ul class='se se-tx' col='3'><li value=''>Geen</li><li value='parallax'>Parallax</li><li value='section--ken-burns'>Ken Burns</li></ul></div><hr>");
+					break;
+				case "invert_colours":
+					$("div[data-category='background']").append("<div class='se-edit-item' type='class'><p>Inverteer kleuren</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='image--light'></li></ul></div><hr>");
+					break;
+				case "element_invert_colours":
+					$("div[data-category='background']").append("<div class='se-edit-item' type='class' element='.e'><p>Inverteer kleuren</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='image--light'></li></ul></div><hr>");
+					break;
+				case "image_overlay":
+					$("div[data-category='background']").append("<div class='se-edit-item' type='attribute' attribute='data-overlay'><p>Overlay Helderheid</p><input class='range' type='range' min='0' max='9' value='4' title='Overlay Helderheid'><ul class='se-ra' col='10'><li value='0' range='0'>Off</li><li value='1' range='1'></li><li value='2' range='2'></li><li value='3' range='3'></li><li value='4' range='4'></li><li value='5' range='5'></li><li value='6' range='6'></li><li value='7' range='7'></li><li value='8' range='8'></li><li value='9' range='9'>Full</li></ul></div><hr>");
+					break;
+				case "slide_arrows":
+					if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
+						$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-arrows'><p>Slider Pijlen</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value='false'></li><li value='true'></li></ul></div><hr>");
+					}
+					break;
+				case "slide_paging":
+					if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
+						$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-paging'><p>Slider Dots</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value='false'></li><li value='true'></li></ul></div><hr>");
+					}
+					break;
+				case "slide_speed":
+					if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
+						$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-autospeed'><p>Slider Speed</p><input class='range' type='range' min='0' max='8' value='4' title='Slider Speed'><ul class='se-ra' col='9'><li value='2000' range='0'>2000</li><li value='3000' range='1'></li><li value='4000' range='2'></li><li value='5000' range='3'>5000</li><li value='6000' range='4'></li><li value='7000' range='5'></li><li value='8000' range='6'></li><li value='9000' range='7'></li><li value='10000' range='8'>10000</li></ul></div><hr>");
+					}
+					break;
+				case "slide_transition":
+					if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
+						$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-fade'><p>Slider transition</p><ul class='se se-tx' col='2'><li value='true'>Fade</li><li value='false'>Slide</li></ul></div><hr>");
+					}
+					break;
+				case "slide_sts":
+					if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
+						$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-slidestoshow'><p>Slider slides to show</p><input class='range' type='range' min='0' max='6' value='4' title='Slider slides to show'><ul class='se-ra' col='7'><li value='1' range='0'>1</li><li value='2' range='1'>2</li><li value='3' range='2'>3</li><li value='4' range='3'>4</li><li value='5' range='4'>5</li><li value='6' range='5'>6</li><li value='7' range='6'>7</li></ul></div><hr>");
+					}
+					break;
+				case "slide_center_padding":
+					if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
+						$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-centerpadding'><p>Slider Center Padding</p><input class='range' type='range' min='0' max='4' value='4' title='Slider Center Padding'><ul class='se-ra' col='5'><li value='20px' range='0'>20</li><li value='40px' range='1'>40</li><li value='60px' range='2'>60</li><li value='80px' range='3'>80</li><li value='100px' range='4'>100</li></ul></div><hr>");
+					}
+					break;
+				case "slide_slides_padding":
+					if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
+						$("div[data-category='slider']").append("<div class='se-edit-item' type='class' element='.img'><p>Slider Slide Padding</p><input class='range' type='range' min='0' max='5' value='4' title='Slider Slide Padding'><ul class='se-ra' col='6'><li value='' range='0'>0</li><li value='mx-1' range='1'>1</li><li value='mx-2' range='2'>2</li><li value='mx-3' range='3'>3</li><li value='mx-4' range='4'>4</li><li value='mx-5' range='5'>5</li></ul></div><hr>");
+					}
+					break;
+				case "slide_center_mode":
+					if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
+						$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-centermode'><p>Slider center mode</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value='false'></li><li value='true'></li></ul></div><hr>");
+					}
+					break;
+				case "slide_autoplay":
+					if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
+						$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-autoplay'><p>Slider Autoplay</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value='false'></li><li value='true'></li></ul></div><hr>");
+					}
+					break;  
+				case "section_height":
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Sectie Hoogte</p><input class='range' type='range' min='0' max='8' value='5' title='Sectie Hoogte'><ul class='se-ra' col='9'><li value='height-auto' range='0'>Auto</li><li value='height-30' range='1'></li><li value='height-40' range='2'></li><li value='height-50' range='3'></li><li value='height-60' range='4'></li><li value='height-70' range='5'></li><li value='height-80' range='6'></li><li value='height-90' range='7'></li><li value='height-100' range='8'>100%</li></ul></div><hr>");
+					break;
+				case "element_overlay":
+					$("div[data-category='background']").append("<div class='se-edit-item' type='attribute' attribute='data-overlay' element='.e'><p>Overlay Helderheid</p><input class='range' type='range' min='0' max='9' value='4' title='Overlay Helderheid'><ul class='se-ra' col='10'><li value='0' range='0'>Off</li><li value='1' range='1'></li><li value='2' range='2'></li><li value='3' range='3'></li><li value='4' range='4'></li><li value='5' range='5'></li><li value='6' range='6'></li><li value='7' range='7'></li><li value='8' range='8'></li><li value='9' range='9'>Full</li></ul></div><hr>");
+					break;
+				case "element_height":
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.e'><p>Element Hoogte</p><input class='range' type='range' min='0' max='8' value='5' title='Element Hoogte'><ul class='se-ra' col='9'><li value='height-auto' range='0'>Auto</li><li value='height-30' range='1'></li><li value='height-40' range='2'></li><li value='height-50' range='3'></li><li value='height-60' range='4'></li><li value='height-70' range='5'></li><li value='height-80' range='6'></li><li value='height-90' range='7'></li><li value='height-100' range='8'>100%</li></ul></div><hr>");
+					break;
+				case "element_width":
+					$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.e'><p>Element Breedte</p><input class='range' type='range' min='0' max='8' value='5' title='Element Hoogte'><ul class='se-ra' col='9'><li value='width-auto' range='0'>Auto</li><li value='width-30' range='1'></li><li value='width-40' range='2'></li><li value='width-50' range='3'></li><li value='width-60' range='4'></li><li value='width-70' range='5'></li><li value='width-80' range='6'></li><li value='width-90' range='7'></li><li value='width-100' range='8'>100%</li></ul></div><hr>");
+					break;
+				case "element_shadow":
+					$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.e'><p>Element schaduw</p><ul class='se se-ic' col='4'><li value=''>Off</li><li value='box-shadow-shallow'>SM</span></li><li value='box-shadow-realistic'>MD</span></li><li value='box-shadow-wide'>LG</li></ul></div><hr>");
+					break;
+				case "element_columns":
+					$("div[data-category='misc']").append("<div class='se-edit-item se-edit-reload' type='class' element='.e'><p>Aantal kolommen</p><input class='range' type='range' min='0' max='3' value='0' title='Aantal kolommen'><ul class='se-ra' col='4'><li value='col-12' range='0'>1</li><li value='col-md-6' range='1'>2</li><li value='col-md-4' range='2'>3</li><li value='col-md-3' range='3'>4</li></ul></div><hr>");
+					break;
+				case "element_border":
+					$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.e'><p>Element Border</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='boxed--border'></li></ul></div><hr>");
+					break;
+				case "background_alignment":
+					$("div[data-category='background']").append("<div class='se-edit-item' type='class' element='.background-image-holder'><p>Achtergrond uitlijning</p><ul class='se se-tx' col='3'><li value='background--bottom'>Bottom</li><li value=''>Center</li><li value='background--top'>top</li></ul></div><hr>");
+					break;
+	/*
+				case "item_":
+					$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-paging'><p>Slider Dots</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value='false'></li><li value='true'></li></ul></div><hr>");
+					break;
+	*/
+				case "item_select":
+					var metaData = $('meta[name="items"]').attr('content');
+					
+					if(typeof metaData !== "undefined" && metaData){
+						var items = JSON.parse(metaData);
+					
+						var options = "";
+						var optionsLi = "";
+						options += "<option value=''>Geen items</option>";
+						$.each(items, function(index, element) {
+							options += "<option value='"+index+"'>"+element+"</option>";
+							optionsLi += "<li value='"+index+"'>"+element+"</li>";
+						});
+						
+						$("div[data-category='items']").append("<div class='se-edit-item se-edit-reload' type='extra' element='item_id'><p>Items</p><select class='select'><option value='' disabled selected>Selecteer een item</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
+					}
+					
+					break;
+				case "input_select_title":
+					var options = constructInputSelect();
+					if(typeof options !== "undefined" && options){
+						$("div[data-category='items']").append("<div class='se-edit-item se-edit-reload' type='extra' element='item_title'><p>Items Titel</p><select class='select item-input-select'><option value='' disabled selected>Selecteer een waarde</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
+					}
+					break;
+				case "input_select_text":
+					var options = constructInputSelect();
+					
+					if(typeof options !== "undefined" && options){
+						$("div[data-category='items']").append("<div class='se-edit-item se-edit-reload' type='extra' element='item_text'><p>Items Tekst</p><select class='select item-input-select'><option value='' disabled selected>Selecteer een waarde</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
+					}
+					break;
+				case "item_page_select":
+					var metaData = $('meta[name="pages"]').attr('content');
+					
+					if(typeof metaData !== "undefined" && metaData){
+						var pages = JSON.parse(metaData);
+						
+						var options = "";
+						var optionsLi = "";
+						options += "<option value=''>Geen pagina</option>";
+						$.each(pages, function(index, element) {
+							options += "<option value='"+index+"'>"+element+"</option>";
+							optionsLi += "<li value='"+index+"'>"+element+"</li>";
+						});
+						
+						$("div[data-category='items']").append("<div class='se-edit-item se-edit-reload' type='extra' element='item_page'><p>Item pagina</p><select class='select'><option value='' disabled selected>Selecteer een pagina</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
+					}
+					break;
+				case "item_limit":
+					$("div[data-category='items']").append("<div class='se-edit-item se-edit-reload' type='extra' element='item_limit'><p>Item aantal</p><input class='range' type='range' min='0' max='6' value='0' title='Item aantal'><ul class='se-ra' col='7'><li value='1' range='0'>1</li><li value='2' range='1'>2</li><li value='3' range='2'>3</li><li value='4' range='3'>4</li><li value='6' range='4'>6</li><li value='8' range='5'>8</li><li value='' range='6'>∞</li></ul></div><hr>");
+					break;
+				case "background_video":
+					if($(".adjustable[data-id='"+id+"']").length > 0){
+						var val = $(".adjustable[data-id='"+id+"']").attr('data-youtube');
+						
+						if(val == undefined){
+							val = "";
+						}
+					}
+					$("div[data-category='background']").append("<div class='se-edit-item se-edit-reload' type='extra' element='youtube'><p>Achtergrond Video</p><input type='text' value='"+val+"' class='input'><li class='hidden' value='"+val+"'></li></div><hr>");
+					break;
 /*
-			  case "text_alignment_element":
-			    $("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.row'><p>Uitlijning</p><ul class='se se-ic' col='4'><li value=''><span class='oi' data-glyph='align-left'></span></li><li value='text-justify'><span class='oi' data-glyph='justify-left'></span></li><li value='text-center'><span class='oi' data-glyph='align-center'></span></li><li value='text-right'><span class='oi' data-glyph='align-right'></span></li></ul></div><hr>");
-			    break;
+				case "section_id":
+					if($(".adjustable[data-id='"+id+"']").length > 0){
+						var val = $(".adjustable[data-id='"+id+"']").attr('id');
+						
+						if(val == undefined){
+							val = "";
+						}
+					}
+					$(".se-edit-items").append("<div class='se-edit-item se-edit-reload' type='extra' element='id'><p>Section ID</p><input type='text' value='"+val+"' class='input'><li class='hidden' value='"+val+"'></li></div><hr>");
+					break;
 */
-			  case "text_alignment_row":
-			    $("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.row--e'><p>Uitlijning</p><ul class='se se-ic' col='4'><li value=''><span class='oi' data-glyph='align-left'></span></li><li value='text-justify'><span class='oi' data-glyph='justify-left'></span></li><li value='text-center'><span class='oi' data-glyph='align-center'></span></li><li value='text-right'><span class='oi' data-glyph='align-right'></span></li></ul></div><hr>");
-			    break;
-			  case "section_padding":
-			    $("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Spatiëren</p><input class='range' type='range' min='0' max='7' value='4' title='Spatiëren'><ul class='se-ra' col='8'><li value='space--0' range='0'>0</li><li value='space--xxs' range='1'>XXS</li><li value='space--xs' range='2'>XS</li><li value='space--sm' range='3'>SM</li><li value='' range='4'>Auto</li><li value='space--md' range='5'>MD</li><li value='space--lg' range='6'>LG</li><li value='space--xlg' range='7'>XLG</li></ul></div><hr>");
-			    break;
-			  case "section_padding_sm":
-			    $("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Spatiëren</p><input class='range' type='range' min='0' max='5' value='4' title='Spatiëren'><ul class='se-ra' col='6'><li value='py-0' range='0'>0</li><li value='py-1' range='1'>XXS</li><li value='py-2' range='2'>XS</li><li value='py-3' range='3'>SM</li><li value='py-4' range='4'>MD</li><li value='py-5' range='5'>LG</li></ul></div><hr>");
-			    break;
-			  case "background":
-			  	$("div[data-category='background']").append("<div class='se-edit-item' type='class'><p>Achtergrond</p><ul class='se se-co' col='5'><li value=''><span class='bg--white'></span></li><li value='bg--secondary'><span class='bg--secondary'></span></li><li value='bg--dark'><span class='bg--dark'></span></li><li value='bg--primary'><span class='bg--primary'></span></li><li value='bg--gradient'><span class='bg--primary gradient'></span></li></ul></div><hr>");
-			  	break;
-			  case "element_background":
-			  	$("div[data-category='background']").append("<div class='se-edit-item' type='class' element='.e'><p>Element Achtergrond</p><ul class='se se-co' col='4'><li value=''><span class='bg--white'></span></li><li value='bg--secondary'><span class='bg--secondary'></span></li><li value='bg--dark'><span class='bg--dark'></span></li><li value='bg--primary'><span class='bg--primary'></span></li></ul></div><hr>");
-			  	break;
-			  case "background_image":
-			  	var img = $(".adjustable[data-id='"+id+"'] .background-image-holder img");
-			  	var imgId = img.attr('data-id');
-			  	var imgSrc = img.attr('src');
-			  	
-			  	var imgElem = '<img src="'+imgSrc+'" contenteditable="true" data-id="'+imgId+'">';
-			  	
-			  	$("div[data-category='background']").append("<div class='se-edit-item'><p>Achtergrond Afbeelding</p>"+imgElem+"</div><hr>");
-			  	break;
-			  case "background_position_x":
-			  	$("div[data-category='background']").append("<div class='se-edit-item' type='class' element='.background-image-holder'><p>Achtergrond positie X</p><ul class='se se-ic' col='3'><li value='background-pos-x-left'>Left</li><li value='background-pos-x-center'>Center</li><li value='background-pos-x-right'>Right</li></ul></div><hr>");
-			  	break;
-			  case "background_position_y":
-			  	$("div[data-category='background']").append("<div class='se-edit-item' type='class' element='.background-image-holder'><p>Achtergrond positie X</p><ul class='se se-ic' col='3'><li value='background-pos-y-top'>Top</li><li value='background-pos-y-center'>Center</li><li value='background-pos-y-bottom'>Bottom</li></ul></div><hr>");
-			  	break;
-			  case "granim_background":
-			  	var primary_color = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').slice(0, -2);
-			  	var secondary_color = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color').slice(0, -2);
-			  	var colors = ChangeColor(primary_color,10)+','+primary_color+','+secondary_color+','+ChangeColor(secondary_color,-10);
-			  	$("div[data-category='background']").append("<div class='se-edit-item se-edit-reload' type='attribute' attribute='data-gradient-bg'><p>Geanimeerde gradient</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='"+colors.replace(/\s/g, '')+"'></li></ul></div><hr>");
-			    break;
-			  case "nav_background":
-			  	$("div[data-category='background']").append("<div class='se-edit-item' type='class' element='.bar'><p>Achtergrond</p><ul class='se se-co' col='3'><li value=''><span class='bg--white'></span></li><li value='bg--secondary'><span class='bg--secondary'></span></li><li value='bg--dark'><span class='bg--dark'></span></li></ul></div><hr>");
-			  	break;
-			  case "nav_background_transparant":
-			  	$("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.bar'><p>Transparante navigatie</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='bar--absolute bar--transparent'></li></ul></div><hr>");
-			  	break;
-			  case "nav_sticky":
-			  	$("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Sticky navigatie</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='nav-sticky'></li></ul></div><hr>");
-			  	break;
-			  case "nav_shadow":
-			    $("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.bar'><p>Navigatie schaduw</p><ul class='se se-ic' col='4'><li value=''>Off</li><li value='box-shadow-shallow'>SM</span></li><li value='box-shadow-realistic'>MD</span></li><li value='box-shadow-wide'>LG</li></ul></div><hr>");
-			    break;	
-			  case "logo_light":
-			  	$("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.logo'><p>Logo Light</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='logo-white'></li></ul></div><hr>");				
-			  	break;
-			  case "overlap_layout":
-			  	$("div[data-category='layout']").append("<div class='se-edit-item se-edit-reload' type='class' element='.container'><p>Overlap layout</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='overlap-top-100'></li></ul></div><hr>");				
-			  	break;
-			  case "flip_layout":
-			  	$("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Flip Layout</p><ul class='se se-tx' col='2'><li value=''>Origineel</li><li value='switchable--switch'>Flipped</li></ul></div><hr>");
-			  	break;
-			  case "accordion_panels":
-			  	$("div[data-category='accordion']").append("<div class='se-edit-item' type='class' element='.accordion'><p>Accordion Panelen</p><ul class='se se-tx' col='2'><li value=''>Meerdere open</li><li value='accordion--oneopen'>één open</li></ul></div><hr>");
-			  	break;
-			  case "parallax":
-			  	$("div[data-category='background']").append("<div class='se-edit-item se-edit-reload' type='class'><p>Parallax</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='parallax'></li></ul></div><hr>");
-			  	break;
-			  case "background_effect":
-			  	$("div[data-category='background']").append("<div class='se-edit-item se-edit-reload' type='class'><p>Achtergrond Effect</p><ul class='se se-tx' col='3'><li value=''>Geen</li><li value='parallax'>Parallax</li><li value='section--ken-burns'>Ken Burns</li></ul></div><hr>");
-			  	break;
-			  case "invert_colours":
-			  	$("div[data-category='background']").append("<div class='se-edit-item' type='class'><p>Inverteer kleuren</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='image--light'></li></ul></div><hr>");
-			  	break;
-			  case "element_invert_colours":
-			  	$("div[data-category='background']").append("<div class='se-edit-item' type='class' element='.e'><p>Inverteer kleuren</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='image--light'></li></ul></div><hr>");
-			  	break;
-			  case "image_overlay":
-			  	$("div[data-category='background']").append("<div class='se-edit-item' type='attribute' attribute='data-overlay'><p>Overlay Helderheid</p><input class='range' type='range' min='0' max='9' value='4' title='Overlay Helderheid'><ul class='se-ra' col='10'><li value='0' range='0'>Off</li><li value='1' range='1'></li><li value='2' range='2'></li><li value='3' range='3'></li><li value='4' range='4'></li><li value='5' range='5'></li><li value='6' range='6'></li><li value='7' range='7'></li><li value='8' range='8'></li><li value='9' range='9'>Full</li></ul></div><hr>");
-			  	break;
-			  case "slide_arrows":
-			  	if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
-				  	$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-arrows'><p>Slider Pijlen</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value='false'></li><li value='true'></li></ul></div><hr>");
-			  	}
-			  	break;
-			  case "slide_paging":
-			  	if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
-				  	$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-paging'><p>Slider Dots</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value='false'></li><li value='true'></li></ul></div><hr>");
-			  	}
-			  	break;
-			  case "slide_speed":
-			  	if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
-			  		$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-autospeed'><p>Slider Speed</p><input class='range' type='range' min='0' max='8' value='4' title='Slider Speed'><ul class='se-ra' col='9'><li value='2000' range='0'>2000</li><li value='3000' range='1'></li><li value='4000' range='2'></li><li value='5000' range='3'>5000</li><li value='6000' range='4'></li><li value='7000' range='5'></li><li value='8000' range='6'></li><li value='9000' range='7'></li><li value='10000' range='8'>10000</li></ul></div><hr>");
-			  	}
-			  	break;
-			  case "slide_transition":
-			  	if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
-				  	$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-fade'><p>Slider transition</p><ul class='se se-tx' col='2'><li value='true'>Fade</li><li value='false'>Slide</li></ul></div><hr>");
-			  	}
-			    break;
-			  case "slide_sts":
-			  	if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
-			  		$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-slidestoshow'><p>Slider slides to show</p><input class='range' type='range' min='0' max='6' value='4' title='Slider slides to show'><ul class='se-ra' col='7'><li value='1' range='0'>1</li><li value='2' range='1'>2</li><li value='3' range='2'>3</li><li value='4' range='3'>4</li><li value='5' range='4'>5</li><li value='6' range='5'>6</li><li value='7' range='6'>7</li></ul></div><hr>");
-			  	}
-			  	break;
-			  case "slide_center_padding":
-			  	if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
-			  		$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-centerpadding'><p>Slider Center Padding</p><input class='range' type='range' min='0' max='4' value='4' title='Slider Center Padding'><ul class='se-ra' col='5'><li value='20px' range='0'>20</li><li value='40px' range='1'>40</li><li value='60px' range='2'>60</li><li value='80px' range='3'>80</li><li value='100px' range='4'>100</li></ul></div><hr>");
-			  	}
-			  	break;
-			  case "slide_slides_padding":
-			  	if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
-			  		$("div[data-category='slider']").append("<div class='se-edit-item' type='class' element='.img'><p>Slider Slide Padding</p><input class='range' type='range' min='0' max='5' value='4' title='Slider Slide Padding'><ul class='se-ra' col='6'><li value='' range='0'>0</li><li value='mx-1' range='1'>1</li><li value='mx-2' range='2'>2</li><li value='mx-3' range='3'>3</li><li value='mx-4' range='4'>4</li><li value='mx-5' range='5'>5</li></ul></div><hr>");
-			  	}
-			  	break;
-			  case "slide_center_mode":
-			  	if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
-				  	$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-centermode'><p>Slider center mode</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value='false'></li><li value='true'></li></ul></div><hr>");
-			  	}
-			    break;
-			  case "slide_autoplay":
-			  	if($(".adjustable[data-id='"+id+"'] .slider").length > 0){
-				  	$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-autoplay'><p>Slider Autoplay</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value='false'></li><li value='true'></li></ul></div><hr>");
-			  	}
-			    break;  
-			  case "section_height":
-			    $("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Sectie Hoogte</p><input class='range' type='range' min='0' max='8' value='5' title='Sectie Hoogte'><ul class='se-ra' col='9'><li value='height-auto' range='0'>Auto</li><li value='height-30' range='1'></li><li value='height-40' range='2'></li><li value='height-50' range='3'></li><li value='height-60' range='4'></li><li value='height-70' range='5'></li><li value='height-80' range='6'></li><li value='height-90' range='7'></li><li value='height-100' range='8'>100%</li></ul></div><hr>");
-			    break;
-			  case "element_overlay":
-			  	$("div[data-category='background']").append("<div class='se-edit-item' type='attribute' attribute='data-overlay' element='.e'><p>Overlay Helderheid</p><input class='range' type='range' min='0' max='9' value='4' title='Overlay Helderheid'><ul class='se-ra' col='10'><li value='0' range='0'>Off</li><li value='1' range='1'></li><li value='2' range='2'></li><li value='3' range='3'></li><li value='4' range='4'></li><li value='5' range='5'></li><li value='6' range='6'></li><li value='7' range='7'></li><li value='8' range='8'></li><li value='9' range='9'>Full</li></ul></div><hr>");
-			  	break;
-			  case "element_height":
-			    $("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.e'><p>Element Hoogte</p><input class='range' type='range' min='0' max='8' value='5' title='Element Hoogte'><ul class='se-ra' col='9'><li value='height-auto' range='0'>Auto</li><li value='height-30' range='1'></li><li value='height-40' range='2'></li><li value='height-50' range='3'></li><li value='height-60' range='4'></li><li value='height-70' range='5'></li><li value='height-80' range='6'></li><li value='height-90' range='7'></li><li value='height-100' range='8'>100%</li></ul></div><hr>");
-			    break;
-			  case "element_width":
-			    $("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.e'><p>Element Breedte</p><input class='range' type='range' min='0' max='8' value='5' title='Element Hoogte'><ul class='se-ra' col='9'><li value='width-auto' range='0'>Auto</li><li value='width-30' range='1'></li><li value='width-40' range='2'></li><li value='width-50' range='3'></li><li value='width-60' range='4'></li><li value='width-70' range='5'></li><li value='width-80' range='6'></li><li value='width-90' range='7'></li><li value='width-100' range='8'>100%</li></ul></div><hr>");
-			    break;
-			  case "element_shadow":
-			    $("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.e'><p>Element schaduw</p><ul class='se se-ic' col='4'><li value=''>Off</li><li value='box-shadow-shallow'>SM</span></li><li value='box-shadow-realistic'>MD</span></li><li value='box-shadow-wide'>LG</li></ul></div><hr>");
-			    break;
-			  case "element_columns":
-			    $("div[data-category='misc']").append("<div class='se-edit-item se-edit-reload' type='class' element='.e'><p>Aantal kolommen</p><input class='range' type='range' min='0' max='3' value='0' title='Aantal kolommen'><ul class='se-ra' col='4'><li value='col-12' range='0'>1</li><li value='col-md-6' range='1'>2</li><li value='col-md-4' range='2'>3</li><li value='col-md-3' range='3'>4</li></ul></div><hr>");
-			    break;
-			  case "element_border":
-			  	$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.e'><p>Element Border</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='boxed--border'></li></ul></div><hr>");
-			  	break;
-			  case "background_alignment":
-			  	$("div[data-category='background']").append("<div class='se-edit-item' type='class' element='.background-image-holder'><p>Achtergrond uitlijning</p><ul class='se se-tx' col='3'><li value='background--bottom'>Bottom</li><li value=''>Center</li><li value='background--top'>top</li></ul></div><hr>");
-			    break;
-/*
-			  case "item_":
-			  	$("div[data-category='slider']").append("<div class='se-edit-item' type='attribute' element='.slider' attribute='data-paging'><p>Slider Dots</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value='false'></li><li value='true'></li></ul></div><hr>");
-			  	break;
-*/
-			  case "item_select":
-			   	  var metaData = $('meta[name="items"]').attr('content');
-			   	  
-			   	  if(typeof metaData !== "undefined" && metaData){
-				   	  var items = JSON.parse(metaData);
-				 
-					  var options = "";
-					  var optionsLi = "";
-					  options += "<option value=''>Geen items</option>";
-					  $.each(items, function(index, element) {
-						  options += "<option value='"+index+"'>"+element+"</option>";
-						  optionsLi += "<li value='"+index+"'>"+element+"</li>";
-					  });
-					  
-					  $("div[data-category='items']").append("<div class='se-edit-item se-edit-reload' type='extra' element='item_id'><p>Items</p><select class='select'><option value='' disabled selected>Selecteer een item</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
-			   	  }
-				  
-			    break;
-			  case "input_select_title":
-				  var options = constructInputSelect();
-				  if(typeof options !== "undefined" && options){
-					  $("div[data-category='items']").append("<div class='se-edit-item se-edit-reload' type='extra' element='item_title'><p>Items Titel</p><select class='select item-input-select'><option value='' disabled selected>Selecteer een waarde</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
-				  }
-			    break;
-			  case "input_select_text":
-				  var options = constructInputSelect();
-				  
-				  if(typeof options !== "undefined" && options){
-				  	$("div[data-category='items']").append("<div class='se-edit-item se-edit-reload' type='extra' element='item_text'><p>Items Tekst</p><select class='select item-input-select'><option value='' disabled selected>Selecteer een waarde</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
-				  }
-			    break;
-			  case "item_page_select":
-			  	  var metaData = $('meta[name="pages"]').attr('content');
-			   	  
-			   	  if(typeof metaData !== "undefined" && metaData){
-					  var pages = JSON.parse(metaData);
-					  
-					  var options = "";
-					  var optionsLi = "";
-					  options += "<option value=''>Geen pagina</option>";
-					  $.each(pages, function(index, element) {
-						  options += "<option value='"+index+"'>"+element+"</option>";
-						  optionsLi += "<li value='"+index+"'>"+element+"</li>";
-					  });
-					  
-					  $("div[data-category='items']").append("<div class='se-edit-item se-edit-reload' type='extra' element='item_page'><p>Item pagina</p><select class='select'><option value='' disabled selected>Selecteer een pagina</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
-				  }
-			    break;
-			  case "item_limit":
-			  	$("div[data-category='items']").append("<div class='se-edit-item se-edit-reload' type='extra' element='item_limit'><p>Item aantal</p><input class='range' type='range' min='0' max='6' value='0' title='Item aantal'><ul class='se-ra' col='7'><li value='1' range='0'>1</li><li value='2' range='1'>2</li><li value='3' range='2'>3</li><li value='4' range='3'>4</li><li value='6' range='4'>6</li><li value='8' range='5'>8</li><li value='' range='6'>∞</li></ul></div><hr>");
-			  	break;
-			  case "background_video":
-			  	if($(".adjustable[data-id='"+id+"']").length > 0){
-				  	var val = $(".adjustable[data-id='"+id+"']").attr('data-youtube');
-				  	
-				  	if(val == undefined){
-					  	val = "";
-				  	}
-			  	}
-			  	$("div[data-category='background']").append("<div class='se-edit-item se-edit-reload' type='extra' element='youtube'><p>Achtergrond Video</p><input type='text' value='"+val+"' class='input'><li class='hidden' value='"+val+"'></li></div><hr>");
-			    break;
-/*
-			   case "section_id":
-			  	if($(".adjustable[data-id='"+id+"']").length > 0){
-				  	var val = $(".adjustable[data-id='"+id+"']").attr('id');
-				  	
-				  	if(val == undefined){
-					  	val = "";
-				  	}
-			  	}
-			  	$(".se-edit-items").append("<div class='se-edit-item se-edit-reload' type='extra' element='id'><p>Section ID</p><input type='text' value='"+val+"' class='input'><li class='hidden' value='"+val+"'></li></div><hr>");
-			    break;
-*/
-			   case "logo_size":
-			   	$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.logo'><p>Grote Logo</p><input class='range' type='range' min='0' max='3' value='0' title='Grote Logo'><ul class='se-ra' col='4'><li value='' range='0'>SM</li><li value='logo--md' range='1'>MD</li><li value='logo--lg' range='2'>LG</li><li value='logo--xlg' range='3'>XLG</li></ul></div><hr>");
-			   	break;
-			   case "image_border_radius":
-			  	$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.img'><p>Afbeelding afronding</p><input class='range' type='range' min='0' max='8' value='0' title='Overlay Helderheid'><ul class='se-ra' col='9'><li value='' range='0'>Off</li><li value='border-radius-4' range='1'>4</li><li value='border-radius-6' range='2'>6</li><li value='border-radius-8' range='3'>8</li><li value='border-radius-10' range='4'>10</li><li value='border-radius-15' range='5'>15</li><li value='border-radius-25' range='6'>25</li><li value='border-radius-50' range='7'>50</li><li value='border-radius-150' range='8'>150</li></ul></div><hr>");
-			  	break;
-			  case "image_padding":
-			  	$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.img'><p>Afbeelding padding</p><input class='range' type='range' min='0' max='5' value='0' title='Afbeelding padding'><ul class='se-ra' col='6'><li value='' range='0'>0</li><li value='p-1' range='1'>1</li><li value='p-2' range='2'>2</li><li value='p-3' range='3'>3</li><li value='p-4' range='4'>4</li><li value='p-5' range='5'>5</li></ul></div><hr>");
-			  	break;
-			  case "image_shadow":
-			    $("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.img'><p>Afbeelding schaduw</p><ul class='se se-ic' col='4'><li value=''>Off</li><li value='box-shadow-shallow'>SM</span></li><li value='box-shadow-realistic'>MD</span></li><li value='box-shadow-wide'>LG</li></ul></div><hr>");
-			    break;
-			  case "image_format":
-			    $("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.img'><p>Afbeelding formaat</p><ul class='se se-ic' col='4'><li value=''>Normal</li><li value='img-landscape'>Landscape</li><li value='img-square'>Vierkant</span></li><li value='img-portrait'>Portrait</span></li></ul></div><hr>");
-			    break;
-			  case "image_width":
-			    $("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.img'><p>Afbeelding Breedte</p><input class='range' type='range' min='0' max='8' value='0' title='Afbeelding Hoogte'><ul class='se-ra' col='9'><li value='width-auto' range='0'>Auto</li><li value='width-30' range='1'></li><li value='width-40' range='2'></li><li value='width-50' range='3'></li><li value='width-60' range='4'></li><li value='width-70' range='5'></li><li value='width-80' range='6'></li><li value='width-90' range='7'></li><li value='width-100' range='8'>100%</li></ul></div><hr>");
-			    break;
-			  case "image_grayscale":
-			  	$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.img'><p>Afbeelding grijswaarde</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='filter-grey'></li></ul></div><hr>");
-			  	break;
-			  case "element_border_radius":
-			  	$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.e'><p>Element afronding</p><input class='range' type='range' min='0' max='8' value='0' title='Overlay Helderheid'><ul class='se-ra' col='9'><li value='' range='0'>Off</li><li value='border-radius-4' range='1'>4</li><li value='border-radius-6' range='2'>6</li><li value='border-radius-8' range='3'>8</li><li value='border-radius-10' range='4'>10</li><li value='border-radius-15' range='5'>15</li><li value='border-radius-25' range='6'>25</li><li value='border-radius-50' range='7'>50</li><li value='border-radius-150' range='8'>150</li></ul></div><hr>");
-			  	break;
-			  case "item_columns":
-			    $("div[data-category='layout']").append("<div class='se-edit-item se-edit-reload' type='class' element='.item'><p>Aantal kolommen</p><input class='range' type='range' min='0' max='3' value='0' title='Aantal kolommen'><ul class='se-ra' col='4'><li value='col-12' range='0'>1</li><li value='col-md-6' range='1'>2</li><li value='col-md-4' range='2'>3</li><li value='col-md-3' range='3'>4</li></ul></div><hr>");
-			    break;
-			  case "masonry":
-			    $("div[data-category='layout']").append("<div class='se-edit-item se-edit-reload' type='class' element='.row-masonry'><p>Masonry</p><ul class='se se-ic' col='2'><li value=''>Uit</li></li><li value='masonry__container masonry--active'>Aan</li></ul></div><hr>");
-			    break;
-			  case "item_hover":				  
-				  $("div[data-category='items']").append("<div class='se-edit-item' type='class' element='.item' element='item_hover'><p>Hover effect</p><select class='select'><option value='' disabled selected>Selecteer een effect</option><option value='item-hover-1'>Effect 1</option><option value='item-hover-2'>Effect 2</option><option value='item-hover-3'>Effect 3</option><option value='item-hover-4'>Effect 4</option></select><li class='hidden active'></li></div></div><hr>");
-			    break;
-			  case "menu_select":
-				  var items = JSON.parse($('meta[name="menus"]').attr('content'));
-				  
-				  var options = "";
-				  var optionsLi = "";
-				  //options += "<option value=''>Geen items</option>";
-				  $.each(items, function(index, element) {
-					  options += "<option value='"+index+"'>"+element+"</option>";
-					  optionsLi += "<li value='"+index+"'>"+element+"</li>";
-				  });
-				  
-				  $("div[data-category='menu']").append("<div class='se-edit-item se-edit-reload' type='extra' element='menu_id'><p>Menu</p><select class='select'><option value='' disabled selected>Selecteer een menu</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
-			    break;
-			  case "submenu_select":
-				  var items = JSON.parse($('meta[name="menus"]').attr('content'));
-				  
-				  var options = "";
-				  var optionsLi = "";
-				  //options += "<option value=''>Geen items</option>";
-				  $.each(items, function(index, element) {
-					  options += "<option value='"+index+"'>"+element+"</option>";
-					  optionsLi += "<li value='"+index+"'>"+element+"</li>";
-				  });
-				  
-				  $("div[data-category='menu']").append("<div class='se-edit-item se-edit-reload' type='extra' element='submenu_id'><p>Submenu</p><select class='select'><option value='' disabled selected>Selecteer een menu</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
-			    break;
-			  case "credmenu_select":
-				  var items = JSON.parse($('meta[name="menus"]').attr('content'));
-				  
-				  var options = "";
-				  var optionsLi = "";
-				  //options += "<option value=''>Geen items</option>";
-				  $.each(items, function(index, element) {
-					  options += "<option value='"+index+"'>"+element+"</option>";
-					  optionsLi += "<li value='"+index+"'>"+element+"</li>";
-				  });
-				  
-				  $("div[data-category='menu']").append("<div class='se-edit-item se-edit-reload' type='extra' element='credmenu_id'><p>Credential Menu</p><select class='select'><option value='' disabled selected>Selecteer een menu</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
-			    break;
-			  case "maps_marker":
-			    $("div[data-category='maps']").append("<div class='se-edit-item se-edit-reload' type='attribute' attribute='data-marker-image' element='.e'><p>Map Marker</p><ul class='se se-ic' col='3'><li value='/public/vendor/images/marker/standard.png'>Standard</li><li value='/public/vendor/images/marker/light.png'>Light</li><li value='/public/vendor/images/marker/dark.png'>Dark</span></li></ul></div><hr>");
-			    break;
-			  case "maps_zoom":
-			  	$("div[data-category='maps']").append("<div class='se-edit-item' type='attribute' attribute='data-map-zoom' element='.e'><p>Map Zoom</p><input class='range' type='range' min='0' max='9' value='8' title='Map Zoom'><ul class='se-ra' col='10'><li value='1' range='0'>1</li><li value='3' range='1'>3</li><li value='5' range='2'>5</li><li value='7' range='3'>7</li><li value='9' range='4'>9</li><li value='11' range='5'>11</li><li value='13' range='6'>13</li><li value='14' range='7'>14</li><li value='15' range='8'>15</li><li value='16' range='9'>16</li></ul></div><hr>");
-			  	break;
-			  case "maps_style":
-				  $("div[data-category='maps']").append("<div class='se-edit-item se-edit-reload' type='extra' element='map_style_key'><p>Map Stijl</p><select class='select'><option value='' disabled selected>Selecteer een stijl</option><option value='maps.maps_styles.standard'>Standaard</option><option value='maps.maps_styles.silver'>Silver</option><option value='maps.maps_styles.dark'>Dark</option><option value='maps.maps_styles.retro'>Retro</option><option value='maps.maps_styles.night'>Night</option><option value='maps.maps_styles.aubergine'>Aubergine</option></select><li class='hidden active'></li></div></div><hr>");
-				break;  
-			  case "footer_column_content":
-				  var options = "<option value='about-us'>Over ons</option><option value='company-info'>Bedrijfsinfo</option><option value='opening-hours'>Openingsuren</option><option value='menu'>Menu</option><option value='submenu'>Submenu</option><option value='map-iframe'>Maps Iframe</option><option value='map-api'>Maps API</option><option value='fb-feed'>Facebook feed</option>";
-				  
-				  $("div[data-category='footer']").append("<div class='se-edit-item se-edit-reload' type='extra' element='footer_column_"+fCC+"'><p>Footer kolom "+fCC+"</p><select class='select'><option value='' disabled selected>Selecteer een element</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
-				  fCC++;
-			    break;
-			  case "divider_shape_top":
-				  $("div[data-category='dividers']").append("<div class='se-edit-item se-edit-reload' type='extra' element='divider_shape_top'><p>Vorm divider Top</p><select class='select'><option value='' disabled selected>Selecteer een vorm</option><option value=''>None</option><option value='waves'>Waves</option><option value='waves_opacity'>Waves opacity</option><option value='curve'>Curve</option><option value='curve_invert'>Curve invert</option><option value='curve_asymmetrical'>Curve asymmetrical</option><option value='triangle'>Triangle</option><option value='triangle_asymmetrical'>Triangle asymmetrical</option><option value='tilt'>Tilt</option><option value='arrow'>Arrow</option><option value='paper_rip'>Paper Rip</option><option value='split'>Split</option><option value='book'>Book</option></select><li class='hidden active'></li></div></div><hr>");
-			    break;
-			  case "divider_color_top":
-			  	$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-top'><p>Divider kleur top</p><ul class='se se-co' col='4'><li value=''><span class=''></span></li><li value='divider--secondary'><span class='bg--secondary'></span></li><li value='divider--dark'><span class='bg--dark'></span></li><li value='divider--primary'><span class='bg--primary'></span></li></ul></div><hr>");
-			  	break;
-			  case "divider_flip_top":
-			  	$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-top'><p>Flip divider Top</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='divider-flipped'></li></ul></div><hr>");
-			  	break;
-			  case "divider_height_top":
-			  	$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-top'><p>Divider hoogte Top</p><input class='range' type='range' min='0' max='9' value='9' title='Divider Height'><ul class='se-ra' col='10'><li value='height-10-px' range='0'>10</li><li value='height-20-px' range='1'></li><li value='height-30-px' range='2'></li><li value='height-40-px' range='3'></li><li value='height-50-px' range='4'>50</li><li value='height-60-px' range='5'></li><li value='height-70-px' range='6'></li><li value='height-80-px' range='7'></li><li value='height-90-px' range='8'></li><li value='height-100-px' range='9'>100</li></ul></div><hr>");
-			  	break;
-			  case "divider_width_top":
-			  	$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-top'><p>Divider breedte Top</p><input class='range' type='range' min='0' max='4' value='0' title='Divider Width'><ul class='se-ra' col='5'><li value='width-100' range='0'>100</li><li value='width-150' range='1'></li><li value='width-200' range='2'></li><li value='width-250' range='3'></li><li value='width-300' range='4'>300</li></ul></div><hr>");
-			  	break;
-			  case "divider_shape_bottom":
-				  $("div[data-category='dividers']").append("<div class='se-edit-item se-edit-reload' type='extra' element='divider_shape_bottom'><p>Vorm divider bottom</p><select class='select'><option value='' disabled selected>Selecteer een vorm</option><option value=''>None</option><option value='waves'>Waves</option><option value='waves_opacity'>Waves opacity</option><option value='curve'>Curve</option><option value='curve_invert'>Curve invert</option><option value='curve_asymmetrical'>Curve asymmetrical</option><option value='triangle'>Triangle</option><option value='triangle_asymmetrical'>Triangle asymmetrical</option><option value='tilt'>Tilt</option><option value='arrow'>Arrow</option><option value='paper_rip'>Paper Rip</option><option value='split'>Split</option><option value='book'>Book</option></select><li class='hidden active'></li></div></div><hr>");
-			    break;
-			  case "divider_color_bottom":
-			  	$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-bottom'><p>Divider kleur bottom</p><ul class='se se-co' col='4'><li value=''><span class=''></span></li><li value='divider--secondary'><span class='bg--secondary'></span></li><li value='divider--dark'><span class='bg--dark'></span></li><li value='divider--primary'><span class='bg--primary'></span></li></ul></div><hr>");
-			  	break;
-			  case "divider_flip_bottom":
-			  	$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-bottom'><p>Flip divider bottom</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='divider-flipped'></li></ul></div><hr>");
-			  	break;
-			  case "divider_height_bottom":
-			  	$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-bottom'><p>Divider hoogte bottom</p><input class='range' type='range' min='0' max='9' value='9' title='Divider Height'><ul class='se-ra' col='10'><li value='height-10-px' range='0'>10</li><li value='height-20-px' range='1'></li><li value='height-30-px' range='2'></li><li value='height-40-px' range='3'></li><li value='height-50-px' range='4'>50</li><li value='height-60-px' range='5'></li><li value='height-70-px' range='6'></li><li value='height-80-px' range='7'></li><li value='height-90-px' range='8'></li><li value='height-100-px' range='9'>100</li></ul></div><hr>");
-			  	break;
-			  case "divider_width_bottom":
-			  	$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-bottom'><p>Divider breedte bottom</p><input class='range' type='range' min='0' max='4' value='0' title='Divider Width'><ul class='se-ra' col='5'><li value='width-100' range='0'>100</li><li value='width-150' range='1'></li><li value='width-200' range='2'></li><li value='width-250' range='3'></li><li value='width-300' range='4'>300</li></ul></div><hr>");
-			  	break;
+				case "logo_size":
+					$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.logo'><p>Grote Logo</p><input class='range' type='range' min='0' max='3' value='0' title='Grote Logo'><ul class='se-ra' col='4'><li value='' range='0'>SM</li><li value='logo--md' range='1'>MD</li><li value='logo--lg' range='2'>LG</li><li value='logo--xlg' range='3'>XLG</li></ul></div><hr>");
+					break;
+				case "image_border_radius":
+					$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.img'><p>Afbeelding afronding</p><input class='range' type='range' min='0' max='8' value='0' title='Overlay Helderheid'><ul class='se-ra' col='9'><li value='' range='0'>Off</li><li value='border-radius-4' range='1'>4</li><li value='border-radius-6' range='2'>6</li><li value='border-radius-8' range='3'>8</li><li value='border-radius-10' range='4'>10</li><li value='border-radius-15' range='5'>15</li><li value='border-radius-25' range='6'>25</li><li value='border-radius-50' range='7'>50</li><li value='border-radius-150' range='8'>150</li></ul></div><hr>");
+					break;
+				case "image_padding":
+					$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.img'><p>Afbeelding padding</p><input class='range' type='range' min='0' max='5' value='0' title='Afbeelding padding'><ul class='se-ra' col='6'><li value='' range='0'>0</li><li value='p-1' range='1'>1</li><li value='p-2' range='2'>2</li><li value='p-3' range='3'>3</li><li value='p-4' range='4'>4</li><li value='p-5' range='5'>5</li></ul></div><hr>");
+					break;
+				case "image_shadow":
+					$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.img'><p>Afbeelding schaduw</p><ul class='se se-ic' col='4'><li value=''>Off</li><li value='box-shadow-shallow'>SM</span></li><li value='box-shadow-realistic'>MD</span></li><li value='box-shadow-wide'>LG</li></ul></div><hr>");
+					break;
+				case "image_format":
+					$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.img'><p>Afbeelding formaat</p><ul class='se se-ic' col='4'><li value=''>Normal</li><li value='img-landscape'>Landscape</li><li value='img-square'>Vierkant</span></li><li value='img-portrait'>Portrait</span></li></ul></div><hr>");
+					break;
+				case "image_width":
+					$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.img'><p>Afbeelding Breedte</p><input class='range' type='range' min='0' max='8' value='0' title='Afbeelding Hoogte'><ul class='se-ra' col='9'><li value='width-auto' range='0'>Auto</li><li value='width-30' range='1'></li><li value='width-40' range='2'></li><li value='width-50' range='3'></li><li value='width-60' range='4'></li><li value='width-70' range='5'></li><li value='width-80' range='6'></li><li value='width-90' range='7'></li><li value='width-100' range='8'>100%</li></ul></div><hr>");
+					break;
+				case "image_grayscale":
+					$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.img'><p>Afbeelding grijswaarde</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='filter-grey'></li></ul></div><hr>");
+					break;
+				case "element_border_radius":
+					$("div[data-category='misc']").append("<div class='se-edit-item' type='class' element='.e'><p>Element afronding</p><input class='range' type='range' min='0' max='8' value='0' title='Overlay Helderheid'><ul class='se-ra' col='9'><li value='' range='0'>Off</li><li value='border-radius-4' range='1'>4</li><li value='border-radius-6' range='2'>6</li><li value='border-radius-8' range='3'>8</li><li value='border-radius-10' range='4'>10</li><li value='border-radius-15' range='5'>15</li><li value='border-radius-25' range='6'>25</li><li value='border-radius-50' range='7'>50</li><li value='border-radius-150' range='8'>150</li></ul></div><hr>");
+					break;
+				case "item_columns":
+					$("div[data-category='layout']").append("<div class='se-edit-item se-edit-reload' type='class' element='.item'><p>Aantal kolommen</p><input class='range' type='range' min='0' max='3' value='0' title='Aantal kolommen'><ul class='se-ra' col='4'><li value='col-12' range='0'>1</li><li value='col-md-6' range='1'>2</li><li value='col-md-4' range='2'>3</li><li value='col-md-3' range='3'>4</li></ul></div><hr>");
+					break;
+				case "masonry":
+					$("div[data-category='layout']").append("<div class='se-edit-item se-edit-reload' type='class' element='.row-masonry'><p>Masonry</p><ul class='se se-ic' col='2'><li value=''>Uit</li></li><li value='masonry__container masonry--active'>Aan</li></ul></div><hr>");
+					break;
+				case "item_hover":				  
+					$("div[data-category='items']").append("<div class='se-edit-item' type='class' element='.item' element='item_hover'><p>Hover effect</p><select class='select'><option value='' disabled selected>Selecteer een effect</option><option value='item-hover-1'>Effect 1</option><option value='item-hover-2'>Effect 2</option><option value='item-hover-3'>Effect 3</option><option value='item-hover-4'>Effect 4</option></select><li class='hidden active'></li></div></div><hr>");
+					break;
+				case "menu_select":
+					var items = JSON.parse($('meta[name="menus"]').attr('content'));
+					
+					var options = "";
+					var optionsLi = "";
+					//options += "<option value=''>Geen items</option>";
+					$.each(items, function(index, element) {
+						options += "<option value='"+index+"'>"+element+"</option>";
+						optionsLi += "<li value='"+index+"'>"+element+"</li>";
+					});
+					
+					$("div[data-category='menu']").append("<div class='se-edit-item se-edit-reload' type='extra' element='menu_id'><p>Menu</p><select class='select'><option value='' disabled selected>Selecteer een menu</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
+					break;
+				case "submenu_select":
+					var items = JSON.parse($('meta[name="menus"]').attr('content'));
+					
+					var options = "";
+					var optionsLi = "";
+					//options += "<option value=''>Geen items</option>";
+					$.each(items, function(index, element) {
+						options += "<option value='"+index+"'>"+element+"</option>";
+						optionsLi += "<li value='"+index+"'>"+element+"</li>";
+					});
+					
+					$("div[data-category='menu']").append("<div class='se-edit-item se-edit-reload' type='extra' element='submenu_id'><p>Submenu</p><select class='select'><option value='' disabled selected>Selecteer een menu</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
+					break;
+				case "credmenu_select":
+					var items = JSON.parse($('meta[name="menus"]').attr('content'));
+					
+					var options = "";
+					var optionsLi = "";
+					//options += "<option value=''>Geen items</option>";
+					$.each(items, function(index, element) {
+						options += "<option value='"+index+"'>"+element+"</option>";
+						optionsLi += "<li value='"+index+"'>"+element+"</li>";
+					});
+					
+					$("div[data-category='menu']").append("<div class='se-edit-item se-edit-reload' type='extra' element='credmenu_id'><p>Credential Menu</p><select class='select'><option value='' disabled selected>Selecteer een menu</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
+					break;
+				case "maps_marker":
+					$("div[data-category='maps']").append("<div class='se-edit-item se-edit-reload' type='attribute' attribute='data-marker-image' element='.e'><p>Map Marker</p><ul class='se se-ic' col='3'><li value='/public/vendor/images/marker/standard.png'>Standard</li><li value='/public/vendor/images/marker/light.png'>Light</li><li value='/public/vendor/images/marker/dark.png'>Dark</span></li></ul></div><hr>");
+					break;
+				case "maps_zoom":
+					$("div[data-category='maps']").append("<div class='se-edit-item' type='attribute' attribute='data-map-zoom' element='.e'><p>Map Zoom</p><input class='range' type='range' min='0' max='9' value='8' title='Map Zoom'><ul class='se-ra' col='10'><li value='1' range='0'>1</li><li value='3' range='1'>3</li><li value='5' range='2'>5</li><li value='7' range='3'>7</li><li value='9' range='4'>9</li><li value='11' range='5'>11</li><li value='13' range='6'>13</li><li value='14' range='7'>14</li><li value='15' range='8'>15</li><li value='16' range='9'>16</li></ul></div><hr>");
+					break;
+				case "maps_style":
+					$("div[data-category='maps']").append("<div class='se-edit-item se-edit-reload' type='extra' element='map_style_key'><p>Map Stijl</p><select class='select'><option value='' disabled selected>Selecteer een stijl</option><option value='maps.maps_styles.standard'>Standaard</option><option value='maps.maps_styles.silver'>Silver</option><option value='maps.maps_styles.dark'>Dark</option><option value='maps.maps_styles.retro'>Retro</option><option value='maps.maps_styles.night'>Night</option><option value='maps.maps_styles.aubergine'>Aubergine</option></select><li class='hidden active'></li></div></div><hr>");
+					break;  
+				case "footer_column_content":
+					var options = "<option value='about-us'>Over ons</option><option value='company-info'>Bedrijfsinfo</option><option value='opening-hours'>Openingsuren</option><option value='menu'>Menu</option><option value='submenu'>Submenu</option><option value='map-iframe'>Maps Iframe</option><option value='map-api'>Maps API</option><option value='fb-feed'>Facebook feed</option>";
+					
+					$("div[data-category='footer']").append("<div class='se-edit-item se-edit-reload' type='extra' element='footer_column_"+fCC+"'><p>Footer kolom "+fCC+"</p><select class='select'><option value='' disabled selected>Selecteer een element</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
+					fCC++;
+					break;
+				case "divider_shape_top":
+					$("div[data-category='dividers']").append("<div class='se-edit-item se-edit-reload' type='extra' element='divider_shape_top'><p>Vorm divider Top</p><select class='select'><option value='' disabled selected>Selecteer een vorm</option><option value=''>None</option><option value='waves'>Waves</option><option value='waves_opacity'>Waves opacity</option><option value='curve'>Curve</option><option value='curve_invert'>Curve invert</option><option value='curve_asymmetrical'>Curve asymmetrical</option><option value='triangle'>Triangle</option><option value='triangle_asymmetrical'>Triangle asymmetrical</option><option value='tilt'>Tilt</option><option value='arrow'>Arrow</option><option value='paper_rip'>Paper Rip</option><option value='split'>Split</option><option value='book'>Book</option></select><li class='hidden active'></li></div></div><hr>");
+					break;
+				case "divider_color_top":
+					$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-top'><p>Divider kleur top</p><ul class='se se-co' col='4'><li value=''><span class=''></span></li><li value='divider--secondary'><span class='bg--secondary'></span></li><li value='divider--dark'><span class='bg--dark'></span></li><li value='divider--primary'><span class='bg--primary'></span></li></ul></div><hr>");
+					break;
+				case "divider_flip_top":
+					$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-top'><p>Flip divider Top</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='divider-flipped'></li></ul></div><hr>");
+					break;
+				case "divider_height_top":
+					$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-top'><p>Divider hoogte Top</p><input class='range' type='range' min='0' max='9' value='9' title='Divider Height'><ul class='se-ra' col='10'><li value='height-10-px' range='0'>10</li><li value='height-20-px' range='1'></li><li value='height-30-px' range='2'></li><li value='height-40-px' range='3'></li><li value='height-50-px' range='4'>50</li><li value='height-60-px' range='5'></li><li value='height-70-px' range='6'></li><li value='height-80-px' range='7'></li><li value='height-90-px' range='8'></li><li value='height-100-px' range='9'>100</li></ul></div><hr>");
+					break;
+				case "divider_width_top":
+					$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-top'><p>Divider breedte Top</p><input class='range' type='range' min='0' max='4' value='0' title='Divider Width'><ul class='se-ra' col='5'><li value='width-100' range='0'>100</li><li value='width-150' range='1'></li><li value='width-200' range='2'></li><li value='width-250' range='3'></li><li value='width-300' range='4'>300</li></ul></div><hr>");
+					break;
+				case "divider_shape_bottom":
+					$("div[data-category='dividers']").append("<div class='se-edit-item se-edit-reload' type='extra' element='divider_shape_bottom'><p>Vorm divider bottom</p><select class='select'><option value='' disabled selected>Selecteer een vorm</option><option value=''>None</option><option value='waves'>Waves</option><option value='waves_opacity'>Waves opacity</option><option value='curve'>Curve</option><option value='curve_invert'>Curve invert</option><option value='curve_asymmetrical'>Curve asymmetrical</option><option value='triangle'>Triangle</option><option value='triangle_asymmetrical'>Triangle asymmetrical</option><option value='tilt'>Tilt</option><option value='arrow'>Arrow</option><option value='paper_rip'>Paper Rip</option><option value='split'>Split</option><option value='book'>Book</option></select><li class='hidden active'></li></div></div><hr>");
+					break;
+				case "divider_color_bottom":
+					$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-bottom'><p>Divider kleur bottom</p><ul class='se se-co' col='4'><li value=''><span class=''></span></li><li value='divider--secondary'><span class='bg--secondary'></span></li><li value='divider--dark'><span class='bg--dark'></span></li><li value='divider--primary'><span class='bg--primary'></span></li></ul></div><hr>");
+					break;
+				case "divider_flip_bottom":
+					$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-bottom'><p>Flip divider bottom</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='divider-flipped'></li></ul></div><hr>");
+					break;
+				case "divider_height_bottom":
+					$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-bottom'><p>Divider hoogte bottom</p><input class='range' type='range' min='0' max='9' value='9' title='Divider Height'><ul class='se-ra' col='10'><li value='height-10-px' range='0'>10</li><li value='height-20-px' range='1'></li><li value='height-30-px' range='2'></li><li value='height-40-px' range='3'></li><li value='height-50-px' range='4'>50</li><li value='height-60-px' range='5'></li><li value='height-70-px' range='6'></li><li value='height-80-px' range='7'></li><li value='height-90-px' range='8'></li><li value='height-100-px' range='9'>100</li></ul></div><hr>");
+					break;
+				case "divider_width_bottom":
+					$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-bottom'><p>Divider breedte bottom</p><input class='range' type='range' min='0' max='4' value='0' title='Divider Width'><ul class='se-ra' col='5'><li value='width-100' range='0'>100</li><li value='width-150' range='1'></li><li value='width-200' range='2'></li><li value='width-250' range='3'></li><li value='width-300' range='4'>300</li></ul></div><hr>");
+					break;
+				case "divider_shape_side":
+					$("div[data-category='dividers']").append("<div class='se-edit-item se-edit-reload' type='extra' element='divider_shape_side'><p>Vorm divider side</p><select class='select'><option value='' disabled selected>Selecteer een vorm</option><option value=''>None</option><option value='waves'>Waves</option><option value='waves_opacity'>Waves opacity</option><option value='curve'>Curve</option><option value='curve_invert'>Curve invert</option><option value='curve_asymmetrical'>Curve asymmetrical</option><option value='triangle'>Triangle</option><option value='triangle_asymmetrical'>Triangle asymmetrical</option><option value='tilt'>Tilt</option><option value='arrow'>Arrow</option><option value='paper_rip'>Paper Rip</option><option value='split'>Split</option><option value='book'>Book</option></select><li class='hidden active'></li></div></div><hr>");
+					break;
+				case "divider_color_side":
+					$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-side'><p>Divider kleur side</p><ul class='se se-co' col='4'><li value=''><span class=''></span></li><li value='divider--secondary'><span class='bg--secondary'></span></li><li value='divider--dark'><span class='bg--dark'></span></li><li value='divider--primary'><span class='bg--primary'></span></li></ul></div><hr>");
+					break;
+				case "divider_flip_side":
+					$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-side'><p>Flip divider side</p><div class='se se-sw'><div class='switch'><div></div></div> <ul><li value=''></li><li value='divider-flipped'></li></ul></div><hr>");
+					break;
+				case "divider_height_side":
+					$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-side'><p>Divider hoogte side</p><input class='range' type='range' min='0' max='9' value='9' title='Divider Height'><ul class='se-ra' col='10'><li value='height-10-px' range='0'>10</li><li value='height-20-px' range='1'></li><li value='height-30-px' range='2'></li><li value='height-40-px' range='3'></li><li value='height-50-px' range='4'>50</li><li value='height-60-px' range='5'></li><li value='height-70-px' range='6'></li><li value='height-80-px' range='7'></li><li value='height-90-px' range='8'></li><li value='height-100-px' range='9'>100</li></ul></div><hr>");
+					break;
+				case "divider_width_side":
+					$("div[data-category='dividers']").append("<div class='se-edit-item' type='class' element='.divider-side'><p>Divider breedte side</p><input class='range' type='range' min='0' max='4' value='0' title='Divider Width'><ul class='se-ra' col='5'><li value='width-100' range='0'>100</li><li value='width-150' range='1'></li><li value='width-200' range='2'></li><li value='width-250' range='3'></li><li value='width-300' range='4'>300</li></ul></div><hr>");
+					break;	  
 			} 
 		});
 		

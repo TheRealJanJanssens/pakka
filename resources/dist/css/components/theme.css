@@ -3236,6 +3236,7 @@ a {
   top: 0;
   z-index: 2;
   padding: 0;
+  overflow: hidden;
 }
 .imageblock .imageblock__content .slider {
   position: absolute;

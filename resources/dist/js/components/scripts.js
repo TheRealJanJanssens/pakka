@@ -777,6 +777,42 @@ function deleteAllCookies() {
 deleteAllCookies();
 */
 
+function calculateSideDividers(){
+    $( ".divider-side" ).each(function( index ) {
+        var $this = $(this);
+        var pHeight = $this.parent().height();
+        var pwidth = $this.parent().width();
+        var offset = (pHeight - pwidth) - 1;
+        var side = $this.closest(".switchable").hasClass("switchable--switch") ? true : false; 
+        var flipped = "1";
+        var size = parseInt($this.attr("class").replace(/\D/g,''))/100 || 1;
+
+        //define which side the divider is on
+        if(side){
+            var rotate = "-90deg";
+            var origin = "left";
+            var translate = "-100%, -1px";
+            offset = "-1";  
+        }else{
+            var rotate = "90deg";
+            var origin = "right";
+            var translate = "100%, "+offset+"px";
+        }
+
+        //is divider flipped?
+        if($this.hasClass("divider-flipped")){
+            translate = "0%, "+offset+"px";
+            flipped = " -1";
+        }
+
+        var transform = "rotate("+rotate+") translate("+translate+") scale("+flipped+", "+size+")";
+
+        $this.attr('style', 
+            "width:"+pHeight+"px !important; transform-origin:top "+origin+"; -moz-transform-origin:top "+origin+"; -o-transform-origin:top "+origin+"; -webkit-transform-origin: top "+origin+"; transform:"+transform+"; -moz-transform:"+transform+"; -o-transform:"+transform+"; -webkit-transform"+transform+";"
+        );
+    });
+}
+
 //Smooth Scrolling
 // Select all links with hashes
 $('a[href*="#"]')
@@ -1296,6 +1332,34 @@ mr = (function (mr, $, window, document){
     };
 
     mr.components.documentReady.push(mr.accordions.documentReady);
+    return mr;
+
+}(mr, jQuery, window, document));
+
+//////////////// Dividers
+mr = (function (mr, $, window, document){
+    "use strict";
+
+    mr.dividers = mr.dividers || {};
+    
+    mr.dividers.documentReady = function($){
+        calculateSideDividers();
+
+        $(window).resize(function(){
+            calculateSideDividers();
+        });
+
+        //observe parent changes during layout editing
+        var target = document.querySelector('.switchable')
+        var observer = new MutationObserver(function(mutations) {
+            calculateSideDividers();
+        });
+
+        var config = { attributes: true, childList: true, characterData: true };
+        observer.observe(target, config);
+    };
+
+    mr.components.documentReady.push(mr.dividers.documentReady);
     return mr;
 
 }(mr, jQuery, window, document));

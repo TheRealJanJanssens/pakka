@@ -38,9 +38,8 @@
 			@endforeach
 			
 			<div class="list-group list-group-status">
-				
-				@if (isset($item['status']))
-					@switch($item['status'])
+				@if (isset($page['status']))
+					@switch($page['status'])
 				    	@case(1)
 							@php( $onlineClass = "active" )
 							@php( $offlineClass = "" )

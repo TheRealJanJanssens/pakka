@@ -13,6 +13,11 @@ All notable changes to `pakka` will be documented in this file.
 - Added Patrick Hand font
 - Added customizable highlight-, dark- and gray colours
 - Added highlight class in custom css to have a modern marker effect
+- Connected the new highlight-, dark- and grey colours to theme.css and builder tools
+- Added slider and slider options to CVRTXT4
+- Fixed the status select on page forms
+- Added a status parameter on Page::getPages() method
+- Added side dividers (only available in selected sections)
 
 ## 0.1.6 - 2020-03-30
 - Set timestaps on false in Language Model
