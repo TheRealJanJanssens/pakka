@@ -126,7 +126,9 @@ class CreateSectionItemsTable extends Migration
             array("id" => 103, "type" => 1, "section" => "SNAVSH01001", "name" => "Sub navigation shop", "tags" => "navigatie,webshop"),
             array("id" => 104, "type" => 2, "section" => "PAYMLS01001", "name" => "Payment list 1", "tags" => "webshop"),
             array("id" => 105, "type" => 3, "section" => "PAYMLS01001", "name" => "Payment list 1", "tags" => "webshop"),
-            array("id" => 106, "type" => 3, "section" => "BRNDSL01001", "name" => "Brand Slider 1 ", "tags" => "slider")
+            array("id" => 106, "type" => 3, "section" => "BRNDSL01001", "name" => "Brand Slider 1 ", "tags" => "slider"),
+            array("id" => 107, "type" => 2, "section" => "FEATLG09001", "name" => "Feature Large 9 equal column", "tags" => "feature"),
+            array("id" => 108, "type" => 2, "section" => "FEATLG09002", "name" => "Feature Large 9 unequal column", "tags" => "feature")
         ]);
     }
 

@@ -2,7 +2,7 @@
 
 All notable changes to `pakka` will be documented in this file.
 
-## 0.1.7 - 2020-03-
+## 0.1.7 - 2021-04-
 - Template select on Page create failsafe added
 - Fixed unknown $result in Template::getSelect()
 - Route generation now uses the correct object syntax
@@ -18,26 +18,30 @@ All notable changes to `pakka` will be documented in this file.
 - Fixed the status select on page forms
 - Added a status parameter on Page::getPages() method
 - Added side dividers (only available in selected sections)
+- New section FEATLG09001
+- New section FEATLG09002
+- Connected CheckForMaintenanceMode.php in install process
+- Added Forms module for creating custom forms.
 
-## 0.1.6 - 2020-03-30
+## 0.1.6 - 2021-03-30
 - Set timestaps on false in Language Model
 - Fix of duplicate naming "login" in routes
 - Changed the route 'as' variable to 'template' to enable unique names for the routes
 
-## 0.1.5 - 2020-03-29
-- Added added CheckForMaintenanceMode.php
+## 0.1.5 - 2021-03-29
+- Added CheckForMaintenanceMode.php
 
-## 0.1.4 - 2020-03-29
+## 0.1.4 - 2021-03-29
 - Migration section_items insert patch
 - Terminal "Language table not found" fix on fresh install
 
-## 0.1.3 - 2020-03-28
+## 0.1.3 - 2021-03-28
 - Migration patch
 
-## 0.1.2 - 2020-03-28
+## 0.1.2 - 2021-03-28
 - Migration patch
 
-## 0.1.1 - 2020-03-28
+## 0.1.1 - 2021-03-28
 - Reconnect asset images who where missing (mapmarkers, etc.)
 - Section preview loading background to prevent invisible sections in list
 - Added all current tables as migrations
@@ -46,7 +50,7 @@ All notable changes to `pakka` will be documented in this file.
 - Added migrations
 - Updated pakka-install command to cover migrations
 
-## 0.1.0 - 2020-03-23
+## 0.1.0 - 2021-03-23
 - Invoice form models reconnect
 - Select options defined in config translation connect
 - Removed invoice_no from required fields in invoice model due to errors when creating a proforma
@@ -61,7 +65,7 @@ All notable changes to `pakka` will be documented in this file.
 - Connected section dividers
 - Added ability to remove dividers
 
-## 0.0.5 - 2020-03-20
+## 0.0.5 - 2021-03-20
 - Added a 0 format to the images to save uploaded images in their original size
 - Support webp image upload
 - updated ytplayer.min.js
@@ -72,7 +76,7 @@ All notable changes to `pakka` will be documented in this file.
 - added webp convert option (not tested due wrong enviroment)
 - Fixed position issues when adding a new section
 
-## 0.0.4 - 2020-03-18
+## 0.0.4 - 2021-03-18
 - Connected old 'variable.' configs to 'pakka.'
 - Connect Helpers directory
 - Connect Providers
@@ -86,7 +90,7 @@ All notable changes to `pakka` will be documented in this file.
 - Fixed locale and fallback locale reverting back to 'en' due to limited config (app.php)
 - Checkout form block added validation to address fields
 
-## 0.0.3 - 2020-03-15
+## 0.0.3 - 2021-03-15
 
 - Helper constructAttributes fix (setAttribute and null failsafes)
 - Added a functionality to support custom sections
@@ -100,7 +104,7 @@ All notable changes to `pakka` will be documented in this file.
 - Resolved route() issues in controllers
 - Kernel fix (Session and Auth problems)
 
-## 0.0.2 - 2020-02-27
+## 0.0.2 - 2021-02-27
 
 - Dev require Psalm
 - Route connect
@@ -114,6 +118,6 @@ All notable changes to `pakka` will be documented in this file.
 - Connect base config files
 - Connect Auth overide controllers and routes
 
-## 0.0.1 - 2020-02-10
+## 0.0.1 - 2021-02-10
 
 - Initial release

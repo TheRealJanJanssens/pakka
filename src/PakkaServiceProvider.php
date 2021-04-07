@@ -44,6 +44,7 @@ class PakkaServiceProvider extends PackageServiceProvider
             __DIR__.'/../src/Http/Middleware/Locale.php' => app_path('Http/Middleware/Locale.php'),
             __DIR__.'/../src/Http/Middleware/Role.php' => app_path('Http/Middleware/Role.php'),
             __DIR__.'/../src/Http/Middleware/VerifyCsrfToken.php' => app_path('Http/Middleware/VerifyCsrfToken.php'),
+            __DIR__.'/../src/Http/Middleware/CheckForMaintenanceMode.php' => app_path('Http/Middleware/CheckForMaintenanceMode.php'),
 
             // Kernel
             __DIR__.'/../src/Http/Kernel/Kernel.php' => app_path('Http/Kernel.php'),

@@ -6,6 +6,7 @@ use TheRealJanJanssens\Pakka\Http\Controllers\UserController;
 use TheRealJanJanssens\Pakka\Http\Controllers\MenuController;
 use TheRealJanJanssens\Pakka\Http\Controllers\ItemController;
 use TheRealJanJanssens\Pakka\Http\Controllers\CartController;
+use TheRealJanJanssens\Pakka\Http\Controllers\FormController;
 use TheRealJanJanssens\Pakka\Http\Controllers\InputController;
 use TheRealJanJanssens\Pakka\Http\Controllers\OrderController;
 use TheRealJanJanssens\Pakka\Http\Controllers\ImageController;
@@ -98,6 +99,7 @@ Route::group([
     Route::resources([
         'menu' => MenuController::class,
         'users' => UserController::class,
+        'forms' => FormController::class,
         'orders' => OrderController::class,
         'clients' => ClientController::class,
         'coupons' => CouponController::class,

@@ -147,12 +147,19 @@ div[class*="overlap-"]{
 }
 
 .divider-side{
+	display: none;
 	min-width: inherit;
 	left: inherit;
 	-webkit-transition: none;
        -moz-transition: none;
          -o-transition: none;
             transition: none;
+}
+
+@media all and (min-width: 768px) {
+	.divider-side{
+		display: block;
+	}
 }
 
 .divider-flipped{

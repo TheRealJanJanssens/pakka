@@ -39,6 +39,7 @@ return [
         'shipments' => 'Levering',
         'orders' => 'Bestellingen',
         'templates' => 'Templates',
+        'forms' => 'Forms',
     ],
     
     'icons' => [

@@ -1,0 +1,44 @@
+{
+	"classes":"a:1:{s:2:\".e\";s:26:\"height-60 border-radius-10\";}",
+	"attributes":"a:1:{s:2:\".e\";s:16:\"data-overlay='5'\";}",
+	"extras":"",
+	"css":[
+		"vendor/css/components/bootstrap.css",
+		"vendor/css/components/stack-interface.css",
+		"vendor/css/components/slick.css",
+		"vendor/css/components/theme.css",
+		"vendor/css/components/custom.css"
+	],
+	"js":[
+		"vendor/js/components/jquery-3.1.1.min.js",
+		"vendor/js/components/parallax.js",
+		"vendor/js/components/slick.min.js",
+		"vendor/js/components/smooth-scroll.min.js",
+		"vendor/js/components/scripts.js"
+	],
+	"editable":[
+		"text_alignment",
+		"section_padding",
+		"background_image",
+		"background",
+		"granim_background",
+		"background_position_x",
+		"background_position_y",
+		"divider_shape_side",
+		"divider_color_side",
+		"divider_flip_side",
+		"divider_width_side",
+		"element_background",
+		"element_invert_colours",
+		"element_overlay",
+		"element_border_radius",
+		"element_shadow",
+		"element_border",
+		"element_height",
+		"slide_arrows",
+		"slide_paging",
+		"slide_speed",
+		"slide_transition",
+		"slide_autoplay"
+	]
+}

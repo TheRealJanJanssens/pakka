@@ -6434,7 +6434,7 @@ p .material-icons:first-child {
 /*   border-radius: 6px; */
 }
 .boxed .background-image-holder {
-  border-radius: 6px;
+  /* border-radius: 6px; */
 }
 .boxed:before {
   border-radius: 6px;
