@@ -265,5 +265,11 @@ return [
 		"value" => "Patrick Hand",
 		"slug" => "Patrick+Hand",
 		"gfont" => true
+	],
+	[
+		"option_id" => "gf_45",
+		"value" => "Inter",
+		"slug" => "Inter",
+		"gfont" => true
 	]
 ];

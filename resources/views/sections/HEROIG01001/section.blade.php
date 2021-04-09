@@ -20,10 +20,18 @@
                 <h1>{{ parseContent($section['HEROIG01001_H'],'title') }}</h1>
                 <p class="lead">{{ parseContent($section['HEROIG01001_H'],'text') }}</p>
                 
-                @if(checkContent($section['HEROIG01001_H'], 'link'))
-	                <a class="btn btn--primary type--uppercase e {{ parseSecAttr('.e', $section['classes']) }}" href="{{ $section['HEROIG01001_H']['link'] }}">
+                @if(checkContent($section['HEROIG01001_H'], 'link_first'))
+	                <a class="btn btn--primary type--uppercase e {{ parseSecAttr('.e', $section['classes']) }}" href="{{ $section['HEROIG01001_H']['link_first'] }}" data-key="link_first">
 		                <span class="btn__text">
-							{{ parseContent($section['HEROIG01001_H'],'button') }}
+							{{ parseContent($section['HEROIG01001_H'],'button_first') }}
+						</span> 
+					</a>
+	            @endif
+	            
+	            @if(checkContent($section['HEROIG01001_H'], 'link_second'))
+	                <a class="btn btn--white type--uppercase e {{ parseSecAttr('.e', $section['classes']) }}" href="{{ $section['HEROIG01001_H']['link_second'] }}" data-key="link_second">
+		                <span class="btn__text">
+							{{ parseContent($section['HEROIG01001_H'],'button_second') }}
 						</span> 
 					</a>
 	            @endif

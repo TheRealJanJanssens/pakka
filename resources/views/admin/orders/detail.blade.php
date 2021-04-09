@@ -206,7 +206,7 @@
 							        <br>
 							        <span class="text-subinfo">{{ trans('pakka::app.weight') }}: {{ $order['shipment']['weight'] }}gr</span>
 							    </td>
-						        <td class="text-right">{{ $shipmentPrice ?? trans('pakka::app.unknown') }}</td>
+						        <td class="text-right">{!! $shipmentPrice ?? trans('pakka::app.unknown') !!}</td>
 					        </tr>
 				        @endif
 				        
@@ -234,41 +234,53 @@
 					        <td class="text-right"><b>€{{ formatNumber($calculate['total']) }}</b></td>
 				        </tr>
 				        
-				        @if(!empty($order['payment']))
-				        	@php( $payment = \Mollie::api()->payments->get($order['payment']['payment_id']) )
-					        <tr>
-						        <td colspan="3" class="px-0"><hr></td>
-					        </tr>
-					        
-					        <tr>
-						        <td colspan="2" class="px-0">
-							        {{ trans('pakka::app.paid_via_with', ['provider' => ucfirst($order['payment']['provider']), 'method' => $order['payment']['method']]) }}
-									
-									@php( $payProvStatus = trans('pakka::app.'.$payment->status) )
-									
-							        @switch($payment->status)
-							        	@case("open")
-									    @case("pending")
-									        <span class="badge badge-pill badge-warning ml-2">{{ $payProvStatus }}</span>
-									        @break
-									    @case("paid")
-									    @case("authorized")
-									        <span class="badge badge-pill badge-success ml-2">{{ $payProvStatus }}</span>
-									        @break
-									    @case("failed")
-									        <span class="badge badge-pill badge-danger ml-2">{{ $payProvStatus }}</span>
-									        @break
-									    @case("expired")
-									    @case("canceled")
-									        <span class="badge badge-pill badge-secondary ml-2">{{ $payProvStatus }}</span>
-									        @break
-									@endswitch 
-							    </td>
-							    <td class="text-right">
-								    <a href="{{ $payment->_links->dashboard->href }}">{{ trans('pakka::app.to_dashboard', ['provider' => ucfirst($order['payment']['provider'])]) }} <i class="fa fa-angle-right ml-2"></i></a>
-							    </td>
-					        </tr>
-				        @endif
+						<tr>
+							<td colspan="3" class="px-0"><hr></td>
+						</tr>
+
+						<?php
+							try{
+								$payment = \Mollie::api()->payments->get($order['payment']['payment_id']);
+								?>
+									<tr>
+										<td colspan="2" class="px-0">
+											{{ trans('pakka::app.paid_via_with', ['provider' => ucfirst($order['payment']['provider']), 'method' => $order['payment']['method']]) }}
+											
+											@php( $payProvStatus = trans('pakka::app.'.$payment->status) )
+											
+											@switch($payment->status)
+												@case("open")
+												@case("pending")
+													<span class="badge badge-pill badge-warning ml-2">{{ $payProvStatus }}</span>
+													@break
+												@case("paid")
+												@case("authorized")
+													<span class="badge badge-pill badge-success ml-2">{{ $payProvStatus }}</span>
+													@break
+												@case("failed")
+													<span class="badge badge-pill badge-danger ml-2">{{ $payProvStatus }}</span>
+													@break
+												@case("expired")
+												@case("canceled")
+													<span class="badge badge-pill badge-secondary ml-2">{{ $payProvStatus }}</span>
+													@break
+											@endswitch 
+										</td>
+										<td class="text-right">
+											<a href="{{ $payment->_links->dashboard->href }}">{{ trans('pakka::app.to_dashboard', ['provider' => ucfirst($order['payment']['provider'])]) }} <i class="fa fa-angle-right ml-2"></i></a>
+										</td>
+									</tr>
+								<?php
+							}catch(Exception $e){
+								?>
+									<tr>
+										<td colspan="3" class="px-0 text-center">
+											<p></p>
+										</td>
+									</tr>
+								<?php
+							}
+						?>
 			    	</tbody>
 				</table>
 			    

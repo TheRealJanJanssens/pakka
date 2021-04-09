@@ -166,7 +166,6 @@ return [
          * Package Service Providers...
          */
         Barryvdh\DomPDF\ServiceProvider::class,
-        Unikent\Cache\TaggableFileCacheServiceProvider::class,
         TheRealJanJanssens\Pakka\PakkaServiceProvider::class,
 
         /*

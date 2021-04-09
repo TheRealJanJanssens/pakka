@@ -447,6 +447,16 @@ function loadBlazy(){
         }
     });
     
+    //if($('.se-section-list-main').length > 0){
+        $('.se-section-list-main').on('scroll', function () {
+            bLazy.revalidate();
+        });
+
+        $(document).on('click', '.se-section-list-sidebar .tag', function () {
+            bLazy.revalidate();
+        });
+    //}
+
     $('.slider').on('beforeChange', function(event, slick, currentSlide, nextSlide){
 		bLazy.revalidate();
 	});
@@ -1349,14 +1359,16 @@ mr = (function (mr, $, window, document){
             calculateSideDividers();
         });
 
-        //observe parent changes during layout editing
-        var target = document.querySelector('.switchable')
-        var observer = new MutationObserver(function(mutations) {
-            calculateSideDividers();
-        });
+        if($('.switchable').length){
+            //observe parent changes during layout editing
+            var target = document.querySelector('.switchable')
+            var observer = new MutationObserver(function(mutations) {
+                calculateSideDividers();
+            });
 
-        var config = { attributes: true, childList: true, characterData: true };
-        observer.observe(target, config);
+            var config = { attributes: true, childList: true, characterData: true };
+            observer.observe(target, config);
+        }
     };
 
     mr.components.documentReady.push(mr.dividers.documentReady);

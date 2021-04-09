@@ -1,0 +1,48 @@
+[
+	{
+		"name":"Achtergrond",
+		"slug":"HEROIG04001_BIMG",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Achtergrond",
+				"name":"images",
+				"type":"images"
+			}
+		]
+	},
+	{
+		"name":"Hoofding",
+		"slug":"HEROIG04001_H",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text",
+				"default":"Vul hier een titel in..."
+			},
+			{
+				"position":2,
+				"label":"Tekst",
+				"name":"text",
+				"type":"text",
+				"default":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+			},
+			{
+				"position":3,
+				"label":"Knop tekst",
+				"name":"button",
+				"type":"text",
+				"default":"Klik hier"
+			},
+			{
+				"position":4,
+				"label":"Knop link",
+				"name":"link",
+				"type":"text",
+				"default":"#"
+			}
+		]
+	}
+]

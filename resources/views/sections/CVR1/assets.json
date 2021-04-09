@@ -23,9 +23,10 @@
 		"background_effect",
 		"invert_colours",
 		"image_overlay",
+		"slide_arrows",
+		"slide_paging",
 		"slide_speed",
 		"slide_transition",
-		"slide_autoplay",
-		"section_height"
+		"slide_autoplay"
 	]
 }

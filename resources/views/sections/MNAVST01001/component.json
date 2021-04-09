@@ -1,0 +1,42 @@
+[
+	{
+		"name":"Knop 1",
+		"slug":"MNAVST01001_BTN1",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Knop tekst",
+				"name":"button",
+				"type":"text",
+				"default":"Klik hier"
+			},
+			{
+				"position":2,
+				"label":"Knop link",
+				"name":"link",
+				"type":"text",
+				"default":"#"
+			}
+		]
+	},
+	{
+		"name":"Knop 2",
+		"slug":"MNAVST01001_BTN2",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Knop tekst",
+				"name":"button",
+				"type":"text",
+				"default":"Klik hier"
+			},
+			{
+				"position":2,
+				"label":"Knop link",
+				"name":"link",
+				"type":"text",
+				"default":"#"
+			}
+		]
+	}
+]

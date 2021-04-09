@@ -13,8 +13,8 @@
 	                </p>
 -->
 					<?php
-		                $regions = App\ShipmentOption::getAvailableRegions();
-		                $shipment_options = App\ShipmentOption::getAvailableOptions();
+		                $regions = TheRealJanJanssens\Pakka\Models\ShipmentOption::getAvailableRegions();
+		                $shipment_options = TheRealJanJanssens\Pakka\Models\ShipmentOption::getAvailableOptions();
 		                
 		                $shipment_id = null;
 		                if(Cart::getCondition('SHIPPING')){

@@ -31,15 +31,29 @@
 			},
 			{
 				"position":3,
-				"label":"Knop tekst",
-				"name":"button",
+				"label":"Knop 1 tekst",
+				"name":"button_first",
 				"type":"text",
 				"default":"Klik hier"
 			},
 			{
 				"position":4,
-				"label":"Knop link",
-				"name":"link",
+				"label":"Knop 1 link",
+				"name":"link_first",
+				"type":"text",
+				"default":"#"
+			},
+			{
+				"position":5,
+				"label":"Knop 2 tekst",
+				"name":"button_second",
+				"type":"text",
+				"default":"Klik hier"
+			},
+			{
+				"position":6,
+				"label":"Knop 2 link",
+				"name":"link_second",
 				"type":"text",
 				"default":"#"
 			}

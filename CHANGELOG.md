@@ -2,7 +2,22 @@
 
 All notable changes to `pakka` will be documented in this file.
 
-## 0.1.7 - 2021-04-
+## 0.2.0 - 2021-04-10
+- Removed Unikent/tcache class from app.config
+- Connected broken model links in CARTDT01001
+- Connected broken model links in CHKTST01001
+- Added 'Inter' Google font
+- Model connection fix in shipmentOptions model
+- Replaced str_random() with generateString() in helper function move_file()
+- Replaced if statement with try catch block to catch the mollie exception when in admin order detail
+- Order detail fix to the HTML showing in the delivery section
+- Fixed the Blazy revalidate on in the section builder
+- added slider options to CVR1
+- Color fixes
+- Added extra layout assets to price blocks
+- Progress in renaming section names 
+
+## 0.1.7 - 2021-04-07
 - Template select on Page create failsafe added
 - Fixed unknown $result in Template::getSelect()
 - Route generation now uses the correct object syntax

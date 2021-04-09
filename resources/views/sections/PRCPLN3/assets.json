@@ -20,6 +20,9 @@
 		"text_alignment",
 		"section_padding",
 		"element_border_radius",
+		"element_background",
+		"element_border",
+		"element_shadow",
 		"background"
 	]
 }

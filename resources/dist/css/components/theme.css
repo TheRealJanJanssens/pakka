@@ -3545,6 +3545,7 @@ filter: none !important;
 }
 .bar--mobile-sticky.pos-fixed.bg--dark{
   background-color: #252525 !important;
+  background-color: var(--dark-color) !important;
 }
 
 /* moved this section out of media query */

@@ -2,7 +2,7 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use App\ShipmentCondition;
+use TheRealJanJanssens\Pakka\Models\ShipmentCondition;
 use Cart;
 use Illuminate\Database\Eloquent\Model;
 
