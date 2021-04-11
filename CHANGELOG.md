@@ -2,6 +2,9 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.2.3 - 2021-04-11
+- Composer package cart patch
+
 ## 0.2.2 - 2021-04-11
 - Fixed linkedin logo (pulled the instagram logo)
 - Fixed Attribute assets in the sections that uses the maps api
