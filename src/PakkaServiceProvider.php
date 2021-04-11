@@ -50,6 +50,9 @@ class PakkaServiceProvider extends PackageServiceProvider
             // Kernel
             __DIR__.'/../src/Http/Kernel/Kernel.php' => app_path('Http/Kernel.php'),
 
+            // Seeders
+            __DIR__.'/../database/seeders/DatabaseSeeder.php' => base_path('database/seeders/DatabaseSeeder.php'),
+
             //Auth
             //__DIR__.'/../src/Http/Controllers/Auth' => app_path('Http/Controllers/Auth'),
             

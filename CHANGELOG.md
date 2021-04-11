@@ -2,6 +2,14 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.2.4 - 2021-04-11
+- Refactoring page model
+- Refactored migration to seperate seeding
+- Added seeders section_items & languages
+- Added install for DatabaseSeeder.php
+- Edited composer.json to load all package seeders
+- Updated dev resources
+
 ## 0.2.3 - 2021-04-11
 - Composer package cart patch
 

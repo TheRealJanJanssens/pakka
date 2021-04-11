@@ -49,7 +49,8 @@
     "autoload": {
         "psr-4": {
             "TheRealJanJanssens\\Pakka\\": "src",
-            "TheRealJanJanssens\\Pakka\\Database\\Factories\\": "database/factories"
+            "TheRealJanJanssens\\Pakka\\Database\\Factories\\": "database/factories",
+            "TheRealJanJanssens\\Pakka\\Database\\Seeders\\": "database/seeders"
         }
     },
     "autoload-dev": {

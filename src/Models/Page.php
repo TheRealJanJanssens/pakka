@@ -243,6 +243,7 @@ class Page extends Model
     public static function getPagesLinks($trans = false)
     {
         $locale = app()->getLocale();
+        $result = [];
         
         if ($trans == true) {
             $pages = Page::select([
@@ -264,8 +265,6 @@ class Page extends Model
             foreach ($pages as $page) {
                 $result[$page->slug] = $page->name;
             }
-        } else {
-            $result = [];
         }
         
         return $result;
