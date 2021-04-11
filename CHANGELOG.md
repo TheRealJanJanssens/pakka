@@ -2,6 +2,11 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.2.2 - 2021-04-11
+- Fixed linkedin logo (pulled the instagram logo)
+- Fixed Attribute assets in the sections that uses the maps api
+- Connected maps.php config file
+
 ## 0.2.1 - 2021-04-11
 - Progress in renaming section names 
 - Image controller fix to prevent duplicate folders

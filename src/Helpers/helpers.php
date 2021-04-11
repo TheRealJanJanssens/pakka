@@ -2499,7 +2499,7 @@ if (! function_exists('constructSocialMediaLinks')) {
         }
         
         if (! empty($settings['social_linkedin'])) {
-            array_push($links, ['icon' => 'fa fa-instagram', 'email_icon' => 'linkedin-icon_24x24.png', 'name' => 'Linkedin', 'link' => $settings['social_linkedin']]);
+            array_push($links, ['icon' => 'fa fa-linkedin', 'email_icon' => 'linkedin-icon_24x24.png', 'name' => 'Linkedin', 'link' => $settings['social_linkedin']]);
         }
         
         if (! empty($settings['social_behance'])) {
