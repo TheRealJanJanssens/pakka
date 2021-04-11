@@ -54,7 +54,7 @@ class ProvidersController extends Controller
             ProviderSchedule::storeSchedule($provider['id'], $array['schedule']);
         }
     
-        return redirect()->route(config('pakka.prefix.admin'). '.providers.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.providers.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
     /**
@@ -100,7 +100,7 @@ class ProvidersController extends Controller
             ProviderSchedule::storeSchedule($id, $array['schedule']);
         }
 
-        return redirect()->route(config('pakka.prefix.admin'). '.providers.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.providers.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
     /**
@@ -114,6 +114,6 @@ class ProvidersController extends Controller
         Provider::destroy($id);
         ProviderSchedule::where('provider_id', $id)->delete();
         
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
 }

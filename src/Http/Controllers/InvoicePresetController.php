@@ -51,7 +51,7 @@ class InvoicePresetController extends Controller
         
         $preset = InvoicePreset::create($inputs);
         
-        return back()->withSuccess(trans('app.success_store'));
+        return back()->withSuccess(trans('pakka::app.success_store'));
     }
 
     /**
@@ -98,7 +98,7 @@ class InvoicePresetController extends Controller
         
         $preset->update($inputs);
         
-        return redirect()->route(config('pakka.prefix.admin'). '.invoice_presets.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.invoice_presets.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
     /**
@@ -111,6 +111,6 @@ class InvoicePresetController extends Controller
     {
         InvoicePreset::destroy($id);
         
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
 }

@@ -148,7 +148,7 @@ class OrderController extends Controller
         
         $orderDetails->update($array);
         
-        return redirect()->route(config('pakka.prefix.admin'). '.orders.show', $orderDetails->order_id)->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.orders.show', $orderDetails->order_id)->withSuccess(trans('pakka::app.success_update'));
     }
     
     public function editShipment($id)
@@ -168,7 +168,7 @@ class OrderController extends Controller
             Order::resendShippingMail($item->order_id);
         }
         
-        return redirect()->route(config('pakka.prefix.admin'). '.orders.show', $item->order_id)->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.orders.show', $item->order_id)->withSuccess(trans('pakka::app.success_update'));
     }
     
     public function viewPackslip($id)
@@ -177,7 +177,7 @@ class OrderController extends Controller
         $order = Invoice::calculateInvoice($order, true);
         
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('documents.packslip', ['order' => $order])->setPaper('a4', 'portrait');
-        $filename = $order['name'].'_'.trans('app.packslip');
+        $filename = $order['name'].'_'.trans('pakka::app.packslip');
         
         return $pdf->stream($filename . '.pdf');
     }
@@ -188,7 +188,7 @@ class OrderController extends Controller
         $order = Invoice::calculateInvoice($order, true);
         
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('documents.packslip', ['order' => $order])->setPaper('a4', 'portrait');
-        $filename = $order['name'].'_'.trans('app.packslip');
+        $filename = $order['name'].'_'.trans('pakka::app.packslip');
         
         return $pdf->download($filename . '.pdf');
     }
@@ -198,7 +198,7 @@ class OrderController extends Controller
         //Order Confirmation
         Order::resendConfirmationMail($id);
 
-        return back()->withSuccess(trans('app.succes_send_oc'));
+        return back()->withSuccess(trans('pakka::app.succes_send_oc'));
     }
     
     public function resendSC($id)
@@ -206,7 +206,7 @@ class OrderController extends Controller
         //shipping confirmation
         Order::resendShippingMail($id);
 
-        return back()->withSuccess(trans('app.succes_send_sc'));
+        return back()->withSuccess(trans('pakka::app.succes_send_sc'));
     }
     
     public function retour($id)
@@ -214,7 +214,7 @@ class OrderController extends Controller
         //retour
         Order::cancel($id, 3);
 
-        return back()->withSuccess(trans('app.status_retour'));
+        return back()->withSuccess(trans('pakka::app.status_retour'));
     }
     
     public function cancel($id)
@@ -222,6 +222,6 @@ class OrderController extends Controller
         //cancel
         Order::cancel($id);
 
-        return back()->withSuccess(trans('app.status_cancel'));
+        return back()->withSuccess(trans('pakka::app.status_cancel'));
     }
 }

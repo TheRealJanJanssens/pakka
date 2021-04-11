@@ -133,10 +133,10 @@ class InvoiceController extends Controller
                 $document = OrderDocument::updateOrCreate($insert);
             }
         } else {
-            return redirect()->back()->withInput()->withErrors(trans('app.error_fill_all'));
+            return redirect()->back()->withInput()->withErrors(trans('pakka::app.error_fill_all'));
         }
         
-        return redirect('/admin/invoices')->withSuccess(trans('app.success_store'));
+        return redirect('/admin/invoices')->withSuccess(trans('pakka::app.success_store'));
     }
     
     /**
@@ -265,7 +265,7 @@ class InvoiceController extends Controller
         InvoiceItem::where('invoice_id', $id)->delete();
         OrderDocument::where('document_id', $id)->delete();
         
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
     
     public function viewInvoice($id)

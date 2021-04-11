@@ -1,7 +1,7 @@
 [
 	{
 		"name":"Over ons",
-		"slug":"FOOTLNG2_ABOUT",
+		"slug":"FOOTLG02001_ABOUT",
 		"inputs":[
 			{
 				"position":1,
@@ -35,7 +35,7 @@
 	},
 	{
 		"name":"Menu",
-		"slug":"FOOTLNG2_MENU",
+		"slug":"FOOTLG02001_MENU",
 		"inputs":[
 			{
 				"position":1,
@@ -48,7 +48,7 @@
 	},
 	{
 		"name":"Submenu",
-		"slug":"FOOTLNG2_SUBMENU",
+		"slug":"FOOTLG02001_SUBMENU",
 		"inputs":[
 			{
 				"position":1,
@@ -61,7 +61,7 @@
 	},
 	{
 		"name":"Openingsuren",
-		"slug":"FOOTLNG2_OPNH",
+		"slug":"FOOTLG02001_OPNH",
 		"inputs":[
 			{
 				"position":1,

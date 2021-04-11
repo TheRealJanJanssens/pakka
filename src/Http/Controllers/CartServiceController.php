@@ -58,7 +58,7 @@ class CartServiceController extends Controller
                 }
         */
         
-        return redirect()->route(config('pakka.prefix.admin'). '.cart_services.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.cart_services.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
     /**
@@ -112,7 +112,7 @@ class CartServiceController extends Controller
                 }
         */
         
-        return redirect()->route(config('pakka.prefix.admin'). '.cart_services.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.cart_services.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
     /**
@@ -136,6 +136,6 @@ class CartServiceController extends Controller
         CartService::destroy($id);
         //ShipmentCondition::where('shipment_option_id',$id)->delete();
         
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
 }

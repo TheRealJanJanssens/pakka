@@ -82,6 +82,6 @@ class SettingController extends Controller
         
         Session::forget('settings');
 
-        return redirect()->route(config('pakka.prefix.admin'). '.settings.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.settings.index')->withSuccess(trans('pakka::app.success_store'));
     }
 }

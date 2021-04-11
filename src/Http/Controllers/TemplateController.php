@@ -48,7 +48,7 @@ class TemplateController extends Controller
         $this->validate($request, Template::rules());
         $template = Template::store($request);
         
-        return redirect()->route(config('pakka.prefix.admin'). '.templates.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.templates.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
     /**
@@ -94,7 +94,7 @@ class TemplateController extends Controller
         
         // $template = Template::store($request);
 
-        // return redirect()->route(config('pakka.prefix.admin'). '.templates.index')->withSuccess(trans('app.success_update'));
+        // return redirect()->route(config('pakka.prefix.admin'). '.templates.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
     public function download($id)
@@ -116,6 +116,6 @@ class TemplateController extends Controller
         Template::destroy($id);
         Storage::disk('public')->delete('templates/'.$template->file);
 
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
 }

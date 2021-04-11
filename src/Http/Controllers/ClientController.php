@@ -57,7 +57,7 @@ class ClientController extends Controller
         $this->validate($request, UserDetail::rules());
         UserDetail::create($request->all());
     
-        return back()->withSuccess(trans('app.success_store'));
+        return back()->withSuccess(trans('pakka::app.success_store'));
     }
 
     /**
@@ -105,7 +105,7 @@ class ClientController extends Controller
         $this->validate($request, UserDetail::rules(true, $id));
         $userDetail = UserDetail::updateOrCreate(['user_id' => $id], $request->all());
         
-        return redirect()->route(config('pakka.prefix.admin'). '.clients.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.clients.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
     /**
@@ -119,7 +119,7 @@ class ClientController extends Controller
         User::destroy($id);
         UserDetail::where('user_id', $id)->delete();
     
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
     
     public function getInfo($id)

@@ -1,7 +1,7 @@
 [
 	{
 		"name":"Titel",
-		"slug":"PRCPLN2_HEAD",
+		"slug":"PRCPST01002_HEAD",
 		"inputs":[
 			{
 				"position":1,
@@ -13,7 +13,7 @@
 	},
 	{
 		"name":"Tekst blok",
-		"slug":"PRCPLN2_C1",
+		"slug":"PRCPST01002_C1",
 		"inputs":[
 			{
 				"position":1,
@@ -54,7 +54,7 @@
 	},
 	{
 		"name":"Tekst blok",
-		"slug":"PRCPLN2_C2",
+		"slug":"PRCPST01002_C2",
 		"inputs":[
 			{
 				"position":1,
@@ -95,7 +95,7 @@
 	},
 	{
 		"name":"Disclaimer",
-		"slug":"PRCPLN2_DIS",
+		"slug":"PRCPST01002_DIS",
 		"inputs":[
 			{
 				"position":1,

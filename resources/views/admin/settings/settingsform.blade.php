@@ -13,7 +13,8 @@
 					'app.settings_assets.invoice_settings' => 'permission_show_invoice_settings',
 					'app.settings_assets.image_settings' => 'permission_show_image_optimization',
 					'app.settings_assets.style_settings' => 'permission_show_style_options',
-					'app.settings_assets.page_role_settings' => 'permission_edit_page_roles'
+					'app.settings_assets.page_role_settings' => 'permission_edit_page_roles',
+					'app.settings_assets.script_settings' => 'permission_edit_script_roles'
 				);
 				
 				$parseGroup = true;

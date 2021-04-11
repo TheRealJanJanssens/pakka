@@ -2,6 +2,17 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.2.1 - 2021-04-11
+- Progress in renaming section names 
+- Image controller fix to prevent duplicate folders
+- Added Column alignment option in lay-out editor
+- Added getPackageInfo() helper
+- Saving pakka version in session variable to show in admin panel
+- Success messages in admin panel connected
+- Added protected setting category "scripts"
+- Added custom css and js settings
+- Connected custom css and js to content load
+
 ## 0.2.0 - 2021-04-10
 - Removed Unikent/tcache class from app.config
 - Connected broken model links in CARTDT01001

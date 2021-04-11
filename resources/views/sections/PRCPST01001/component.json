@@ -1,7 +1,7 @@
 [
 	{
 		"name":"Tekst",
-		"slug":"PRCPST02001_C1",
+		"slug":"PRCPST02001_HEAD",
 		"inputs":[
 			{
 				"position":1,
@@ -21,7 +21,7 @@
 	},
 	{
 		"name":"Tekst blok",
-		"slug":"PRCPST02001_C2",
+		"slug":"PRCPST02001_C1",
 		"inputs":[
 			{
 				"position":1,

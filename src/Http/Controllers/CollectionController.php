@@ -64,7 +64,7 @@ class CollectionController extends Controller
         
         Cache::tags('collections')->flush();
         
-        return redirect()->route(config('pakka.prefix.admin'). '.collections.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.collections.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
     /**
@@ -121,7 +121,7 @@ class CollectionController extends Controller
         
         Cache::tags('collections')->flush();
         
-        return redirect()->route(config('pakka.prefix.admin'). '.collections.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.collections.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
     /**
@@ -148,7 +148,7 @@ class CollectionController extends Controller
         CollectionCondition::where('collection_id', $id)->delete();
         CollectionSet::where('collection_id', $id)->delete();
         
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
     
     public function sort(Request $request)

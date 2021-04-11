@@ -48,7 +48,7 @@ class UserController extends Controller
         
         User::create($request->all());
         
-        return back()->withSuccess(trans('app.success_store'));
+        return back()->withSuccess(trans('pakka::app.success_store'));
     }
 
     /**
@@ -90,7 +90,7 @@ class UserController extends Controller
 
         $item->update($request->all());
 
-        return redirect()->route(config('pakka.prefix.admin'). '.users.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.users.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
     /**
@@ -103,6 +103,6 @@ class UserController extends Controller
     {
         User::destroy($id);
 
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
 }

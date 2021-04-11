@@ -66,7 +66,7 @@ class ImageController extends Controller
                 foreach ($formats as $format) {
                     //Makes the head dir if not exists
                     if (! Storage::exists($storageUrl)) {
-                        Storage::makeDirectory($baseLocation);
+                        Storage::disk('public')->makeDirectory($baseLocation);
                     }
     
                     //Keeps same aspect ratio when resize
@@ -83,7 +83,7 @@ class ImageController extends Controller
 
                     //Makes the format dir if not exists
                     if (! Storage::exists($storageUrl.$format)) {
-                        Storage::makeDirectory($baseLocation.$format);
+                        Storage::disk('public')->makeDirectory($baseLocation.$format);
                     }
 
                     Storage::disk('public')->put($baseLocation.$format.'/'.$name.'.'.$ext, $img);

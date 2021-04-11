@@ -1,7 +1,7 @@
 [
 	{
 		"name":"Titel",
-		"slug":"PRCPLN4_HEAD",
+		"slug":"PRCPST01004_HEAD",
 		"inputs":[
 			{
 				"position":1,
@@ -13,7 +13,7 @@
 	},
 	{
 		"name":"Tekst blok",
-		"slug":"PRCPLN4_C1",
+		"slug":"PRCPST01004_C1",
 		"inputs":[
 			{
 				"position":1,
@@ -54,7 +54,7 @@
 	},
 	{
 		"name":"Tekst blok",
-		"slug":"PRCPLN4_C2",
+		"slug":"PRCPST01004_C2",
 		"inputs":[
 			{
 				"position":1,
@@ -95,7 +95,7 @@
 	},
 	{
 		"name":"Tekst blok",
-		"slug":"PRCPLN4_C3",
+		"slug":"PRCPST01004_C3",
 		"inputs":[
 			{
 				"position":1,
@@ -136,7 +136,7 @@
 	},
 	{
 		"name":"Tekst blok",
-		"slug":"PRCPLN4_C4",
+		"slug":"PRCPST01004_C4",
 		"inputs":[
 			{
 				"position":1,
@@ -177,7 +177,7 @@
 	},
 	{
 		"name":"Disclaimer",
-		"slug":"PRCPLN4_DIS",
+		"slug":"PRCPST01004_DIS",
 		"inputs":[
 			{
 				"position":1,

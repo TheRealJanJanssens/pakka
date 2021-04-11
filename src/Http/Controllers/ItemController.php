@@ -87,7 +87,7 @@ class ItemController extends Controller
 
         Item::create($result);
         
-        return redirect()->route(config('pakka.prefix.admin'). '.items.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.items.index', Session::get('set_id'))->withSuccess(trans('pakka::app.success_store'));
     }
     
     public function editItem($moduleId, $id)
@@ -114,7 +114,7 @@ class ItemController extends Controller
 
         $item->update($request->all());
                 
-        return redirect()->route(config('pakka.prefix.admin'). '.items.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.items.index', Session::get('set_id'))->withSuccess(trans('pakka::app.success_store'));
     }
     
     public function destroyItem($id)
@@ -126,7 +126,7 @@ class ItemController extends Controller
         AttributeValue::where('item_id', $id)->delete();
         Translation::where('translation_id', $item['slug'])->delete();
         
-        return redirect()->route(config('pakka.prefix.admin'). '.items.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.items.index', Session::get('set_id'))->withSuccess(trans('pakka::app.success_store'));
     }
     
     public function layoutSwitch($id)
@@ -134,6 +134,6 @@ class ItemController extends Controller
         Setting::updateOrCreate(['user_id' => auth()->user()->id, 'name' => 'item_layout'], ['value' => $id]);
         Session::forget('settings');
         
-        return redirect()->route(config('pakka.prefix.admin'). '.items.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.items.index', Session::get('set_id'))->withSuccess(trans('pakka::app.success_store'));
     }
 }

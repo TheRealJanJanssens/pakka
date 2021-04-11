@@ -161,7 +161,11 @@ return [
         'role_order_confirmation' => 'Order bevestiging pagina',
         'role_delivery_info' => 'Leverinfo pagina',
         'role_product_list' => 'Product overzicht pagina',
-        'role_product_detail' => 'Product detail pagina'
+        'role_product_detail' => 'Product detail pagina',
+        'script_settings' => 'Script Settings',
+        'permission_edit_script_roles' => 'Toon script instellingen',
+        'script_css' => 'Custom CSS scripts',
+        'script_js' => 'Custom JS scripts'
     ],
     'report' => [
         'title' => 'Heeft u een vraag of probleem?',

@@ -58,7 +58,7 @@ class ShipmentController extends Controller
             ShipmentCondition::storeCondition($shipment['id'], $conditions);
         }
         
-        return redirect()->route(config('pakka.prefix.admin'). '.shipments.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.shipments.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
     /**
@@ -111,7 +111,7 @@ class ShipmentController extends Controller
         }
         
         
-        return redirect()->route(config('pakka.prefix.admin'). '.shipments.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.shipments.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
     /**
@@ -135,6 +135,6 @@ class ShipmentController extends Controller
         ShipmentOption::destroy($id);
         ShipmentCondition::where('shipment_option_id', $id)->delete();
         
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
 }

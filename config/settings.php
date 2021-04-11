@@ -114,6 +114,23 @@ return [
 		]
 	],
 	[
+	    "category" => "app.settings_assets.script_settings",
+		"inputs" =>[
+		    [
+			    'name' => "script_css",
+				'label' => "app.settings_assets.script_css",
+				'type' => "textareanolang",
+				'level' => "global",
+			],
+			[
+			    'name' => "script_js",
+				'label' => "app.settings_assets.script_js",
+				'type' => "textareanolang",
+				'level' => "global",
+		    ]
+		]
+	],
+	[
 	    "category" => "app.settings_assets.company_settings",
 		"inputs" =>[
 		    [

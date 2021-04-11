@@ -120,7 +120,7 @@ class ContentController extends Controller
             Session::forget('pages_select');
         }
         
-        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('pakka::app.success_update'));
     }
     
     public function editPage($id)
@@ -150,7 +150,7 @@ class ContentController extends Controller
         Session::forget('menus');
         Session::forget('pages_select');
         
-        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('pakka::app.success_update'));
     }
     
     public function createSection($page)
@@ -164,7 +164,7 @@ class ContentController extends Controller
     {
         Section::create(array_merge($request->all() + ['type' => '2'])); //sets type to 2 f manually added
 
-        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('pakka::app.success_update'));
     }
     
     public function editSection($id, $page)
@@ -186,7 +186,7 @@ class ContentController extends Controller
         $item = Section::findOrFail($id);
         $item->update($request->all());
 
-        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('pakka::app.success_update'));
     }
     
     public function insertSection(Request $request)
@@ -260,10 +260,12 @@ class ContentController extends Controller
         $i = 0;
         $list = json_decode($post['list'], true);
         foreach ($list as $item) {
-            if ($item[0]['id'] == 0) {
-                $list[$i][0]['id'] = $section->id;
-
-                break;
+            if(isset($item[0]['id'])){
+                if ($item[0]['id'] == 0) {
+                    $list[$i][0]['id'] = $section->id;
+    
+                    break;
+                }
             }
             $i++;
         }
@@ -368,7 +370,7 @@ class ContentController extends Controller
     {
         Component::create(array_merge($request->all() + ['id' => generateString(8)]));
 
-        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('pakka::app.success_update'));
     }
     
     public function editComponent($id, $page, $section)
@@ -388,7 +390,7 @@ class ContentController extends Controller
         
         $item->update($request->all());
 
-        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('pakka::app.success_update'));
     }
     
     public function destroyPage($id)
@@ -418,7 +420,7 @@ class ContentController extends Controller
         Session::forget('menus');
         Session::forget('pages_select');
         
-        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('pakka::app.success_store'));
     }
     
     public function destroySection(Request $request, $id)
@@ -442,7 +444,7 @@ class ContentController extends Controller
         
         if (! $request->ajax()) {
             //prevents the 405 error when calling this function in a ajax call
-            return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('app.success_store'));
+            return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('pakka::app.success_store'));
         }
     }
     
@@ -464,7 +466,7 @@ class ContentController extends Controller
         Translation::where('translation_id', $page['slug'])->delete();
         Translation::where('translation_id', $page['name'])->delete();
         
-        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('pakka::app.success_store'));
     }
     
     public function editContent($id)
@@ -486,7 +488,7 @@ class ContentController extends Controller
     {
         $result = constructTranslations($request->all()); //Attributes Translations
 
-        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('pakka::app.success_store'));
     }
     
     public function updateFields(Request $request)

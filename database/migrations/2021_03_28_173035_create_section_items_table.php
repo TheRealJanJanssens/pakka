@@ -58,9 +58,9 @@ class CreateSectionItemsTable extends Migration
             array("id" => 36, "type" => 2, "section" => "TXTLST04003", "name" => "Text 3 column", "tags" => "tekst"),
             array("id" => 37, "type" => 2, "section" => "TXTLST01001", "name" => "Text Contact sidebar", "tags" => "tekst,contact"),
             array("id" => 38, "type" => 2, "section" => "IMGLIST1", "name" => "Images list 1", "tags" => "list,gallerij"),
-            array("id" => 39, "type" => 2, "section" => "PRCPLN3", "name" => "Pricing plan 3", "tags" => "pricing"),
-            array("id" => 40, "type" => 2, "section" => "PRCPLN2", "name" => "Pricing plan 2", "tags" => "pricing"),
-            array("id" => 41, "type" => 2, "section" => "PRCPLN4", "name" => "Pricing plan 4", "tags" => "pricing"),
+            array("id" => 39, "type" => 2, "section" => "PRCPST01003", "name" => "Pricing plan 3", "tags" => "pricing"),
+            array("id" => 40, "type" => 2, "section" => "PRCPST01002", "name" => "Pricing plan 2", "tags" => "pricing"),
+            array("id" => 41, "type" => 2, "section" => "PRCPST01004", "name" => "Pricing plan 4", "tags" => "pricing"),
             array("id" => 42, "type" => 2, "section" => "FRMSHRT1", "name" => "Form Short 1", "tags" => "contact"),
             array("id" => 43, "type" => 2, "section" => "CVR2", "name" => "Cover 2", "tags" => "cover,slider"),
             array("id" => 44, "type" => 2, "section" => "PRVCY1", "name" => "Privacy Policy 1", "tags" => "privacy"),
@@ -89,7 +89,7 @@ class CreateSectionItemsTable extends Migration
             array("id" => 67, "type" => 1, "section" => "SOCNAV1", "name" => "Social Navigation 1", "tags" => "navigation,social"),
             array("id" => 68, "type" => 3, "section" => "FOOTLG01001", "name" => "Footer long 3 columns", "tags" => "footer"),
             array("id" => 69, "type" => 2, "section" => "FBFDIF01001", "name" => "Facebook feed iframe 1", "tags" => "facebook,iframe"),
-            array("id" => 70, "type" => 3, "section" => "FBFDIF01001", "name" => "Facebook feed iframe 1", "tags" => "facebook,iframe"),
+            array("id" => 70, "type" => 3, "section" => "FBFDIF010 01", "name" => "Facebook feed iframe 1", "tags" => "facebook,iframe"),
             array("id" => 71, "type" => 3, "section" => "FOOTLG02001", "name" => "Footer long 4 columns", "tags" => "footer"),
             array("id" => 72, "type" => 2, "section" => "ITMLIST2", "name" => "Item list 2", "tags" => "items,list,gallerij"),
             array("id" => 73, "type" => 1, "section" => "CTACHR01001", "name" => "CTA horizontal 1", "tags" => "cta"),
@@ -127,7 +127,8 @@ class CreateSectionItemsTable extends Migration
             array("id" => 105, "type" => 3, "section" => "PAYMLS01001", "name" => "Payment list 1", "tags" => "webshop"),
             array("id" => 106, "type" => 3, "section" => "BRNDSL01001", "name" => "Brand Slider 1 ", "tags" => "slider"),
             array("id" => 107, "type" => 2, "section" => "FEATLG09001", "name" => "Feature Large 9 equal column", "tags" => "feature"),
-            array("id" => 108, "type" => 2, "section" => "FEATLG09002", "name" => "Feature Large 9 unequal column", "tags" => "feature")
+            array("id" => 108, "type" => 2, "section" => "FEATLG09002", "name" => "Feature Large 9 unequal column", "tags" => "feature"),
+            array("id" => 109, "type" => 2, "section" => "PRCPST01001", "name" => "Pricing plan 1", "tags" => "pricing")
         ]);
     }
 

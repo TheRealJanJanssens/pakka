@@ -82,7 +82,7 @@ class MenuController extends Controller
         Session::forget('menus');
         Cache::tags('translations')->flush();
 
-        return back()->withSuccess(trans('app.success_store'));
+        return back()->withSuccess(trans('pakka::app.success_store'));
     }
     
     public function storeMenu(Request $request)
@@ -93,7 +93,7 @@ class MenuController extends Controller
         Session::forget('menus');
         Cache::tags('translations')->flush();
 
-        return back()->withSuccess(trans('app.success_store'));
+        return back()->withSuccess(trans('pakka::app.success_store'));
     }
     
     public function storeMenuItem(Request $request)
@@ -112,7 +112,7 @@ class MenuController extends Controller
         Session::forget('menus');
         Cache::tags('translations')->flush();
 
-        return back()->withSuccess(trans('app.success_store'));
+        return back()->withSuccess(trans('pakka::app.success_store'));
     }
 
     /**
@@ -178,7 +178,7 @@ class MenuController extends Controller
         Session::forget('menus');
         Cache::tags('translations')->flush();
 
-        return redirect()->route(config('pakka.prefix.admin').'.menu.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin').'.menu.index')->withSuccess(trans('pakka::app.success_update'));
     }
     
     public function updateMenuItem(Request $request, $id)
@@ -194,7 +194,7 @@ class MenuController extends Controller
         Session::forget('menus');
         Cache::tags('translations')->flush();
 
-        return redirect()->route(config('pakka.prefix.admin').'.menu.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin').'.menu.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
     /**
@@ -217,7 +217,7 @@ class MenuController extends Controller
         Session::forget('menus');
         Cache::tags('translations')->flush();
 
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
     
     public function destroyMenuItem($id)
@@ -235,7 +235,7 @@ class MenuController extends Controller
         Session::forget('menus');
         Cache::tags('translations')->flush();
 
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
     
     public function sortMenu(Request $request)

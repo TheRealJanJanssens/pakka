@@ -15,10 +15,10 @@
 			        $fbFeedUrl = urlencode($settings['social_facebook']);
 			    ?>
 	            
-	            @for ($i = 1; $i < 5; $i++)
+	            @for ($i = 1; $i < 4; $i++)
 	            	@php( $key = "footer_column_".$i )
 				    @if(isset($section['extras'][$key]))
-		            	<div class="col-sm-6 col-md-3 col-xs-6">
+		            	<div class="col-sm-6 col-md-4 col-xs-6">
 			                @switch($section['extras'][$key])
 							    @case('about-us')
 							        @if(isset($settings['app_logo']))
@@ -27,18 +27,18 @@
 						            	<img class="logo mb-4 {{ parseSecAttr('.logo', $section['classes']) }}" src="{{ config('placeholders.logo') }}" alt="Logo {{ $settings['company_name'] }}">
 						            @endif
 						            
-						            @if(checkContent($section['FOOTLNG2_ABOUT'], 'title'))
-								    	<h6 class="type--uppercase">{{ parseContent($section['FOOTLNG2_ABOUT'],'title') }}</h6>
+						            @if(checkContent($section['FOOTLG01001_ABOUT'], 'title'))
+								    	<h6 class="type--uppercase">{{ parseContent($section['FOOTLG01001_ABOUT'],'title') }}</h6>
 								    @endif
 								    
-								    @if(checkContent($section['FOOTLNG2_ABOUT'], 'text'))
-								    	<p>{{ parseContent($section['FOOTLNG2_ABOUT'],'text') }}</p>
+								    @if(checkContent($section['FOOTLG01001_ABOUT'], 'text'))
+								    	<p>{{ parseContent($section['FOOTLG01001_ABOUT'],'text') }}</p>
 								    @endif
 								    
-								    @if(checkContent($section['FOOTLNG2_ABOUT'], 'link'))
-						                <a class="btn btn--primary type--uppercase e {{ parseSecAttr('.e', $section['classes']) }}" href="{{ $section['FOOTLNG2_ABOUT']['link'] }}">
+								    @if(checkContent($section['FOOTLG01001_ABOUT'], 'link'))
+						                <a class="btn btn--primary type--uppercase e {{ parseSecAttr('.e', $section['classes']) }}" href="{{ $section['FOOTLG01001_ABOUT']['link'] }}">
 							                <span class="btn__text">
-												{{ parseContent($section['FOOTLNG2_ABOUT'],'button') }}
+												{{ parseContent($section['FOOTLG01001_ABOUT'],'button') }}
 											</span> 
 										</a>
 						            @endif
@@ -81,8 +81,8 @@
 				                    </ul>
 							        @break
 							    @case('opening-hours')
-							        @if(checkContent($section['FOOTLNG2_OPNH'], 'title'))
-								    	<h6 class="type--uppercase">{{ parseContent($section['FOOTLNG2_OPNH'],'title') }}</h6>
+							        @if(checkContent($section['FOOTLG01001_OPNH'], 'title'))
+								    	<h6 class="type--uppercase">{{ parseContent($section['FOOTLG01001_OPNH'],'title') }}</h6>
 								    @endif
 								    
 								    <ul class="list--hover">
@@ -106,8 +106,8 @@
 									@php($menus = Session::get('menus'))	
 									@php( $menu = $menus[$menuId] )
 				                    
-				                    @if(checkContent($section['FOOTLNG2_MENU'], 'title'))
-								    	<h6 class="type--uppercase">{{ parseContent($section['FOOTLNG2_MENU'],'title') }}</h6>
+				                    @if(checkContent($section['FOOTLG01001_MENU'], 'title'))
+								    	<h6 class="type--uppercase">{{ parseContent($section['FOOTLG01001_MENU'],'title') }}</h6>
 								    @endif
 				                    
 				                    <ul class="social-list list-inline list--hover d-block">
@@ -132,8 +132,8 @@
 									@php($menus = Session::get('menus'))	
 									@php( $menu = $menus[$menuId] )
 				                	
-				                	@if(checkContent($section['FOOTLNG2_SUBMENU'], 'title'))
-								    	<h6 class="type--uppercase">{{ parseContent($section['FOOTLNG2_SUBMENU'],'title') }}</h6>
+				                	@if(checkContent($section['FOOTLG01001_SUBMENU'], 'title'))
+								    	<h6 class="type--uppercase">{{ parseContent($section['FOOTLG01001_SUBMENU'],'title') }}</h6>
 								    @endif
 				                	
 				                	<ul class="social-list list-inline list--hover d-block">
@@ -176,8 +176,8 @@
 					                        @if($settings['company_email'])
 					                        	<a href="mailto:{{ $settings['company_email'] }}" class="type--nodeco">{{ $settings['company_email'] }}</a>
 					                        @endif
-				                        </p>
-				                            
+					                    </p> 
+					                        
 					                        @if(!empty($smLinks))
 												@foreach($smLinks as $smLink)
 													<a href="{{ $smLink['link'] }}" target="_blank" class="mr-2">
@@ -194,10 +194,11 @@
             <div class="row mt-4">
                 <div class="col-sm-8">
 	                <a href="http://www.pakka.be" class="type--fine-print">Made By Päkka</a>
+	                
 	                <span class="type--fine-print">
 	                	© <span class="update-year"></span> {{ $settings['company_name'] }}
 	                </span>
-	                
+					
 	                @if(empty($section['extras']['credmenu_id']))
 						@php( $menu = DB::table('menus')->where('id', '!=', 1)->first() )	
 						@php( $menuId = $menu->id)
@@ -213,10 +214,11 @@
                     	<a class="type--fine-print mx-2" href="{{ $item['link'] }}">{{ $item['name'] }}</a> 
                     
                     @endforeach
-                </div>
+	                
+	            </div>
                 <div class="col-sm-4 text-right text-left-xs">
                     <ul class="social-list list-inline list--hover">
-	                    @if(!empty($smLinks))
+                        @if(!empty($smLinks))
 							@foreach($smLinks as $smLink)
 								<li>
 									<a href="{{ $smLink['link'] }}" target="_blank">

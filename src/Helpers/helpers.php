@@ -190,6 +190,18 @@ if (! function_exists('getAuthRole')) {
     }
 }
 
+if (! function_exists('getPackageInfo')) {
+    function getPackageInfo($name)
+    {
+        $json = json_decode(file_get_contents(base_path('vendor/composer/installed.json')),TRUE);
+        $i = array_search($name, array_column($json['packages'], 'name'));
+        if($i == false){
+            return null;
+        }
+        return $json['packages'][$i];
+    }
+}
+
 /*
 |--------------------------------------------------------------------------
 | Get Base URL
@@ -311,7 +323,13 @@ if (! function_exists('constructGlobVars')) {
         } else {
             Session::put('in_admin', false);
         }
-       
+        
+        //get pakka version
+        if(! Session::has('pakka_version')){
+            $package = getPackageInfo('therealjanjanssens/pakka');
+            Session::put('pakka_version', $package['version'] ?? 'Version unknown');
+        }
+
         if (! Session::has('menus')) {
             $menus = constructMenu();
             //View::share('adminMenu', $menus[1]);
@@ -365,7 +383,6 @@ if (! function_exists('constructGlobVars')) {
                 }
             }
         }
-        //dd(Auth::guard());
     }
 }
 
@@ -1807,6 +1824,17 @@ if (! function_exists('constructPage')) {
             "vendor/js/components/builder.js", ], $js);
         }
         
+        //Custom script resources (set in settings)
+        if(!empty($settings['script_css'])){
+            $customCSS = explode(',', $settings['script_css']);
+            $css = array_merge($customCSS, $css);
+        }
+
+        if(!empty($settings['script_js'])){
+            $customJS = explode(',', $settings['script_js']);
+            $js = array_merge($customJS, $js);
+        }
+
         $result['meta']["css"] = array_unique($css);
         $result['meta']["js"] = array_unique($js);
                 
@@ -2846,21 +2874,19 @@ if (! function_exists('move_file')) {
     function move_file($file, $type = 'app', $withWatermark = false)
     {
         // Grab all variables
-        $destinationPath = config('image.'.$type.'.folder');
+        $destinationPath = config('image.'.$type.'.folder'); //app
         $width = config('image.' . $type . '.width');
         $height = config('image.' . $type . '.height');
         $full_name = generateString(16) . '.' . $file->getClientOriginalExtension();
-        
-        if ($width == null && $height == null) { // Just move the file
-            $file->storeAs($destinationPath, $full_name);
-
-            return $full_name;
-        }
-
 
         // Create the Image
         $image = Image::make($file->getRealPath());
-
+        
+        if ($width == null && $height == null) { // Just move the file
+            Storage::disk('public')->put($destinationPath . '/' . $full_name, (string) $image->encode());
+            return $full_name;
+        }
+        
         if ($width == null || $height == null) {
             $image->resize($width, $height, function ($constraint) {
                 $constraint->aspectRatio();
@@ -2875,7 +2901,7 @@ if (! function_exists('move_file')) {
             $image->insert($watermark, 'center');
         }
 
-        Storage::put($destinationPath . '/' . $full_name, (string) $image->encode());
+        Storage::disk('public')->put($destinationPath . '/' . $full_name, (string) $image->encode());
 
         return $full_name;
     }

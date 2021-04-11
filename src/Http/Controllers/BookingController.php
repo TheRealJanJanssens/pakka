@@ -50,7 +50,7 @@ class BookingController extends Controller
         $inputs = Booking::convertDates($request->all());
         $bookings = Booking::create($inputs);
 
-        //return redirect()->route(config('pakka.prefix.admin'). '.bookings.index')->withSuccess(trans('app.success_store'));
+        //return redirect()->route(config('pakka.prefix.admin'). '.bookings.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
     /**
@@ -92,7 +92,7 @@ class BookingController extends Controller
         $inputs = Booking::convertDates($request->all());
         $booking->update($inputs);
       
-        //return redirect()->route(config('pakka.prefix.admin'). '.bookings.index')->withSuccess(trans('app.success_update'));
+        //return redirect()->route(config('pakka.prefix.admin'). '.bookings.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
     /**

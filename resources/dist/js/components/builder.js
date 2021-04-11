@@ -1305,7 +1305,7 @@ console.log(this.selectionState);
 	
 		    switch(element) {
 				case "text_alignment":
-					$("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Uitlijning</p><ul class='se se-ic' col='4'><li value=''><span class='oi' data-glyph='align-left'></span></li><li value='text-justify'><span class='oi' data-glyph='justify-left'></span></li><li value='text-center'><span class='oi' data-glyph='align-center'></span></li><li value='text-right'><span class='oi' data-glyph='align-right'></span></li></ul></div><hr>");
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Tekst Uitlijning</p><ul class='se se-ic' col='4'><li value=''><span class='oi' data-glyph='align-left'></span></li><li value='text-justify'><span class='oi' data-glyph='justify-left'></span></li><li value='text-center'><span class='oi' data-glyph='align-center'></span></li><li value='text-right'><span class='oi' data-glyph='align-right'></span></li></ul></div><hr>");
 					break;
 	/*
 				case "text_alignment_element":
@@ -1313,7 +1313,10 @@ console.log(this.selectionState);
 					break;
 	*/
 				case "text_alignment_row":
-					$("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.row--e'><p>Uitlijning</p><ul class='se se-ic' col='4'><li value=''><span class='oi' data-glyph='align-left'></span></li><li value='text-justify'><span class='oi' data-glyph='justify-left'></span></li><li value='text-center'><span class='oi' data-glyph='align-center'></span></li><li value='text-right'><span class='oi' data-glyph='align-right'></span></li></ul></div><hr>");
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.row--e'><p>Tekst Uitlijning</p><ul class='se se-ic' col='4'><li value=''><span class='oi' data-glyph='align-left'></span></li><li value='text-justify'><span class='oi' data-glyph='justify-left'></span></li><li value='text-center'><span class='oi' data-glyph='align-center'></span></li><li value='text-right'><span class='oi' data-glyph='align-right'></span></li></ul></div><hr>");
+					break;
+				case "column_alignment":
+					$("div[data-category='layout']").append("<div class='se-edit-item' type='class' element='.row'><p>Kolom Uitlijning</p><ul class='se se-ic' col='3'><li value='align-items-start'><span class='oi' data-glyph='caret-top'></span></li><li value='align-items-center'><span class='oi' data-glyph='elevator'></span></li><li value='align-items-end'><span class='oi' data-glyph='caret-bottom'></span></li></ul></div><hr>");
 					break;
 				case "section_padding":
 					$("div[data-category='layout']").append("<div class='se-edit-item' type='class'><p>Spatiëren</p><input class='range' type='range' min='0' max='7' value='4' title='Spatiëren'><ul class='se-ra' col='8'><li value='space--0' range='0'>0</li><li value='space--xxs' range='1'>XXS</li><li value='space--xs' range='2'>XS</li><li value='space--sm' range='3'>SM</li><li value='' range='4'>Auto</li><li value='space--md' range='5'>MD</li><li value='space--lg' range='6'>LG</li><li value='space--xlg' range='7'>XLG</li></ul></div><hr>");

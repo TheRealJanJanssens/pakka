@@ -73,7 +73,7 @@ class ProductController extends Controller
         
         Cache::tags('collections')->flush();
         
-        return redirect()->route(config('pakka.prefix.admin'). '.products.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.products.index')->withSuccess(trans('pakka::app.success_store'));
     }
     
     public function edit($id)
@@ -104,7 +104,7 @@ class ProductController extends Controller
         
         Cache::tags('collections')->flush();
                 
-        return redirect()->route(config('pakka.prefix.admin'). '.products.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.products.index')->withSuccess(trans('pakka::app.success_store'));
     }
     
     public function destroy($id)
@@ -122,7 +122,7 @@ class ProductController extends Controller
         
         Cache::tags('collections')->flush();
         
-        return redirect()->route(config('pakka.prefix.admin'). '.products.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.products.index')->withSuccess(trans('pakka::app.success_store'));
     }
     
     public function layoutSwitch($id)
@@ -130,6 +130,6 @@ class ProductController extends Controller
         Setting::updateOrCreate(['user_id' => auth()->user()->id, 'name' => 'item_layout'], ['value' => $id]);
         Session::forget('settings');
         
-        return redirect()->route(config('pakka.prefix.admin'). '.products.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.products.index')->withSuccess(trans('pakka::app.success_store'));
     }
 }

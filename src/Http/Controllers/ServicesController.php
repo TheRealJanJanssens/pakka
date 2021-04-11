@@ -55,7 +55,7 @@ class ServicesController extends Controller
             ServiceAssignment::storeAssignments($service->id, $array['providers']);
         }
     
-        return redirect()->route(config('pakka.prefix.admin'). '.services.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.services.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
     /**
@@ -104,7 +104,7 @@ class ServicesController extends Controller
             ServiceAssignment::storeAssignments($id, $array['providers']);
         }
 
-        return redirect()->route(config('pakka.prefix.admin'). '.services.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.services.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
     /**
@@ -128,6 +128,6 @@ class ServicesController extends Controller
         Service::destroy($id);
         //ServiceSchedule::where('Service_id',$id)->delete();
         
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
 }

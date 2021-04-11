@@ -79,7 +79,7 @@ class InputController extends Controller
         
         AttributeInput::create($result);
 
-        return redirect()->route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id'))->withSuccess(trans('pakka::app.success_store'));
     }
     
     public function edit($setId, $id)
@@ -107,7 +107,7 @@ class InputController extends Controller
         
         $input->update($result);
         
-        return redirect()->route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id'))->withSuccess(trans('pakka::app.success_store'));
     }
     
     public function destroy($id)
@@ -116,7 +116,7 @@ class InputController extends Controller
         AttributeOption::where('input_id', $id)->delete();
         AttributeValue::where('input_id', $id)->delete();
 
-        return redirect()->route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id'))->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id'))->withSuccess(trans('pakka::app.success_store'));
     }
     
     public function destroyOption($id)

@@ -48,7 +48,7 @@ class CouponController extends Controller
         $inputs = Coupon::convertDates($request->all());
         $coupon = Coupon::create($inputs);
         
-        return redirect()->route(config('pakka.prefix.admin'). '.coupons.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.coupons.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
     /**
@@ -90,7 +90,7 @@ class CouponController extends Controller
         $coupon = Coupon::findOrFail($id);
         $coupon->update($inputs);
 
-        return redirect()->route(config('pakka.prefix.admin'). '.coupons.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.coupons.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
     /**
@@ -106,6 +106,6 @@ class CouponController extends Controller
         Coupon::destroy($id);
         //couponschedule::where('Service_id',$id)->delete();
         
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
 }

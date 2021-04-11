@@ -54,7 +54,7 @@ class FormController extends Controller
         $this->validate($request, Form::rules());
         Form::create($request->all());
     
-        return redirect()->route(config('pakka.prefix.admin'). '.forms.index')->withSuccess(trans('app.success_store'));
+        return redirect()->route(config('pakka.prefix.admin'). '.forms.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
     /**
@@ -94,7 +94,7 @@ class FormController extends Controller
         $form = Form::findOrFail($id);
         $form->update($request->all());
         
-        return redirect()->route(config('pakka.prefix.admin'). '.forms.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(config('pakka.prefix.admin'). '.forms.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
     /**
@@ -111,6 +111,6 @@ class FormController extends Controller
         AttributeOption::where('input_id', $form['set_id'])->delete();
         AttributeValue::where('input_id', $form['set_id'])->delete();
 
-        return back()->withSuccess(trans('app.success_destroy'));
+        return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
 }

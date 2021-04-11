@@ -57,7 +57,7 @@
                 <span>Copyright © {{ date('Y') }}<!--
  Developed by
                     <a href="https://janjanssens.be" target='_blank' title="Jan Janssens">Jan Janssens</a>
--->. All rights reserved. Version: {{ env('APP_VERSION') }}</span>
+-->. All rights reserved. {{ session('pakka_version') }}</span>
             </footer>
         </div>
     </div>
