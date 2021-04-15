@@ -6,7 +6,7 @@
 
 @section('content')
 	{!! Form::open([
-			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\MenuController@storemenu'],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\MenuController@storeMenu'],
 			'files' => true
 		])
 	!!}

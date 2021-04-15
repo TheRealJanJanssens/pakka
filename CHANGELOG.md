@@ -2,6 +2,19 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.2.6 - 2021-04-16
+- Added font Alegreya Sans
+- creatmenu.blade.php bug fix with storeMenu routing
+- Custom scripts now load last in the list
+- Changed the z-index of the image upload box to 9999
+- Added more colors to text editor
+- increased negative value (top/bottom) on divider positioning
+- Added Ordered list option in medium editor
+- Added Unordered list option in medium editor
+
+## 0.2.5 - 2021-04-11
+- Added DatabaseSeeder.php
+
 ## 0.2.4 - 2021-04-11
 - Refactoring page model
 - Refactored migration to seperate seeding

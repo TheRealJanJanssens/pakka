@@ -137,11 +137,11 @@ div[class*="overlap-"]{
 }
 
 .divider-top{
-	top:0;
+	top: -1px;
 }
 
 .divider-bottom{
-	bottom: -0.5px; /* Makes sure no gap is inbetween section and divider */
+	bottom: -1px; /* Makes sure no gap is inbetween section and divider */
 	-webkit-transform: rotate(180deg);
 	transform: rotate(180deg);
 }

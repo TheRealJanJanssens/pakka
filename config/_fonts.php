@@ -271,5 +271,11 @@ return [
 		"value" => "Inter",
 		"slug" => "Inter",
 		"gfont" => true
+	],
+	[
+		"option_id" => "gf_46",
+		"value" => "Alegreya Sans",
+		"slug" => "Alegreya+Sans",
+		"gfont" => true
 	]
 ];

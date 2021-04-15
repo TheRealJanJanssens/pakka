@@ -1827,12 +1827,12 @@ if (! function_exists('constructPage')) {
         //Custom script resources (set in settings)
         if(!empty($settings['script_css'])){
             $customCSS = explode(',', $settings['script_css']);
-            $css = array_merge($customCSS, $css);
+            $css = array_merge($css, $customCSS);
         }
 
         if(!empty($settings['script_js'])){
             $customJS = explode(',', $settings['script_js']);
-            $js = array_merge($customJS, $js);
+            $js = array_merge($js, $customJS);
         }
 
         $result['meta']["css"] = array_unique($css);

@@ -41,6 +41,11 @@ $(document).ready(function() {
               "#95a5a6",
               "#ffffff",
               "#000000",
+			  getComputedStyle(document.documentElement).getPropertyValue('--success').slice(0, -2),
+			  getComputedStyle(document.documentElement).getPropertyValue('--warning').slice(0, -2),
+			  getComputedStyle(document.documentElement).getPropertyValue('--danger').slice(0, -2),
+			  getComputedStyle(document.documentElement).getPropertyValue('--light').slice(0, -2),
+			  getComputedStyle(document.documentElement).getPropertyValue('--info').slice(0, -2),
               getComputedStyle(document.documentElement).getPropertyValue('--primary-color').slice(0, -2),
               getComputedStyle(document.documentElement).getPropertyValue('--secondary-color').slice(0, -2),
 			  getComputedStyle(document.documentElement).getPropertyValue('--highlight-color').slice(0, -2),
@@ -661,6 +666,8 @@ console.log(this.selectionState);
 			'colorPicker', 
 			'iconPicker', 
 			'anchor',
+			'orderedlist',
+			'unorderedlist',
 			"customErase"
 		]; //'justifyLeft','justifyCenter','justifyRight','justifyFull',
 	}else{

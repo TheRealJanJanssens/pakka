@@ -903,7 +903,7 @@ input[type="range"].range{
     display: block;
     text-align: center;
     background-color: white;
-    z-index: 101;
+    z-index: 9999;
     top: 50%;
     padding: 20px;
     -webkit-transform: translateY(-50%); 
