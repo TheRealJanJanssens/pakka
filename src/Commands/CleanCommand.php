@@ -40,7 +40,8 @@ class CleanCommand extends Command
         $this->clean(config_path('_fonts.php'));
         $this->replace(config_path('app.php'), file_get_contents(__DIR__.'/../../config/app.php'));
         $this->replace(config_path('database.php'), file_get_contents(__DIR__.'/../../config/database.php'));
-        $this->clean(config_path('debugbar.php'));
+        $this->replace(config_path('cache.php'), file_get_contents(__DIR__.'/../../config/cache.php'));
+        $this->clean(config_path('settings.php'));
         $this->clean(config_path('auth.php'));
         $this->clean(config_path('image.php'));
         $this->clean(config_path('pakka.php'));

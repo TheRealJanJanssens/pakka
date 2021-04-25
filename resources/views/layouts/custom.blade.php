@@ -90,7 +90,7 @@
 	
 	<?php
 	   	$settings = Session::get('settings');
-	   	$menu = constructMenu(2);
+	   	$menu = Menu::constructMenu(2);
 	?>
 	
 	@include('partials.navigation', ['menu' => $menu, 'settings' => $settings])

@@ -17,8 +17,16 @@
 			        <i class="fa fa-chevron-right type--fade type--fine-print mx-2"></i>
 					<a href="{{ Request::url() }}">{!! ucfirst(deslugify(Request()->param2)) !!}</a>
 				@else
-					<i class="fa fa-chevron-right type--fade type--fine-print mx-2"></i>
-			        <a href="{{ Request::url() }}">{!! TheRealJanJanssens\Pakka\Models\Translation::getTranslation(Route::getCurrentRoute()->getAction()['pageName']) !!}</a>
+					@php( $routeSegments = array_filter(explode('/',Route::getCurrentRoute()->getCompiled()->getStaticPrefix())) )
+					@php( $link = "")
+					@foreach($routeSegments as $segment)
+						@php( $link = $link.'/'.$segment)
+						<i class="fa fa-chevron-right type--fade type--fine-print mx-2"></i>
+						<a href="{{ $link }}">{!! ucfirst(deslugify($segment)) !!}</a>
+					@endforeach
+
+					{{-- <i class="fa fa-chevron-right type--fade type--fine-print mx-2"></i>
+			        <a href="{{ Request::url() }}">{!! TheRealJanJanssens\Pakka\Models\Translation::getTranslation(Route::getCurrentRoute()->getAction()['pageName']) !!}</a> --}}
 		        @endif
 
 		    </div>

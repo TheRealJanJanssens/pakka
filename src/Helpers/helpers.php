@@ -298,9 +298,32 @@ if (! function_exists('constructGlobVars')) {
         } else {
             Session::put('logged_in', false);
         }
-      
-        if (! Session::has('locale')) {
+        
+        if (! Session::has('lang')) {
+            $lang = Language::get()->toArray();
+            if (empty($lang)) {
+                Language::create([
+                    'id' => 1,
+                    'language_code' => 'nl',
+                    'name' => 'Nederlands',
+                ]);
+            }
+            
+            Session::put('lang', $lang);
+        } else {
+            $lang = Session::get('lang');
+        }
+        
+        View::share('lang', $lang);
+       
+       if (! Session::has('locale') || Session::get('locale') == null) {
             $locale = App::getLocale();
+            
+            if(!$locale){
+              $locale = $lang[0]['language_code'];
+              App::setLocale($locale);
+            }
+            
             Session::put('locale', $locale);
         } else {
             $locale = Session::get('locale');
@@ -331,28 +354,16 @@ if (! function_exists('constructGlobVars')) {
         }
 
         if (! Session::has('menus')) {
-            $menus = constructMenu();
+            $menus = Menu::constructMenu();
             //View::share('adminMenu', $menus[1]);
             Session::put('menus', $menus);
         }
-        
-        if (! Session::has('lang')) {
-            $lang = Language::get()->toArray();
-            if (empty($lang)) {
-                Language::create([
-                    'id' => 1,
-                    'language_code' => 'nl',
-                    'name' => 'Nederlands',
-                ]);
-            }
-            
-            Session::put('lang', $lang);
-        } else {
-            $lang = Session::get('lang');
-        }
-        
-        View::share('lang', $lang);
        
+        //remove settings if translation_ids are cached (it means the settings session was set on the adminpanel with no translations)
+        if (Session::has('settings.translation_id')) {
+            Session::forget('settings');
+        }
+
         switch (true) {
            case ! Session::has('settings') && isset($userId):
                $settings = Setting::getSettings($locale, $userId);
@@ -1628,11 +1639,16 @@ if (! function_exists('constructPage')) {
         $page = Page::getPage($id, 1);
         $settings = session('settings');
         
+        //get general site settings or page settings
+        $site_title = $page['meta_title'] ? $page['meta_title'] : $settings['site_title'];
+        $site_description = $page['meta_description'] ? $page['meta_description'] : $settings['site_description'];
+        $site_keywords = $page['meta_keywords'] ? $page['meta_keywords'] : $settings['site_keywords'];
+
         $result['meta']['id'] = $id; //page id
         $result['meta']['mode'] = $mode;
-        $result['meta']['title'] = ucfirst($settings['site_title'])." - ".ucfirst($page['name']);
-        $result['meta']['description'] = $settings['site_description'];
-        $result['meta']['keywords'] = $settings['site_keywords'];
+        $result['meta']['title'] = ucfirst($site_title)." - ".ucfirst($page['name']);
+        $result['meta']['description'] = $site_description;
+        $result['meta']['keywords'] = $site_keywords;
         $result['meta']['settings'] = $settings;
         $result['meta']['slug'] = $page['slug'];
         $result['meta']['url'] = URL::to('/');
@@ -2182,139 +2198,6 @@ function is_dir_empty($dir) {
 }
 */
 
-/*
-|--------------------------------------------------------------------------
-| Constructs Menus
-|--------------------------------------------------------------------------
-|
-| Constructs a menu with all its subitems.
-|
-| $id is the id of the menu that you want to be constructed.
-|
-*/
-
-if (! function_exists('constructMenu')) {
-    function constructMenu($id = null)
-    {
-        
-        //Default auth role to 0 if not set. It isn't set when 'php artisan route:list' and throws a 'Trying to get property of non-object' error because the value is NULL
-        if (! empty(auth()->user()->role)) {
-            $currentAuth = auth()->user()->role;
-        } else {
-            $currentAuth = 0;
-        }
-        
-        if ($id !== null) {
-            $menus = Menu::where('id', $id)->get()->toArray();
-        } else {
-            $menus = Menu::get()->toArray();
-        }
-        
-        //Constructs AdminMenu when not in database
-        if (empty($menus)) {
-            $appLocale = env('APP_LOCALE'); //gets default local from .env
-            
-            Menu::create([
-                'id' => 1,
-                'name' => 'Beheerpaneel',
-            ]);
-            
-            $menuItems = [
-                0 => [
-                    'menu' => 1,
-                    'position' => 1,
-                    'icon' => 'ti-home',
-                    $appLocale.':name' => 'Dashboard',
-                    'translation_id' => ['name' => ''],
-                    'link' => 'dashboard',
-                    'permission' => 5,
-                ],
-                1 => [
-                    'menu' => 1,
-                    'position' => 2,
-                    'icon' => 'ti-user',
-                    $appLocale.':name' => 'Gebruikers',
-                    'translation_id' => ['name' => ''],
-                    'link' => 'users',
-                    'permission' => 10,
-                ],
-                2 => [
-                    'menu' => 1,
-                    'position' => 3,
-                    'icon' => 'ti-menu',
-                    $appLocale.':name' => 'Menu',
-                    'translation_id' => ['name' => ''],
-                    'link' => 'menu',
-                    'permission' => 10,
-                ],
-                3 => [
-                    'menu' => 1,
-                    'position' => 4,
-                    'icon' => 'ti-pencil-alt',
-                    $appLocale.':name' => "Pagina's",
-                    'translation_id' => ['name' => ''],
-                    'link' => 'content',
-                    'permission' => 5,
-                ],
-            ];
-            
-            foreach ($menuItems as $menuItem) {
-                $result = constructTranslations($menuItem);
-                MenuItem::create($result);
-            }
-            
-            //Get the freshly made menu and items
-            $menus = Menu::get()->toArray();
-        }
-        
-        $i = 0;
-        foreach ($menus as $menu) {
-            $menuId = $menu['id'];
-            
-            $result[$menuId] = $menu;
-            
-            $items = MenuItem::getMenuItems($menuId, $currentAuth)->toArray();
-                        
-            //Duplicate $items with true position for constructing parents
-            $itemsDuplicate = $items;
-            
-            //reverses all menu items so if proper positioned subitems can be constructed
-            $items = array_reverse($items);
-    
-            foreach ($items as $masterKey => $item) {
-                //edit to allow parents
-                if (isset($item['parent'])) {
-                    //Loops to find its parent
-                    foreach ($items as $key => $subitem) {
-                        if ($subitem['id'] == $item['parent']) {
-                            if (! isset($items[$key]['items'])) {
-                                //makes new item
-                                $items[$key]['items'][0] = $items[$masterKey];
-                            } else {
-                                //Puts new elemen in front to respect correct position
-                                array_unshift($items[$key]['items'], $items[$masterKey]);
-                            }
-                        }
-                    }
-                }
-            }
-            
-            //Removes subitems that are not in their parent
-            foreach ($items as $key => $item) {
-                if (! empty($item["parent"])) { //!isset($item["items"]) &&
-                    unset($items[$key]);
-                }
-            }
-           
-            //Restores true position in menu
-            $items = array_reverse($items);
-            
-            $result[$menuId]['items'] = $items;
-        }
-
-        return $result;
-    }
-}
 
 /*
 |--------------------------------------------------------------------------

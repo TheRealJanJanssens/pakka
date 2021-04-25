@@ -192,6 +192,7 @@ class MenuItem extends Model
             DB::raw('(SELECT `translations`.`text` FROM `translations` WHERE `translations`.`translation_id` = `menu_items`.`link` AND `translations`.`language_code` = "'.$locale.'") AS link'),
             'menu_items.permission',
             DB::raw('(SELECT `translations`.`text` FROM `translations` WHERE `translations`.`translation_id` = `menu_items`.`name` AND `translations`.`language_code` = "'.$locale.'") AS name'),
+            'menu_items.link as page_uid',
             ])
             ->where('menu_items.menu', $id)
             ->where('menu_items.permission', '<=', $permission)

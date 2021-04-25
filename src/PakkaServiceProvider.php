@@ -21,6 +21,7 @@ class PakkaServiceProvider extends PackageServiceProvider
             __DIR__.'/../config/app.php' => config_path('app.php'),
             __DIR__.'/../config/database.php' => config_path('database.php'),
             __DIR__.'/../config/debugbar.php' => config_path('debugbar.php'),
+            __DIR__.'/../config/cache.php' => config_path('cache.php'),
             __DIR__.'/../config/auth.php' => config_path('auth.php'),
             __DIR__.'/../config/image.php' => config_path('image.php'),
             __DIR__.'/../config/maps.php' => config_path('maps.php'),

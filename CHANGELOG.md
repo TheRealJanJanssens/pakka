@@ -2,6 +2,21 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.3.0 - 2021-04-
+- If browser isn't set in a language that isn't defined in the app it will fallback to the first language in the language variable.
+- Updated the page migration to conver meta_title, meta_description and meta_keywords columns
+- Update helper constructPage to use page specific meta data if provided
+- Update Page model to provide logic for the changes above
+- Update Content Controller to provide logic for the changes above
+- Updated Page add/edit form for changes above
+- Moved the constructMenu helper to the Menu model
+- Rewritten how routes are generated to include nested routes like created in the navigation menus
+- Reintroduced Tfile Cache since Array cache is not a viable option
+- Updated the app.php and cache.php config files for changes above
+- Updated the main service provider and clean command for changes above
+- Updated the breadcrum section to take advantage of the new routing method
+- Reset settings session if it was set in admin panel because it have no translations
+
 ## 0.2.6 - 2021-04-16
 - Added font Alegreya Sans
 - creatmenu.blade.php bug fix with storeMenu routing

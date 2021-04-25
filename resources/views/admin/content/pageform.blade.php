@@ -34,9 +34,21 @@
 		<div class="bgc-white p-20 mB-40 bd">
 			<p><b>{{ trans('pakka::app.settings') }}:</b></p>
 			@foreach ($lang as $langItem)
-				{!! Form::myInput('text', 'slug', null, ["class" => "form-control slug-input"], null, $langItem["language_code"]) !!}
+				{!! Form::myInput('text', 'slug', 'Slug', ["class" => "form-control slug-input"], null, $langItem["language_code"]) !!}
 			@endforeach
 			
+			@foreach ($lang as $langItem)
+				{!! Form::myInput('text', 'meta_title', 'Meta Title', ["class" => "form-control"], null, $langItem["language_code"]) !!}
+			@endforeach
+
+			@foreach ($lang as $langItem)
+				{!! Form::myTextArea('meta_description', 'Meta Description', ["class" => "form-control"], null, $langItem["language_code"]) !!}
+			@endforeach
+
+			@foreach ($lang as $langItem)
+				{!! Form::myTextArea('meta_keywords', 'Meta Keywords', ["class" => "form-control"], null, $langItem["language_code"]) !!}
+			@endforeach
+
 			<div class="list-group list-group-status">
 				@if (isset($page['status']))
 					@switch($page['status'])

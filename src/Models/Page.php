@@ -25,6 +25,9 @@ class Page extends Model
         'status',
         'slug',
         'name',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
         'template',
         'created_at',
         'updated_at',
@@ -98,18 +101,30 @@ class Page extends Model
                 'pages.template',
                 'pages.position',
                 DB::raw('(SELECT `translations`.`text` 
-  						FROM `translations` 
-  						WHERE `translations`.`translation_id` = `pages`.`slug` AND `translations`.`language_code` = "'.$locale.'") 
-  						AS slug'),
-                    DB::raw('(SELECT `translations`.`text` 
-  						FROM `translations` 
-  						WHERE `translations`.`translation_id` = `pages`.`name` AND `translations`.`language_code` = "'.$locale.'") 
-  						AS name'),
-                    ])
+                    FROM `translations` 
+                    WHERE `translations`.`translation_id` = `pages`.`slug` AND `translations`.`language_code` = "'.$locale.'") 
+                    AS slug'),
+                DB::raw('(SELECT `translations`.`text` 
+                    FROM `translations` 
+                    WHERE `translations`.`translation_id` = `pages`.`name` AND `translations`.`language_code` = "'.$locale.'") 
+                    AS name'),
+                DB::raw('(SELECT `translations`.`text` 
+                    FROM `translations` 
+                    WHERE `translations`.`translation_id` = `pages`.`meta_title` AND `translations`.`language_code` = "'.$locale.'") 
+                    AS meta_title'),
+                DB::raw('(SELECT `translations`.`text` 
+                    FROM `translations` 
+                    WHERE `translations`.`translation_id` = `pages`.`meta_description` AND `translations`.`language_code` = "'.$locale.'") 
+                    AS meta_description'),
+                DB::raw('(SELECT `translations`.`text` 
+                    FROM `translations` 
+                    WHERE `translations`.`translation_id` = `pages`.`meta_keywords` AND `translations`.`language_code` = "'.$locale.'") 
+                    AS meta_keywords')
+                ])
                 ->where('pages.id', $id)
                 ->orderBy('pages.position');
                 
-                $result = Cache::tags('content')->remember('page:'.$id, 60 * 60 * 24, function () use ($result) {
+                $result = Cache::tags('content')->remember('page:'.$id.':1', 60 * 60 * 24, function () use ($result) {
                     return $result->first();
                 });
                 
@@ -141,24 +156,60 @@ class Page extends Model
 						FROM `translations` 
 						WHERE `translations`.`translation_id` = `pages`.`slug`) 
 						AS slug'),
-                    DB::raw('(SELECT 
-    		        			GROUP_CONCAT(
-    		        				CASE
-    									WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
-    									WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
-    								END SEPARATOR "(~)"
-    							) 
-    						FROM `translations` 
-    						WHERE `translations`.`translation_id` = `pages`.`name`) 
-    						AS name'),
-            DB::raw('`pages`.`slug` AS slug_trans'),
-            DB::raw('`pages`.`name` AS name_trans'),
+                DB::raw('(SELECT 
+                            GROUP_CONCAT(
+                                CASE
+                                    WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
+                                    WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
+                                END SEPARATOR "(~)"
+                            ) 
+                        FROM `translations` 
+                        WHERE `translations`.`translation_id` = `pages`.`name`) 
+                        AS name'),
+                DB::raw('(SELECT 
+                            GROUP_CONCAT(
+                                CASE
+                                    WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
+                                    WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
+                                END SEPARATOR "(~)"
+                            ) 
+                        FROM `translations` 
+                        WHERE `translations`.`translation_id` = `pages`.`meta_title`) 
+                        AS meta_title'),
+                DB::raw('(SELECT 
+                            GROUP_CONCAT(
+                                CASE
+                                    WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
+                                    WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
+                                END SEPARATOR "(~)"
+                            ) 
+                        FROM `translations` 
+                        WHERE `translations`.`translation_id` = `pages`.`meta_description`) 
+                        AS meta_description'),
+                DB::raw('(SELECT 
+                            GROUP_CONCAT(
+                                CASE
+                                    WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
+                                    WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
+                                END SEPARATOR "(~)"
+                            ) 
+                        FROM `translations` 
+                        WHERE `translations`.`translation_id` = `pages`.`meta_keywords`) 
+                        AS meta_keywords'),
+                DB::raw('`pages`.`slug` AS slug_trans'),
+                DB::raw('`pages`.`name` AS name_trans'),
+                DB::raw('`pages`.`meta_title` AS meta_title_trans'),
+                DB::raw('`pages`.`meta_description` AS meta_description_trans'),
+                DB::raw('`pages`.`meta_keywords` AS meta_keywords_trans')
                 ])
                 ->where('pages.id', $id)
-                ->orderBy('pages.position')
-                ->get();
+                ->orderBy('pages.position');
                 
-          $result = constructTranslatableValues($queryResult, ['slug','name']);
+                $queryResult = Cache::tags('content')->remember('page:'.$id.':2', 60 * 60 * 24, function () use ($queryResult) {
+                    return $queryResult->first();
+                });
+
+                $result = constructTranslatableValues($queryResult, ['slug','name','meta_title','meta_description','meta_keywords']);
 
           break;
         }
@@ -181,12 +232,12 @@ class Page extends Model
         switch ($mode) {
             case 1:
               $result = Page::select([
-            'pages.id',
+                'pages.id',
                 'pages.status',
                 DB::raw(' (SELECT `translations`.`text` FROM `translations` WHERE `translations`.`translation_id` = `pages`.`slug` AND `translations`.`language_code` = "'.$locale.'") AS slug'),
                 'pages.template',
                 DB::raw(' (SELECT `translations`.`text` FROM `translations` WHERE `translations`.`translation_id` = `pages`.`name` AND `translations`.`language_code` = "'.$locale.'") AS name'),
-                'pages.name AS trans_name',
+                'pages.name AS page_uid',
                 'pages.slug as link',
                 ])
                 ->orderBy('pages.position')
@@ -202,14 +253,13 @@ class Page extends Model
                         
                         $resultPages = Page::select([
                             'pages.id',
+                            'pages.position',
                             'pages.status',
                             DB::raw(' (SELECT `translations`.`text` FROM `translations` WHERE `translations`.`translation_id` = `pages`.`slug` AND `translations`.`language_code` = "'.$locale.'") AS slug'),
                             'pages.template',
                             DB::raw(' (SELECT `translations`.`text` FROM `translations` WHERE `translations`.`translation_id` = `pages`.`name` AND `translations`.`language_code` = "'.$locale.'") AS name'),
-                            'pages.name AS trans_name',
-                            'pages.slug as link',
+                            'pages.slug AS page_uid'
                         ]);
-                       
 
                         if($status !== null){
                             $resultPages->where('pages.status', $status);

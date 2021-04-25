@@ -1,5 +1,6 @@
 <?php
 
+use TheRealJanJanssens\Pakka\Models\Menu;
 use TheRealJanJanssens\Pakka\Models\Page;
 
 use TheRealJanJanssens\Pakka\Http\Controllers\UserController;
@@ -308,44 +309,20 @@ Route::group([
 */
 
     if(DB::connection()->getDatabaseName() && Schema::hasTable('languages')){
-        // Website url generation
-        $pages = Page::getPages(2,1);
-        
-        $i = 0;
-        foreach($pages as $page){
-            if($i == 0){
-                //Makes a duplicate route to set a homepage (/) of the first page
-                Route::get("/", [
-                    'as' => 'page.index',
+        $routes = Menu::generateRoutes();
+        //dd($routes);
+        foreach($routes as $route){
+            foreach($route["slugs"] as $as => $slug){
+                Route::get($slug, [
+                    'as' => $as,
                     'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
-                    'pageId' => $page->id, 
-                    'template' => $page->template, 
-                    'pageName' => $page->trans_name
+                    'pageId' => $route['id'], 
+                    'template' => $route['template'], 
+                    'pageName' => $route['page_uid']
                 ]);
             }
-            
-            //example: www.website.be/page/8sdfDF5d/this-is-a-slug
-            //route without locale
-            Route::get($page->slug."/{param1?}/{param2?}", [
-                'as' => 'page.'.$page->slug,
-                'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
-                'pageId' => $page->id, 
-                'template' => $page->template, 
-                'pageName' => $page->trans_name
-            ]);
-            
-            Route::get("{locale?}/".$page->slug."/{param1?}/{param2?}", [
-                'as' => 'locale.page.'.$page->slug,
-                'uses' => 'TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController@index', 
-                'pageId' => $page->id, 
-                'template' => $page->template, 
-                'pageName' => $page->trans_name
-            ]);
-            
-            $i++;
         }
     }
-	
 	
 	//Auto generates a storage link if non is present
 	if(!file_exists("/public/storage")) {

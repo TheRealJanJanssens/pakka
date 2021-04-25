@@ -70,7 +70,6 @@ class WebsiteController extends Controller
         $pageId = $request->route()->action['pageId'];
         $template = $request->route()->action['template'];
         
-
         if (isset($request->param1)) {
             $param = $request->param1;
         } else {

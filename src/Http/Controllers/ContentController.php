@@ -110,6 +110,9 @@ class ContentController extends Controller
                 "position" => $position,
                 "name" => $page->name,
                 "link" => $page->slug,
+                "meta_title" => $page->meta_title,
+                "meta_description" => $page->meta_description,
+                "meta_keywords" => $page->meta_keywords,
                 "permission" => 0,
             ];
             
