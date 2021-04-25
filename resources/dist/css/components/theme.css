@@ -4911,6 +4911,10 @@ hr[data-title]:before {
   letter-spacing: .5px;
   margin-right: -0.5px;
 }
+.btn .btn__text{
+  display: block;
+  padding: 0.2em 2em;
+}
 .btn .label {
   top: -0.92857143em;
   right: -3.71428571em;

@@ -2,7 +2,12 @@
 
 All notable changes to `pakka` will be documented in this file.
 
-## 0.3.0 - 2021-04-
+- Added nunito font
+- IG feed will now be cached for a week too prevent blocking by IG
+- Fix vertical alignment in TXT1 not saving
+- Cropped btns fix
+
+## 0.3.0 - 2021-04-25
 - If browser isn't set in a language that isn't defined in the app it will fallback to the first language in the language variable.
 - Updated the page migration to conver meta_title, meta_description and meta_keywords columns
 - Update helper constructPage to use page specific meta data if provided

@@ -2485,7 +2485,9 @@ if (! function_exists('getIGInfo')) {
         
         if (! empty($account)) {
             $profileUrl = $settings['social_instagram']."?__a=1";
-            $response = url_get_contents($profileUrl);
+            $response = Cache::tags('collections')->remember('instagram_feed', 60 * 60 * 24 * 7, function () use ($profileUrl) {
+                return url_get_contents($profileUrl);
+            });
 
             if (! empty($response)) {
                 //$response = file_get_contents($profileUrl);

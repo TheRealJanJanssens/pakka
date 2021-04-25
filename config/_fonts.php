@@ -277,5 +277,11 @@ return [
 		"value" => "Alegreya Sans",
 		"slug" => "Alegreya+Sans",
 		"gfont" => true
+	],
+	[
+		"option_id" => "gf_47",
+		"value" => "Nunito",
+		"slug" => "Nunito",
+		"gfont" => true
 	]
 ];
