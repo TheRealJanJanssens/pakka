@@ -2084,7 +2084,7 @@ if (! function_exists('getSectionView')) {
 if (! function_exists('checkContent')) {
     function checkContent($array, $key)
     {
-        if ((isset($array[$key]) && $array[$key] !== "#") || checkEditAcces()) {
+        if ((isset($array[$key]) && $array[$key] !== "#" && !empty($array[$key])) || checkEditAcces()) {
             return true;
         } else {
             return false;

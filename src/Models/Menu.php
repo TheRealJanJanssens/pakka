@@ -121,43 +121,66 @@ class Menu extends Model
                     'menu' => 1,
                     'position' => 1,
                     'icon' => 'ti-home',
-                    $defaultLocale.':name' => 'Dashboard',
-                    'translation_id' => ['name' => ''],
+                    'name' => 'genmen01',
                     'link' => 'dashboard',
                     'permission' => 5,
+                    'translation' => [
+                        'input_name' => 'name', 
+                        'translation_id' => 'genmen01', 
+                        'text' => 'Dashboard',
+                        'language_code' => $defaultLocale
+                    ]
                 ],
                 1 => [
                     'menu' => 1,
                     'position' => 2,
                     'icon' => 'ti-user',
-                    $defaultLocale.':name' => 'Gebruikers',
+                    'name' => 'genmen02',
                     'translation_id' => ['name' => ''],
                     'link' => 'users',
                     'permission' => 10,
+                    'translation' => [
+                        'input_name' => 'name', 
+                        'translation_id' => 'genmen02', 
+                        'text' => 'Gebruikers',
+                        'language_code' => $defaultLocale
+                    ]
                 ],
                 2 => [
                     'menu' => 1,
                     'position' => 3,
                     'icon' => 'ti-menu',
-                    $defaultLocale.':name' => 'Menu',
+                    'name' => 'genmen03',
                     'translation_id' => ['name' => ''],
                     'link' => 'menu',
                     'permission' => 10,
+                    'translation' => [
+                        'input_name' => 'name', 
+                        'translation_id' => 'genmen03', 
+                        'text' => 'Menu',
+                        'language_code' => $defaultLocale
+                    ]
                 ],
                 3 => [
                     'menu' => 1,
                     'position' => 4,
                     'icon' => 'ti-pencil-alt',
-                    $defaultLocale.':name' => "Pagina's",
+                    'name' => "genmen04",
                     'translation_id' => ['name' => ''],
                     'link' => 'content',
                     'permission' => 5,
+                    'translation' => [
+                        'input_name' => 'name', 
+                        'translation_id' => 'genmen04', 
+                        'text' => "Pagina's",
+                        'language_code' => $defaultLocale
+                    ]
                 ],
             ];
             
             foreach ($menuItems as $menuItem) {
-                $result = constructTranslations($menuItem);
-                MenuItem::create($result);
+                MenuItem::create($menuItem);
+                Translation::create($menuItem['translation']);
             }
             
             //Get the freshly made menu and items

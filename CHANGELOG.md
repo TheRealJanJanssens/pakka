@@ -2,6 +2,13 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.3.2 - 2021-04-26
+- Added "flip layout" to FEATLG09001 & FEATLG09002
+- Added "column_alignment" to PRCPST01001
+- Extended checkContent helper with a !empty() check
+- Added TMLNST01001
+
+## 0.3.1 - 2021-04-25
 - Added nunito font
 - IG feed will now be cached for a week too prevent blocking by IG
 - Fix vertical alignment in TXT1 not saving

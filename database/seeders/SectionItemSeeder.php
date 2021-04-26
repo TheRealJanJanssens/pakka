@@ -120,7 +120,8 @@ class SectionItemSeeder extends Seeder
             array("id" => 106, "type" => 3, "section" => "BRNDSL01001", "name" => "Brand Slider 1 ", "tags" => "slider"),
             array("id" => 107, "type" => 2, "section" => "FEATLG09001", "name" => "Feature Large 9 equal column", "tags" => "feature"),
             array("id" => 108, "type" => 2, "section" => "FEATLG09002", "name" => "Feature Large 9 unequal column", "tags" => "feature"),
-            array("id" => 109, "type" => 2, "section" => "PRCPST01001", "name" => "Pricing plan 1", "tags" => "pricing")
+            array("id" => 109, "type" => 2, "section" => "PRCPST01001", "name" => "Pricing plan 1", "tags" => "pricing"),
+            array("id" => 110, "type" => 2, "section" => "TMLNST01001", "name" => "Timeline 1 ", "tags" => "timeline")
         ]);
     }
 }

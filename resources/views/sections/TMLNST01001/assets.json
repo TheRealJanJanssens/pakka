@@ -18,12 +18,7 @@
 	],
 	"editable":[
 		"text_alignment",
-		"column_alignment",
 		"section_padding",
-		"background",
-		"flip_layout",
-		"element_border",
-		"element_border_radius",
-		"element_shadow"
+		"background"
 	]
 }

@@ -60,31 +60,31 @@
 	                    <h5>{{ trans('pakka::app.settings_assets.opening_hours') }}</h5>
 	                    <p>
 		                    @if($settings['company_monday'])
-		                    	{{ trans('pakka::app.settings_assets.monday') }}: {{ $settings['company_monday'] }}<br>
+		                    	{{ trans('pakka::app.days.monday') }}: {{ $settings['company_monday'] }}<br>
 		                    @endif
 		                    
 		                    @if($settings['company_tuesday'])
-		                    	{{ trans('pakka::app.settings_assets.tuesday') }}: {{ $settings['company_tuesday'] }}<br>
+		                    	{{ trans('pakka::app.days.tuesday') }}: {{ $settings['company_tuesday'] }}<br>
 		                    @endif
 		                    
 		                    @if($settings['company_wednesday'])
-		                    	{{ trans('pakka::app.settings_assets.wednesday') }}: {{ $settings['company_wednesday'] }}<br>
+		                    	{{ trans('pakka::app.days.wednesday') }}: {{ $settings['company_wednesday'] }}<br>
 		                    @endif
 		                    
 		                    @if($settings['company_thursday'])
-		                    	{{ trans('pakka::app.settings_assets.thursday') }}: {{ $settings['company_thursday'] }}<br>
+		                    	{{ trans('pakka::app.days.thursday') }}: {{ $settings['company_thursday'] }}<br>
 		                    @endif
 		                    
 		                    @if($settings['company_friday'])
-		                    	{{ trans('pakka::app.settings_assets.friday') }}: {{ $settings['company_friday'] }}<br>
+		                    	{{ trans('pakka::app.days.friday') }}: {{ $settings['company_friday'] }}<br>
 		                    @endif
 		                    
 		                    @if($settings['company_saturday'])
-		                    	{{ trans('pakka::app.settings_assets.saturday') }}: {{ $settings['company_saturday'] }}<br>
+		                    	{{ trans('pakka::app.days.saturday') }}: {{ $settings['company_saturday'] }}<br>
 		                    @endif
 		                    
 		                    @if($settings['company_sunday'])
-		                    	{{ trans('pakka::app.settings_assets.sunday') }}: {{ $settings['company_sunday'] }}
+		                    	{{ trans('pakka::app.days.sunday') }}: {{ $settings['company_sunday'] }}
 		                    @endif
 		                </p>
 	                </div>

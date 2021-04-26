@@ -21,6 +21,7 @@
 		"section_padding",
 		"background_image",
 		"background",
+		"flip_layout",
 		"granim_background",
 		"background_position_x",
 		"background_position_y",
