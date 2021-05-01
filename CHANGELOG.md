@@ -2,6 +2,9 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.3.4 - 2021-05-01
+- Connected mail services
+
 ## 0.3.3 - 2021-05-01
 - Edited AttributeInput model to fix adding inputs flow
 - fixed ITMLIST1 used the App namespace

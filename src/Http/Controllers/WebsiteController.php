@@ -2,8 +2,8 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Mail\GeneralMail;
+use TheRealJanJanssens\Pakka\Http\Controllers\Controller;
+use TheRealJanJanssens\Pakka\Mails\GeneralMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
