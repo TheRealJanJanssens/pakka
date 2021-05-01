@@ -2,6 +2,15 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.3.3 - 2021-05-01
+- Edited AttributeInput model to fix adding inputs flow
+- fixed ITMLIST1 used the App namespace
+- Added fallback parseContent if value doesn't exist
+- Commented an else statement which is possibly redundant (needs to be monitored)
+- Reconnected Lightcase font in css
+- Added a fallback to the APP_FALLBACK_LOCALE because it was returning null in the constructGlobVars() helper
+- Changed the first method to get in getPage mode 2 for the constructTranslatableValues() helper to properly work (it needs a multiple array input even if requesting a single input)
+
 ## 0.3.2 - 2021-04-26
 - Added "flip layout" to FEATLG09001 & FEATLG09002
 - Added "column_alignment" to PRCPST01001

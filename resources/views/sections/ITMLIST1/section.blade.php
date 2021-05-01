@@ -45,7 +45,7 @@
 							$section['extras']['item_limit'] = null;
 						}
 						
-						$items = App\Item::getItems($section['extras']['item_id'],1,'desc',$section['extras']['item_limit']);
+						$items = TheRealJanJanssens\Pakka\Models\Item::getItems($section['extras']['item_id'],1,'desc',$section['extras']['item_limit']);
 
 						foreach($items as $item){
 							$title = "";

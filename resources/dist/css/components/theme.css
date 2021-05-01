@@ -8724,6 +8724,7 @@ input[type="image"] {
   -webkit-transition: 0.3s ease;
   -moz-transition: 0.3s ease;
   position: relative;
+  overflow: hidden;
 }
 .pricing h3:first-child {
   margin: 0;

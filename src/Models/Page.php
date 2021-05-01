@@ -206,7 +206,7 @@ class Page extends Model
                 ->orderBy('pages.position');
                 
                 $queryResult = Cache::tags('content')->remember('page:'.$id.':2', 60 * 60 * 24, function () use ($queryResult) {
-                    return $queryResult->first();
+                    return $queryResult->get();
                 });
 
                 $result = constructTranslatableValues($queryResult, ['slug','name','meta_title','meta_description','meta_keywords']);

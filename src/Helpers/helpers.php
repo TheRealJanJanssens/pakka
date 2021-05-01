@@ -332,7 +332,7 @@ if (! function_exists('constructGlobVars')) {
         //resets to default local when going back to the adminpanel
         //but don't do this action when store,insert,sort,edit,update,delete
         if (contains($requestUri, ['admin']) && ! contains($requestUri, ['store','insert','sort','edit','update','delete'])) {
-            $locale = env('APP_FALLBACK_LOCALE');
+            $locale = env('APP_FALLBACK_LOCALE','nl');
 
             Session::put('locale', $locale);
             App::setLocale($locale);
@@ -2101,8 +2101,7 @@ if (! function_exists('parseContent')) {
         if (empty($array[$key]) || ! isset($array[$key])) {
             if (! isset(auth()->user()->role)) {
                 //reverts to the default locale value when website is displayed to fill in the website for the user
-                //Doubles the total of queries (? possibly a better solution ?)
-                
+                //Doubles the total of queries (? possibly a better solution ?)     
                 //detects item content and sets the right id to edit in live editor
                 if (isset($array['module_id'])) {
                     $input = AttributeInput::where("name", $key)->where('set_id', $array['module_id'])->get()->toArray();
@@ -2112,16 +2111,21 @@ if (! function_exists('parseContent')) {
                 
                 if (! empty($input)) {
                     $value = AttributeValue::where("item_id", $array["id"])->where('input_id', $input[0]['input_id'])->get()->toArray();
-                    $value = $value[0]['value'];
-                } else {
-                    $value = trans("pakka::app.insert_here");
-                    $empty = true;
+                    $value = $value[0]['value'] ?? "";
                 }
+                
+                //commented this out because it is possibly not needed check this
+                // else {
+                //     $value = trans("pakka::app.insert_here");
+                //     $empty = true;
+                // }
             } else {
+                //Your logged in and in the live editor. Your value you try to parse is empty.
                 $value = trans("pakka::app.insert_here");
                 $empty = true;
             }
         } else {
+            //Parses values already in the record (title, slug, meta, images)
             $value = $array[$key];
         }
         

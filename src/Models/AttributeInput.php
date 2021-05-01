@@ -2,7 +2,7 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use App\AttributeOption;
+use TheRealJanJanssens\Pakka\Models\AttributeOption;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Session;
@@ -80,11 +80,11 @@ class AttributeInput extends Model
         ])
         ->where('attribute_inputs.id', $id)
         ->orderBy('attribute_inputs.position')
-        ->get();
+        ->get()->toArray();
         
         $i = 0;
         foreach ($queryResult as $item) {
-            if ($item->type == "select" || $item->type == "checkbox") {
+            if ($item["type"] == "select" || $item["type"] == "checkbox") {
                 $options = AttributeOption::select([
                     'attribute_options.id',
                     'attribute_options.input_id',
@@ -93,7 +93,7 @@ class AttributeInput extends Model
                 'attribute_options.value',
                 'attribute_options.position',
                 ])
-                ->where('attribute_options.input_id', $item->input_id)
+                ->where('attribute_options.input_id', $item["input_id"])
                 ->orderBy('attribute_options.position')
                 ->get()->toArray();
                 
@@ -132,11 +132,11 @@ class AttributeInput extends Model
         ])
         ->where('attribute_inputs.set_id', Session::get('set_id'))
         ->orderBy('attribute_inputs.position')
-        ->get();
+        ->get()->toArray();
         
         $i = 0;
         foreach ($queryResult as $item) {
-            if ($item->type == "select" || $item->type == "checkbox") {
+            if ($item["type"] == "select" || $item["type"] == "checkbox") {
                 $options = AttributeOption::select([
                     'attribute_options.id',
                     'attribute_options.input_id',
@@ -145,7 +145,7 @@ class AttributeInput extends Model
                 'attribute_options.value',
                 'attribute_options.position',
                 ])
-                ->where('attribute_options.input_id', $item->input_id)
+                ->where('attribute_options.input_id', $item["input_id"])
                 ->where('attribute_options.language_code', Session::get("locale"))
                 ->orderBy('attribute_options.position')
                 ->get()->toArray();
