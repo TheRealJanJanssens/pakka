@@ -3598,7 +3598,9 @@ z-index: 999;
   .bar--absolute {
     position: absolute;
   }
-  
+  .bar .btn__text{
+    padding: 0 !important;
+  }
   /* moved following section out of this media query */
   
   

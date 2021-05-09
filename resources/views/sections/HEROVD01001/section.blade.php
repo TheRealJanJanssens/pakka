@@ -6,11 +6,13 @@
             <div class="col-md-8 col-lg-7">
                 <h1>{{ parseContent($section['HEROVD01001_H'],'title') }}</h1>
                 <p class="lead"> {{ parseContent($section['HEROVD01001_H'],'text') }} </p>
-                <a class="btn btn--primary type--uppercase e {{ parseSecAttr('.e', $section['classes']) }}" href="{{ $section['HEROVD01001_H']['link'] }}">
-	                <span class="btn__text">
-						{{ parseContent($section['HEROVD01001_H'],'button') }}
-					</span> 
-				</a>
+                @if(checkContent($section['HEROVD01001_H'], 'link'))
+                    <a class="btn btn--primary type--uppercase e {{ parseSecAttr('.e', $section['classes']) }}" href="{{ $section['HEROVD01001_H']['link'] }}">
+                        <span class="btn__text">
+                            {{ parseContent($section['HEROVD01001_H'],'button') }}
+                        </span> 
+                    </a>
+                @endif
             </div>
         </div>
     </div>

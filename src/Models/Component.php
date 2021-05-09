@@ -86,9 +86,11 @@ class Component extends Model
         }
         
         //Sets the max char length of group_concat (1024 to 1000000 chars)
-        Cache::remember('statements.group_concat_max_len:', 60 * 60 * 24, function () {
-            return DB::statement("SET SESSION group_concat_max_len = 1000000;");
-        });
+        // Cache::remember('statements.group_concat_max_len:', 60 * 60 * 24, function () {
+        //     return DB::statement("SET SESSION group_concat_max_len = 1000000;");
+        // });
+
+        DB::statement("SET SESSION group_concat_max_len = 1000000;");
             
         $result = Component::select([
         'components.id',
@@ -161,10 +163,12 @@ class Component extends Model
         }
         
         //Sets the max char length of group_concat (1024 to 1000000 chars)
-        Cache::remember('statements.group_concat_max_len:', 60 * 60 * 24, function () {
-            return DB::statement("SET SESSION group_concat_max_len = 1000000;");
-        });
+        // Cache::remember('statements.group_concat_max_len:', 60 * 60 * 24, function () {
+        //     return DB::statement("SET SESSION group_concat_max_len = 1000000;");
+        // });
             
+        DB::statement("SET SESSION group_concat_max_len = 1000000;");
+
         $result = Component::select([
         'components.id',
         'components.page_id',

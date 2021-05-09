@@ -171,9 +171,12 @@ class Product extends Model
     public static function getProduct($id, $mode = 1)
     {
         //Sets the max char length of group_concat (1024 to 1000000 chars)
-        Cache::rememberForever('statements.group_concat_max_len:', function () {
-            return DB::statement("SET SESSION group_concat_max_len = 1000000;");
-        });
+        // Cache::rememberForever('statements.group_concat_max_len:', function () {
+        //     return DB::statement("SET SESSION group_concat_max_len = 1000000;");
+        // });
+
+        DB::statement("SET SESSION group_concat_max_len = 1000000;");
+
         $extra = [];
         
         switch ($mode) {
@@ -332,10 +335,12 @@ class Product extends Model
         $locale = app()->getLocale();
         
         //Sets the max char length of group_concat (1024 to 1000000 chars)
-        Cache::rememberForever('statements.group_concat_max_len:', function () {
-            return DB::statement("SET SESSION group_concat_max_len = 1000000;");
-        });
+        // Cache::rememberForever('statements.group_concat_max_len:', function () {
+        //     return DB::statement("SET SESSION group_concat_max_len = 1000000;");
+        // });
         
+        DB::statement("SET SESSION group_concat_max_len = 1000000;");
+
         $optionAttr = "attributes.option_value";
         $valueAttr = "attributes.name, IFNULL(attributes.value, '')";
             
@@ -428,9 +433,11 @@ class Product extends Model
         $locale = app()->getLocale();
         
         //Sets the max char length of group_concat (1024 to 1000000 chars)
-        Cache::rememberForever('statements.group_concat_max_len:', function () {
-            return DB::statement("SET SESSION group_concat_max_len = 1000000;");
-        });
+        // Cache::rememberForever('statements.group_concat_max_len:', function () {
+        //     return DB::statement("SET SESSION group_concat_max_len = 1000000;");
+        // });
+
+        DB::statement("SET SESSION group_concat_max_len = 1000000;");
         
         $collection = Collection::getCollection($id, $status);
         //dd($collection);

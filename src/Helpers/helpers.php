@@ -1719,17 +1719,8 @@ if (! function_exists('constructPage')) {
         $css = [];
         $js = [];
         
-        switch ($mode) {
-            case 1:
-                $status = 1;
+        $status = ($mode != 2 ? 1 : null);
 
-                break;
-            case 2:
-                $status = null;
-
-                break;
-        }
-        
         $sectionsHeader = Section::getSectionsByType(1, null, $status)->toArray();
         $sectionsFooter = Section::getSectionsByType(3, null, $status)->toArray();
 
@@ -1957,64 +1948,9 @@ if (! function_exists('parseEditSecAttr')) {
         if ($mode == 2) {
             echo "data-id='". $array['id'] ."' data-status='". $array['status'] ."' data-position='". $array['position'] ."' data-section='". $array['section'] ."' data-editable='". $array['editable'] ."' ";
             
-            //Checks for item-id in extras
-            if (isset($array['extras']['menu_id'])) {
-                echo "data-menu_id='".$array['extras']['menu_id']."' ";
-            }
-            
-            if (isset($array['extras']['submenu_id'])) {
-                echo "data-submenu_id='".$array['extras']['submenu_id']."' ";
-            }
-            
-            if (isset($array['extras']['credmenu_id'])) {
-                echo "data-credmenu_id='".$array['extras']['credmenu_id']."' ";
-            }
-            
-            if (isset($array['extras']['item_id'])) {
-                echo "data-item_id='".$array['extras']['item_id']."' ";
-            }
-            
-            if (isset($array['extras']['item_page'])) {
-                echo "data-item_page='".$array['extras']['item_page']."' ";
-            }
-            
-            if (isset($array['extras']['item_title'])) {
-                echo "data-item_title='".$array['extras']['item_title']."' ";
-            }
-            
-            if (isset($array['extras']['item_text'])) {
-                echo "data-item_text='".$array['extras']['item_text']."' ";
-            }
-            
-            if (isset($array['extras']['item_limit'])) {
-                echo "data-item_limit='".$array['extras']['item_limit']."' ";
-            }
-            
-            if (isset($array['extras']['youtube'])) {
-                echo "data-youtube='".$array['extras']['youtube']."' ";
-            }
-            
-            if (isset($array['extras']['map_style_key'])) {
-                echo "data-map_style_key='".$array['extras']['map_style_key']."' ";
-            }
-            
-            if (isset($array['extras']['divider_shape_top'])) {
-                echo "data-divider_shape_top='".$array['extras']['divider_shape_top']."' ";
-            }
-            
-            if (isset($array['extras']['divider_shape_bottom'])) {
-                echo "data-divider_shape_bottom='".$array['extras']['divider_shape_bottom']."' ";
-            }
-
-            if (isset($array['extras']['divider_shape_side'])) {
-                echo "data-divider_shape_side='".$array['extras']['divider_shape_side']."' ";
-            }
-            
-            //FOOTER CONTENT
-            for ($i = 1; $i < 5; $i++) {
-                $key = 'footer_column_'.$i;
-                if (isset($array['extras'][$key])) {
-                    echo "data-".$key."='".$array['extras'][$key]."' ";
+            if($array['extras']){
+                foreach($array['extras'] as $key => $value){
+                    echo "data-".$key."='".$value."' ";
                 }
             }
         }

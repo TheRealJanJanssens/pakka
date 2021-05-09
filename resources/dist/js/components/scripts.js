@@ -202,11 +202,8 @@ function loadParallax(){
 
 function loadYTBGvideo(){
 	//////////////// Youtube Background
-
 	if($('.youtube-background').length){
 		$('.youtube-background').each(function(){
-
-
 			var player = $(this),
 			
 			themeDefaults = {
@@ -216,10 +213,9 @@ function loadYTBGvideo(){
 				opacity: 1
 			}, ao = {};
 
-  // Attribute overrides - provides overrides to the global options on a per-video basis
+            // Attribute overrides - provides overrides to the global options on a per-video basis
 			ao.videoURL = $(this).attr('data-video-url');
 			ao.startAt = $(this).attr('data-start-at')? parseInt($(this).attr('data-start-at'), 10): undefined;
-
 
 			player.closest('.videobg').append('<div class="loading-indicator"></div>');
 			player.YTPlayer(jQuery.extend({}, themeDefaults, mr.video.options.ytplayer, ao));
@@ -2672,13 +2668,12 @@ function loadMaps(){
 
                 mr.maps.instances = [];
 
-                
                 jQuery('.gmaps-active').each(function(){
                     var mapElement      = this,
                         mapInstance     = jQuery(this),
                         isDraggable     = jQuery(document).width() > 766 ? true : false,
-                        showZoomControl = typeof mapInstance.attr('data-zoom-controls') !== typeof undefined ? true : false,
-                        zoomControlPos  = typeof mapInstance.attr('data-zoom-controls') !== typeof undefined ? mapInstance.attr('data-zoom-controls'): false,
+                        showZoomControl = typeof mapInstance.attr('data-zoom_controls') !== typeof undefined ? true : false,
+                        zoomControlPos  = typeof mapInstance.attr('data-zoom_controls') !== typeof undefined ? mapInstance.attr('data-zoom_controls'): false,
                         latlong         = typeof mapInstance.attr('data-latlong') !== typeof undefined ? mapInstance.attr('data-latlong') : false,
                         latitude        = latlong ? 1 *latlong.substr(0, latlong.indexOf(',')) : false,
                         longitude       = latlong ? 1 * latlong.substr(latlong.indexOf(",") + 1) : false,
@@ -2702,18 +2697,18 @@ function loadMaps(){
                     };
 
                     // Attribute overrides - allows data attributes on the map to override global options
-                    mapAo.styles             = typeof mapInstance.attr('data-map-style') !== typeof undefined ? JSON.parse(mapInstance.attr('data-map-style')): undefined;
-                    mapAo.zoom               = mapInstance.attr('data-map-zoom') ? parseInt(mapInstance.attr('data-map-zoom'),10) : undefined;
+                    mapAo.styles             = typeof mapInstance.attr('data-map_style') !== typeof undefined ? JSON.parse(mapInstance.attr('data-map_style')): undefined;
+                    mapAo.zoom               = mapInstance.attr('data-map_zoom') ? parseInt(mapInstance.attr('data-map_zoom'),10) : undefined;
                     mapAo.zoomControlOptions = zoomControlPos !== false ? {position: google.maps.ControlPosition[zoomControlPos]} : undefined;
 
                     markerDefaults = {
-                        icon: {url:( typeof mr_variant !== typeof undefined ? '../': '' )+'images/marker/standard.png?raw=true', scaledSize: new google.maps.Size(50,50)},
+                        icon: {url:( typeof mr_variant !== typeof undefined ? '../': '' )+'vendor/images/marker/standard.png?raw=true', scaledSize: new google.maps.Size(50,50)},
                         title: '',
                         optimised: false
                     };
 
-                    markerAo.icon = typeof mapInstance.attr('data-marker-image') !== typeof undefined ? {url: window.location.origin + mapInstance.attr('data-marker-image')+'?raw=true', scaledSize: new google.maps.Size(50,50)} : undefined;
-                    markerAo.title = mapInstance.attr('data-marker-title');
+                    markerAo.icon = typeof mapInstance.attr('data-marker_image') !== typeof undefined ? {url: window.location.origin + mapInstance.attr('data-marker_image')+'?raw=true', scaledSize: new google.maps.Size(50,50)} : undefined;
+                    markerAo.title = mapInstance.attr('data-marker_title');
                     
                     mapOptions = jQuery.extend({}, mapDefaults, mr.maps.options.map, mapAo);
                     markerOptions = jQuery.extend({}, markerDefaults, mr.maps.options.marker, markerAo);
@@ -2773,7 +2768,7 @@ function loadMaps(){
 
 
                     }
-                }); 
+                });  
             }
         }
     };

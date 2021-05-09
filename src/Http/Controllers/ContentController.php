@@ -338,7 +338,7 @@ class ContentController extends Controller
         if ($request->isMethod('post')) {
             $items = $request->all();
             $this->processOrderSections(json_decode($items['data'], true));
-
+            Cache::tags('content')->flush();
             Session::forget('menus');
         }
     }
@@ -356,6 +356,7 @@ class ContentController extends Controller
             $item = $request->all();
             $item = json_decode($item['data'], true);
             Section::find($item['id'])->update(['status' => $item['status']]);
+            Cache::tags('content')->flush();
         }
     }
       

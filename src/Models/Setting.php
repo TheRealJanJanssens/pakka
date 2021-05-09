@@ -55,10 +55,12 @@ class Setting extends Model
     
     public static function getSettings($locale = null, $userId = null)
     {
-        Cache::rememberForever('statements.group_concat_max_len:', function () {
-            return DB::statement("SET SESSION group_concat_max_len = 1000000;");
-        });
+        // Cache::rememberForever('statements.group_concat_max_len:', function () {
+        //     return DB::statement("SET SESSION group_concat_max_len = 1000000;");
+        // });
         
+        DB::statement("SET SESSION group_concat_max_len = 1000000;");
+
         if ($userId !== null) {
             $where = "`settings`.`user_id`=$userId OR `settings`.`user_id` IS NULL";
         } else {

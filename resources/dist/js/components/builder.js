@@ -1154,7 +1154,7 @@ console.log(this.selectionState);
 						break;
 					}
 					
-					if(t == "attribute"){
+					if(t == "extra"){
 						if(cv !== undefined && cv == v){ //cv.indexOf(v) > -1 (changed to get exact value. had some problems with range maps zoom)
 							$(this).addClass("active");
 						}else{
@@ -1167,15 +1167,11 @@ console.log(this.selectionState);
 							$(this).removeClass("active");
 						}
 					}
-					
-					
 				}
 				
 				if (options.construct) {
 					switch(t) {
-					  case "extra":
-					  	//console.log(ed+':'+v);
-					  	
+					  case "extra":			  	
 					  	if($(this).hasClass('active')){
 							$(".adjustable[data-id='"+id+"']").attr("data-"+ed,v);
 						}
@@ -1617,14 +1613,14 @@ console.log(this.selectionState);
 					$("div[data-category='menu']").append("<div class='se-edit-item se-edit-reload' type='extra' element='credmenu_id'><p>Credential Menu</p><select class='select'><option value='' disabled selected>Selecteer een menu</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
 					break;
 				case "maps_marker":
-					$("div[data-category='maps']").append("<div class='se-edit-item se-edit-reload' type='attribute' attribute='data-marker-image' element='.e'><p>Map Marker</p><ul class='se se-ic' col='3'><li value='/public/vendor/images/marker/standard.png'>Standard</li><li value='/public/vendor/images/marker/light.png'>Light</li><li value='/public/vendor/images/marker/dark.png'>Dark</span></li></ul></div><hr>");
+					$("div[data-category='maps']").append("<div class='se-edit-item se-edit-reload' type='extra' element='marker_image'><p>Map Marker</p><ul class='se se-ic' col='3'><li value='/public/vendor/images/marker/standard.png'>Standard</li><li value='/public/vendor/images/marker/light.png'>Light</li><li value='/public/vendor/images/marker/dark.png'>Dark</span></li></ul></div><hr>");
 					break;
 				case "maps_zoom":
-					$("div[data-category='maps']").append("<div class='se-edit-item' type='attribute' attribute='data-map-zoom' element='.e'><p>Map Zoom</p><input class='range' type='range' min='0' max='9' value='8' title='Map Zoom'><ul class='se-ra' col='10'><li value='1' range='0'>1</li><li value='3' range='1'>3</li><li value='5' range='2'>5</li><li value='7' range='3'>7</li><li value='9' range='4'>9</li><li value='11' range='5'>11</li><li value='13' range='6'>13</li><li value='14' range='7'>14</li><li value='15' range='8'>15</li><li value='16' range='9'>16</li></ul></div><hr>");
+					$("div[data-category='maps']").append("<div class='se-edit-item se-edit-reload' type='extra' element='map_zoom'><p>Map Zoom</p><input class='range' type='range' min='0' max='9' value='8' title='Map Zoom'><ul class='se-ra' col='10'><li value='1' range='0'>1</li><li value='3' range='1'>3</li><li value='5' range='2'>5</li><li value='7' range='3'>7</li><li value='9' range='4'>9</li><li value='11' range='5'>11</li><li value='13' range='6'>13</li><li value='14' range='7'>14</li><li value='15' range='8'>15</li><li value='16' range='9'>16</li></ul></div><hr>");
 					break;
 				case "maps_style":
 					$("div[data-category='maps']").append("<div class='se-edit-item se-edit-reload' type='extra' element='map_style_key'><p>Map Stijl</p><select class='select'><option value='' disabled selected>Selecteer een stijl</option><option value='maps.maps_styles.standard'>Standaard</option><option value='maps.maps_styles.silver'>Silver</option><option value='maps.maps_styles.dark'>Dark</option><option value='maps.maps_styles.retro'>Retro</option><option value='maps.maps_styles.night'>Night</option><option value='maps.maps_styles.aubergine'>Aubergine</option></select><li class='hidden active'></li></div></div><hr>");
-					break;  
+					break; 
 				case "footer_column_content":
 					var options = "<option value='about-us'>Over ons</option><option value='company-info'>Bedrijfsinfo</option><option value='opening-hours'>Openingsuren</option><option value='menu'>Menu</option><option value='submenu'>Submenu</option><option value='map-iframe'>Maps Iframe</option><option value='map-api'>Maps API</option><option value='fb-feed'>Facebook feed</option>";
 					

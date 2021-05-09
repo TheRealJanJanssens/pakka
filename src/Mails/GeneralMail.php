@@ -26,8 +26,6 @@ class GeneralMail extends Mailable
 			unset( $data['replyTo'] );
 		}
 		
-		$this->subject(trans('pakka::mail.contact_submission'));
-		
 		foreach($data as $key => $value){
 			if(!contains($key,$exclude)){
 				$result[$key] = $value;
@@ -37,6 +35,8 @@ class GeneralMail extends Mailable
 				$this->subject($value);
 			}
 		}
+
+    $this->subject(trans('mail.contact_submission')." - ".array_values($result)[0]);
 
 		$this->data = $result;
     }

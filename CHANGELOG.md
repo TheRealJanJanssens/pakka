@@ -2,6 +2,19 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.3.5 - 2021-05-09
+- Removed the group_concat_max_len statement caching awaiting a better fix
+- Fixed the paper_rip divider
+- Fixed the "cache lag" when changing the status of a section. The cache is now being flushed with each status change
+- The subject of a general mail (contactaanvraag) will now contain the first field which is posted. Often this will be the name of the user. Example: Contactaanvraag - Jan Janssens
+- Fixed a padding issue with btn__text in navigation bar
+- Added HEROIG01001 as a footer type
+- Refactored parseEditSecAttr() helper to make it much more compacter and scalable
+- Properlly connected the map options in layout editor. The states didn't display.
+- Made little change to builder.js to make "Extra" attributes display correctly in layout editor
+- Reconnected map markers
+- Added missing checkContent() for button in HEROVD01001
+
 ## 0.3.4 - 2021-05-01
 - Connected mail services
 

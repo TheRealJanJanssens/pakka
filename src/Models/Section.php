@@ -185,9 +185,9 @@ class Section extends Model
     |------------------------------------------------------------------------------------
     */
     
-    public static function getSectionsByType($type, $id = null, $status = 1)
+    public static function getSectionsByType($type, $id = null, $status = null)
     {
-        if (! empty($id)) {
+        if (!empty($id)) {
             $result = Section::select([
             'sections.id',
             'sections.status',
@@ -203,7 +203,7 @@ class Section extends Model
             ->where('page_id', $id)
             ->where('sections.type', $type);
             
-            if ($status !== null) {
+            if(isset($status)){
                 $result->where('sections.status', $status);
             }
             
@@ -228,7 +228,7 @@ class Section extends Model
             ])
             ->where('sections.type', $type);
             
-            if ($status !== null) {
+            if(isset($status)){
                 $result->where('sections.status', $status);
             }
             
@@ -239,7 +239,6 @@ class Section extends Model
                 return $result->get();
             });
         }
-        
         return $result;
     }
 
