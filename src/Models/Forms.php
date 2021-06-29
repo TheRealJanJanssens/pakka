@@ -5,9 +5,11 @@ namespace TheRealJanJanssens\Pakka\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Form extends Model
+class Forms extends Model
 {
     use Notifiable;
+
+    protected $table = 'forms';
 
     /**
      * The attributes that are mass assignable.
@@ -37,5 +39,21 @@ class Form extends Model
         return array_merge($commun, [
             'set_id' => 'required',
         ]);
+    }
+
+    public static function getFormsLinks(){
+        $forms = Forms::select([
+            'forms.set_id',
+            'forms.name'
+        ])
+        ->get();
+
+        if (! empty($forms)) {
+            foreach ($forms as $form) {
+                $result[$form->set_id] = $form->name;
+            }
+        }
+        
+        return $result;
     }
 }

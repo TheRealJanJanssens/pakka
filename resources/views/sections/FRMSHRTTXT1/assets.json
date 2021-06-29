@@ -21,6 +21,7 @@
 		"section_padding",
 		"flip_layout",
 		"background",
+		"form_select",
 		"element_border_radius"
 	]
 }

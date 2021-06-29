@@ -23,7 +23,6 @@ class SettingController extends Controller
         $locale = App::getLocale();
         
         $values = Setting::getSettings(false, $userId);
-        
         if (isset($values)) {
             //If value is not set it takes the default value set in config
             foreach ($settings as $group) {
@@ -38,7 +37,6 @@ class SettingController extends Controller
                 }
             }
         }
-        
         return view('pakka::admin.settings.index', compact('settings', 'values'));
     }
     

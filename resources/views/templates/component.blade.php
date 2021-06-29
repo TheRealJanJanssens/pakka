@@ -1,4 +1,4 @@
-@extends('pakka::layouts.component')
+@extends(getLayout('component'))
 
 @section('content')
 

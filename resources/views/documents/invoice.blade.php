@@ -121,9 +121,9 @@
 				<tr>
 					<td valign="top" style="width:50%">
 						@if(isset($settings['app_logo']))
-			            	<img src="{{ base_path() }}{{ config('image.app.public') }}{{ $settings['app_logo'] }}" style="max-width: 150px;">
+			            	<img src="{{ url('/') }}{{ config('image.app.public') }}{{ $settings['app_logo'] }}" style="max-width: 150px;">
 			            @else
-			            	<img src="{{ base_path() }}{{ config('placeholders.logo') }}" style="max-width: 150px;">
+			            	<img src="{{ url('/') }}{{ config('placeholders.logo') }}" style="max-width: 150px;">
 			            @endif
 						
 						</td>
@@ -209,11 +209,11 @@
 	   <table class="table invoice-table table-condensed">
 			<thead>
           <tr>
-            <td class="text-center"><strong>{{ trans('app.description') }}</strong></td>
-  					<td style="width: 20px;"><strong>{{ trans('app.quantity') }}</strong></td>
-  					<td class="text-center" style="width: 70px;"><strong>{{ trans('app.price') }}</strong></td>
-  					<td class="text-right" style="width: 50px;"><strong>{{ trans('app.vatper') }}</strong></td>
-  					<td class="text-right" style="width: 80px;"><strong>{{ trans('app.total') }}</strong></td>
+            <td class="text-center"><strong>{{ trans('pakka::app.description') }}</strong></td>
+  					<td style="width: 20px;"><strong>{{ trans('pakka::app.quantity') }}</strong></td>
+  					<td class="text-center" style="width: 70px;"><strong>{{ trans('pakka::app.price') }}</strong></td>
+  					<td class="text-right" style="width: 50px;"><strong>{{ trans('pakka::app.vatper') }}</strong></td>
+  					<td class="text-right" style="width: 80px;"><strong>{{ trans('pakka::app.total') }}</strong></td>
           </tr>
 			</thead>
 			<tbody class="f-12">

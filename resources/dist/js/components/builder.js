@@ -1627,6 +1627,19 @@ console.log(this.selectionState);
 					$("div[data-category='footer']").append("<div class='se-edit-item se-edit-reload' type='extra' element='footer_column_"+fCC+"'><p>Footer kolom "+fCC+"</p><select class='select'><option value='' disabled selected>Selecteer een element</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
 					fCC++;
 					break;
+				case "form_select":
+						var items = JSON.parse($('meta[name="forms"]').attr('content'));
+						
+						var options = "";
+						var optionsLi = "";
+						//options += "<option value=''>Geen items</option>";
+						$.each(items, function(index, element) {
+							options += "<option value='"+index+"'>"+element+"</option>";
+							optionsLi += "<li value='"+index+"'>"+element+"</li>";
+						});
+						
+						$("div[data-category='misc']").append("<div class='se-edit-item se-edit-reload' type='extra' element='form_id'><p>Form</p><select class='select'><option value='' disabled selected>Selecteer een form</option><option value=''>None</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
+						break;	
 				case "divider_shape_top":
 					$("div[data-category='dividers']").append("<div class='se-edit-item se-edit-reload' type='extra' element='divider_shape_top'><p>Vorm divider Top</p><select class='select'><option value='' disabled selected>Selecteer een vorm</option><option value=''>None</option><option value='waves'>Waves</option><option value='waves_opacity'>Waves opacity</option><option value='curve'>Curve</option><option value='curve_invert'>Curve invert</option><option value='curve_asymmetrical'>Curve asymmetrical</option><option value='triangle'>Triangle</option><option value='triangle_asymmetrical'>Triangle asymmetrical</option><option value='tilt'>Tilt</option><option value='arrow'>Arrow</option><option value='paper_rip'>Paper Rip</option><option value='split'>Split</option><option value='book'>Book</option></select><li class='hidden active'></li></div></div><hr>");
 					break;

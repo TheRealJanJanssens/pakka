@@ -54,6 +54,10 @@
 	@if(isset($page['meta']['pages']))
 		<meta name="pages" content="{{ $page['meta']['pages'] }}"/>
 	@endif
+
+	@if(isset($page['meta']['forms']))
+		<meta name="forms" content="{{ $page['meta']['forms'] }}"/>
+	@endif
 	
 	@if($page['meta']['settings']['editor_autosave'])
 		<meta name="autosave" content="{{ $page['meta']['settings']['editor_autosave'] }}"/>

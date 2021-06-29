@@ -270,19 +270,19 @@ Form::macro('myRange', function ($name, $start, $end, $selected = '', $options =
     ";
 });
 
-Form::macro('mySwitch', function ($name, $label = "", $value = '', $checked = false, $options = []) {
+Form::macro('mySwitch', function ($name, $label = "", $value = null, $checked = false, $options = []) {
     return "
         <div class='form-group form-group-nm'>
             <label class='input-switch'>
 			  ".
-                Form::checkbox('', null, $checked, ['id' => $name] + $options)
+                Form::checkbox('', null, true, ['id' => $name] + $options)
               ."
 			  <i></i>
 			  <p>".$label."</p>
 			</label>
 			
 			".Form::input("hidden", "translation_id[$name]", null, array_merge(["class" => "form-control input-translation-id"])).
-            Form::input("hidden", $name, null, array_merge(["class" => "form-control"]))."
+            Form::input("hidden", $name, $value ?? null, array_merge(["class" => "form-control"]))."
         </div>
     ";
 });

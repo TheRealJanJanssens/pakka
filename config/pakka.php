@@ -83,6 +83,7 @@ return [
         '5' => 'pakka::app.order_form',
     ],
     
+    //input types
     'type' => [
         'text' => 'text',
         'textarea' => 'textarea',
@@ -91,7 +92,15 @@ return [
         'select' => 'select',
         'checkbox' => 'checkbox',
     ],
-	
+
+    //input attribute width
+	'input_width' => [
+        '25' => '25%',
+        '50' => '50%',
+        '75' => '75%',
+        '100' => '100%'
+    ],
+
 	'coupon_type' => [
 		"1" => 'pakka::app.voucher',
 		"2" => 'pakka::app.action'

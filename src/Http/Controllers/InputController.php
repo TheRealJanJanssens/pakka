@@ -75,8 +75,10 @@ class InputController extends Controller
         
         $this->validate($request, AttributeInput::rules());
         
-        $result = AttributeOption::constructOptions($request->all());
+        $result = constructTranslations($request->all());
+        $result = AttributeOption::constructOptions($result);
         
+        $result = AttributeInput::prepareAttributes($result);
         AttributeInput::create($result);
 
         return redirect()->route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id'))->withSuccess(trans('pakka::app.success_store'));
@@ -101,10 +103,12 @@ class InputController extends Controller
         
         $this->validate($request, AttributeInput::rules());
 
-        $input = AttributeInput::findOrFail($id);
+        $result = constructTranslations($request->all());
 
-        $result = AttributeOption::constructOptions($request->all());
+        $input = AttributeInput::findOrFail($id);
+        $result = AttributeOption::constructOptions($result);
         
+        $result = AttributeInput::prepareAttributes($result);
         $input->update($result);
         
         return redirect()->route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id'))->withSuccess(trans('pakka::app.success_store'));
@@ -112,9 +116,12 @@ class InputController extends Controller
     
     public function destroy($id)
     {
+        $input = AttributeInput::findOrFail($id);
+        
         AttributeInput::where('input_id', $id)->delete();
         AttributeOption::where('input_id', $id)->delete();
         AttributeValue::where('input_id', $id)->delete();
+        Translation::where('translation_id', $input['label'])->delete();
 
         return redirect()->route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id'))->withSuccess(trans('pakka::app.success_store'));
     }

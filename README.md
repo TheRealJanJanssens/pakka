@@ -52,8 +52,8 @@ echo $pakka->echoPhrase('Hello, TheRealJanJanssens!');
 composer test
 ```
 
-## Custom sections
-If you need to change a particular section for your needs you can simply add a 'sections' folder in your views. You can put a copy of that section in the folder you just made and do all the changes you want. When you update the package this folder won't be updated so your custom sections will be untouched.
+## Custom sections, templates and layouts
+If you need to change a particular section, template or layout you can simply add a 'sections', 'templates' or 'layouts' folder in your views. You can put a copy of existing resources in the folder you just made and do all the changes you want. When you update the package this folder won't be updated so your custom resources will be untouched.
 
 ## Changelog
 

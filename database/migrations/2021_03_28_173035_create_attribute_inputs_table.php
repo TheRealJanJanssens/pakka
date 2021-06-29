@@ -21,6 +21,8 @@ class CreateAttributeInputsTable extends Migration
             $table->char('label', 30)->nullable();
             $table->string('name')->nullable()->default('');
             $table->string('type', 10)->nullable();
+            $table->unsignedInteger('required')->default(0);
+            $table->string('attributes', 750)->nullable()->default(''); // (class, columns, validation,...?)
             $table->timestamps();
         });
     }

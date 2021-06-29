@@ -274,7 +274,7 @@ class InvoiceController extends Controller
         $invoice['date'] = formatDate($invoice['date'], "d-m-Y");
         $invoice['due_date'] = formatDate($invoice['due_date'], "d-m-Y");
         
-        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('documents.invoice', ['invoice' => $invoice])->setPaper('a4', 'portrait');
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pakka::documents.invoice', ['invoice' => $invoice])->setPaper('a4', 'portrait');
         $filename = $invoice['invoice_no'];
         
         return $pdf->stream($filename . '.pdf');
@@ -288,7 +288,7 @@ class InvoiceController extends Controller
         $invoice['date'] = formatDate($invoice['date'], "d-m-Y");
         $invoice['due_date'] = formatDate($invoice['due_date'], "d-m-Y");
         
-        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('documents.invoice', ['invoice' => $invoice])->setPaper('a4', 'portrait');
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pakka::documents.invoice', ['invoice' => $invoice])->setPaper('a4', 'portrait');
         $filename = $invoice['invoice_no'];
         
         return $pdf->download($filename . '.pdf');

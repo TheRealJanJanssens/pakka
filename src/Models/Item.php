@@ -247,7 +247,7 @@ class Item extends Model
         ->orderBy('items.created_at')
         ->groupBy('items.id')
         //->toSql();
-        ->get()->toArray();
+        ->get(); //->toArray()
         
         $result = constructAttributes($result, $mode);
         

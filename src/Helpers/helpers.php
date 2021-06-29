@@ -3,6 +3,7 @@
 use TheRealJanJanssens\Pakka\Models\AttributeInput;
 use TheRealJanJanssens\Pakka\Models\AttributeValue;
 use TheRealJanJanssens\Pakka\Models\Component;
+use TheRealJanJanssens\Pakka\Models\Forms;
 use TheRealJanJanssens\Pakka\Models\Item;
 use TheRealJanJanssens\Pakka\Models\Language;
 use TheRealJanJanssens\Pakka\Models\Menu;
@@ -414,7 +415,7 @@ if (! function_exists('constructTransSelect')) {
         if (count($lang) > 1) {
             ?>
 			<div class="bgc-white p-20 mB-40 bd">
-				<p><b> <?php echo trans('app.translation'); ?> :</b></p>
+				<p><b> <?php echo trans('pakka::app.translation'); ?> :</b></p>
 				<div class="list-group list-group-lang">
 					<?php
                     $i = 0;
@@ -1128,27 +1129,39 @@ if (! function_exists('constructTranslatableValues')) {
     function constructTranslatableValues($array, $inputs, $ascon = false)
     {
         $i = 0;
+        
         foreach ($array as $item) {
             if (isset($item['language_code'])) {
                 $languageCodes = explode("(~)", $item['language_code']);
             }
-            
+
             foreach ($item->getAttributes() as $key => $value) {
                 //foreach($item as $key => $value){
                 $iI = 0;
-                if (in_array($key, $inputs) && isset($languageCodes)) {
-                    $options = explode("(~)", $value);
+                switch (true) {
+                    case in_array($key, $inputs) && isset($languageCodes):
+                        //Translatable Value
+                        $options = explode("(~)", $value);
 
-                    foreach ($languageCodes as $languageCode) {
-                        $result[$i]['translation_id'][$key] = $array[$i][$key.'_trans'];
-                        $result[$i][$languageCode.':'.$key] = $options[$iI];
-                        $iI++;
-                    }
-                    
-                    unset($array[$i][$key.'_trans']);
-                    unset($array[$i][$key]);
-                } else {
-                    $result[$i][$key] = $value;
+                        foreach ($languageCodes as $languageCode) {
+                            $result[$i]['translation_id'][$key] = $array[$i][$key.'_trans'];
+                            $result[$i][$languageCode.':'.$key] = $options[$iI];
+                            $iI++;
+                        }
+                        
+                        unset($array[$i][$key.'_trans']);
+                        unset($array[$i][$key]);
+                        break;
+                    case in_array($key, $inputs):
+                        //Translatable Value with no translations present so use available value and set as with default language
+                        //(Happens mainly when editing inputs and their labels)
+                        $result[$i][Session::get('lang.0.language_code').':'.$key] = $value;
+                        unset($array[$i][$key.'_trans']);
+                        break;
+                    default:
+                        // Regular Value
+                        $result[$i][$key] = $value;
+                        break;
                 }
             }
             $i++;
@@ -1274,22 +1287,21 @@ if (! function_exists('constructAttributes')) {
                             foreach ($attributes as $attribute) {
                                 $attribute = explode("(:)", $attribute);
                                 
+                                //Revision: isset($attribute[2]) on 1281 and !empty($key) 1291
+                                //These exists because a currently unknown bug where attributes sometime exist without a key or a language code
+
                                 //if lang code is empty remove and reset the array
-                                if (empty($attribute[0])) {
+                                if (empty($attribute[0]) && isset($attribute[2])) {
                                     unset($attribute[0]);
                                     $attribute = array_values($attribute);
                                 }
                                 
-                                if (isset($attribute[2])) {
-                                    //with lang code
-                                    $lang = $attribute[0];
-                                    $key = $attribute[1];
-                                    $val = $attribute[2];
-                                    $items[$i][$lang.':'.$key] = $val;
-                                } else {
-                                    //without lang code
-                                    $key = $attribute[0];
-                                    $val = $attribute[1];
+                                //if attribute[2] exists it's a translatable attribute
+                                $key = (isset($attribute[2])) ? $attribute[0].':'.$attribute[1] : $attribute[0];
+                                $val = (isset($attribute[2])) ? $attribute[2] : $attribute[1];
+
+                                //if value isset or key doesn't exists (to prevent duplicate empty attributes overwriting the true values)
+                                if(!empty($key) && (!empty($val) || !isset($items[$i][$key])) ){
                                     $items[$i][$key] = $val;
                                 }
                             }
@@ -1674,6 +1686,8 @@ if (! function_exists('constructPage')) {
             
             $result['meta']['menus'] = json_encode($menusResult);
             
+            $result['meta']['forms'] = json_encode(Forms::getFormsLinks());
+
             //Construct all defined pages
             $result['meta']['pages'] = json_encode(Page::getPagesLinks());
             
@@ -1991,17 +2005,58 @@ if (! function_exists('getSection')) {
 if (! function_exists('getSectionView')) {
     function getSectionView($name)
     {
+        $resource = 'views/sections/'.$name.'/section.blade.php';
         switch (true) {
             //Get File if exists on app level
-            case file_exists(resource_path('views/sections/'.$name.'/section.blade.php')):
+            case file_exists(resource_path($resource)):
                 return 'sections.'.$name.'.section';
                 break;
             //Catch Placeholder sections
             case substr($name, 0, 1) == "_":
             //Get File if exists on package level
-            case file_exists(base_path('vendor/therealjanjanssens/pakka/resources/views/sections/'.$name.'/section.blade.php')):
-            case file_exists(base_path('package/resources/views/sections/'.$name.'/section.blade.php')):
+            case file_exists(base_path('vendor/therealjanjanssens/pakka/resources/'.$resource)):
+            case file_exists(base_path('package/resources/'.$resource)):
                 return 'pakka::sections.'.$name.'.section';
+                break;
+        }
+    }
+}
+
+if (! function_exists('getTemplate')) {
+    function getTemplate($name)
+    {
+        $resource = 'views/templates/'.str_replace('templates.','',$name).'.blade.php';
+        switch (true) {
+            //Get File if exists on app level
+            case file_exists(resource_path($resource)):
+                return $name;
+                break;
+            //Catch Placeholder sections
+            case substr($name, 0, 1) == "_":
+            //Get File if exists on package level
+            case file_exists(base_path('vendor/therealjanjanssens/pakka/resources/'.$resource)):
+            case file_exists(base_path('package/resources/'.$resource)):
+                return 'pakka::'.$name;
+                break;
+        }
+    }
+}
+
+if (! function_exists('getLayout')) {
+    function getLayout($name)
+    {
+        $resource = 'views/layouts/'.$name.'.blade.php';
+        switch (true) {
+            //Get File if exists on app level
+            case file_exists(resource_path($resource)):
+                return 'layouts.'.$name;
+                break;
+            //Catch Placeholder sections
+            case substr($name, 0, 1) == "_":
+            //Get File if exists on package level
+            case file_exists(base_path('vendor/therealjanjanssens/pakka/resources/'.$resource)):
+            case file_exists(base_path('package/resources/'.$resource)):
+                return 'pakka::layouts.'.$name;
                 break;
         }
     }

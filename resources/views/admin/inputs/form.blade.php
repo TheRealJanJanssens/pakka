@@ -4,7 +4,10 @@
 			
 			<div class="row">
 				<div class="col-sm-4">	
-					{!! Form::myInput('text', 'label', 'Label', [], null) !!}
+					@foreach ($lang as $langItem)
+						{!! Form::myInput('text', 'label', 'Label', [], null, $langItem["language_code"]) !!}
+					@endforeach
+
 					{!! Form::myInput('hidden', 'input_id', '', [], null) !!}
 					
 					@if(!isset($input))
@@ -156,7 +159,11 @@
 	</div>
 	
 	<div class="col-sm-4">
-		
+		<div class="bgc-white p-20 mB-40 bd">
+			{!! Form::mySelect('input_width', 'Width', config('pakka.input_width'), (isset($input['input_width'])) ? $input['input_width'] : null, ['class' => 'form-control select2 select-custom-input', 'data-search' => '-1']) !!}
+			{!! Form::mySwitch('required', 'Required', (isset($input['required']) && $input['required'] == "1") ? true : false); !!}
+		</div>
+
 		{{ constructTransSelect() }}
 		
 		<button type="submit" class="btn btn-primary">{{ trans('pakka::app.edit_button') }}</button>

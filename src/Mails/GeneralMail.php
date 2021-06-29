@@ -36,7 +36,7 @@ class GeneralMail extends Mailable
 			}
 		}
 
-    $this->subject(trans('mail.contact_submission')." - ".array_values($result)[0]);
+    $this->subject(trans('pakka::mail.contact_submission')." - ".array_values($result)[0]);
 
 		$this->data = $result;
     }

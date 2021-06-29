@@ -4,7 +4,7 @@ namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use TheRealJanJanssens\Pakka\Models\Form;
+use TheRealJanJanssens\Pakka\Models\Forms;
 use TheRealJanJanssens\Pakka\Models\AttributeInput;
 use TheRealJanJanssens\Pakka\Models\AttributeOption;
 use TheRealJanJanssens\Pakka\Models\AttributeValue;
@@ -25,7 +25,7 @@ class FormController extends Controller
      */
     public function index()
     {
-        $items = Form::all();
+        $items = Forms::all();
 
         return view('pakka::admin.forms.index', compact('items'));
     }
@@ -51,8 +51,8 @@ class FormController extends Controller
         $request->request->add(['set_id' => generateString(10)]);
         
         //create Form
-        $this->validate($request, Form::rules());
-        Form::create($request->all());
+        $this->validate($request, Forms::rules());
+        Forms::create($request->all());
     
         return redirect()->route(config('pakka.prefix.admin'). '.forms.index')->withSuccess(trans('pakka::app.success_store'));
     }
@@ -76,7 +76,7 @@ class FormController extends Controller
      */
     public function edit($id)
     {
-        $item = Form::findOrFail($id);
+        $item = Forms::findOrFail($id);
         return view('pakka::admin.forms.edit', compact('item'));
     }
 
@@ -90,8 +90,8 @@ class FormController extends Controller
     public function update(Request $request, $id)
     {   
         //update Form
-        //$this->validate($request, Form::rules());
-        $form = Form::findOrFail($id);
+        //$this->validate($request, Forms::rules());
+        $form = Forms::findOrFail($id);
         $form->update($request->all());
         
         return redirect()->route(config('pakka.prefix.admin'). '.forms.index')->withSuccess(trans('pakka::app.success_update'));
@@ -105,8 +105,8 @@ class FormController extends Controller
      */
     public function destroy($id)
     {
-        $form = Form::findOrFail($id);
-        Form::destroy($id);
+        $form = Forms::findOrFail($id);
+        Forms::destroy($id);
         AttributeInput::where('input_id', $form['set_id'])->delete();
         AttributeOption::where('input_id', $form['set_id'])->delete();
         AttributeValue::where('input_id', $form['set_id'])->delete();

@@ -2,6 +2,24 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.3.6 - 2021-06-29
+- Fixed array being send through constructAttributes() in Item model. Should have been a object
+- Fix to rare issue where set_ids within attribute_inputs cant be distinguish (9 vs 9DxQLZ4j). for more info see AttributeInput line 133
+- Refactored the construction of attributes to prevent duplicate empty values overwriting the real values
+- GeneralMail subject fix. Wrong translation key
+- Added getTemplate() helper to be able te switch templates to app level like sections
+- Added getLayout() helper to be able te switch layouts to app level like sections
+- Fixed unknown bug in constructAttributes() where attributes sometime exist without a key or a language code
+- Made input labels translatable in input manager. If no translation is present it uses the string in label field as value for default language.
+- Provided list of forms in component meta data when in editing mode
+- Added Form select in layout builder and linked it with existing form sections
+- Added required & attribute column to forms table
+- Fixed the translation selector label
+- Added "required" & "input_width" inputs in the input manager
+- Linked invoice documents in invoice controller (template was missing)
+- Added missing translations in invoice template
+- Changed base_path() to url('/') in invoice template because of a problem on shared hosting providers
+
 ## 0.3.5 - 2021-05-09
 - Removed the group_concat_max_len statement caching awaiting a better fix
 - Fixed the paper_rip divider

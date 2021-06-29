@@ -19,6 +19,7 @@
 	"editable":[
 		"section_padding",
 		"background",
+		"form_select",
 		"element_border_radius"
 	]
 }
