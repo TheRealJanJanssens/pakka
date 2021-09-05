@@ -42,6 +42,7 @@ class Forms extends Model
     }
 
     public static function getFormsLinks(){
+        $result = [];
         $forms = Forms::select([
             'forms.set_id',
             'forms.name'

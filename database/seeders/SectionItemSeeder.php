@@ -123,6 +123,7 @@ class SectionItemSeeder extends Seeder
             array("id" => 109, "type" => 2, "section" => "PRCPST01001", "name" => "Pricing plan 1", "tags" => "pricing"),
             array("id" => 110, "type" => 2, "section" => "TMLNST01001", "name" => "Timeline 1 ", "tags" => "timeline"),
             array("id" => 111, "type" => 3, "section" => "HEROIG01001", "name" => "Cover Text 2", "tags" => "cover,achtergrond"),
+            array("id" => 112, "type" => 2, "section" => "IFRMST01001", "name" => "Custom iframe1", "tags" => "iframe"),
         ]);
     }
 }

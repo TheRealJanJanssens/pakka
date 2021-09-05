@@ -2,6 +2,12 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.3.7 - 2021-09-05
+- Bugfix: getFormsLinks() throws error when form table is empty
+- Created a route fallback for when pages have no postion or position is NULL. This could cause that no index is being set and the "/" url throwing a 404  
+- Bugfix: Slider on HEROIG02001 was not visible due to duplicated HTML
+- Added IFRMST01001
+
 ## 0.3.6 - 2021-06-29
 - Fixed array being send through constructAttributes() in Item model. Should have been a object
 - Fix to rare issue where set_ids within attribute_inputs cant be distinguish (9 vs 9DxQLZ4j). for more info see AttributeInput line 133

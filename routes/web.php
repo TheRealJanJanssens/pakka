@@ -312,6 +312,11 @@ Route::group([
         $routes = Menu::generateRoutes();
         //dd($routes);
         foreach($routes as $route){
+            //Fallback for when pages have no positions
+            if(!Route::has("page.index") && !isset($route["slugs"]["page.index"])){
+                $route["slugs"]["page.index"] = "/";
+              }
+
             foreach($route["slugs"] as $as => $slug){
                 Route::get($slug, [
                     'as' => $as,
@@ -321,12 +326,21 @@ Route::group([
                     'pageName' => $route['page_uid']
                 ]);
             }
+
+            //Fallback for when pages have no positions
+            if(!Route::has("page.index")){
+                $route["slugs"]["page.index"] = "/";
+            }
         }
     }
 	
 	//Auto generates a storage link if non is present
-	if(!file_exists("/public/storage")) {
-		Artisan::call('storage:link');
-	}
+    try{
+        if(!file_exists("/public/storage")) {
+            Artisan::call('storage:link');
+        }
+    }catch(Exception $e){
+        //not all servers allow this so this catches the 500 which will be thrown
+    }
 });
 
