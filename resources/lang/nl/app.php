@@ -27,6 +27,7 @@ return [
 	"admin" => "Beheren",
 	"go_to" => "Ga naar",
 	"add_task" => "Voeg een taak toe...",
+    "more_actions" => "Meer acties",
 
 	// Login, Logout ..etc
 	"start_session"      => "Login om uw sessie te starten",
@@ -265,7 +266,14 @@ return [
     "download" => "Download",
     "send_to_client" => "Verzend naar klant",
     "view_client" => "Klant bekijken",
-    
+    "download" => [
+        "excel" => [
+            "all_orders" => "Alle orders",
+            "all_completed_orders" => "Alle complete orders",
+            "all_invoices" => "Alle facturen",
+        ],
+    ],
+
     //collections
     "col_type" => "Collectie Type",
     "man_col" => "Manuele collectie",

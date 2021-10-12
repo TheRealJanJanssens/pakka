@@ -471,8 +471,8 @@ if (! function_exists('constructStatusSelect')) {
                 }
                 ?>
 
-                <a href="#" class="list-group-item list-group-item-action list-group-head <?php echo $onlineClass ; ?>" data-status="1"><?php echo trans('app.online'); ?></a>
-                <a href="#" class="list-group-item list-group-item-action <?php echo $offlineClass ; ?>" data-status="0"><?php echo trans('app.offline'); ?></a>
+                <a href="#" class="list-group-item list-group-item-action list-group-head <?php echo $onlineClass ; ?>" data-status="1"><?php echo trans('pakka::app.online'); ?></a>
+                <a href="#" class="list-group-item list-group-item-action <?php echo $offlineClass ; ?>" data-status="0"><?php echo trans('pakka::app.offline'); ?></a>
             </div>
 
             <input class="status-input" name="status" type="hidden" value="<?php echo $status; ?>">
@@ -690,7 +690,7 @@ if (! function_exists('constructInputs')) {
                 case "pageselect":
                     if (! Session::has('pages_select')) {
                         $pages = Page::getPagesLinks();
-                        array_unshift($pages, trans('app.no_page_selected'));
+                        array_unshift($pages, trans('pakka::app.no_page_selected'));
                         Session::put('pages_select', $pages);
                     } else {
                         $pages = Session::get('pages_select');
@@ -1462,25 +1462,25 @@ if (! function_exists('getOrderFinancialStatus')) {
             case 0:
                 $class = "badge-warning";
                 $icon = '<i class="fa fa-dot-circle mr-2"></i>';
-                $text = trans('app.open');
+                $text = trans('pakka::app.open');
 
                 break;
             case 1:
                 $class = "badge-success";
                 $icon = '<i class="fa fa-check-circle mr-2"></i>';
-                $text = trans('app.paid');
+                $text = trans('pakka::app.paid');
 
                 break;
             case 2:
                 $class = "badge-danger";
                 $icon = '<i class="fa fa-times-circle mr-2"></i>';
-                $text = trans('app.canceled');
+                $text = trans('pakka::app.canceled');
 
                 break;
             default:
                 $class = "badge-danger";
                 $icon = '<i class="fa fa-exclamation-circle mr-2"></i>';
-                $text = trans('app.status').' '.trans('app.unknown');
+                $text = trans('pakka::app.status').' '.trans('pakka::app.unknown');
 
                 break;
         }
@@ -1496,31 +1496,31 @@ if (! function_exists('getOrderFulfillmentStatus')) {
             case 0:
                 $class = "badge-warning";
                 $icon = '<i class="fa fa-dot-circle mr-2"></i>';
-                $text = trans('app.reserved');
+                $text = trans('pakka::app.reserved');
 
                 break;
             case 1:
                 $class = "badge-success";
                 $icon = '<i class="fa fa-check-circle mr-2"></i>';
-                $text = trans('app.send');
+                $text = trans('pakka::app.send');
 
                 break;
             case 2:
                 $class = "badge-danger";
                 $icon = '<i class="fa fa-times-circle mr-2"></i>';
-                $text = trans('app.canceled');
+                $text = trans('pakka::app.canceled');
 
                 break;
             case 3:
                 $class = "badge-warning";
                 $icon = '<i class="fa fa-arrow-alt-circle-left mr-2"></i>';
-                $text = trans('app.retour');
+                $text = trans('pakka::app.retour');
 
                 break;
             default:
                 $class = "badge-danger";
                 $icon = '<i class="fa fa-exclamation-circle mr-2"></i>';
-                $text = trans('app.status').' '.trans('app.unknown');
+                $text = trans('pakka::app.status').' '.trans('pakka::app.unknown');
 
                 break;
         }
@@ -1716,7 +1716,7 @@ if (! function_exists('constructPage')) {
                 $iV = 0;
                 foreach ($itemsResult as $key => $item) {
                     $set_id = $key; //set_id
-                    $inputs = AttributeInput::where('set_id', $set_id)->orderBy('position')->get()->toArray();
+                    $inputs = AttributeInput::getInputs($set_id);
                     foreach ($inputs as $input) {
                         $key = $input['name'];
                         $value = $input['label'];
@@ -2130,6 +2130,34 @@ if (! function_exists('parseContent')) {
                 echo "<data contenteditable='true' data-id='".$array["id"]."' data-key='".$key."' data-locale='".$locale."' data-empty='".$empty."'>".nl2br(htmlspecialchars_decode($value))."</data>";
             }
         }
+    }
+}
+
+if (! function_exists('bladeCompile')) {
+    function bladeCompile($value, array $args = array()){
+        $generated = \Blade::compileString($value);
+
+        ob_start() and extract($args, EXTR_SKIP);
+
+        // We'll include the view contents for parsing within a catcher
+        // so we can avoid any WSOD errors. If an exception occurs we
+        // will throw it out to the exception handler.
+        try
+        {
+            eval('?>'.$generated);
+        }
+
+        // If we caught an exception, we'll silently flush the output
+        // buffer so that no partially rendered views get thrown out
+        // to the client and confuse the user with junk.
+        catch (\Exception $e)
+        {
+            ob_get_clean(); throw $e;
+        }
+
+        $content = ob_get_clean();
+
+        return $content;
     }
 }
 

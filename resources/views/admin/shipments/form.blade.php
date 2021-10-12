@@ -50,7 +50,7 @@
 						}
 					?>
 					
-					{!! Form::myRadio('match', trans("pakka::app.all_conditions"), 1, null, $checked, [], 'mR-10') !!}
+					{!! Form::myRadio('match', trans("pakka::app.all_conditions"), 1, null, $checked, [], 'mR-20') !!}
 					<?php
 						$value = 2;
 						$checked = false;

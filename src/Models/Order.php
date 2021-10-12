@@ -2,9 +2,9 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use App\Mail\OrderConfirmationClient;
-use App\Mail\OrderConfirmationCompany;
-use App\Mail\OrderShipment as MailOrderShipment;
+use TheRealJanJanssens\Pakka\Mails\OrderConfirmationClient;
+use TheRealJanJanssens\Pakka\Mails\OrderConfirmationCompany;
+use TheRealJanJanssens\Pakka\Mails\OrderShipment as MailOrderShipment;
 
 use Carbon\Carbon;
 use Cart;
@@ -141,11 +141,38 @@ class Order extends Model
         ])
         ->leftJoin('order_details', 'orders.id', '=', 'order_details.order_id')
         ->orderBy('orders.created_at', 'desc')
-        ->get()->toArray();
+        ->get();
         
         return $result;
     }
     
+    public static function getCompletedOrders()
+    {
+        $result = Order::select([
+        'orders.id',
+        'orders.name as order_id',
+        'orders.created_at',
+        'orders.financial_status',
+        'orders.fulfillment_status',
+        'order_details.user_id',
+        'order_details.firstname',
+        'order_details.lastname',
+        'order_details.address',
+        'order_details.city',
+        'order_details.zip',
+        'order_details.country',
+        'order_details.email',
+        DB::raw('(SELECT DISTINCT SUM(ABS(`order_items`.`price`*`order_items`.`quantity`)) FROM `order_items` WHERE `order_items`.`order_id` = `orders`.`id`) AS pos'),
+        DB::raw('(SELECT DISTINCT SUM(`order_items`.`price`*`order_items`.`quantity`) FROM `order_items` WHERE `order_items`.`order_id` = `orders`.`id`) AS total'),
+        ])
+        ->leftJoin('order_details', 'orders.id', '=', 'order_details.order_id')
+        ->orderBy('orders.created_at', 'desc')
+        ->where('orders.financial_status',1)
+        ->get();
+        
+        return $result;
+    }
+
     /*
     |------------------------------------------------------------------------------------
     | Prepare Order
@@ -286,7 +313,7 @@ class Order extends Model
             */
             $order->financial_status = 1;
             $order->save();
-            
+
             /*
             |------------------------------------------------------------------------------------
             | 2. Generate Invoice

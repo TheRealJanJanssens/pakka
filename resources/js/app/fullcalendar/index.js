@@ -1,8 +1,10 @@
-import * as $ from 'jquery';
+//import * as $ from 'jquery';
+//import 'fullcalendar/main.css';
+
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-//import 'fullcalendar/main.css';
 import nlLocale from '@fullcalendar/core/locales/nl';
+
 import swal from 'sweetalert2';
 import 'select2';
 import * as datePicker from '../datepicker';
@@ -244,7 +246,6 @@ export default (function () {
 		updatePopUp(event.bookingId);
 	}
   });
-  
   //calendar.setOption('locale', $('html').attr('lang'));
-  
+
 }())

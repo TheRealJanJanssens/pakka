@@ -48,13 +48,13 @@
 	@switch($settings['booking_type'])
 	  @case(1)
       <?php
-    		$providers = App\Provider::constructSelect();
+    		$providers = TheRealJanJanssens\Pakka\Models\Provider::constructSelect();
     	?>
     	@if($providers)
 			  {!! Form::mySelect('provider_id', trans('pakka::app.appointment_with'), $providers, null, ['class' => 'form-control select2 select-custom-input']) !!}
 			@endif
 			<?php
-				$services = App\Service::constructSelect();
+				$services = TheRealJanJanssens\Pakka\Models\Service::constructSelect();
 			?>
 			@if($services)
 			  {!! Form::mySelect('service_id', trans('pakka::app.appointment_for'), $services, null, ['class' => 'form-control select2 select-custom-input']) !!}
@@ -62,7 +62,7 @@
       @break
 		@case(2)  
 	    <?php
-				$providers = App\Provider::constructSelect();
+				$providers = TheRealJanJanssens\Pakka\Models\Provider::constructSelect();
 			?>
 			@if($providers)
 			  {!! Form::mySelect('provider_id', trans('pakka::app.reservation_for'), $providers, null, ['class' => 'form-control select2 select-custom-input']) !!}

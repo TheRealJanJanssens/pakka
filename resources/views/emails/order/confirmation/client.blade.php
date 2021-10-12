@@ -9,16 +9,16 @@
 
  -->
 
-@component('emails.components.webshop.order_header', ['data' => $data ])
+@component('pakka::emails.components.webshop.order_header', ['data' => $data ])
 @endcomponent
 
-@component('emails.components.webshop.order_items', ['data' => $data ])
+@component('pakka::emails.components.webshop.order_items', ['data' => $data ])
 @endcomponent
 
-@component('emails.components.webshop.order_info', ['data' => $data ])
+@component('pakka::emails.components.webshop.order_info', ['data' => $data ])
 @endcomponent
 
-@component('emails.components.social.social_links')
+@component('pakka::emails.components.social.social_links')
 @endcomponent
 
 <!-- BEGIN SHIPMENT -->

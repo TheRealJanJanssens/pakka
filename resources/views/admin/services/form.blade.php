@@ -36,7 +36,7 @@
 			@endforeach
 			
 			<?php
-				$providers = App\Provider::getProviders();
+				$providers = TheRealJanJanssens\Pakka\Models\Provider::getProviders();
 			?>
 			
 			<label>Selecteer medewerkers</label>

@@ -29,7 +29,7 @@ class SettingController extends Controller
                 foreach ($group["inputs"] as $setting) {
                     foreach ($values as $key => $value) {
                         if (stripos($setting['name'], $key) !== false) {
-                            if (! $value && isset($setting['default']) && ! empty($setting['default'])) {
+                            if (!isset($value) && isset($setting['default']) && !empty($setting['default'])) {
                                 $values[$key] = $setting['default'];
                             }
                         }

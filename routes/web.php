@@ -13,6 +13,7 @@ use TheRealJanJanssens\Pakka\Http\Controllers\OrderController;
 use TheRealJanJanssens\Pakka\Http\Controllers\ImageController;
 use TheRealJanJanssens\Pakka\Http\Controllers\ClientController;
 use TheRealJanJanssens\Pakka\Http\Controllers\CouponController;
+use TheRealJanJanssens\Pakka\Http\Controllers\ExportController;
 use TheRealJanJanssens\Pakka\Http\Controllers\WebsiteController;
 use TheRealJanJanssens\Pakka\Http\Controllers\ProjectController;
 use TheRealJanJanssens\Pakka\Http\Controllers\ContentController;
@@ -243,7 +244,20 @@ Route::group([
 	
 	Route::get('orders/{id}/status/retour', [OrderController::class, 'retour'])->name('orders.retour');
 	Route::get('orders/{id}/status/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
-	
+});
+
+Route::group([
+    'middleware'=> ['auth', 'Role:5']
+    ], function () {
+
+    Route::get('export/excel/orders', [ExportController::class, 'allOrders']);
+    Route::get('export/excel/orders/completed', [ExportController::class, 'allCompletedOrders']);
+
+    Route::get('export/excel/invoices', [ExportController::class, 'allInvoices']);
+
+    //DEV ROUTES
+    Route::get('cart/webhook/test/{id}', [CartController::class, 'webhookTest']);
+	Route::get('cart/resendmail/test/{id}', [CartController::class, 'resendmailTest']);
 });
 
 Route::group([
@@ -302,11 +316,6 @@ Route::group([
 	Route::post('cart/remove-service', [CartController::class, 'removeService']);
 	Route::post('cart/submit', [CartController::class, 'submit']);
 	Route::post('cart/webhook/mollie', [CartController::class, 'webhookMollie']);
-	
-/*
-	Route::get('cart/webhook/test', 'CartController@webhookTest');
-	Route::get('cart/resendmail/test', 'CartController@resendmailTest');
-*/
 
     if(DB::connection()->getDatabaseName() && Schema::hasTable('languages')){
         $routes = Menu::generateRoutes();

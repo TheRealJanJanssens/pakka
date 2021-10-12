@@ -86,10 +86,7 @@
 		            </div>
 				@endif
 				
-				<?php
-					$services = \TheRealJanJanssens\Pakka\Models\CartService::getAvailableCartServices();
-					//dd($services);
-				?>
+				<?php $services = \TheRealJanJanssens\Pakka\Models\CartService::getAvailableCartServices(); ?>
 				
 				@if(isset($services))
 					<div class="select-group">

@@ -7,8 +7,6 @@
 			@if(!empty($product))
 				
 	            <?php   
-		            //dd($product);
-	                
 	                $jsonStock = TheRealJanJanssens\Pakka\Models\Product::getStockJson($product['stocks']);
 	            ?>
 		        

@@ -64,6 +64,7 @@ function loadSliders(){
         ao.adaptiveHeight = slider.attr('data-adaptheight') === "true" ? true: themeDefaults.adaptiveHeight;
         ao.slidesToShow = slider.attr('data-slidestoshow') ? parseInt(slider.attr('data-slidestoshow')): themeDefaults.slidesToShow;
         ao.centerPadding = (slider.attr('data-centerpadding') && slider.attr('data-centerpadding').length > 1) ? slider.attr('data-centerpadding') : themeDefaults.centerPadding;
+        ao.slide = 'div'; //Makes sure slides are only made from divs
         
         if(parseInt(ao.slidesToShow) > 1){
 	        ao.responsive = [
@@ -127,6 +128,25 @@ function loadSliders(){
         
         $(this).slick(ao);
         
+        //this removes unwanted bg-img-edit duplicates
+        $(this).find(".slick-list+.bg-img-edit").remove();
+
+        //sync slider-meta
+        $(this).on('init', function(event, slick, currentSlide, nextSlide){
+            if($(this).closest("section").find(".slider-meta")){
+                $(this).closest("section").find(".slider-meta div").addClass('d-none').removeClass('d-block');
+                $(this).closest("section").find(".slider-meta div[data-id='"+currentSlide+"']").addClass('d-block').removeClass('d-none');
+            }
+            alert();
+        });
+
+        $(this).on('beforeChange', function(event, slick, currentSlide, nextSlide){
+            if($(this).closest("section").find(".slider-meta")){
+                $(this).closest("section").find(".slider-meta div").addClass('d-none').removeClass('d-block');
+                $(this).closest("section").find(".slider-meta div[data-id='"+nextSlide+"']").addClass('d-block').removeClass('d-none');
+            }
+        });
+
         if(sliderClasses !== undefined){
 	        sliderClasses = sliderClasses.split(" ");
 		

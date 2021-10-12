@@ -7223,7 +7223,6 @@ button.bg-dark:focus {
 }
 
 .position-sticky {
-  position: -webkit-sticky !important;
   position: sticky !important;
 }
 
@@ -7243,9 +7242,8 @@ button.bg-dark:focus {
   z-index: 1030;
 }
 
-@supports ((position: -webkit-sticky) or (position: sticky)) {
+@supports (position: sticky) {
   .sticky-top {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020;
@@ -10081,8 +10079,8 @@ hr {
   content: "";
   display: inline-block;
   position: absolute;
-  width: 17px;
-  height: 17px;
+  width: 16px;
+  height: 16px;
   left: 0;
   margin-left: -20px;
   border: 1px solid #cccccc;
@@ -10095,10 +10093,10 @@ hr {
   display: inline-block;
   position: absolute;
   content: " ";
-  width: 11px;
-  height: 11px;
+  width: 10px;
+  height: 10px;
   left: 3px;
-  top: 3px;
+  top: 5px;
   margin-left: -20px;
   border-radius: 50%;
   background-color: #555555;
@@ -24775,7 +24773,6 @@ footer {
 }
 
 .pos-st {
-  position: -webkit-sticky !important;
   position: sticky !important;
 }
 
@@ -24797,7 +24794,6 @@ footer {
   }
 
   .pos-st\@xl\+ {
-    position: -webkit-sticky !important;
     position: sticky !important;
   }
 
@@ -24820,7 +24816,6 @@ footer {
   }
 
   .pos-st\@lg\+ {
-    position: -webkit-sticky !important;
     position: sticky !important;
   }
 
@@ -24843,7 +24838,6 @@ footer {
   }
 
   .pos-st\@md\+ {
-    position: -webkit-sticky !important;
     position: sticky !important;
   }
 
@@ -24866,7 +24860,6 @@ footer {
   }
 
   .pos-st\@sm\+ {
-    position: -webkit-sticky !important;
     position: sticky !important;
   }
 
@@ -24889,7 +24882,6 @@ footer {
   }
 
   .pos-st\@xs\+ {
-    position: -webkit-sticky !important;
     position: sticky !important;
   }
 
@@ -24912,7 +24904,6 @@ footer {
   }
 
   .pos-st\@xl- {
-    position: -webkit-sticky !important;
     position: sticky !important;
   }
 
@@ -24935,7 +24926,6 @@ footer {
   }
 
   .pos-st\@lg- {
-    position: -webkit-sticky !important;
     position: sticky !important;
   }
 
@@ -24958,7 +24948,6 @@ footer {
   }
 
   .pos-st\@md- {
-    position: -webkit-sticky !important;
     position: sticky !important;
   }
 
@@ -24981,7 +24970,6 @@ footer {
   }
 
   .pos-st\@sm- {
-    position: -webkit-sticky !important;
     position: sticky !important;
   }
 
@@ -25004,7 +24992,6 @@ footer {
   }
 
   .pos-st\@lg {
-    position: -webkit-sticky !important;
     position: sticky !important;
   }
 
@@ -25027,7 +25014,6 @@ footer {
   }
 
   .pos-st\@md {
-    position: -webkit-sticky !important;
     position: sticky !important;
   }
 
@@ -25050,7 +25036,6 @@ footer {
   }
 
   .pos-st\@sm {
-    position: -webkit-sticky !important;
     position: sticky !important;
   }
 
@@ -78135,6 +78120,129 @@ table.dataTable.no-footer {
   }
 }
 
+/*
+ * bootstrap-tagsinput v0.8.0
+ * 
+ */
+
+.bootstrap-tagsinput {
+  vertical-align: middle;
+  line-height: 22px;
+  cursor: text;
+  padding: 5px;
+  border-color: #e9ecef;
+}
+
+.bootstrap-tagsinput input {
+  border: none;
+  box-shadow: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0 6px;
+  margin: 0;
+  width: auto;
+  max-width: inherit;
+}
+
+.bootstrap-tagsinput.form-control input::-moz-placeholder {
+  color: #777;
+  opacity: 1;
+}
+
+.bootstrap-tagsinput.form-control input:-ms-input-placeholder {
+  color: #777;
+}
+
+.bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
+  color: #777;
+}
+
+.bootstrap-tagsinput input:focus {
+  border: none;
+  box-shadow: none;
+}
+
+.bootstrap-tagsinput .tag {
+  margin-right: 2px;
+  color: white;
+  background-color: #00bcd4;
+  padding: 3px 10px;
+  border-radius: 5px;
+}
+
+.bootstrap-tagsinput .tag [data-role=remove] {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.bootstrap-tagsinput .tag [data-role=remove]:after {
+  content: "\F00D";
+  font-family: "FontAwesome";
+  padding: 0px 2px;
+}
+
+.bootstrap-tagsinput .tag [data-role=remove]:hover {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.bootstrap-tagsinput .tag [data-role=remove]:hover:active {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+/* TYPEAHEAD */
+
+/*
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {
+    margin-bottom: 0;
+}
+
+.twitter-typeahead .tt-hint
+{
+    display: none;
+}
+
+.tt-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 10px;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 14px;
+    background-color: $white;
+    //border:$border-width solid $border-color;
+    border-radius: $border-radius;
+    box-shadow: 0px 32px 32px 0px rgba(20,44,26,0.05), 0px 16px 16px 0px rgba(20,44,26,0.05), 0px 8px 8px 0px rgba(20,44,26,0.05), 0px 4px 4px 0px rgba(20,44,26,0.05), 0px 2px 2px 0px rgba(20,44,26,0.05);
+    background-clip: padding-box;
+    cursor: pointer;
+}
+
+.tt-suggestion {
+    display: block;
+    border-radius: 5px;
+    font-weight: 500;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    //color: $grey-600;
+    white-space: nowrap;
+}
+
+.tt-suggestion:hover,
+.tt-suggestion:focus {
+    color: $white;
+    text-decoration: none;
+    outline: 0;
+    background-color: $primary;
+}
+*/
+
 /* Scrollbar Styling */
 
 ::-webkit-scrollbar {
@@ -78828,6 +78936,7 @@ form button {
 
 .select2-container--default .select2-selection--single .select2-selection__arrow,
 .select2-container--default .select2-selection--multiple .select2-selection__arrow {
+  width: 35px !important;
   height: 35px !important;
 }
 

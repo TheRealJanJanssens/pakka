@@ -2,6 +2,21 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.4.0 - 2021-10-12
+- Connected services, providers and booking modules
+- Fixed the the way which the json response is given in getJson() of BookingController
+- Added bladeCompile helper to convert a string in a usable blade component wit or without variables
+- Added IFRMST01002, IFRMST01003, IFRMST01004
+- Added the possibility to link slider meta data (pulled from item modules) like title, text, etc...
+- Linked above functionality with HEROIG04001
+- Fixed bug that the input labels where not translated in the layout editor
+- Fixed a bug where payment amount value was rejected by Mollie
+- Small CSS fixes
+- Admin panel refinements
+- Added Excel exports for all orders, completed orders and invoices
+- Fixed settings bug resetting to default value if 0 is the value
+- Switch inputs now show the correct stored value
+
 ## 0.3.7 - 2021-09-05
 - Bugfix: getFormsLinks() throws error when form table is empty
 - Created a route fallback for when pages have no postion or position is NULL. This could cause that no index is being set and the "/" url throwing a 404  

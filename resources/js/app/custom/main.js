@@ -391,8 +391,10 @@ $(".input-switch").each(function(index){
 	
 	if(val == 1){
 		$(this).find('input[type=checkbox]').prop('checked', true);
+		console.log(true);
 	}else{
 		$(this).find('input[type=checkbox]').prop('checked', false);
+		console.log(false);
 	}
 });
 

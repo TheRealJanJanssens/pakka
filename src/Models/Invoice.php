@@ -233,7 +233,7 @@ class Invoice extends Model
         return $array;
     }
     
-    public static function getInvoices()
+    public static function getInvoices($type = null)
     {
         //Sets the max char length of group_concat (1024 to 1000000 chars)
         DB::statement("SET SESSION group_concat_max_len = 1000000;");
@@ -266,8 +266,13 @@ class Invoice extends Model
         DB::raw("GROUP_CONCAT( IFNULL(invoice_items.vat,'') ORDER BY invoice_items.position SEPARATOR '(~)') as invoice_items_vat"),
         ])
         ->leftJoin('invoice_details', 'invoices.id', '=', 'invoice_details.invoice_id')
-        ->leftJoin('invoice_items', 'invoices.id', '=', 'invoice_items.invoice_id')
-        ->orderBy('invoices.created_at', "desc")
+        ->leftJoin('invoice_items', 'invoices.id', '=', 'invoice_items.invoice_id');
+
+        if($type){
+            $result = $result->where('invoices.type', $type);
+        }
+
+        $result = $result->orderBy('invoices.created_at', "desc")
         ->groupBy('invoices.id')
         ->get()->toArray();
         

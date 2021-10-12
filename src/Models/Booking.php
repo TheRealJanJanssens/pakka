@@ -111,7 +111,7 @@ class Booking extends Model
         return $result;
     }
     
-    public static function getBookings($json = false, $date = null)
+    public static function getBookings($date = null)
     {
         if ($date == null) {
             $date = Carbon::today()->subDays(30);
@@ -130,7 +130,7 @@ class Booking extends Model
         ->whereDate('bookings.start_at', '>=', $date)
         ->get();
         
-        if ($json == true && count($bookings) > 0) {
+        if (count($bookings) > 0) {
             $i = 0;
             foreach ($bookings as $booking) {
                 $result[$i]['bookingId'] = $booking['id'];
@@ -147,7 +147,7 @@ class Booking extends Model
 
                 $i++;
             }
-            $result = json_encode($result);
+            $result = $result;
         } else {
             $result = $bookings;
         }

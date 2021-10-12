@@ -15,8 +15,8 @@
       <div id="calendar-widget" class="ov-h bgc-white bd">
 
 	      <?php
-		      $upcomingBookings = \App\Booking::getUpcomingBookings();
-		      
+		      $upcomingBookings = TheRealJanJanssens\Pakka\Models\Booking::getUpcomingBookings();
+
 		      if(!empty($upcomingBookings) && isset($upcomingBookings[0])){
 			      $closestBooking = $upcomingBookings[0];
 		      }
@@ -84,8 +84,7 @@
    </div>
    
    <div class="col-md-8">
-      <div id="full-calendar" class="bd p-10">
-      </div>
+      <div id="full-calendar" class="bd p-10"></div>
    </div>
    
 </div>

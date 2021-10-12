@@ -305,13 +305,12 @@ class Product extends Model
         ->groupBy('products.id')
         //->toSql();
         ->get();
-        
+
         if (! empty($result)) {
             $result = constructAttributes($result, $mode);
-            $result = constructTranslatableValues($result, ['slug','name','description']);
+            $result = $mode == 2 ? constructTranslatableValues($result, ['slug','name','description']) : $result[0]->toArray();
             $result['variants'] = Variant::getVariantInputs($id);
             $result['stocks'] = Stock::getStockInputs($id);
-            
             return $result; //outputs array
         } else {
             return null;
@@ -604,10 +603,9 @@ class Product extends Model
 
     /*
     |------------------------------------------------------------------------------------
-    | Get Product with translations
+    | Get Product by SKU (with translations)
     |
-    | $id = Product id
-    | $mode = construct attributes for display (1) or edit (2) purpose
+    | $sku = Product sku
     |
     | NOTE: 'WHEN attributes.value IS NULL AND attributes.name IS NULL THEN attributes.option_value' rule prevents
     | a random empty value at the beginning in 'attribute_values'. It occurs on certain servers with for example mariaDB.
@@ -621,11 +619,7 @@ class Product extends Model
         DB::statement("SET SESSION group_concat_max_len = 1000000;");
         
         $locale = app()->getLocale();
-                
-        //Display mode
-        $optionAttr = "attributes.option_value";
-        $valueAttr = "attributes.name, IFNULL(attributes.value, '')";
-        
+
         $result = Product::select([
             'products.id',
             'stocks.sku',
@@ -654,23 +648,6 @@ class Product extends Model
             'products.created_at',
             DB::raw("GROUP_CONCAT( DISTINCT images.file ORDER BY images.position SEPARATOR '(~)') as images"),
         ])
-/*
-          ->leftJoin(DB::raw("(
-                SELECT
-                attribute_values.input_id,
-                attribute_values.option_id,
-                attribute_values.item_id,
-                attribute_values.language_code,
-                attribute_values.value,
-                attribute_inputs.name,
-                attribute_inputs.position,
-                attribute_options.value AS option_value
-                FROM
-                attribute_values
-                LEFT JOIN attribute_inputs ON attribute_values.input_id = attribute_inputs.input_id
-                LEFT JOIN attribute_options ON attribute_values.option_id = attribute_options.option_id
-            ) as attributes"),'products.id', '=', 'attributes.item_id')
-*/
         ->leftJoin('images', 'products.id', '=', 'images.item_id')
         ->leftJoin('stocks', 'products.id', '=', 'stocks.product_id')
         ->leftJoin('variant_values', 'stocks.id', '=', 'variant_values.stock_id')
@@ -681,14 +658,8 @@ class Product extends Model
         ->get();
         
         $result = constructAttributes($result);
-        $result = constructTranslatableValues($result, ['slug','name','description']);
         
-        /*
-                $result['variants'] = Variant::getVariantInputs($id);
-                $result['stocks'] = Stock::getStockInputs($id);
-        */
-        
-        return $result; //outputs array
+        return $result[0]->toArray(); //outputs array
     }
     
     public static function getStockJson($stocks)

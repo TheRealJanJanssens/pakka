@@ -16,7 +16,7 @@
 	<!--
 	    <tr>
 	        <td align="center" style="padding-top: 10px;">
-	         	@component('emails.components.buttons.primary', ['url' => url('/view/invoice').'/'.$data['invoice']['id'] ])
+	         	@component('pakka::emails.components.buttons.primary', ['url' => url('/view/invoice').'/'.$data['invoice']['id'] ])
 					Bekijk hier je factuur
 				@endcomponent
 	        </td>

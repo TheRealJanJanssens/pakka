@@ -108,8 +108,7 @@ class BookingController extends Controller
     
     public function getJson()
     {
-        $result = Booking::getBookings(true);
-        
-        return $result;
+        $result = Booking::getBookings();
+        return response()->json($result);
     }
 }

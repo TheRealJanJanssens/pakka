@@ -55,6 +55,15 @@ composer test
 ## Custom sections, templates and layouts
 If you need to change a particular section, template or layout you can simply add a 'sections', 'templates' or 'layouts' folder in your views. You can put a copy of existing resources in the folder you just made and do all the changes you want. When you update the package this folder won't be updated so your custom resources will be untouched.
 
+## Custom dynamic sections with items
+This sounds a bit abstract but you can put custom html/blade in a few selected sections (For example IFRMST01004). Some of them even allow you to connect a item module to them and directly list items in your custom html/blade. To access the item variables you just use the name of the key as variable like:
+```
+$item['title'] => $title
+$item['description'] => $description
+...
+```
+
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.

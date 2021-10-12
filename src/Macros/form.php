@@ -282,7 +282,7 @@ Form::macro('mySwitch', function ($name, $label = "", $value = null, $checked = 
 			</label>
 			
 			".Form::input("hidden", "translation_id[$name]", null, array_merge(["class" => "form-control input-translation-id"])).
-            Form::input("hidden", $name, $value ?? null, array_merge(["class" => "form-control"]))."
+            Form::input("hidden", $name, null, array_merge(["class" => "form-control"]))."
         </div>
     ";
 });

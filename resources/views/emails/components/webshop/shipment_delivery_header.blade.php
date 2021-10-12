@@ -38,7 +38,7 @@
 		<tr>
 	        <td align="center">
 		        @if(!empty($url) && !empty($data['shipment']['track_code']))
-		         	@component('emails.components.buttons.primary', ['url' => $url ])
+		         	@component('pakka::emails.components.buttons.primary', ['url' => $url ])
 						Volg je bestelling
 					@endcomponent
 				@endif

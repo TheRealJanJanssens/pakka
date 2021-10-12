@@ -3,7 +3,7 @@
 		<div class="bgc-white p-20 bd">
 			{!! Form::myInput('text', 'name', 'Naam') !!}
 	
-			@php($users = App\User::constructSelect(0))
+			@php($users = TheRealJanJanssens\Pakka\Models\User::constructSelect(0))
 			
 			{!! Form::mySelect('user_id', 'Gebruiker', $users, null, ['class' => 'form-control select2']) !!}
 			

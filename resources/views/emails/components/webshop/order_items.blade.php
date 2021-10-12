@@ -102,7 +102,7 @@
 	                            <td align="left">
 	                                <?php
 		                                if(!empty($item['product_id'])){
-			                                $image = App\Images::where('item_id', $item['product_id'])->orderBy('position')->first();
+			                                $image = TheRealJanJanssens\Pakka\Models\Images::where('item_id', $item['product_id'])->orderBy('position')->first();
 		                                ?>
 		                                <!--[if mso]><table width="560" cellpadding="0" cellspacing="0"><tr><td width="178" valign="top"><![endif]-->
 		                                <table cellspacing="0" cellpadding="0" align="left">
@@ -225,12 +225,12 @@
                                 <table width="100%" cellspacing="0" cellpadding="0">
                                     <tbody>
                                         <tr>
-                                            <td width="600" valign="top" align="center">
+                                            <td valign="top" align="center">
                                                 <table width="100%" cellspacing="0" cellpadding="0">
                                                     <tbody>
                                                         <tr>
                                                             <td align="right">
-                                                                <table style="width: 600px;" cellspacing="1" cellpadding="1" border="0" align="right">
+                                                                <table width="100%" cellspacing="1" cellpadding="1" border="0" align="right">
                                                                     <tbody>
                                                                         <tr>
                                                                             <td style="text-align: left; font-size: 18px; line-height: 150%;">Subtotaal (Excl. BTW):</td>

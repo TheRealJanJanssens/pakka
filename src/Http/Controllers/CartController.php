@@ -224,36 +224,22 @@ class CartController extends Controller
             $method = null;
         }
         
-        /*
-                $payment = Mollie::api()->payments->create([
-                    "amount" => [
-                        "currency" => "EUR",
-                        "value" => Cart::getTotal()
-                    ],
-                    "method" => $method,
-                    "description" => "Order 20200002",
-                    "redirectUrl" => url("/".session()->get('settings.role_order_confirmation')."/20"),
-                    "webhookUrl" => url('/cart/webhook/mollie'),
-                    "metadata" => [
-                        "order_id" => "20",
-                    ],
-                ]);
-        */
-        
         $payment = Mollie::api()->payments->create([
             "amount" => [
                 "currency" => "EUR",
-                "value" => Cart::getTotal(),
+                "value" => sprintf("%.2f", Cart::getTotal()),
             ],
             "method" => $method,
             "description" => "Order ".$order->name,
             "redirectUrl" => url("/".session()->get('settings.role_order_confirmation')."/".$order->id."/".$user->id),
             "webhookUrl" => url('/cart/webhook/mollie'),
+            // "redirectUrl" => "https://janjanssens.be",
+            // "webhookUrl" => "https://janjanssens.be",
             "metadata" => [
                 "order_id" => $order->id,
             ],
         ]);
-        
+
         OrderPayment::create([
             'order_id' => $order->id,
             'payment_id' => $payment->id,
@@ -305,9 +291,9 @@ class CartController extends Controller
         }
     }
     
-    public function webhookTest()
+    public function webhookTest($id)
     {
-        $payment = Mollie::api()->payments()->get("tr_NFp2pqBVaR");
+        $payment = Mollie::api()->payments()->get($id);
         
         switch ($payment->status) {
             case "open":
@@ -339,8 +325,8 @@ class CartController extends Controller
         }
     }
     
-    public function resendmailTest()
+    public function resendmailTest($id)
     {
-        Order::resendConfirmationMail(40);
+        Order::resendConfirmationMail($id);
     }
 }

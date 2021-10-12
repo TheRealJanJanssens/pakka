@@ -73,8 +73,9 @@ class InputController extends Controller
         $setId = Session::get('set_id');
         $request->request->add(['set_id' => $setId]); //add to request
         
+        $request['required'] = $request->required ?? 0;
         $this->validate($request, AttributeInput::rules());
-        
+
         $result = constructTranslations($request->all());
         $result = AttributeOption::constructOptions($result);
         

@@ -1498,6 +1498,20 @@ console.log(this.selectionState);
 						$("div[data-category='items']").append("<div class='se-edit-item se-edit-reload' type='extra' element='item_text'><p>Items Tekst</p><select class='select item-input-select'><option value='' disabled selected>Selecteer een waarde</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
 					}
 					break;
+				case "input_select_button":
+					var options = constructInputSelect();
+					
+					if(typeof options !== "undefined" && options){
+						$("div[data-category='items']").append("<div class='se-edit-item se-edit-reload' type='extra' element='item_button'><p>Items Knop tekst</p><select class='select item-input-select'><option value='' disabled selected>Selecteer een waarde</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
+					}
+					break;
+				case "input_select_link":
+					var options = constructInputSelect();
+					
+					if(typeof options !== "undefined" && options){
+						$("div[data-category='items']").append("<div class='se-edit-item se-edit-reload' type='extra' element='item_link'><p>Items Knop link</p><select class='select item-input-select'><option value='' disabled selected>Selecteer een waarde</option>"+options+"</select><li class='hidden active'></li></div></div><hr>");
+					}
+					break;
 				case "item_page_select":
 					var metaData = $('meta[name="pages"]').attr('content');
 					

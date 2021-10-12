@@ -133,7 +133,7 @@ class ShipmentOption extends Model
                 DB::raw('`shipment_options`.`description` AS description_trans'),
                 ])
                 ->where('shipment_options.id', $id)
-                ->get()->toArray();
+                ->get();
                 
                 $result = constructTranslatableValues($queryResult, ['name','description']);
                 $result['conditions'] = ShipmentCondition::getConditions($result['id']);

@@ -13,9 +13,7 @@
     		<img alt="background" {{ parseImage($section['HEROIG02001_BIMG'], $section['HEROIG02001_BIMG']['images'][0], 2500) }}> 
     	</div>
     @endif
-    
-    <div class="background-image-holder {{ parseSecAttr('.background-image-holder', $section['classes']) }}"> <img alt="background" {{ parseImage($section['HEROIG02001_BIMG'], $section['HEROIG02001_BIMG']['images'][0], 2500) }}> </div>
-    
+        
     <div class="container pos-vertical-center">
         <div class="row">
             <div class="col-md-12"> <img alt="Image" class="img {{ parseSecAttr('.img', $section['classes']) }}" {{ parseImage($section['HEROIG02001_H'], $section['HEROIG02001_H']['images'][0], 2500) }}>
