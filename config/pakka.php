@@ -40,6 +40,7 @@ return [
         'orders' => 'Bestellingen',
         'templates' => 'Templates',
         'forms' => 'Forms',
+        'cart_services' => 'Cart Services',
     ],
     
     'icons' => [

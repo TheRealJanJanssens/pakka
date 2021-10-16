@@ -55,6 +55,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $productId = Session::get('current_item_id');
+        $request->request->add(['id' => $productId]);
         $inputs = $request->all();
         $result = slugControl($inputs); //Fills in empty slugs
         $result = constructTranslations($result);
@@ -94,6 +95,7 @@ class ProductController extends Controller
     
     public function update(Request $request, $id)
     {
+        $request->request->add(['id' => $id]);
         $result = slugControl($request->all()); //Fills in empty slugs
         $result = constructTranslations($result);
         constructVariants($id, $result);

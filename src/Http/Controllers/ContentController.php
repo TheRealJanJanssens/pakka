@@ -478,9 +478,7 @@ class ContentController extends Controller
         Session::put('set_id', $id);
         
         $inputs = AttributeInput::getInputs();
-        
-        Session::put('new_item_id', '');
-        Session::put('current_item_id', $id);
+
         Session::forget('uploadImages');
         
         $item = Component::getContent($id, 2);
@@ -490,6 +488,7 @@ class ContentController extends Controller
     
     public function updateContent(Request $request, $id)
     {
+        $request->request->add(['id' => $id]);
         $result = constructTranslations($request->all()); //Attributes Translations
 
         return redirect()->route(config('pakka.prefix.admin'). '.content.index')->withSuccess(trans('pakka::app.success_store'));

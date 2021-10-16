@@ -79,7 +79,7 @@ class CartService extends Model
 						AS description'),
                 ])
                 ->where('cart_services.id', $id)
-                ->get()->toArray();
+                ->get();
                 
                 $result = $result[0];
                 //$result['conditions'] = CollectionCondition::getConditions($result['id']);
@@ -126,7 +126,7 @@ class CartService extends Model
                 DB::raw('`cart_services`.`description` AS description_trans'),
                 ])
                 ->where('cart_services.id', $id)
-                ->get()->toArray();
+                ->get();
                 
                 $result = constructTranslatableValues($queryResult, ['name','description']);
                 //$result['conditions'] = CartServiceCondition::getConditions($result['id']);
@@ -166,7 +166,7 @@ class CartService extends Model
                   ->orderBy('cart_services.price');
         */
         
-        $result = $query->get()->toArray();
+        $result = $query->get();
         
         /*
                 if($conditions == true){
@@ -202,7 +202,7 @@ class CartService extends Model
         
         $query->where('cart_services.status', '=', '1');
         
-        $result = $query->get()->toArray();
+        $result = $query->get();
         
         /*
                 if($conditions == true){

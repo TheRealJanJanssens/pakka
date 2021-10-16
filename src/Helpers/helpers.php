@@ -994,8 +994,7 @@ if (! function_exists('constructTransId')) {
 function constructTranslations($array)
 {
     //BASE VARIABLES
-    $newItemId = Session::get('new_item_id');
-    $currentItemId = Session::get('current_item_id');
+    $itemId = $array['id'] ?? null; //item_id
     $checklist = AttributeInput::getInputsChecklist();
     $langs = Session::get('lang');
     $optionsInputs = ["select", "checkbox","radio"];
@@ -1080,15 +1079,16 @@ function constructTranslations($array)
                /* TRANSLATION ATTRIBUTE INPUT */
                switch (true) {
                     case contains($inputType, $optionsInputs): //insert option
-                        AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($currentItemId), 'language_code' => htmlspecialchars($languageCode) ], ['option_id' => htmlspecialchars($value) ]);
+                        AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['option_id' => htmlspecialchars($value) ]);
 
                         break;
                     case ! contains($inputType, $optionsInputs) && $value !== null: //insert value
-                        AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($currentItemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => htmlspecialchars($value) ]);
+                        //dd(htmlentities(htmlentities($value)));
+                        AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => htmlentities($value) ]);
 
                         break;
                     case ! contains($inputType, $optionsInputs) && $value == null: //insert value null
-                        AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($currentItemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => null]);
+                        AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => null]);
 
                         break;
                 }

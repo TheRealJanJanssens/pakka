@@ -2230,7 +2230,7 @@ console.log(this.selectionState);
 							name: ui.draggable.attr("data-name"),
 							list: JSON.stringify(list)
 						};
-console.log(dataArray);
+
 						$.ajax({
 						   url: "/admin/content/insert/section",
 						   data: dataArray,

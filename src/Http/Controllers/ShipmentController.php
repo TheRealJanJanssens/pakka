@@ -95,8 +95,6 @@ class ShipmentController extends Controller
     public function update(Request $request, $id)
     {
         //$this->validate($request, ShipmentOption::rules(true, $id));
-
-        $array = $request->all();
         
         $result = constructTranslations($request->all());
         

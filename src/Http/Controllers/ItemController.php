@@ -21,26 +21,14 @@ class ItemController extends Controller
         constructGlobVars();
     }
     
-    public function getModule($moduleId)
+    public function setModule($moduleId)
     {
-        if (! empty($moduleId)) {
-            $storedModuleId = Session::get('set_id');
-            
-            /*
-                        if($storedModuleId !== $moduleId){
-                            Session::put('set_id', $moduleId); // SET_ID gets the collection of inputs in this case the set_id is the same as the module id
-                            $locale = Session::get('locale');
-                            $module = MenuItem::getMenuItem($moduleId,$locale);
-
-                            Session::put('module_name', $module['name']);
-                        }
-            */
-        }
+        Session::put('set_id', $moduleId);
     }
     
     public function index($moduleId)
     {
-        $this->getModule($moduleId);
+        $this->setModule($moduleId);
         
         $items = Item::getItems($moduleId);
         
@@ -51,7 +39,7 @@ class ItemController extends Controller
     
     public function show($moduleId, $id)
     {
-        $this->getModule($moduleId);
+        $this->setModule($moduleId);
         
         $item = Item::findOrFail($id);
 
@@ -60,7 +48,7 @@ class ItemController extends Controller
     
     public function createItem($moduleId)
     {
-        $this->getModule($moduleId);
+        $this->setModule($moduleId);
         
         $inputs = AttributeInput::getInputs();
         $newItemId = generateString(10);
@@ -73,10 +61,10 @@ class ItemController extends Controller
     
     public function storeItem(Request $request)
     {
+        $request->request->add(['id' => Session::get('current_item_id')]);
         $result = slugControl($request->all()); //Fills in empty slugs
         $result = constructTranslations($result);
-        
-        $result["id"] = Session::get('current_item_id');
+
         $result["module_id"] = Session::get('set_id');
         $result["created_by"] = auth()->user()->id;
         
@@ -92,7 +80,7 @@ class ItemController extends Controller
     
     public function editItem($moduleId, $id)
     {
-        $this->getModule($moduleId);
+        $this->setModule($moduleId);
         
         $inputs = AttributeInput::getInputs();
         
@@ -107,6 +95,7 @@ class ItemController extends Controller
     
     public function updateItem(Request $request, $id)
     {
+        $request->request->add(['id' => $id]);
         $result = slugControl($request->all()); //Fills in empty slugs
         $result = constructTranslations($result);
         

@@ -137,7 +137,6 @@ function loadSliders(){
                 $(this).closest("section").find(".slider-meta div").addClass('d-none').removeClass('d-block');
                 $(this).closest("section").find(".slider-meta div[data-id='"+currentSlide+"']").addClass('d-block').removeClass('d-none');
             }
-            alert();
         });
 
         $(this).on('beforeChange', function(event, slick, currentSlide, nextSlide){
