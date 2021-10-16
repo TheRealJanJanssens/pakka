@@ -70,10 +70,7 @@
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
     "config": {
-        "sort-packages": true,
-        "github-oauth": {
-            "github.com": "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"
-        }
+        "sort-packages": true
     },
     "extra": {
         "laravel": {
