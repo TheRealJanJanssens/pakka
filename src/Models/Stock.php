@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\DB;
 class Stock extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,9 +22,9 @@ class Stock extends Model
     protected $fillable = [
         'id', 'product_id', 'sku_id', 'sku', 'price', 'quantity', 'weight',
     ];
-    
+
     protected $casts = ['id' => 'string'];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -46,7 +46,7 @@ class Stock extends Model
             'sku_id' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get Stock inputs for the given product
@@ -54,7 +54,7 @@ class Stock extends Model
     | $id = Product id
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getStockInputs($id)
     {
         $result = Stock::select([
@@ -78,12 +78,12 @@ class Stock extends Model
         ->where('stocks.product_id', $id)
         ->orderBy('stocks.id')
         ->groupBy('stocks.id');
-        
+
         $result = Cache::tags('collections')->remember('product:stock:'.$id, 60 * 60 * 24, function () use ($result) {
             return $result->get();
         });
-        
-        
+
+
         return $result->toArray();
     }
 }

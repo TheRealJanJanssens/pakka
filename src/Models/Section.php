@@ -43,7 +43,7 @@ class Section extends Model
             //'page_id'    => "required",
             'position' => "required",
             'section' => "required",
-            
+
         ];
 
         if ($update) {
@@ -56,12 +56,12 @@ class Section extends Model
             'section' => "required",
         ]);
     }
-    
+
     public static function getSections($mode)
     {
         switch (true) {
             case $mode == 1:
-                
+
                 break;
             case $mode == 2:
                 //section editing in page module (add/edit)
@@ -70,20 +70,20 @@ class Section extends Model
                 'sections.name',
                 'sections.page_id',
                 ])->get();
-                
+
                 //formats the sections so it can be used in db
                 foreach ($queryResult as $section) {
                     $id = $section['id'];
                     $name = $section['name']." (page:".$section['page_id'].")";
                     $result[$id] = $name;
                 }
-                
+
                 return $result;
-                
+
                 break;
         }
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get sections with translations
@@ -92,12 +92,12 @@ class Section extends Model
     | $mode = construct attributes for display (1) or edit (2) purpose
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getSection($id, $mode)
     {
         switch (true) {
             case $mode == 1:
-                
+
                 break;
             case $mode == 2:
                 //section editing in page module (add/edit)
@@ -106,14 +106,14 @@ class Section extends Model
                 'sections.name',
                 'sections.page_id',
                 ])->get();
-                
+
                 //formats the sections so it can be used in db
                 foreach ($queryResult as $section) {
                     $id = $section['id'];
                     $name = $section['name']." (page:".$section['page_id'].")";
                     $result[$id] = $name;
                 }
-                
+
                 /*
                 //query if you want to translate the name attibute
                 $queryResult = Section::select([
@@ -173,10 +173,10 @@ class Section extends Model
                 break;
                 */
         }
-        
+
         return $result; //outputs array
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get sections by type
@@ -184,10 +184,10 @@ class Section extends Model
     | $type
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getSectionsByType($type, $id = null, $status = null)
     {
-        if (!empty($id)) {
+        if (! empty($id)) {
             $result = Section::select([
             'sections.id',
             'sections.status',
@@ -202,14 +202,14 @@ class Section extends Model
             ])
             ->where('page_id', $id)
             ->where('sections.type', $type);
-            
-            if(isset($status)){
+
+            if (isset($status)) {
                 $result->where('sections.status', $status);
             }
-            
+
             $result->leftJoin('section_items', 'section_items.id', '=', 'sections.section')
             ->orderBy('position');
-            
+
             $result = Cache::tags('content')->remember('sectionsByPage:'.$id, 60 * 60 * 24, function () use ($result) {
                 return $result->get();
             });
@@ -227,18 +227,19 @@ class Section extends Model
             'sections.extras',
             ])
             ->where('sections.type', $type);
-            
-            if(isset($status)){
+
+            if (isset($status)) {
                 $result->where('sections.status', $status);
             }
-            
+
             $result->leftJoin('section_items', 'section_items.id', '=', 'sections.section')
             ->orderBy('position');
-            
+
             $result = Cache::tags('content')->remember('sectionsByType:'.$type, 60 * 60 * 24, function () use ($result) {
                 return $result->get();
             });
         }
+
         return $result;
     }
 
@@ -259,14 +260,14 @@ class Section extends Model
         ])
         ->where('page_id', $id)
         ->where('sections.type', $type);
-        
+
         if ($status !== null) {
             $result->where('sections.status', $status);
         }
-        
+
         $result->leftJoin('section_items', 'section_items.id', '=', 'sections.section')
         ->orderBy('position');
-        
+
         return $result->get();
     }
 }

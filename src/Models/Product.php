@@ -21,9 +21,9 @@ class Product extends Model
     protected $fillable = [
         'id','slug','status','name','description','base_price','compare_price','created_at','created_by','updated_at','updated_by',
     ];
-    
+
     protected $casts = ['id' => 'string'];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -33,7 +33,7 @@ class Product extends Model
     {
         $commun = [
             'id' => "required",
-            
+
         ];
 
         if ($update) {
@@ -44,7 +44,7 @@ class Product extends Model
             'id' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Construct the attributes (and images) of Products
@@ -53,7 +53,7 @@ class Product extends Model
     | $mode = construct attributes for display (1) or edit (2) purpose
     |------------------------------------------------------------------------------------
     */
-    
+
     /*
         public static function constructAttributes($Products,$mode = 1){
 
@@ -154,7 +154,7 @@ class Product extends Model
             return $Products;
         }
     */
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get Product with translations
@@ -167,7 +167,7 @@ class Product extends Model
     | Didn't found out yet why it happens but this problem shouldn't occure anymore.
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getProduct($id, $mode = 1)
     {
         //Sets the max char length of group_concat (1024 to 1000000 chars)
@@ -178,11 +178,11 @@ class Product extends Model
         DB::statement("SET SESSION group_concat_max_len = 1000000;");
 
         $extra = [];
-        
+
         switch ($mode) {
             case 1:
                 $locale = app()->getLocale();
-                
+
                 //Display mode
                 $optionAttr = "attributes.option_value";
                 $valueAttr = "attributes.name, IFNULL(attributes.value, '')";
@@ -194,7 +194,7 @@ class Product extends Model
 						FROM `translations` 
 						WHERE `translations`.`translation_id` = `products`.`name` AND `translations`.`language_code` = "'.$locale.'") 
 						AS name');
-                
+
                 $description = DB::raw('(SELECT `translations`.`text` 
 						FROM `translations` 
 						WHERE `translations`.`translation_id` = `products`.`description` AND `translations`.`language_code` = "'.$locale.'") 
@@ -215,7 +215,7 @@ class Product extends Model
 						FROM `translations` 
 						WHERE `translations`.`translation_id` = `products`.`slug`) 
 						AS language_code');
-                
+
                 $slug = DB::raw('`products`.`slug` AS translation_id_slug, (SELECT 
 		        			GROUP_CONCAT(
 		        				CASE
@@ -226,7 +226,7 @@ class Product extends Model
 						FROM `translations` 
 						WHERE `translations`.`translation_id` = `products`.`slug`) 
 						AS slug');
-                
+
                 $name = DB::raw('`products`.`name` AS translation_id_name, (SELECT 
 		        			GROUP_CONCAT(
 		        				CASE
@@ -237,7 +237,7 @@ class Product extends Model
 						FROM `translations` 
 						WHERE `translations`.`translation_id` = `products`.`name`) 
 						AS name');
-                
+
                 $description = DB::raw('`products`.`description` AS translation_id_description, (SELECT 
 		        			GROUP_CONCAT(
 		        				CASE
@@ -248,15 +248,15 @@ class Product extends Model
 						FROM `translations` 
 						WHERE `translations`.`translation_id` = `products`.`description`) 
 						AS description');
-                
+
                 array_push($extra, $languageCode);
                 array_push($extra, DB::raw('`products`.`slug` AS slug_trans'));
                 array_push($extra, DB::raw('`products`.`name` AS name_trans'));
                 array_push($extra, DB::raw('`products`.`description` AS description_trans'));
-                
+
                 break;
         }
-        
+
         $selectArray = [
             'products.id',
             'products.status',
@@ -274,7 +274,7 @@ class Product extends Model
 				 ORDER BY attributes.position SEPARATOR '(~)') as attributes"),
             DB::raw("GROUP_CONCAT( DISTINCT images.file ORDER BY images.position SEPARATOR '(~)') as images"),
         ];
-        
+
         if ($extra) {
             $selectArray = array_merge($selectArray, $extra);
         }
@@ -311,12 +311,13 @@ class Product extends Model
             $result = $mode == 2 ? constructTranslatableValues($result, ['slug','name','description']) : $result[0]->toArray();
             $result['variants'] = Variant::getVariantInputs($id);
             $result['stocks'] = Stock::getStockInputs($id);
+
             return $result; //outputs array
         } else {
             return null;
         }
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get Products with translations
@@ -328,21 +329,21 @@ class Product extends Model
     | Didn't found out yet why it happens but this problem shouldn't occure anymore.
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getProducts($status = null, $sort = "desc", $limit = null)
     {
         $locale = app()->getLocale();
-        
+
         //Sets the max char length of group_concat (1024 to 1000000 chars)
         // Cache::rememberForever('statements.group_concat_max_len:', function () {
         //     return DB::statement("SET SESSION group_concat_max_len = 1000000;");
         // });
-        
+
         DB::statement("SET SESSION group_concat_max_len = 1000000;");
 
         $optionAttr = "attributes.option_value";
         $valueAttr = "attributes.name, IFNULL(attributes.value, '')";
-            
+
         $result = Product::select([
         'products.id',
         'products.base_price',
@@ -390,22 +391,22 @@ class Product extends Model
 				OR attribute_values.language_code = '".$locale."'
 			) as attributes"), 'products.id', '=', 'attributes.item_id')
         ->leftJoin('images', 'products.id', '=', 'images.item_id');
-        
+
         if ($status !== null) {
             $result = $result->where('products.status', $status);
         }
-        
+
         $result = $result
         ->orderBy('products.created_at', $sort)
         ->groupBy('products.id')
         ->limit($limit);
-        
+
         $result = Cache::tags('collections')->remember('products:all-'.$status.'-'.$sort.'-'.$limit, 60 * 60 * 24, function () use ($result) {
             return $result->get();
         });
-        
+
         $result = constructAttributes($result);
-        
+
         $i = 0;
         foreach ($result as $product) {
             $result[$i]['stocks'] = Stock::getStockInputs($product['id']);
@@ -414,7 +415,7 @@ class Product extends Model
 
         return $result; //outputs array
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get Products with translations by collection
@@ -426,31 +427,31 @@ class Product extends Model
     | Didn't found out yet why it happens but this problem shouldn't occure anymore.
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getProductsByCollection($id, $status = null, $sort = "desc", $limit = null)
     {
         $locale = app()->getLocale();
-        
+
         //Sets the max char length of group_concat (1024 to 1000000 chars)
         // Cache::rememberForever('statements.group_concat_max_len:', function () {
         //     return DB::statement("SET SESSION group_concat_max_len = 1000000;");
         // });
 
         DB::statement("SET SESSION group_concat_max_len = 1000000;");
-        
+
         $collection = Collection::getCollection($id, $status);
         //dd($collection);
-        
+
         if (empty($collection)) {
             $result = Product::getProducts(1, $sort, $limit);
         } else {
             $optionAttr = "attributes.option_value";
             $valueAttr = "attributes.name, IFNULL(attributes.value, '')";
-            
+
             switch ($collection['type']) {
                 case 1:
                     //Manual
-                    
+
                     break;
                 case 2:
                     //Automatic
@@ -501,7 +502,7 @@ class Product extends Model
 							OR attribute_values.language_code = '".$locale."'
 						) as attributes"), 'products.id', '=', 'attributes.item_id')
                     ->leftJoin('images', 'products.id', '=', 'images.item_id');
-    
+
                     foreach ($collection['conditions'] as $condition) {
                         $string = $condition['string'];
                         //$input = "products.".$condition['input'];
@@ -509,7 +510,7 @@ class Product extends Model
 			        			IFNULL(`translations`.`text`, "")
 							FROM `translations` 
 							WHERE `translations`.`translation_id` = `products`.`name` AND `translations`.`language_code` = "'.$locale.'"');
-                        
+
                         switch ($condition['operator']) {
                             case 1:
                                 //equal
@@ -546,7 +547,7 @@ class Product extends Model
 
                                 break;
                         }
-                        
+
                         switch ($collection['match']) {
                             case 1:
                                 //AND
@@ -572,16 +573,16 @@ class Product extends Model
                                 break;
                         }
                     }
-                    
+
                     if ($status !== null) {
                         $result = $result->where('products.status', $status);
                     }
-                    
+
                     $result = $result
                     ->orderBy('products.created_at', $sort)
                     ->groupBy('products.id')
                     ->limit($limit);
-                    
+
                     $result = Cache::tags('collections')->remember('products:'.$id.'-'.$status.'-'.$sort.'-'.$limit, 60 * 60 * 24, function () use ($result) {
                         return $result->get();
                     });
@@ -597,7 +598,7 @@ class Product extends Model
             $result[$i]['stocks'] = Stock::getStockInputs($product['id']);
             $i++;
         }
-        
+
         return $result; //outputs array
     }
 
@@ -612,12 +613,12 @@ class Product extends Model
     | Didn't found out yet why it happens but this problem shouldn't occure anymore.
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getProductBySKU($sku)
     {
         //Sets the max char length of group_concat (1024 to 1000000 chars)
         DB::statement("SET SESSION group_concat_max_len = 1000000;");
-        
+
         $locale = app()->getLocale();
 
         $result = Product::select([
@@ -656,12 +657,12 @@ class Product extends Model
         ->orderBy('products.created_at')
         ->groupBy('products.id')
         ->get();
-        
+
         $result = constructAttributes($result);
-        
+
         return $result[0]->toArray(); //outputs array
     }
-    
+
     public static function getStockJson($stocks)
     {
         foreach ($stocks as $stock) {

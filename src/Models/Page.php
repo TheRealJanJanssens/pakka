@@ -14,7 +14,7 @@ use Session;
 class Page extends Model
 {
     use Notifiable;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -46,7 +46,7 @@ class Page extends Model
             'slug' => "required",
             'name' => "required",
             'template' => "required",
-            
+
         ];
 
         if ($update) {
@@ -59,11 +59,11 @@ class Page extends Model
             'template' => "required",
         ]);
     }
-    
+
     public static function getPageBySlug($slug)
     {
         $locale = app()->getLocale();
-            
+
         $result = Page::select([
         'pages.id',
         'pages.status',
@@ -76,10 +76,10 @@ class Page extends Model
             ])
         ->where('slug', $slug)
         ->get();
-        
+
         return $result;
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get page with translations
@@ -88,13 +88,13 @@ class Page extends Model
     | $mode = construct attributes for display (1) or edit (2) purpose
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getPage($id, $mode)
     {
         switch (true) {
             case $mode == 1:
                 $locale = app()->getLocale();
-            
+
              $result = Page::select([
                 'pages.id',
                 'pages.status',
@@ -119,18 +119,18 @@ class Page extends Model
                 DB::raw('(SELECT `translations`.`text` 
                     FROM `translations` 
                     WHERE `translations`.`translation_id` = `pages`.`meta_keywords` AND `translations`.`language_code` = "'.$locale.'") 
-                    AS meta_keywords')
+                    AS meta_keywords'),
                 ])
                 ->where('pages.id', $id)
                 ->orderBy('pages.position');
-                
+
                 $result = Cache::tags('content')->remember('page:'.$id.':1', 60 * 60 * 24, function () use ($result) {
                     return $result->first();
                 });
-                
+
                 break;
             case $mode == 2:
-                
+
              $queryResult = Page::select([
                 'pages.id',
                 'pages.status',
@@ -200,11 +200,11 @@ class Page extends Model
                 DB::raw('`pages`.`name` AS name_trans'),
                 DB::raw('`pages`.`meta_title` AS meta_title_trans'),
                 DB::raw('`pages`.`meta_description` AS meta_description_trans'),
-                DB::raw('`pages`.`meta_keywords` AS meta_keywords_trans')
+                DB::raw('`pages`.`meta_keywords` AS meta_keywords_trans'),
                 ])
                 ->where('pages.id', $id)
                 ->orderBy('pages.position');
-                
+
                 $queryResult = Cache::tags('content')->remember('page:'.$id.':2', 60 * 60 * 24, function () use ($queryResult) {
                     return $queryResult->get();
                 });
@@ -213,10 +213,10 @@ class Page extends Model
 
           break;
         }
-        
+
         return $result; //outputs array
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get pages with translations
@@ -224,11 +224,11 @@ class Page extends Model
     | $mode = construct attributes for display (1) or edit (2) purpose
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getPages($mode = 1, $status = null)
     {
         $locale = app()->getLocale();
-        
+
         switch ($mode) {
             case 1:
               $result = Page::select([
@@ -250,7 +250,7 @@ class Page extends Model
                     $langs = Language::all(); //Session::get('lang') session not accesable in route sessionstart happens after route
                     foreach ($langs as $lang) {
                         $locale = $lang->language_code;
-                        
+
                         $resultPages = Page::select([
                             'pages.id',
                             'pages.position',
@@ -258,13 +258,13 @@ class Page extends Model
                             DB::raw(' (SELECT `translations`.`text` FROM `translations` WHERE `translations`.`translation_id` = `pages`.`slug` AND `translations`.`language_code` = "'.$locale.'") AS slug'),
                             'pages.template',
                             DB::raw(' (SELECT `translations`.`text` FROM `translations` WHERE `translations`.`translation_id` = `pages`.`name` AND `translations`.`language_code` = "'.$locale.'") AS name'),
-                            'pages.slug AS page_uid'
+                            'pages.slug AS page_uid',
                         ]);
 
-                        if($status !== null){
+                        if ($status !== null) {
                             $resultPages->where('pages.status', $status);
                             //dd($status);
-                        }    
+                        }
 
                         $resultPages = $resultPages->orderBy('pages.position')->get();
 
@@ -279,7 +279,7 @@ class Page extends Model
 
         return $result;
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Gets all the pages in a link array
@@ -289,12 +289,12 @@ class Page extends Model
     | Outputs [slug => name ,...]
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getPagesLinks($trans = false)
     {
         $locale = app()->getLocale();
         $result = [];
-        
+
         if ($trans == true) {
             $pages = Page::select([
             DB::raw(' (SELECT `translations`.`text` FROM `translations` WHERE `translations`.`translation_id` = `pages`.`name` AND `translations`.`language_code` = "'.$locale.'") AS name'),
@@ -310,13 +310,13 @@ class Page extends Model
             ->orderBy('pages.position')
             ->get();
         }
-        
+
         if (! empty($pages)) {
             foreach ($pages as $page) {
                 $result[$page->slug] = $page->name;
             }
         }
-        
+
         return $result;
     }
 
@@ -346,7 +346,7 @@ class Page extends Model
                     }
                 }
             }
-            
+
             $result['sections'][$i]['components'] = $components;
             $i++;
         }

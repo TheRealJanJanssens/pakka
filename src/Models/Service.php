@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\DB;
 class Service extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,9 +25,9 @@ class Service extends Model
         'name',
         'description',
     ];
-    
+
     protected $casts = ['id' => 'string'];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -47,7 +47,7 @@ class Service extends Model
             'name' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get service with translations
@@ -56,13 +56,13 @@ class Service extends Model
     | $mode = construct attributes for display (1) or edit (2) purpose
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getService($id, $mode = 1)
     {
         switch (true) {
         case $mode == 1:
             $locale = app()->getLocale();
-        
+
           $result = Service::select([
                 'services.id',
                 'services.price',
@@ -78,9 +78,9 @@ class Service extends Model
           ])
                 ->where('services.id', $id)
                 ->first();
-        
+
           $result = $result;
-          
+
           break;
         case $mode == 2:
           $queryResult = Service::select([
@@ -122,22 +122,22 @@ class Service extends Model
                 ])
           ->where('services.id', $id)
           ->get();
-          
+
           $result = constructTranslatableValues($queryResult, ['name','description']);
-        
+
           break;
         }
-        
+
         $providers = ServiceAssignment::getProviders($id);
         $result['providers'] = $providers;
 
         return $result; //outputs array
     }
-    
+
     public static function getServices()
     {
         $locale = app()->getLocale();
-    
+
         $result = Service::select([
       'services.id',
       'services.price',
@@ -152,23 +152,23 @@ class Service extends Model
         AS description'),
     ])
     ->get();
-  
+
         return $result;
     }
-    
+
     public static function constructSelect()
     {
         $services = Service::getServices();
-    
+
         $result = [];
         foreach ($services as $service) {
             $result[$service->id] = $service->name;
         }
-    
+
         if (! empty($result)) {
             array_unshift($result, trans("app.select_option"));
         }
-    
+
         return $result;
     }
 }

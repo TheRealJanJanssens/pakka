@@ -28,7 +28,7 @@ class Images extends Model
         $commun = [
             'item_id' => "required",
             'file' => "required",
-            
+
         ];
 
         if ($update) {

@@ -1,7 +1,8 @@
 <?php
+
 Form::macro('myInput', function ($type = "text", $name, $label = "", $options = [], $default = null, $lang = null, $row = false, $prepend = false, $append = false) {
     $transIdInput = '';
-    
+
     if (strpos($name, '[') !== false) {
         preg_match('~=[.*?)]~', $name, $output);
         if (isset($output[1])) {
@@ -15,7 +16,7 @@ Form::macro('myInput', function ($type = "text", $name, $label = "", $options = 
         $nameArray = '';
         $nameTrans = $name;
     }
-    
+
     if (is_array($default)) {
         $defaultValue = $default[0];
         $defaultTransId = $default[1];
@@ -23,19 +24,19 @@ Form::macro('myInput', function ($type = "text", $name, $label = "", $options = 
         $defaultValue = $default;
         $defaultTransId = $default;
     }
-    
+
     if ($lang !== null) {
         $transIdInput = Form::input("hidden", "translation_id[$nameTrans]$nameArray", $defaultTransId, array_merge(["class" => "form-control"]));
         $name = "$lang:$name";
     }
-    
+
     $classGroup = "";
     $classInput = "";
     $classLabel = "";
-    
+
     if ($row !== false) {
         $classGroup = " row";
-        
+
         switch ($row) {
             case "s":
                 $classInput = " col-sm-7";
@@ -49,17 +50,17 @@ Form::macro('myInput', function ($type = "text", $name, $label = "", $options = 
                 break;
         }
     }
-    
+
     $label = ($label == '') ? '' : html_entity_decode(Form::label($name, $label, ['class' => $classLabel]));
-    
+
     if ($prepend !== false) {
         $prepend = '<div class="input-group-prepend"><span class="input-group-text input-group-addon">'.$prepend.'</span></div>';
     }
-    
+
     if ($append !== false) {
         $append = '<div class="input-group-append"><span class="input-group-text input-group-addon">'.$append.'</span></div>';
     }
-    
+
     if ($prepend !== false || $append !== false) {
         $inputGroupStart = '<div class="input-group">';
         $inputGroupEnd = '</div>';
@@ -67,7 +68,7 @@ Form::macro('myInput', function ($type = "text", $name, $label = "", $options = 
         $inputGroupStart = '';
         $inputGroupEnd = '';
     }
-    
+
     if ($type == "hidden") {
         return $label . Form::input($type, $name, $defaultValue, array_merge(["class" => "hidden"], $options)). " ".$transIdInput;
     } else {
@@ -75,7 +76,7 @@ Form::macro('myInput', function ($type = "text", $name, $label = "", $options = 
         if ($lang !== null) {
             $attr = 'data-lang="'.$lang.'"';
         }
-        
+
         return "
 	        <div class='form-group ".$classGroup."' ".$attr.">
 	            ". $label .
@@ -95,7 +96,7 @@ Form::macro('mySelect', function ($name, $label = "", $values = [], $selected = 
     $classLabel = "";
     if ($row !== false) {
         $classGroup = " row";
-        
+
         switch ($row) {
             case "xs":
                 $classInput = " col-sm-9";
@@ -114,9 +115,9 @@ Form::macro('mySelect', function ($name, $label = "", $values = [], $selected = 
                 break;
         }
     }
-    
+
     $label = ($label == '') ? '' : html_entity_decode(Form::label($name, $label, ['class' => $classLabel]));
-    
+
     if ($btn !== false) {
         return "
 	        <div class='form-group".$classGroup."'>
@@ -140,7 +141,7 @@ Form::macro('myFile', function ($name, $label = "", $options = [], $row = false)
     $classLabel = "";
     if ($row !== false) {
         $classGroup = " row";
-        
+
         switch ($row) {
             case "s":
                 $classInput = " col-sm-7";
@@ -154,7 +155,7 @@ Form::macro('myFile', function ($name, $label = "", $options = [], $row = false)
                 break;
         }
     }
-    
+
     $label = ($label == '') ? '' : html_entity_decode(Form::label($name, $label, ['class' => $classLabel]));
 
     return "
@@ -171,7 +172,7 @@ Form::macro('myTextArea', function ($name, $label = "", $options = [], $default 
     $classLabel = "";
     if ($row !== false) {
         $classGroup = " row";
-        
+
         switch ($row) {
             case "s":
                 $classInput = " col-sm-7";
@@ -185,14 +186,14 @@ Form::macro('myTextArea', function ($name, $label = "", $options = [], $default 
                 break;
         }
     }
-    
+
     $transIdInput = '';
     if ($lang !== null) {
         $transIdInput = Form::input("hidden", "translation_id[$name]", $default, array_merge(["class" => "form-control"]));
         $name = "$lang:$name";
     }
     $label = ($label == '') ? '' : html_entity_decode(Form::label($name, $label, ['class' => $classLabel]));
-    
+
     return "
         <div class='form-group".$classGroup."' data-lang='".$lang."'>
             ". $label .
@@ -205,7 +206,7 @@ Form::macro('myCheckbox', function ($name, $label = "", $value = '', $valueFalse
     if ($valueFalse !== null) {
         $valueFalse = Form::input("hidden", $name, $valueFalse, []);
     }
-    
+
     return "
         <div class='checkbox checkbox-circle checkbox-info peers ai-c ".$class."'>
             ".
@@ -224,9 +225,9 @@ Form::macro('myRadio', function ($name, $label = "", $value = '', $valueFalse = 
     if ($valueFalse !== null) {
         $valueFalse = Form::input("hidden", $name, $valueFalse, []);
     }
-    
+
     $id = $name.'-'.rand(100, 999);
-    
+
     return "
         <div class='radio radio-circle radio-info peers ai-c ".$class."'>
             ".
@@ -247,7 +248,7 @@ Form::macro('myRange', function ($name, $start, $end, $selected = '', $options =
     $classLabel = "";
     if ($row !== false) {
         $classGroup = " row";
-        
+
         switch ($row) {
             case "s":
                 $classInput = " col-sm-7";
@@ -261,7 +262,7 @@ Form::macro('myRange', function ($name, $start, $end, $selected = '', $options =
                 break;
         }
     }
-    
+
     return "
         <div class='form-group".$classGroup."'>
             " . Form::selectRange($name, $start, $end, $selected, array_merge(["class" => "form-control".$classInput], $options)). "
@@ -294,7 +295,7 @@ Form::macro('myItemsSelect', function ($name, $label = "", $values = [], $select
     $classLabel = "";
     if ($row !== false) {
         $classGroup = " row";
-        
+
         switch ($row) {
             case "s":
                 $classInput = " col-sm-7";
@@ -308,7 +309,7 @@ Form::macro('myItemsSelect', function ($name, $label = "", $values = [], $select
                 break;
         }
     }
-    
+
     $results = [];
     $emptyValue = 0;
     if ($values) {
@@ -319,14 +320,14 @@ Form::macro('myItemsSelect', function ($name, $label = "", $values = [], $select
 
                 continue;
             }
-            
+
             $id = $value['option_id'];
             $results[$id] = $value['value'];
         }
     }
-    
+
     $label = ($label == '') ? '' : html_entity_decode(Form::label($name, $label, ['class' => $classLabel]));
-    
+
     return "
         <div class='form-group".$classGroup."'>
             ". $label .
@@ -342,7 +343,7 @@ Form::macro('myColorPicker', function ($name, $label = "", $default = null, $row
     $classLabel = "";
     if ($row !== false) {
         $classGroup = " row";
-        
+
         switch ($row) {
             case "s":
                 $classInput = " col-sm-7";
@@ -356,9 +357,9 @@ Form::macro('myColorPicker', function ($name, $label = "", $default = null, $row
                 break;
         }
     }
-    
+
     $label = ($label == '') ? '' : html_entity_decode(Form::label($name, $label, ['class' => $classLabel]));
-    
+
     return "
         <div class='form-group".$classGroup."'>
             ". $label ."
@@ -371,7 +372,7 @@ Form::macro('myColorPicker', function ($name, $label = "", $default = null, $row
 
 Form::macro('myPrice', function ($name, $label = "", $options = [], $default = null) {
     $label = ($label == '') ? '' : html_entity_decode(Form::label($name, $label));
-            
+
     return "
         <div class='form-group'>
             ". $label ."

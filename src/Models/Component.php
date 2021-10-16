@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class Component extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
     public $incrementing = false;
 
@@ -39,7 +39,7 @@ class Component extends Model
     {
         $commun = [
             'page_id' => "required",
-            
+
         ];
 
         if ($update) {
@@ -50,7 +50,7 @@ class Component extends Model
             'page_id' => "required",
         ]);
     }
-    
+
     public function setAttributes()
     {
     }
@@ -67,7 +67,7 @@ class Component extends Model
     | Didn't found out yet why it happens but this problem shouldn't occure anymore.
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getContent($id, $mode)
     {
         switch ($mode) {
@@ -84,14 +84,14 @@ class Component extends Model
 
                 break;
         }
-        
+
         //Sets the max char length of group_concat (1024 to 1000000 chars)
         // Cache::remember('statements.group_concat_max_len:', 60 * 60 * 24, function () {
         //     return DB::statement("SET SESSION group_concat_max_len = 1000000;");
         // });
 
         DB::statement("SET SESSION group_concat_max_len = 1000000;");
-            
+
         $result = Component::select([
         'components.id',
         'components.page_id',
@@ -129,15 +129,15 @@ class Component extends Model
         ->orderBy('components.position')
         ->groupBy('components.id')
         ->get();
-        
+
         if (! empty($result) && isset($result)) {
             $result = constructAttributes($result, $mode);
             $result = $result[0]; //removes associate construct
         }
-        
+
         return $result; //outputs array
     }
-    
+
     public static function getSectionContent($id, $mode)
     {
         $locale = app()->getLocale();
@@ -161,12 +161,12 @@ class Component extends Model
 
                 break;
         }
-        
+
         //Sets the max char length of group_concat (1024 to 1000000 chars)
         // Cache::remember('statements.group_concat_max_len:', 60 * 60 * 24, function () {
         //     return DB::statement("SET SESSION group_concat_max_len = 1000000;");
         // });
-            
+
         DB::statement("SET SESSION group_concat_max_len = 1000000;");
 
         $result = Component::select([
@@ -203,25 +203,25 @@ class Component extends Model
         ->where('components.section_id', $id)
         ->orderBy('components.position')
         ->groupBy('components.id');
-        
+
         $result = Cache::tags('content')->remember('sectionContent:'.$id, 60 * 60 * 24, function () use ($result) {
             return $result->get();
         });
-        
+
         //error in leftjoin: the WHERE clause doesnt work properly in MARIADB (one.com) it gets all the languages bc attribute_options.language_code is not null when empty so the following change has been made.
-        
+
         //from:
         //WHERE attribute_options.language_code = '".$locale."'
         //OR attribute_values.language_code = '".$locale."'
-        
+
         //to:
         //WHERE (attribute_values.language_code IS NULL AND attribute_options.language_code = '".$locale."')
         //OR  (attribute_options.language_code IS NULL AND attribute_values.language_code = '".$locale."')
-        
+
         if (! empty($result) && isset($result)) {
             $result = constructAttributes($result, $mode);
         }
-        
+
         return $result; //outputs array
     }
 }

@@ -23,7 +23,7 @@ class ProjectController extends Controller
     {
         $this->middleware('auth');
         constructGlobVars();
-        
+
         Session::put('module_id', 0);
         Session::put('module_name', 'projects');
     }
@@ -36,25 +36,25 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        
+
         return view('pakka::admin.projects.index', compact('projects'));
     }
-    
+
     public function detail($id)
     {
         $project = Project::findOrFail($id);
         $tasks = Task::getTasks($id);
-        
+
         return view('pakka::admin.projects.detail', compact('project', 'tasks'));
     }
-    
+
     public function taskDetail($id)
     {
         $task = Task::getTask($id);
-        
+
         return view('pakka::admin.projects.taskdetail', compact('task'));
     }
-    
+
     public function storeTaskGroup(Request $request)
     {
         $post = $request->all();
@@ -63,34 +63,34 @@ class ProjectController extends Controller
 
         return $result;
     }
-    
+
     public function updateTaskGroup(Request $request)
     {
         $post = $request->all();
         $group = TaskGroup::findOrFail($post['id']);
-        
+
         foreach ($post as $key => $value) {
             $group->$key = $value;
         }
-        
+
         $group->save();
     }
-    
+
     public function orderTaskGroups(Request $request)
     {
         $post = $request->all();
         $post['data'] = json_decode($post['data'], true);
-        
+
         $query = "";
         foreach ($post['data'] as $data) {
             $query .= "UPDATE task_groups SET position = ".htmlspecialchars($data['position'])." WHERE id =".htmlspecialchars($data['id']).";";
         }
-        
+
         DB::unprepared($query);
 
         return $query;
     }
-    
+
     public function storeTask(Request $request)
     {
         $post = $request->all();
@@ -99,34 +99,34 @@ class ProjectController extends Controller
 
         return $result;
     }
-    
+
     public function updateTask(Request $request)
     {
         $post = $request->all();
         $task = Task::findOrFail($post['id']);
-        
+
         foreach ($post as $key => $value) {
             $task->$key = htmlspecialchars($value);
         }
-        
+
         $task->save();
     }
-    
+
     public function orderTask(Request $request)
     {
         $post = $request->all();
         $post['data'] = json_decode($post['data'], true);
-        
+
         $query = "";
         foreach ($post['data'] as $data) {
             $query .= "UPDATE tasks SET position = ".htmlspecialchars($data['position']).", group_id = ".htmlspecialchars($data['group_id']).", updated_at = '".date('Y-m-d H:i:s')."' WHERE id =".htmlspecialchars($data['id']).";";
         }
-        
+
         DB::unprepared($query); //execute query Unprepared.. only use this in controlpanel
 
         //return $post['data'];
     }
-    
+
     public function storeComment(Request $request)
     {
         $post = $request->all();

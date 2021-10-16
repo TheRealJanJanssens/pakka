@@ -8,9 +8,9 @@ use Illuminate\Notifications\Notifiable;
 class OrderDocument extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,7 +30,7 @@ class OrderDocument extends Model
         $commun = [
             'order_id' => "required",
             'document_id' => "required",
-            
+
         ];
 
         if ($update) {
@@ -42,7 +42,7 @@ class OrderDocument extends Model
             'document_id' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get Documents
@@ -50,7 +50,7 @@ class OrderDocument extends Model
     | $id = order id
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getDocuments($id)
     {
         $result = OrderDocument::select([
@@ -64,7 +64,7 @@ class OrderDocument extends Model
         ->leftJoin('invoices', 'order_documents.document_id', '=', 'invoices.id')
         ->where('order_documents.order_id', $id)
         ->get();
-        
+
         return $result;
     }
 }

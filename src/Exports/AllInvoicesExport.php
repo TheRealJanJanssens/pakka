@@ -3,30 +3,29 @@
 namespace TheRealJanJanssens\Pakka\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
-use TheRealJanJanssens\Pakka\Models\Invoice;
-
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+
+use TheRealJanJanssens\Pakka\Models\Invoice;
 
 class AllInvoicesExport implements FromArray, WithHeadings
 {
     public function headings(): array
     {
         return [
-            trans('pakka::app.invoice_no'), 
-            trans('pakka::app.date'), 
+            trans('pakka::app.invoice_no'),
+            trans('pakka::app.date'),
             trans('pakka::app.due_date'),
             trans('pakka::app.name'),
             trans('pakka::app.address'),
-            trans('pakka::app.city'),  
-            trans('pakka::app.zip'), 
+            trans('pakka::app.city'),
+            trans('pakka::app.zip'),
             trans('pakka::app.country'),
             trans('pakka::app.vat'),
-            trans('pakka::app.email'),  
+            trans('pakka::app.email'),
             trans('pakka::app.phone'),
             trans('pakka::app.subtotal'),
             trans('pakka::app.vat_short'),
-            trans('pakka::app.total')
+            trans('pakka::app.total'),
         ];
     }
 
@@ -34,8 +33,8 @@ class AllInvoicesExport implements FromArray, WithHeadings
     {
         $invoices = Invoice::getInvoices(1);
 
-        $i=0;
-        foreach($invoices as $invoice){
+        $i = 0;
+        foreach ($invoices as $invoice) {
             unset($invoice['id']);
             unset($invoice['status']);
             unset($invoice['type']);

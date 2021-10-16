@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class Collection extends Model
 {
     use Notifiable;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,7 +21,7 @@ class Collection extends Model
     protected $fillable = [
         'name', 'position', 'status', 'description', 'slug', 'sort_order', 'type', 'match', 'created_at', 'created_by', 'updated_at', 'updated_by',
     ];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -41,7 +41,7 @@ class Collection extends Model
             'name' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get collection with translations
@@ -50,13 +50,13 @@ class Collection extends Model
     | $mode = construct attributes for display (1) or edit (2) purpose
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getCollection($id, $status = null, $mode = 1)
     {
         switch (true) {
             case $mode == 1:
                 $locale = app()->getLocale();
-            
+
                 $result = Collection::select([
                 'collections.id',
                 'collections.sort_order',
@@ -82,20 +82,20 @@ class Collection extends Model
                 ->where('collections.id', $id);
                 //->orderBy('service.position')
                 //->get()->toArray();
-                
+
                 if ($status !== null) {
                     $result = $result->where('collections.status', $status);
                 }
-                
+
                 $result = Cache::tags('collections')->remember('collection:'.$id, 60 * 60 * 24, function () use ($result) {
                     return $result->get();
                 });
-                
+
                 $result = $result->toArray();
-                
+
                 if (! empty($result)) {
                     $result = $result[0];
-                
+
                     switch ($result['type']) {
                         case 1:
                             //manual collection
@@ -111,7 +111,7 @@ class Collection extends Model
 
                 break;
             case $mode == 2:
-                
+
                 $result = Collection::select([
                 'collections.id',
                 'collections.sort_order',
@@ -168,9 +168,9 @@ class Collection extends Model
                 ->where('collections.id', $id)
                 //->orderBy('service.position')
                 ->get()->toArray();
-                
+
                 $result = constructTranslatableValues($result, ['slug','name','description']);
-                
+
                 switch ($result['type']) {
                     case 1:
                         //manual collection
@@ -182,17 +182,17 @@ class Collection extends Model
 
                         break;
                 }
-                
+
                 break;
         }
 
         return $result; //outputs array
     }
-    
+
     public static function getCollections($status = null)
     {
         $locale = app()->getLocale();
-    
+
         $result = Collection::select([
         'collections.id',
         'collections.status',
@@ -213,23 +213,23 @@ class Collection extends Model
 				AS description'),
         ])
         ->orderBy('collections.position');
-        
+
         if ($status !== null) {
             $result = $result->where('collections.status', $status);
         }
-        
+
         $result = Cache::tags('collections')->remember('collection:all:'.$status, 60 * 60 * 24, function () use ($result) {
             return $result->get();
         });
-        
+
         return $result->toArray();
         ;
     }
-    
+
     public static function getCollectionsSelect()
     {
         $collections = Collection::getCollections();
-        
+
         if ($collections) {
             $i = 0;
             foreach ($collections as $collection) {
@@ -237,11 +237,11 @@ class Collection extends Model
                 $result[$i]['value'] = $collection['name'];
                 $i++;
             }
-            
+
             return $result;
         }
     }
-    
+
     public static function removeCollectionCache($id)
     {
         Cache::forget('collections.collection:'.$id);

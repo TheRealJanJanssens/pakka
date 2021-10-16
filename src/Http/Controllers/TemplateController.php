@@ -14,7 +14,7 @@ class TemplateController extends Controller
         $this->middleware('auth');
         constructGlobVars();
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +47,7 @@ class TemplateController extends Controller
     {
         $this->validate($request, Template::rules());
         $template = Template::store($request);
-        
+
         return redirect()->route(config('pakka.prefix.admin'). '.templates.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
@@ -91,7 +91,7 @@ class TemplateController extends Controller
         // Template::destroy($id);
         // Storage::disk('public')->delete('templates/'.$template->file);
 
-        
+
         // $template = Template::store($request);
 
         // return redirect()->route(config('pakka.prefix.admin'). '.templates.index')->withSuccess(trans('pakka::app.success_update'));

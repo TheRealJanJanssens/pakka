@@ -1,4 +1,5 @@
 <?php
+
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -21,7 +22,7 @@ class OrderController extends Controller
         $this->middleware('auth');
         constructGlobVars();
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -96,14 +97,14 @@ class OrderController extends Controller
     public function destroy($id)
     {
     }
-    
+
     public function editDetails($id)
     {
         $order = Order::getOrder($id);
-        
+
         return view('pakka::admin.orders.form_details', compact('order'));
     }
-    
+
     public function updateDetails(Request $request, $id)
     {
         $array = $request->all();
@@ -115,13 +116,13 @@ class OrderController extends Controller
             $user = User::findOrFail($userId);
             $this->validate($request, User::rules(true, $userId));
             $user->update($request->all());
-            
+
             //USER DETAILS
             $userDetails = UserDetail::where('user_id', '=', $userId)->firstOrFail();
             $request->request->add(['user_id' => $userId]);
             $this->validate($request, UserDetail::rules(true, $userId));
             $userDetails->update($request->all());
-            
+
             //INVOICE DETAILS
             $documents = OrderDocument::where('order_id', $orderDetails->order_id)->get()->toArray();
             if (! empty($documents)) {
@@ -131,7 +132,7 @@ class OrderController extends Controller
                     } else {
                         $name = $array['firstname'].' '.$array['lastname'];
                     }
-                    
+
                     InvoiceDetail::where('invoice_id', $document['document_id'])->update([
                         'client_name' => $name,
                         'client_address' => $array['address'],
@@ -145,54 +146,54 @@ class OrderController extends Controller
                 }
             }
         }
-        
+
         $orderDetails->update($array);
-        
+
         return redirect()->route(config('pakka.prefix.admin'). '.orders.show', $orderDetails->order_id)->withSuccess(trans('pakka::app.success_update'));
     }
-    
+
     public function editShipment($id)
     {
         $order = Order::getOrder($id);
-        
+
         return view('pakka::admin.orders.form_shipment', compact('order'));
     }
-    
+
     public function updateShipment(Request $request, $id)
     {
         $array = $request->all();
         $item = OrderShipment::findOrFail($id);
         $item->update($array);
-        
+
         if ($array['status'] == 1) {
             Order::resendShippingMail($item->order_id);
         }
-        
+
         return redirect()->route(config('pakka.prefix.admin'). '.orders.show', $item->order_id)->withSuccess(trans('pakka::app.success_update'));
     }
-    
+
     public function viewPackslip($id)
     {
         $order = Order::getOrder($id);
         $order = Invoice::calculateInvoice($order, true);
-        
+
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('documents.packslip', ['order' => $order])->setPaper('a4', 'portrait');
         $filename = $order['name'].'_'.trans('pakka::app.packslip');
-        
+
         return $pdf->stream($filename . '.pdf');
     }
-    
+
     public function downloadPackslip($id)
     {
         $order = Order::getOrder($id);
         $order = Invoice::calculateInvoice($order, true);
-        
+
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('documents.packslip', ['order' => $order])->setPaper('a4', 'portrait');
         $filename = $order['name'].'_'.trans('pakka::app.packslip');
-        
+
         return $pdf->download($filename . '.pdf');
     }
-    
+
     public function resendOC($id)
     {
         //Order Confirmation
@@ -200,7 +201,7 @@ class OrderController extends Controller
 
         return back()->withSuccess(trans('pakka::app.succes_send_oc'));
     }
-    
+
     public function resendSC($id)
     {
         //shipping confirmation
@@ -208,7 +209,7 @@ class OrderController extends Controller
 
         return back()->withSuccess(trans('pakka::app.succes_send_sc'));
     }
-    
+
     public function retour($id)
     {
         //retour
@@ -216,7 +217,7 @@ class OrderController extends Controller
 
         return back()->withSuccess(trans('pakka::app.status_retour'));
     }
-    
+
     public function cancel($id)
     {
         //cancel

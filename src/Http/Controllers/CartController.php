@@ -32,12 +32,12 @@ class CartController extends Controller
     {
         constructGlobVars();
     }
-    
+
     public function store(Request $request)
     {
         $post = $request->all();
         $product = Product::getProductBySKU($post['sku']);
-        
+
         if ($product) {
             //prevents already set items to pass there stock quantity
             if (\Cart::get($product['sku']) == null || \Cart::get($product['sku'])->quantity < $product['quantity']) {
@@ -54,7 +54,7 @@ class CartController extends Controller
             }
         }
     }
-    
+
     public function update(Request $request)
     {
         $post = $request->all();
@@ -66,7 +66,7 @@ class CartController extends Controller
         } else {
             $quantity = $post['value'];
         }
-        
+
         if ($product) {
             Cart::update($product['sku'], [
                 'price' => $product['price'], //makes sure live price is always present
@@ -79,7 +79,7 @@ class CartController extends Controller
             ]);
         }
     }
-    
+
     public function destroy(Request $request)
     {
         $post = $request->all();
@@ -89,12 +89,12 @@ class CartController extends Controller
             Cart::remove($product['sku']);
         }
     }
-    
+
     public function clear(Request $request)
     {
         Cart::clear();
     }
-    
+
     public function redeemCoupon(Request $request)
     {
         $coupon = Coupon::redeem($request->value);
@@ -104,7 +104,7 @@ class CartController extends Controller
             } else {
                 $discount = "-".$coupon['discount']."%";
             }
-            
+
             $condition = new \Darryldecode\Cart\CartCondition([
                 'name' => 'COUPON',
                 'type' => 'coupon',
@@ -112,7 +112,7 @@ class CartController extends Controller
                 'value' => $discount,
                 'attributes' => $coupon,
             ]);
-            
+
             Cart::condition($condition);
 
             return true;
@@ -120,21 +120,21 @@ class CartController extends Controller
             return false;
         }
     }
-    
+
     public function revokeCoupon(Request $request)
     {
         Cart::removeCartCondition("COUPON");
     }
-    
+
     public function setRegion(Request $request)
     {
         Session::put('checkout.details.country', $request->value);
     }
-    
+
     public function setDelivery(Request $request)
     {
         $shipment = ShipmentOption::getShipment($request->value);
-        
+
         $condition = new \Darryldecode\Cart\CartCondition([
             'name' => 'SHIPPING',
             'type' => 'shipping',
@@ -142,17 +142,17 @@ class CartController extends Controller
             'value' => $shipment['price'],
             'attributes' => $shipment,
         ]);
-        
+
         Cart::condition($condition);
-        
+
         Session::put('checkout.helpers.set_delivery_option', $shipment['id']);
         Session::put('checkout.helpers.preferred_delivery_method', $shipment['delivery']);
     }
-    
+
     public function setService(Request $request)
     {
         $service = CartService::getCartService($request->value);
-        
+
         $condition = new \Darryldecode\Cart\CartCondition([
             'name' => 'SERVICE '.$service['id'],
             'type' => 'service',
@@ -160,27 +160,27 @@ class CartController extends Controller
             'value' => $service['price'],
             'attributes' => $service,
         ]);
-        
+
         Cart::condition($condition);
     }
-    
+
     public function removeService(Request $request)
     {
         Cart::removeCartCondition('SERVICE '.$request->value);
     }
-    
+
     public function checkVat(Request $request)
     {
         //https://controleerbtwnummer.eu/api
         $vat_number = 'BE 0123 456 789';
         $vat_number = str_replace([' ', '.', '-', ',', ', '], '', trim($vat_number));
-        
+
         $contents = @file_get_contents('https://controleerbtwnummer.eu/api/validate/'.$vat_number.'.json');
         if ($contents === false) {
             throw new Exception('service unavailable');
         } else {
             $res = json_decode($contents);
-        
+
             if ($res->valid) {
                 //vat number is valid
             } else {
@@ -189,7 +189,7 @@ class CartController extends Controller
             var_dump($res);
         }
     }
-    
+
     public function submit(Request $request)
     {
         $array = $request->all();
@@ -198,7 +198,7 @@ class CartController extends Controller
             $password = generateString(20);
             $request->request->add(['password' => $password, 'password_confirmation' => $password]);
         }
-        
+
         //create user
         $request->request->add([
             'name' => $array['firstname'].' '.$array['lastname'],
@@ -214,16 +214,16 @@ class CartController extends Controller
         ]);
         //don't need validation because it happens in line below
         UserDetail::updateOrCreate(["user_id" => $user->id], $request->all());
-        
+
         $order = Order::prepare($request->all());
-        
+
         //check if payment isset
         if (isset($array['payment_method'])) {
             $method = $array['payment_method'];
         } else {
             $method = null;
         }
-        
+
         $payment = Mollie::api()->payments->create([
             "amount" => [
                 "currency" => "EUR",
@@ -247,20 +247,20 @@ class CartController extends Controller
             'amount' => Cart::getTotal(),
             'method' => $method,
         ]);
-        
+
         $payment = Mollie::api()->payments->get($payment->id);
-        
+
         // redirect customer to Mollie checkout page
         return redirect($payment->getCheckoutUrl(), 303);
     }
-    
+
     public function webhookMollie(Request $request)
     {
         if (! $request->has('id')) {
             return;
         }
         $payment = Mollie::api()->payments()->get($request->id);
-        
+
         switch ($payment->status) {
             case "open":
                 $status = 0;
@@ -283,18 +283,18 @@ class CartController extends Controller
 
                 break;
         }
-        
+
         if ($payment->isPaid()) {
             Order::confirm($payment->metadata->order_id);
         } else {
             Order::cancel($payment->metadata->order_id);
         }
     }
-    
+
     public function webhookTest($id)
     {
         $payment = Mollie::api()->payments()->get($id);
-        
+
         switch ($payment->status) {
             case "open":
                 $status = 0;
@@ -317,14 +317,14 @@ class CartController extends Controller
 
                 break;
         }
-        
+
         if ($payment->isPaid()) {
             Order::confirm($payment->metadata->order_id);
         } else {
             Order::cancel($payment->metadata->order_id);
         }
     }
-    
+
     public function resendmailTest($id)
     {
         Order::resendConfirmationMail($id);

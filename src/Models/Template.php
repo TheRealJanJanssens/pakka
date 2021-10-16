@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class Template extends Model
 {
     use Notifiable;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,9 +19,9 @@ class Template extends Model
         'name',
         'file',
     ];
-    
+
     protected $casts = ['id' => 'string'];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class CollectionCondition extends Model
 {
     use Notifiable;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +20,7 @@ class CollectionCondition extends Model
     protected $fillable = [
         'collection_id', 'type', 'string', 'created_at', 'created_by', 'updated_at', 'updated_by',
     ];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -40,7 +40,7 @@ class CollectionCondition extends Model
             'collection_id' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Stores Condition
@@ -49,18 +49,18 @@ class CollectionCondition extends Model
     | $array = array with all the values
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function storeCondition($id, $array)
     {
-        
+
         //deleting and inserting again is not the most efficient way to update these rows
         //updating is much better but the way the form is build is difficult to detect deleted rows without ajax request
-        
+
         //delete all data
         CollectionCondition::where('collection_id', $id)->delete();
-        
+
         foreach ($array as $item) {
-            
+
 /*
             //efficienter for db queries
             if($item['id'] == 0){
@@ -71,7 +71,7 @@ class CollectionCondition extends Model
                 $schedule = ProviderSchedule::find($item['id']);
             }
 */
-            $condition = new CollectionCondition;
+            $condition = new CollectionCondition();
             $condition->collection_id = $id;
             $condition->input = $item['input'];
             $condition->operator = $item['operator'];
@@ -79,7 +79,7 @@ class CollectionCondition extends Model
             $condition->save();
         }
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get conditions with translations
@@ -88,15 +88,15 @@ class CollectionCondition extends Model
     | $mode = construct attributes for display (1) or edit (2) purpose
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getConditions($id, $mode = 1)
     {
         $result = null;
-        
+
         switch (true) {
             case $mode == 1:
                 $locale = app()->getLocale();
-            
+
                 $result = CollectionCondition::select([
                 'collection_conditions.collection_id',
                 'collection_conditions.input',
@@ -113,16 +113,16 @@ class CollectionCondition extends Model
                 ->where('collection_conditions.collection_id', $id);
                 //->orderBy('service.position')
                 //->get()->toArray();
-                
+
                 $result = Cache::tags('collections')->remember('conditions:'.$id, 60 * 60 * 24, function () use ($result) {
                     return $result->get();
                 });
-                
+
                 $result = $result->toArray();
-                
+
                 break;
             case $mode == 2:
-                
+
                 $queryResult = CollectionCondition::select([
                 'collection_conditions.collection_id',
                 'collection_conditions.input',
@@ -155,9 +155,9 @@ class CollectionCondition extends Model
                 ])
                 ->where('collection_conditions.collection_id', $id)
                 ->get()->toArray();
-                
+
                 $result = constructTranslatableValues($queryResult, ['string'], true);
-                
+
                 break;
         }
 

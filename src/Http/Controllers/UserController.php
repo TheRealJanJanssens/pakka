@@ -13,7 +13,7 @@ class UserController extends Controller
         $this->middleware('auth');
         constructGlobVars();
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -45,9 +45,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, User::rules());
-        
+
         User::create($request->all());
-        
+
         return back()->withSuccess(trans('pakka::app.success_store'));
     }
 

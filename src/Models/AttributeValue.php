@@ -8,9 +8,9 @@ use Illuminate\Notifications\Notifiable;
 class AttributeValue extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,7 +23,7 @@ class AttributeValue extends Model
         'option_id',
         'value',
     ];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -34,7 +34,7 @@ class AttributeValue extends Model
         $commun = [
             'input_id' => "required",
             'item_id' => "required",
-            
+
         ];
 
         if ($update) {

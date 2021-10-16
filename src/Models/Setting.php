@@ -31,7 +31,7 @@ class Setting extends Model
     {
         $commun = [
             'value' => "required",
-            
+
         ];
 
         if ($update) {
@@ -42,7 +42,7 @@ class Setting extends Model
             'value' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get settings
@@ -52,13 +52,13 @@ class Setting extends Model
     |
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getSettings($locale = null, $userId = null)
     {
         // Cache::rememberForever('statements.group_concat_max_len:', function () {
         //     return DB::statement("SET SESSION group_concat_max_len = 1000000;");
         // });
-        
+
         DB::statement("SET SESSION group_concat_max_len = 1000000;");
 
         if ($userId !== null) {
@@ -104,7 +104,7 @@ class Setting extends Model
 
                 break;
         }
-        
+
         $i = 0;
         if ($queryResult) {
             foreach ($queryResult as $item) {
@@ -115,7 +115,7 @@ class Setting extends Model
                     $name = $languageCode.':'.$inputName;
                     $result[$name] = $item['value'];
                     $result["translation_id"][$inputName] = $item['translation_id'];
-                    
+
                     //set backup translation_id for editing purpose (used for translatable selects like page select)
                     $result[$inputName] = $item['translation_id'];
                 } else {
@@ -123,11 +123,11 @@ class Setting extends Model
                     $name = $item['name'];
                     $result[$name] = $item['value'];
                 }
-                
+
                 //$result["translation_id"] = array_merge($result["translation_id"],array($item['translation_id']));
                 $i++;
             }
-            
+
             return $result;
         }
     }

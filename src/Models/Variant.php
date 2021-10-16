@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\DB;
 class Variant extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,9 +20,9 @@ class Variant extends Model
     protected $fillable = [
         'id', 'product_id', 'name',
     ];
-    
+
     protected $casts = ['id' => 'string'];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -44,7 +44,7 @@ class Variant extends Model
             'name' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get Variant with its options for the given product
@@ -52,7 +52,7 @@ class Variant extends Model
     | $id = Product id
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getVariantInputs($id)
     {
         $result = Variant::select([
@@ -68,7 +68,7 @@ class Variant extends Model
         ->groupBy('variants.id')
         //->toSql();
         ->get()->toArray();
-        
+
         return $result;
     }
 }

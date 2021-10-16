@@ -8,9 +8,9 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -66,13 +66,13 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
-    
+
     public function getAvatarAttribute($value)
     {
         if (! $value) {
             return '';
         }
-    
+
         return config('pakka.avatar.public').$value;
     }
 
@@ -91,13 +91,13 @@ class User extends Authenticatable
         parent::boot();
         static::updating(function ($user) {
             $original = $user->getOriginal();
-            
+
             if (\Hash::check('', $user->password)) {
                 $user->attributes['password'] = $original['password'];
             }
         });
     }
-    
+
     public static function getUser($id)
     {
         $result = User::select([
@@ -119,10 +119,10 @@ class User extends Authenticatable
         ->leftJoin('user_details', 'users.id', '=', 'user_details.user_id')
         ->where('users.id', $id)
         ->first();
-        
+
         return $result;
     }
-    
+
     public static function getUserByEmail($email)
     {
         $result = User::select([
@@ -144,10 +144,10 @@ class User extends Authenticatable
         ->leftJoin('user_details', 'users.id', '=', 'user_details.user_id')
         ->where('users.email', $email)
         ->first();
-        
+
         return $result;
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get Users
@@ -155,7 +155,7 @@ class User extends Authenticatable
     | $role = get users by role. When you enter 0 then it retrieves all user/admin tier users (above role 5)
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getUsers($role = null)
     {
         $result = User::select([
@@ -175,7 +175,7 @@ class User extends Authenticatable
         'user_details.birthday',
         'users.bio', ])
         ->leftJoin('user_details', 'users.id', '=', 'user_details.user_id');
-        
+
         switch (true) {
             case $role !== null && $role !== 0:
                 $result = $result->where('users.role', $role);
@@ -186,16 +186,16 @@ class User extends Authenticatable
 
                 break;
         }
-        
+
         $result = $result->get();
-        
+
         return $result;
     }
-    
+
     public static function constructSelect($role = null)
     {
         $users = User::getUsers($role);
-        
+
         if ($users) {
             foreach ($users as $user) {
                 if (! empty($user['company_name'])) {
@@ -207,7 +207,7 @@ class User extends Authenticatable
         } else {
             $result = null;
         }
-        
+
         //array_unshift($result, trans("app.select_option") );
 
         return $result;

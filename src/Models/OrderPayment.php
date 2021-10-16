@@ -8,9 +8,9 @@ use Illuminate\Notifications\Notifiable;
 class OrderPayment extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,7 +30,7 @@ class OrderPayment extends Model
         $commun = [
             'order_id' => "required",
             'payment_id' => "required",
-            
+
         ];
 
         if ($update) {
@@ -42,7 +42,7 @@ class OrderPayment extends Model
             'payment_id' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get Documents
@@ -50,7 +50,7 @@ class OrderPayment extends Model
     | $id = order id
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getPayment($id)
     {
         $result = OrderPayment::select([
@@ -62,7 +62,7 @@ class OrderPayment extends Model
         'order_payments.method', ])
         ->where('order_payments.order_id', $id)
         ->get();
-        
+
         if (isset($result[0])) {
             return $result[0]->toArray();
         }

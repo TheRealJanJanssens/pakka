@@ -2,7 +2,6 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use TheRealJanJanssens\Pakka\Models\AttributeOption;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
@@ -11,7 +10,7 @@ use Session;
 class AttributeInput extends Model
 {
     use Notifiable;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,7 +40,7 @@ class AttributeInput extends Model
             'set_id' => "required",
             'name' => "required",
             'type' => "required",
-            
+
         ];
 
         if ($update) {
@@ -54,36 +53,38 @@ class AttributeInput extends Model
             'type' => "required",
         ]);
     }
-    
+
     public function getOptions()
     {
 
         // Accessing comments posted by a user
         return $this->hasMany(\App\AttributeOption::class);
     }
-    
-    public static function prepareAttributes($array){
+
+    public static function prepareAttributes($array)
+    {
         $attributeInputs = ["input_width"];
 
-        foreach($attributeInputs as $attributeInput){
-            if(isset($array[$attributeInput])){
+        foreach ($attributeInputs as $attributeInput) {
+            if (isset($array[$attributeInput])) {
                 $array['attributes'][$attributeInput] = $array[$attributeInput];
                 unset($array[$attributeInput]);
             }
         }
 
-        if(isset($array['attributes'])){
+        if (isset($array['attributes'])) {
             $array['attributes'] = json_encode($array['attributes']);
         }
 
         return $array;
     }
 
-    public function constructAttributes($array){
+    public function constructAttributes($array)
+    {
         $array['attributes'] = json_decode($array['attributes']);
-        
-        if(!empty($array['attributes'])){
-            foreach($array['attributes'] as $key => $value){
+
+        if (! empty($array['attributes'])) {
+            foreach ($array['attributes'] as $key => $value) {
                 $array[$key] = $value;
             }
         }
@@ -98,8 +99,8 @@ class AttributeInput extends Model
     | $mode = display (1), edit (2) (currently only used in editing)
     |------------------------------------------------------------------------------------
     */
-    
-    public static function getInput($id,$mode=2)
+
+    public static function getInput($id, $mode = 2)
     {
         //No seperate display mode present
         $queryResult = AttributeInput::select([
@@ -131,11 +132,11 @@ class AttributeInput extends Model
         'attribute_inputs.name',
         'attribute_inputs.type',
         'attribute_inputs.attributes',
-        'attribute_inputs.required'
+        'attribute_inputs.required',
         ])
         ->where('attribute_inputs.id', $id)
         ->orderBy('attribute_inputs.position');
-        
+
         $input = constructTranslatableValues($queryResult->get(), ['label']);
 
         if ($input["type"] == "select" || $input["type"] == "checkbox") {
@@ -150,10 +151,10 @@ class AttributeInput extends Model
             ->where('attribute_options.input_id', $input["input_id"])
             ->orderBy('attribute_options.position')
             ->get()->toArray();
-            
+
             foreach ($options as $option) {
                 $name = $option['language_code'].":option";
-                
+
                 if (! isset($input[$name])) {
                     $input[$name] = [];
                 }
@@ -162,18 +163,18 @@ class AttributeInput extends Model
         }
 
         $input = parent::constructAttributes($input);
-//dd($input);
+        //dd($input);
         return $input; //outputs array
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get Inputs
     | selects all the inputs related to the moduleId stored in session
     |------------------------------------------------------------------------------------
     */
-    
-    public static function getInputs($id=null)
+
+    public static function getInputs($id = null)
     {
         $id = isset($id) ? $id : Session::get('set_id');
 
@@ -190,16 +191,16 @@ class AttributeInput extends Model
         'attribute_inputs.name',
         'attribute_inputs.type',
         'attribute_inputs.attributes',
-        'attribute_inputs.required'
+        'attribute_inputs.required',
         ])
-        //Session set_id is converted into a string because there is a small chance that the set_id (for example 9 (int)) already "exists" as component set_id like 9DxQLZ4. 
-        //because it begins with a 9 the query doesn't distinguish them and treats them as the same. 
+        //Session set_id is converted into a string because there is a small chance that the set_id (for example 9 (int)) already "exists" as component set_id like 9DxQLZ4.
+        //because it begins with a 9 the query doesn't distinguish them and treats them as the same.
         //to prevent this session set_id needs to be converted to a string
         //a better solution (long term) would be to get rid of the menu_item IDs as int and make them like the item IDs
         ->where('attribute_inputs.set_id', (string) $id)
         ->orderBy('attribute_inputs.position')
         ->get()->toArray();
-        
+
         $i = 0;
         foreach ($queryResult as $item) {
             if ($item["type"] == "select" || $item["type"] == "checkbox") {
@@ -215,10 +216,10 @@ class AttributeInput extends Model
                 ->where('attribute_options.language_code', Session::get("locale"))
                 ->orderBy('attribute_options.position')
                 ->get()->toArray();
-                
+
                 foreach ($options as $option) {
                     $name = $option['language_code'].":option";
-                    
+
                     if (! isset($queryResult[$i][$name])) {
                         $queryResult[$i][$name] = [];
                     }
@@ -233,14 +234,14 @@ class AttributeInput extends Model
 
         return $queryResult; //outputs array
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Gets a checklist for Inputs
     | selects all the inputs (name => input_id) related to the moduleId stored in session
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getInputsChecklist()
     {
         $result = null;
@@ -251,8 +252,8 @@ class AttributeInput extends Model
         ->where('attribute_inputs.set_id', Session::get('set_id'))
         ->orderBy('attribute_inputs.position')
         ->get();
-        
-        
+
+
         foreach ($queryResult as $item) {
             $result[$item->name] = $item->input_id;
         }

@@ -7,7 +7,6 @@ use TheRealJanJanssens\Pakka\Models\Forms;
 use TheRealJanJanssens\Pakka\Models\Item;
 use TheRealJanJanssens\Pakka\Models\Language;
 use TheRealJanJanssens\Pakka\Models\Menu;
-use TheRealJanJanssens\Pakka\Models\MenuItem;
 use TheRealJanJanssens\Pakka\Models\Page;
 use TheRealJanJanssens\Pakka\Models\Section;
 use TheRealJanJanssens\Pakka\Models\Setting;
@@ -33,12 +32,12 @@ if (! function_exists('generateString')) {
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
-      
+
         for ($i = 0; $i < $n; $i++) {
             $index = rand(0, strlen($characters) - 1);
             $randomString .= $characters[$index];
         }
-      
+
         return $randomString;
     }
 }
@@ -82,26 +81,26 @@ if (! function_exists('slugify')) {
     {
         // replace non letter or digits by -
         $text = preg_replace('~[^\pL\d]+~u', '-', $str);
-    
+
         // transliterate
         $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-    
+
         // remove unwanted characters
         $text = preg_replace('~[^-\w]+~', '', $text);
-    
+
         // trim
         $text = trim($text, '-');
-    
+
         // remove duplicate -
         $text = preg_replace('~-+~', '-', $text);
-    
+
         // lowercase
         $text = strtolower($text);
-    
+
         if (empty($text)) {
             return 'n-a';
         }
-    
+
         return $text;
     }
 }
@@ -114,11 +113,11 @@ if (! function_exists('deslugify')) {
 
         // lowercase
         $text = strtolower($text);
-      
+
         if (empty($text)) {
             return 'n-a';
         }
-    
+
         return $text;
     }
 }
@@ -127,13 +126,13 @@ if (! function_exists('imgUrl')) {
     function imgUrl($id, $image, $size)
     {
         $publicUrl = config('image.public');
-        
+
         if (isset($image) || ! empty($image)) {
             $url = $publicUrl.$id."/".$size."/".$image;
         } else {
             $url = config('placeholders.image'); //placeholder
         }
-        
+
         return $url;
     }
 }
@@ -194,11 +193,12 @@ if (! function_exists('getAuthRole')) {
 if (! function_exists('getPackageInfo')) {
     function getPackageInfo($name)
     {
-        $json = json_decode(file_get_contents(base_path('vendor/composer/installed.json')),TRUE);
+        $json = json_decode(file_get_contents(base_path('vendor/composer/installed.json')), true);
         $i = array_search($name, array_column($json['packages'], 'name'));
-        if($i == false){
+        if ($i == false) {
             return null;
         }
+
         return $json['packages'][$i];
     }
 }
@@ -216,21 +216,21 @@ if (! function_exists('getBaseUrl')) {
     {
         // output: /myproject/index.php
         $currentPath = $_SERVER['PHP_SELF'];
-    
+
         // output: Array ( [dirname] => /myproject [basename] => index.php [extension] => php [filename] => index )
         $pathInfo = pathinfo($currentPath);
-    
+
         // output: localhost
         $hostName = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : "localhost";
         $serverProtocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : "http";
 
         // output: http://
-        $protocol = strtolower(substr($serverProtocol, 0, 5)) == 'https'?'https':'http';
+        $protocol = strtolower(substr($serverProtocol, 0, 5)) == 'https' ? 'https' : 'http';
         $baseUrl = $protocol.'://'.$hostName.$pathInfo['dirname']."/";
-        
+
         //filters out /public/ if in url
         $baseUrl = str_replace('/public/', '/', $baseUrl);
-        
+
         // return: http://localhost/myproject/
         return $baseUrl;
     }
@@ -289,7 +289,7 @@ if (! function_exists('constructGlobVars')) {
         //dd(Session::getId());
         if (Auth::check()) {
             $userId = auth()->user()->id;
-            
+
             if (Session::get('logged_in') == false) {
                 //refreshes session variables when logged in and register it
                 Session::forget('settings');
@@ -299,7 +299,7 @@ if (! function_exists('constructGlobVars')) {
         } else {
             Session::put('logged_in', false);
         }
-        
+
         if (! Session::has('lang')) {
             $lang = Language::get()->toArray();
             if (empty($lang)) {
@@ -309,35 +309,35 @@ if (! function_exists('constructGlobVars')) {
                     'name' => 'Nederlands',
                 ]);
             }
-            
+
             Session::put('lang', $lang);
         } else {
             $lang = Session::get('lang');
         }
-        
+
         View::share('lang', $lang);
-       
-       if (! Session::has('locale') || Session::get('locale') == null) {
+
+        if (! Session::has('locale') || Session::get('locale') == null) {
             $locale = App::getLocale();
-            
-            if(!$locale){
-              $locale = $lang[0]['language_code'];
-              App::setLocale($locale);
+
+            if (! $locale) {
+                $locale = $lang[0]['language_code'];
+                App::setLocale($locale);
             }
-            
+
             Session::put('locale', $locale);
         } else {
             $locale = Session::get('locale');
         }
-        
+
         //resets to default local when going back to the adminpanel
         //but don't do this action when store,insert,sort,edit,update,delete
         if (contains($requestUri, ['admin']) && ! contains($requestUri, ['store','insert','sort','edit','update','delete'])) {
-            $locale = env('APP_FALLBACK_LOCALE','nl');
+            $locale = env('APP_FALLBACK_LOCALE', 'nl');
 
             Session::put('locale', $locale);
             App::setLocale($locale);
-           
+
             //resets menu when going to admin panel
             if (Session::get('in_admin') == false) {
                 Session::forget('menus');
@@ -347,9 +347,9 @@ if (! function_exists('constructGlobVars')) {
         } else {
             Session::put('in_admin', false);
         }
-        
+
         //get pakka version
-        if(! Session::has('pakka_version')){
+        if (! Session::has('pakka_version')) {
             $package = getPackageInfo('therealjanjanssens/pakka');
             Session::put('pakka_version', $package['version'] ?? 'Version unknown');
         }
@@ -359,7 +359,7 @@ if (! function_exists('constructGlobVars')) {
             //View::share('adminMenu', $menus[1]);
             Session::put('menus', $menus);
         }
-       
+
         //remove settings if translation_ids are cached (it means the settings session was set on the adminpanel with no translations)
         if (Session::has('settings.translation_id')) {
             Session::forget('settings');
@@ -377,17 +377,17 @@ if (! function_exists('constructGlobVars')) {
 
                break;
        }
-       
+
         if (Session::has('settings')) {
             View::share('settings', Session::get('settings'));
         }
-       
+
         //get and set active module name
         $menus = Session::get('menus');
         $adminMenu = $menus[1];
         foreach ($adminMenu['items'] as $array) {
             constructModuleAssets($array);
-            
+
             //controls the submenu items
             if (isset($array['items'])) {
                 foreach ($array['items'] as $subArray) {
@@ -419,7 +419,7 @@ if (! function_exists('constructTransSelect')) {
 				<div class="list-group list-group-lang">
 					<?php
                     $i = 0;
-                    
+
             foreach ($lang as $langItem) {
                 if ($i == 0) {
                     $class = 'list-group-head active';
@@ -499,10 +499,10 @@ if (! function_exists('getBladeList')) {
     function getBladeList($name, $emptyVal = false)
     {
         $files = glob(resource_path()."/views/".$name."/*");
-        
+
         foreach ($files as $file) {
             //Simply print them out onto the screen.
-           
+
             $file = explode("/", $file);
 
             if (strpos(end($file), '.') !== false) {
@@ -512,11 +512,11 @@ if (! function_exists('getBladeList')) {
                 $result[$name.'.'.end($file)] = end($file);
             }
         }
-        
+
         if ($emptyVal == true) {
             array_unshift($result, ''); //puts an empty value in front for when you don't use components
         }
-        
+
         //fallback if no view templates are set
         if (! isset($result)) {
             $result = ["templates.component" => "component"];
@@ -619,14 +619,14 @@ if (! function_exists('constructInputs')) {
     {
         foreach ($inputs as $input) {
             $lang = Session::get('lang');
-            
+
             //construct label
             if ($trans == true) {
                 $label = trans("pakka::".$input['label']);
             } else {
                 $label = $input['label'];
             }
-            
+
             //construct extra hidden inputs
             $extra = "";
             switch ($mode) {
@@ -640,7 +640,7 @@ if (! function_exists('constructInputs')) {
 
                     break;
             }
-            
+
             //if options are present construct them
             if (isOptionInput($input['type'])) {
                 foreach ($input as $key => $value) {
@@ -651,7 +651,7 @@ if (! function_exists('constructInputs')) {
             } else {
                 $options = null;
             }
-            
+
             switch ($input['type']) {
                 case "text":
                     foreach ($lang as $langItem) {
@@ -807,7 +807,7 @@ if (! function_exists('listImages')) {
                 $imgJSON[$i]["url"] = imgUrl($itemId, $image, 100);
                 $i++;
             }
-            
+
             echo "<div id='dropzone__json'>".json_encode($imgJSON)."</div>";
         }
     }
@@ -828,11 +828,11 @@ if (! function_exists('slugControl')) {
         foreach ($post as $key => $item) {
             $illInputs = ["_token","_method","slug","status","input_id","input_type","translation_id","product_id"]; //illegal inputs
             $slugCheck = ["slug"];
-            
+
             if ($slug == "" && ! contains($key, $illInputs)) {
                 $slug = slugify($item);
             }
-            
+
             if (contains($key, $slugCheck) && (empty($item) || $item = "")) {
                 $post[$key] = $slug;
             }
@@ -1012,24 +1012,24 @@ function constructTranslations($array)
             $languageCode = null;
             $inputName = $key;
         }
-        
+
         $translationId = isset($array["translation_id"][$inputName]) ? $array["translation_id"][$inputName] : null;
         $inputId = isset($array["input_id"][$iI]) ? $array["input_id"][$iI] : null;
         $inputType = isset($array["input_type"][$iI]) ? $array["input_type"][$iI] : null;
-        
+
         if (substr($key, 2, 1) === ':' || isset($checklist[$inputName])) {
             $translatable = true;
         } else {
             $translatable = false;
         }
-        
+
         switch (true) {
             case ! isset($checklist[$inputName]) && $translatable == true:
                 /* TRANSLATION STATIC INPUT (INSERT) */
                 //check if value is an array. This is used in translatable static table inputs (ex. collection conditions)
                 if (is_array($value)) {
                     $vI = 0; // value array counter
-                    
+
                     foreach ($value as $item) {
                         //remove duplicate translation_ids and rekey so its the same format like the loop through the inputs
                         $xI = 0;
@@ -1043,18 +1043,18 @@ function constructTranslations($array)
                             }
                         }
                         $translationId = array_values($temp);
-                        
+
                         $itemTranslationId = constructTransId($translationId[$vI]);
-                        
+
                         //If multiple languages this prevents multiple translation ids for one input key (nl:title,en:title,fr:title -> key = title)
                         if (! isset($result[$inputName][$vI])) {
                             $result[$inputName][$vI] = $itemTranslationId; //stores trans_id per key
                         } else {
                             $itemTranslationId = $result[$inputName][$vI];
                         }
-                        
+
                         $debug['translations'][$iT] = ['mode' => 'static', 'translation_id' => htmlspecialchars($itemTranslationId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName), 'text' => htmlspecialchars(addslashes($item)), '$iV' => $vI];
-                        
+
                         Translation::updateOrCreate(['translation_id' => htmlspecialchars($itemTranslationId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName)], ['text' => htmlspecialchars(addslashes($item))]);
                         $vI++;
                         $iT++;
@@ -1067,9 +1067,9 @@ function constructTranslations($array)
                     } else {
                         $translationId = $result[$inputName];
                     }
-                    
+
                     $debug['translations'][$iT] = ['mode' => 'static', 'translation_id' => htmlspecialchars($translationId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName), 'text' => htmlspecialchars(addslashes($value))];
-                    
+
                     Translation::updateOrCreate(['translation_id' => htmlspecialchars($translationId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName)], ['text' => htmlspecialchars(addslashes($value))]);
                     $iT++;
                 }
@@ -1092,9 +1092,9 @@ function constructTranslations($array)
 
                         break;
                 }
-                
+
                 $debug['translations'][$iT] = ['mode' => 'custom', 'input_id' => htmlspecialchars($inputId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName), 'value' => htmlspecialchars(addslashes($value))];
-                
+
                 $iT++;
                 $iI++;
 
@@ -1107,7 +1107,7 @@ function constructTranslations($array)
                 break;
         }
     }
-    
+
     $debug["start_array"] = $array;
     $debug["end_array"] = $result;
 
@@ -1129,7 +1129,7 @@ if (! function_exists('constructTranslatableValues')) {
     function constructTranslatableValues($array, $inputs, $ascon = false)
     {
         $i = 0;
-        
+
         foreach ($array as $item) {
             if (isset($item['language_code'])) {
                 $languageCodes = explode("(~)", $item['language_code']);
@@ -1148,31 +1148,34 @@ if (! function_exists('constructTranslatableValues')) {
                             $result[$i][$languageCode.':'.$key] = $options[$iI];
                             $iI++;
                         }
-                        
+
                         unset($array[$i][$key.'_trans']);
                         unset($array[$i][$key]);
+
                         break;
                     case in_array($key, $inputs):
                         //Translatable Value with no translations present so use available value and set as with default language
                         //(Happens mainly when editing inputs and their labels)
                         $result[$i][Session::get('lang.0.language_code').':'.$key] = $value;
                         unset($array[$i][$key.'_trans']);
+
                         break;
                     default:
                         // Regular Value
                         $result[$i][$key] = $value;
+
                         break;
                 }
             }
             $i++;
         }
-        
+
         if (isset($result)) {
             //removes associate construct if it is a single result
             if (count($result) == 1 && $ascon == false) {
                 $result = $result[0];
             }
-            
+
             return $result;
         } else {
             return null;
@@ -1228,11 +1231,11 @@ if (! function_exists('constructAttributes')) {
                 $images = explode("(~)", $item['images']);
             }
             $items[$i]->setAttribute("images", $images);
-            
+
             if (isset($item->attributes)) {
                 $attributes = explode("(~)", $item['attributes']);
                 unset($items[$i]["attributes"]);
-                
+
                 switch ($mode) {
                     case 1:
                         //CONSTRUCT ATTRIBUTES
@@ -1243,7 +1246,7 @@ if (! function_exists('constructAttributes')) {
                                 if (isset($attribute[1])) {
                                     $key = $attribute[0];
                                     $val = $attribute[1];
-                                
+
                                     $items[$i]->setAttribute($key, $val);
 
                                     $getAttr = [];
@@ -1253,7 +1256,7 @@ if (! function_exists('constructAttributes')) {
 
                                     $items[$i]->setAttribute("attributes", array_merge($getAttr, [$key => $val])); //gets used in product sections
                                 }
-                                
+
                                 $iA++;
                             }
                         }
@@ -1263,30 +1266,30 @@ if (! function_exists('constructAttributes')) {
                         //CONSTRUCT SLUG
                         if (isset($item['slug']) && ! empty($item['slug']) && isset($items[$i]['translation_id_slug'])) {
                             $langs = Session::get('lang');
-                            
+
                             $slugs = explode("(~)", $item['slug']);
                             $iS = 0;
-                            
+
                             foreach ($langs as $lang) {
-                                
+
                                 //SAFETY INCASE OF NEW LANGUAGES
                                 if (! isset($slugs[$iS])) {
                                     $slugs[$iS] = null;
                                 }
-                                
+
                                 $items[$i][$lang["language_code"].":slug:translation_id"] = $items[$i]['translation_id_slug'];
                                 $items[$i][$lang["language_code"].":slug"] = $slugs[$iS];
                                 $iS++;
                             }
                             unset($items[$i]['translation_id_slug']);
                         }
-                        
+
                         //CONSTRUCT ATTRIBUTES
                         if (! empty($attributes[0])) {
                             $iA = 0; // general attribute int
                             foreach ($attributes as $attribute) {
                                 $attribute = explode("(:)", $attribute);
-                                
+
                                 //Revision: isset($attribute[2]) on 1281 and !empty($key) 1291
                                 //These exists because a currently unknown bug where attributes sometime exist without a key or a language code
 
@@ -1295,17 +1298,17 @@ if (! function_exists('constructAttributes')) {
                                     unset($attribute[0]);
                                     $attribute = array_values($attribute);
                                 }
-                                
+
                                 //if attribute[2] exists it's a translatable attribute
                                 $key = (isset($attribute[2])) ? $attribute[0].':'.$attribute[1] : $attribute[0];
                                 $val = (isset($attribute[2])) ? $attribute[2] : $attribute[1];
 
                                 //if value isset or key doesn't exists (to prevent duplicate empty attributes overwriting the true values)
-                                if(!empty($key) && (!empty($val) || !isset($items[$i][$key])) ){
+                                if (! empty($key) && (! empty($val) || ! isset($items[$i][$key]))) {
                                     $items[$i][$key] = $val;
                                 }
                             }
-                            
+
                             unset($items[$i]["attributes"]);
                         }
 
@@ -1346,7 +1349,7 @@ function constructVariants($id, $array)
         VariantOption::where('product_id', $id)->delete();
         VariantValue::where('product_id', $id)->delete();
     }
-    
+
     //Step 1: Create Stock record
     //if(isset($array['stocks'])){
     //Variant stock record
@@ -1359,12 +1362,12 @@ function constructVariants($id, $array)
                 'quantity' => $array['stocks']['quantity'][$iS],
                 'weight' => $array['stocks']['weight'][$iS],
             ]);
-            
+
         $stockArray[$iS] = $stockResult->id;
         $iS++;
     }
     //}
-    
+
     //Step 2: Create Variant
     foreach ($variant_values as $variant_value) {
         if ($variant_value) {
@@ -1381,11 +1384,11 @@ function constructVariants($id, $array)
                     'name' => $variant_value,
                 ]);
             }
-            
+
             //temporarly stores variant in array
             $variantArray[$iV]['id'] = $variantResult->id;
             $variantArray[$iV]['name'] = $variant_value;
-            
+
             //Step 3: Create Variant Option
             $variantOptionIds = explode(',', $option_ids[$iV]);
             $variantOptionValues = explode(',', $option_values[$iV]);
@@ -1410,15 +1413,15 @@ function constructVariants($id, $array)
                     }
                     //temporarly stores variant option in array
                     $variantArray[$iV]['options'][$value] = $variantOptResult->id;
-                    
+
                     $iVO++;
                 }
             }
-            
+
             $iV++;
         }
     }
-    
+
     //Step 4: Create Variant Values
     $iS = 0;
     if (count($array['stocks']['sku']) > 1) { //indication of variants being made
@@ -1445,9 +1448,9 @@ function constructVariants($id, $array)
                         'stock_id' => $stockArray[$iS],
                     ]);
                 }
-                
-                
-                
+
+
+
                 $iO++;
             }
             $iS++;
@@ -1484,7 +1487,7 @@ if (! function_exists('getOrderFinancialStatus')) {
 
                 break;
         }
-            
+
         echo "<span class='badge badge-pill ".$class." ml-2'>".$icon.$text."</span>";
     }
 }
@@ -1566,11 +1569,11 @@ if (! function_exists('constructPageStructure')) {
         if (isJson($array)) {
             $langs = Session::get('lang');
             $array = json_decode($array, true);
-            
+
             if (empty($page_id)) {
                 dd("no page id set");
             }
-            
+
             $iS = 1;
             foreach ($array['sections'] as $section) {
                 $sectionResult = Section::create([
@@ -1584,7 +1587,7 @@ if (! function_exists('constructPageStructure')) {
                     'extras' => $section['extras'] ?? null,
                     'position' => $iS,
                 ]);
-                
+
                 if (isset($section['components'])) {
                     $iC = 1;
                     foreach ($section['components'] as $component) {
@@ -1596,11 +1599,11 @@ if (! function_exists('constructPageStructure')) {
                             'slug' => $component['slug'],
                             'name' => $component['name'],
                         ]);
-                        
+
                         $iI = 1;
                         foreach ($component['inputs'] as $input) {
                             $types = ["select","checkbox","radio"]; //illegal inputs
-                            
+
                             if (contains($input['type'], $types) && isset($input['options'])) {
                                 //inputs with options
                             } else {
@@ -1625,7 +1628,7 @@ if (! function_exists('constructPageStructure')) {
                             }
                             $iI++;
                         }
-                        
+
                         $iC++;
                     }
                 }
@@ -1650,7 +1653,7 @@ if (! function_exists('constructPage')) {
     {
         $page = Page::getPage($id, 1);
         $settings = session('settings');
-        
+
         //get general site settings or page settings
         $site_title = $page['meta_title'] ? $page['meta_title'] : $settings['site_title'];
         $site_description = $page['meta_description'] ? $page['meta_description'] : $settings['site_description'];
@@ -1664,7 +1667,7 @@ if (! function_exists('constructPage')) {
         $result['meta']['settings'] = $settings;
         $result['meta']['slug'] = $page['slug'];
         $result['meta']['url'] = URL::to('/');
-        
+
         //get an item if one is requested
         if (! empty($param)) {
             $item = Item::getItem($param);
@@ -1672,7 +1675,7 @@ if (! function_exists('constructPage')) {
                 $result['item'] = $item;
             }
         }
-        
+
         //gives extra meta data for editing purposes
         if (isset(auth()->user()->role)) {
             //Construct all defined menus
@@ -1683,21 +1686,21 @@ if (! function_exists('constructPage')) {
                     $menusResult[$menuId] = $menu['name'];
                 }
             }
-            
+
             $result['meta']['menus'] = json_encode($menusResult);
-            
+
             $result['meta']['forms'] = json_encode(Forms::getFormsLinks());
 
             //Construct all defined pages
             $result['meta']['pages'] = json_encode(Page::getPagesLinks());
-            
+
             //Constructs json of all items defined
             $items = $menus[1];
 
             foreach ($items['items'] as $item) {
                 if ($item['link'] == "items") {
                     $itemsResult[$item['id']] = $item['name'];
-                    
+
                     //sub items
                     if (isset($item['items'])) {
                         foreach ($item['items'] as $subItem) {
@@ -1708,10 +1711,10 @@ if (! function_exists('constructPage')) {
                     }
                 }
             }
-            
+
             if (! empty($itemsResult)) {
                 $result['meta']['items'] = json_encode($itemsResult);
-                
+
                 //Construct array with all item variables
                 $iV = 0;
                 foreach ($itemsResult as $key => $item) {
@@ -1729,10 +1732,10 @@ if (! function_exists('constructPage')) {
                 }
             }
         }
-        
+
         $css = [];
         $js = [];
-        
+
         $status = ($mode != 2 ? 1 : null);
 
         $sectionsHeader = Section::getSectionsByType(1, null, $status)->toArray();
@@ -1746,18 +1749,18 @@ if (! function_exists('constructPage')) {
                 array_unshift($sections, $section);
             }
         }
-        
+
         if (! empty($sectionsFooter)) {
             foreach ($sectionsFooter as $section) {
                 array_push($sections, $section);
             }
         }
-        
+
         $i = 0;
         foreach ($sections as $section) {
             //Construct Metadata
             $sectionMeta = getCompMeta($section['section'], "assets");
-            
+
             if (! empty($sectionMeta)) {
                 $css = array_merge($css, $sectionMeta["css"]);
                 $js = array_merge($js, $sectionMeta["js"]);
@@ -1766,23 +1769,23 @@ if (! function_exists('constructPage')) {
             if (! isset($sectionMeta["editable"])) {
                 $sectionMeta["editable"] = [];
             }
-            
+
             $result['sections'][$i] = $section;
             $result['sections'][$i]['editable'] = json_encode(array_merge(config('pakka.base_section_editables'), $sectionMeta["editable"]));
-            
+
             //construct classes and attributes
             $result['sections'][$i]['classes'] = unserialize($section['classes']);
             $result['sections'][$i]['attributes'] = unserialize($section['attributes']);
             $result['sections'][$i]['extras'] = unserialize($section['extras']);
-            
+
             //Construct Content
             $component = Component::getSectionContent($section["id"], 1);
             $result['sections'][$i]['component'] = $component;
-            
+
             $iC = 0;
             foreach ($result['sections'][$i]['component'] as $content) {
                 $key = $content['slug'];
-                
+
                 /*
                                 if(!empty($content['attributes'])){
                                     $values = array_filter($content['attributes']);
@@ -1790,7 +1793,7 @@ if (! function_exists('constructPage')) {
                                     $values = array("");
                                 }
                 */
-                
+
                 /*
                                 if(!empty($content['images'])){
                                     $values['images'] = $content['images'];
@@ -1799,14 +1802,14 @@ if (! function_exists('constructPage')) {
                                 }
                                 $values['id'] = $content['id'];
                 */
-                
+
                 $result['sections'][$i][$key] = $content;
                 $iC++;
             }
-            
+
             $i++;
         }
-        
+
         if (strpos($page['template'], 'component') !== false) {
             //Component resources
             if ($mode == 2) {
@@ -1825,7 +1828,7 @@ if (! function_exists('constructPage')) {
                 "vendor/js/components/scripts.js", ]);
             }
         }
-        
+
         //Standard editor resources
         if ($mode == 2) {
             $css = array_merge([
@@ -1844,21 +1847,21 @@ if (! function_exists('constructPage')) {
             "vendor/js/dropzone.js",
             "vendor/js/components/builder.js", ], $js);
         }
-        
+
         //Custom script resources (set in settings)
-        if(!empty($settings['script_css'])){
+        if (! empty($settings['script_css'])) {
             $customCSS = explode(',', $settings['script_css']);
             $css = array_merge($css, $customCSS);
         }
 
-        if(!empty($settings['script_js'])){
+        if (! empty($settings['script_js'])) {
             $customJS = explode(',', $settings['script_js']);
             $js = array_merge($js, $customJS);
         }
 
         $result['meta']["css"] = array_unique($css);
         $result['meta']["js"] = array_unique($js);
-                
+
         /*
                 if (strpos($page['template'], 'component') !== false) {
                     //Component template
@@ -1869,7 +1872,7 @@ if (! function_exists('constructPage')) {
 
                 }
         */
-        
+
         return $result;
     }
 }
@@ -1961,9 +1964,9 @@ if (! function_exists('parseEditSecAttr')) {
     {
         if ($mode == 2) {
             echo "data-id='". $array['id'] ."' data-status='". $array['status'] ."' data-position='". $array['position'] ."' data-section='". $array['section'] ."' data-editable='". $array['editable'] ."' ";
-            
-            if($array['extras']){
-                foreach($array['extras'] as $key => $value){
+
+            if ($array['extras']) {
+                foreach ($array['extras'] as $key => $value) {
                     echo "data-".$key."='".$value."' ";
                 }
             }
@@ -1995,7 +1998,7 @@ if (! function_exists('getSection')) {
         if ($mode == 2) {
             dd($page);
         }
-        
+
         if (isset($page['sections'][$id])) {
             return $page['sections'][$id];
         }
@@ -2010,6 +2013,7 @@ if (! function_exists('getSectionView')) {
             //Get File if exists on app level
             case file_exists(resource_path($resource)):
                 return 'sections.'.$name.'.section';
+
                 break;
             //Catch Placeholder sections
             case substr($name, 0, 1) == "_":
@@ -2017,6 +2021,7 @@ if (! function_exists('getSectionView')) {
             case file_exists(base_path('vendor/therealjanjanssens/pakka/resources/'.$resource)):
             case file_exists(base_path('package/resources/'.$resource)):
                 return 'pakka::sections.'.$name.'.section';
+
                 break;
         }
     }
@@ -2025,11 +2030,12 @@ if (! function_exists('getSectionView')) {
 if (! function_exists('getTemplate')) {
     function getTemplate($name)
     {
-        $resource = 'views/templates/'.str_replace('templates.','',$name).'.blade.php';
+        $resource = 'views/templates/'.str_replace('templates.', '', $name).'.blade.php';
         switch (true) {
             //Get File if exists on app level
             case file_exists(resource_path($resource)):
                 return $name;
+
                 break;
             //Catch Placeholder sections
             case substr($name, 0, 1) == "_":
@@ -2037,6 +2043,7 @@ if (! function_exists('getTemplate')) {
             case file_exists(base_path('vendor/therealjanjanssens/pakka/resources/'.$resource)):
             case file_exists(base_path('package/resources/'.$resource)):
                 return 'pakka::'.$name;
+
                 break;
         }
     }
@@ -2050,6 +2057,7 @@ if (! function_exists('getLayout')) {
             //Get File if exists on app level
             case file_exists(resource_path($resource)):
                 return 'layouts.'.$name;
+
                 break;
             //Catch Placeholder sections
             case substr($name, 0, 1) == "_":
@@ -2057,6 +2065,7 @@ if (! function_exists('getLayout')) {
             case file_exists(base_path('vendor/therealjanjanssens/pakka/resources/'.$resource)):
             case file_exists(base_path('package/resources/'.$resource)):
                 return 'pakka::layouts.'.$name;
+
                 break;
         }
     }
@@ -2075,7 +2084,7 @@ if (! function_exists('getLayout')) {
 if (! function_exists('checkContent')) {
     function checkContent($array, $key)
     {
-        if ((isset($array[$key]) && $array[$key] !== "#" && !empty($array[$key])) || checkEditAcces()) {
+        if ((isset($array[$key]) && $array[$key] !== "#" && ! empty($array[$key])) || checkEditAcces()) {
             return true;
         } else {
             return false;
@@ -2092,19 +2101,19 @@ if (! function_exists('parseContent')) {
         if (empty($array[$key]) || ! isset($array[$key])) {
             if (! isset(auth()->user()->role)) {
                 //reverts to the default locale value when website is displayed to fill in the website for the user
-                //Doubles the total of queries (? possibly a better solution ?)     
+                //Doubles the total of queries (? possibly a better solution ?)
                 //detects item content and sets the right id to edit in live editor
                 if (isset($array['module_id'])) {
                     $input = AttributeInput::where("name", $key)->where('set_id', $array['module_id'])->get()->toArray();
                 } else {
                     $input = AttributeInput::where("name", $key)->where('set_id', $array['id'])->get()->toArray();
                 }
-                
+
                 if (! empty($input)) {
                     $value = AttributeValue::where("item_id", $array["id"])->where('input_id', $input[0]['input_id'])->get()->toArray();
                     $value = $value[0]['value'] ?? "";
                 }
-                
+
                 //commented this out because it is possibly not needed check this
                 // else {
                 //     $value = trans("pakka::app.insert_here");
@@ -2119,7 +2128,7 @@ if (! function_exists('parseContent')) {
             //Parses values already in the record (title, slug, meta, images)
             $value = $array[$key];
         }
-        
+
         if (! isset(auth()->user()->role) || $editable !== true) {
             echo nl2br(htmlspecialchars_decode($value));
         } else {
@@ -2134,7 +2143,8 @@ if (! function_exists('parseContent')) {
 }
 
 if (! function_exists('bladeCompile')) {
-    function bladeCompile($value, array $args = array()){
+    function bladeCompile($value, array $args = [])
+    {
         $generated = \Blade::compileString($value);
 
         ob_start() and extract($args, EXTR_SKIP);
@@ -2142,17 +2152,17 @@ if (! function_exists('bladeCompile')) {
         // We'll include the view contents for parsing within a catcher
         // so we can avoid any WSOD errors. If an exception occurs we
         // will throw it out to the exception handler.
-        try
-        {
+        try {
             eval('?>'.$generated);
         }
 
         // If we caught an exception, we'll silently flush the output
         // buffer so that no partially rendered views get thrown out
         // to the client and confuse the user with junk.
-        catch (\Exception $e)
-        {
-            ob_get_clean(); throw $e;
+        catch (\Exception $e) {
+            ob_get_clean();
+
+            throw $e;
         }
 
         $content = ob_get_clean();
@@ -2181,17 +2191,17 @@ if (! function_exists('parseImage')) {
     {
         //$user = auth()->user()->role;
         $locale = Session::get('locale');
-        
+
         $url = imgUrl($array['id'], $file, $size);
         $id = $array['id'];
-        
+
         if ($lazyLoad == true) {
             $lazyLoad = "src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
          data-";
         } else {
             $lazyLoad = "";
         }
-        
+
         if (! isset(auth()->user()->role)) {
             echo $lazyLoad."src='".$url."'";
         } else {
@@ -2256,16 +2266,16 @@ if (! function_exists('constructGoogleFontLink')) {
             if ($settings['body_font'] == $font['option_id'] && $font['gfont'] == true) {
                 $fonts .= $font['slug'].'|';
             }
-            
+
             //last condition prevents duplicates in the fonts variable
             if ($settings['heading_font'] == $font['option_id'] && $font['gfont'] == true && strpos($fonts, $font['slug']) == false) {
                 $fonts .= $font['slug'].'|';
             }
         }
-        
+
         $fonts = substr($fonts, 0, -1);
         $link = '<link href="https://fonts.googleapis.com/css?family='.$fonts.'&display=swap" rel="stylesheet">';
-        
+
         return $link;
     }
 }
@@ -2283,18 +2293,18 @@ if (! function_exists('constructStyleVar')) {
     {
         $settings = session('settings');
         $fontList = config('_fonts');
-        
+
         foreach ($fontList as $font) {
             if ($settings['body_font'] == $font['option_id']) {
                 $body_font = $font['value'];
             }
-            
+
             //last condition prevents duplicates in the fonts variable
             if ($settings['heading_font'] == $font['option_id']) {
                 $heading_font = $font['value'];
             }
         }
-        
+
         return "<style>
 					:root {
 						--primary-color: ".$settings['primary_color'].";
@@ -2328,7 +2338,7 @@ if (! function_exists('constructTrackers')) {
                     if (isset($settings['track_gtm_head'])) {
                         echo $settings['track_gtm_head'];
                     }
-                    
+
                     if (isset($settings['track_fbpxl'])) {
                         echo $settings['track_fbpxl'];
                     }
@@ -2351,11 +2361,11 @@ if (! function_exists('constructDividers')) {
         if (isset($array['classes'])) {
             $sClasses = $array['classes'];
         }
-        
+
         if (isset($array['extras'])) {
             $extras = $array['extras'];
         }
-        
+
         if (isset($extras['divider_shape_top'])) {
             $orientation = isset($extras['divider_shape_top']) ? "divider-top" : "";
             $shape = isset($extras['divider_shape_top']) ? $extras['divider_shape_top'] : "";
@@ -2363,7 +2373,7 @@ if (! function_exists('constructDividers')) {
             $classes = "$orientation $classes";
             echo view('pakka::partials.dividers.'.$shape, ['classes' => $classes]);
         }
-        
+
         if (isset($extras['divider_shape_bottom'])) {
             $orientation = isset($extras['divider_shape_bottom']) ? "divider-bottom" : "";
             $shape = isset($extras['divider_shape_bottom']) ? $extras['divider_shape_bottom'] : "";
@@ -2387,39 +2397,39 @@ if (! function_exists('constructSocialMediaLinks')) {
     {
         $settings = session('settings');
         $links = [];
-        
+
         if (! empty($settings['social_facebook'])) {
             array_push($links, ['icon' => 'fa fa-facebook', 'email_icon' => 'facebook-icon_24x24.png', 'name' => 'Facebook', 'link' => $settings['social_facebook']]);
         }
-        
+
         if (! empty($settings['social_instagram'])) {
             array_push($links, ['icon' => 'fa fa-instagram', 'email_icon' => 'instagram-icon_24x24.png', 'name' => 'Instagram', 'link' => $settings['social_instagram']]);
         }
-        
+
         if (! empty($settings['social_twitter'])) {
             array_push($links, ['icon' => 'fa fa-twitter', 'email_icon' => 'twitter-icon_24x24.png', 'name' => 'Twitter', 'link' => $settings['social_twitter']]);
         }
-        
+
         if (! empty($settings['social_youtube'])) {
             array_push($links, ['icon' => 'fa fa-youtube', 'email_icon' => 'youtube-icon_24x24.png', 'name' => 'Youtube', 'link' => $settings['social_youtube']]);
         }
-        
+
         if (! empty($settings['social_linkedin'])) {
             array_push($links, ['icon' => 'fa fa-linkedin', 'email_icon' => 'linkedin-icon_24x24.png', 'name' => 'Linkedin', 'link' => $settings['social_linkedin']]);
         }
-        
+
         if (! empty($settings['social_behance'])) {
             array_push($links, ['icon' => 'fa fa-behance', 'email_icon' => null, 'name' => 'Behance', 'link' => $settings['social_behance']]);
         }
-        
+
         if (! empty($settings['social_pinterest'])) {
             array_push($links, ['icon' => 'fa fa-pinterest-p', 'email_icon' => 'pintrest-icon_24x24.png', 'name' => 'Pinterest', 'link' => $settings['social_pinterest']]);
         }
-        
+
         if (! empty($settings['social_tumblr'])) {
             array_push($links, ['icon' => 'fa fa-tumblr', 'email_icon' => null, 'name' => 'Tumblr', 'link' => $settings['social_tumblr']]);
         }
-        
+
         return $links;
     }
 }
@@ -2505,7 +2515,7 @@ if (! function_exists('getIGInfo')) {
     {
         $settings = session('settings');
         $account = $settings['social_instagram'];
-        
+
         if (! empty($account)) {
             $profileUrl = $settings['social_instagram']."?__a=1";
             $response = Cache::tags('collections')->remember('instagram_feed', 60 * 60 * 24 * 7, function () use ($profileUrl) {
@@ -2515,7 +2525,7 @@ if (! function_exists('getIGInfo')) {
             if (! empty($response)) {
                 //$response = file_get_contents($profileUrl);
                 $data = json_decode($response, true);
-                
+
                 if ($data) {
                     $media = $data['graphql']['user']['edge_owner_to_timeline_media']['edges'];
                     if (is_array($media)) {
@@ -2685,7 +2695,7 @@ if (! function_exists('formatNumber')) {
         } else {
             $number = number_format(floatval($number), 2, ',', ' ');
         }
-        
+
         return $number;
     }
 }
@@ -2697,14 +2707,14 @@ if (! function_exists('getExclAmount')) {
             $settings = session('settings');
             $vat = $settings['shop_general_vat'];
         }
-        
+
         $vatMultiplier = floatval($vat) + 100;
-        
+
         //het bedrag inclusief BTW/121 x 21
         if ($vat !== 0) {
             $amount = $amount - (floatval($amount) / $vatMultiplier * floatval($vat));
         }
-        
+
         //Usage of 3 decimals for accurate calculations when amount gets rounded
         return number_format($amount, 3);
     }
@@ -2717,14 +2727,14 @@ if (! function_exists('getInclAmount')) {
             $settings = session('settings');
             $vat = $settings['shop_general_vat'];
         }
-        
+
         $vatMultiplier = (floatval($vat) + 100) / 100;
-        
+
         //het bedrag inclusief BTW/121 x 21
         if ($vat !== 0) {
             $amount = $vatMultiplier * floatval($amount);
         }
-        
+
         //Usage of 3 decimals for accurate calculations when amount gets rounded
         return number_format($amount, 3);
     }
@@ -2734,7 +2744,7 @@ if (! function_exists('shopStatus')) {
     function shopStatus()
     {
         $settings = session('settings');
-        
+
         if ($settings['shop_status'] == 1) {
             return true;
         } else {
@@ -2789,12 +2799,13 @@ if (! function_exists('move_file')) {
 
         // Create the Image
         $image = Image::make($file->getRealPath());
-        
+
         if ($width == null && $height == null) { // Just move the file
             Storage::disk('public')->put($destinationPath . '/' . $full_name, (string) $image->encode());
+
             return $full_name;
         }
-        
+
         if ($width == null || $height == null) {
             $image->resize($width, $height, function ($constraint) {
                 $constraint->aspectRatio();

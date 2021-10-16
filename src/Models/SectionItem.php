@@ -30,7 +30,7 @@ class SectionItem extends Model
     {
         $commun = [
             'section' => "required",
-            
+
         ];
 
         if ($update) {
@@ -41,7 +41,7 @@ class SectionItem extends Model
             'section' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get sections by type
@@ -49,7 +49,7 @@ class SectionItem extends Model
     | $type
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getSectionItemsByType($type)
     {
         $result = SectionItem::select([
@@ -61,7 +61,7 @@ class SectionItem extends Model
         ->where('section_items.type', $type)
         ->orderBy('name')
         ->get();
-        
+
         return $result;
     }
 }

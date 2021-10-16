@@ -27,7 +27,7 @@ class Project extends Model
     {
         $commun = [
             'name' => "required",
-            
+
         ];
 
         if ($update) {

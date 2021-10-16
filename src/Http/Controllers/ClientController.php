@@ -14,7 +14,7 @@ class ClientController extends Controller
         $this->middleware('auth');
         constructGlobVars();
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -47,16 +47,16 @@ class ClientController extends Controller
     {
         $username = $request->firstname." ".$request->lastname;
         $request->request->add(['name' => $username, 'role' => 1]);
-        
+
         //create user
         $this->validate($request, User::rules());
         $user = User::create($request->all());
-    
+
         //creating user details
         $request->request->add(['user_id' => $user->id]);
         $this->validate($request, UserDetail::rules());
         UserDetail::create($request->all());
-    
+
         return back()->withSuccess(trans('pakka::app.success_store'));
     }
 
@@ -95,16 +95,16 @@ class ClientController extends Controller
     {
         $username = $request->firstname." ".$request->lastname;
         $request->request->add(['name' => $username, 'user_id' => $id]);
-        
+
         //update user
         $this->validate($request, User::rules(true, $id));
         $user = User::findOrFail($id);
         $user->update($request->all());
-        
+
         //update user details
         $this->validate($request, UserDetail::rules(true, $id));
         $userDetail = UserDetail::updateOrCreate(['user_id' => $id], $request->all());
-        
+
         return redirect()->route(config('pakka.prefix.admin'). '.clients.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
@@ -118,10 +118,10 @@ class ClientController extends Controller
     {
         User::destroy($id);
         UserDetail::where('user_id', $id)->delete();
-    
+
         return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
-    
+
     public function getInfo($id)
     {
         $user = User::getUser($id);

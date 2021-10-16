@@ -8,9 +8,9 @@ use Illuminate\Notifications\Notifiable;
 class ShipmentCondition extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,7 +19,7 @@ class ShipmentCondition extends Model
     protected $fillable = [
         'shipment_option_id', 'operator', 'value', 'type',
     ];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -39,7 +39,7 @@ class ShipmentCondition extends Model
             'shipment_option_id' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Stores Condition
@@ -48,18 +48,18 @@ class ShipmentCondition extends Model
     | $array = array with all the values
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function storeCondition($id, $array)
     {
-        
+
         //deleting and inserting again is not the most efficient way to update these rows
         //updating is much better but the way the form is build is difficult to detect deleted rows without ajax request
-        
+
         //delete all data
         ShipmentCondition::where('shipment_option_id', $id)->delete();
-        
+
         foreach ($array as $item) {
-            $condition = new ShipmentCondition;
+            $condition = new ShipmentCondition();
             $condition->shipment_option_id = $id;
             $condition->operator = $item['operator'];
             $condition->type = $item['type'];
@@ -67,7 +67,7 @@ class ShipmentCondition extends Model
             $condition->save();
         }
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get conditions with translations
@@ -76,7 +76,7 @@ class ShipmentCondition extends Model
     | $mode = construct attributes for display (1) or edit (2) purpose
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getConditions($id)
     {
         $result = ShipmentCondition::select([
@@ -87,7 +87,7 @@ class ShipmentCondition extends Model
         ])
         ->where('shipment_conditions.shipment_option_id', $id)
         ->get()->toArray();
-        
+
         return $result; //outputs array
     }
 }

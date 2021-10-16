@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\DB;
 class ProviderSchedule extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,9 +29,9 @@ class ProviderSchedule extends Model
         'start_at',
         'end_at',
     ];
-    
+
     protected $casts = ['id' => 'string'];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -53,16 +53,16 @@ class ProviderSchedule extends Model
             'end_at' => "required",
         ]);
     }
-    
+
     public static function storeSchedule($id, $array)
     {
-        
+
         //deleting and inserting again is not the most efficient way to update these rows
         //updating is much better but the way the form is build is difficult to detect deleted rows without ajax request
-        
+
         //delete all data
         ProviderSchedule::where('provider_id', $id)->delete();
-        
+
         foreach ($array as $item) {
             //if all days are 0 skip loop iteration
             if ($item['mon'] == 0
@@ -74,7 +74,7 @@ class ProviderSchedule extends Model
                 && $item['sun'] == 0) {
                 continue;
             }
-            
+
             /*
                         //efficienter for db queries
                         if($item['id'] == 0){
@@ -85,7 +85,7 @@ class ProviderSchedule extends Model
                             $schedule = ProviderSchedule::find($item['id']);
                         }
             */
-            $schedule = new ProviderSchedule;
+            $schedule = new ProviderSchedule();
             $schedule->provider_id = $id;
             $schedule->mon = $item['mon'];
             $schedule->tue = $item['tue'];
@@ -99,7 +99,7 @@ class ProviderSchedule extends Model
             $schedule->save();
         }
     }
-    
+
     public static function getSchedule($id)
     {
         $result = ProviderSchedule::select([
@@ -115,15 +115,15 @@ class ProviderSchedule extends Model
         'provider_schedules.end_at', ])
         ->where('provider_schedules.provider_id', $id)
         ->get();
-        
+
         return $result;
     }
-    
+
     public static function getSchedules()
     {
         return "";
     }
-    
+
     public static function getTimeSlots()
     {
         return "";

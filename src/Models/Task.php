@@ -33,7 +33,7 @@ class Task extends Model
         $commun = [
             'group_id' => "required",
             'project_id' => "required",
-            
+
         ];
 
         if ($update) {
@@ -45,7 +45,7 @@ class Task extends Model
             'project_id' => "required",
         ]);
     }
-    
+
     public static function getTask($id)
     {
         $task = Task::select([
@@ -68,15 +68,15 @@ class Task extends Model
         ->orderBy('tasks.status')
         ->orderBy('tasks.position')
         ->get()->toArray();
-        
+
         $comments = TaskComment::getComments($id);
-        
+
         $result = $task[0];
         $result['comments'] = $comments;
-        
+
         return $result;
     }
-    
+
     public static function getTasks($id)
     {
         $taskGroups = TaskGroup::select([
@@ -89,7 +89,7 @@ class Task extends Model
         ->where('task_groups.project_id', $id)
         ->orderBy('task_groups.position')
         ->get()->toArray();
-        
+
         $tasks = Task::select([
         'tasks.id',
         'tasks.group_id',
@@ -105,14 +105,14 @@ class Task extends Model
         ->orderBy('tasks.status')
         ->orderBy('tasks.position')
         ->get()->toArray();
-        
+
         $result = [];
         if ($taskGroups) {
             foreach ($taskGroups as $taskGroup) {
                 $groupId = $taskGroup['id'];
                 $result[$groupId] = $taskGroup;
             }
-            
+
             $i = 0;
             foreach ($tasks as $task) {
                 $groupId = $task['group_id'];
@@ -121,7 +121,7 @@ class Task extends Model
                 $i++;
             }
         }
-        
+
         return $result;
     }
 }

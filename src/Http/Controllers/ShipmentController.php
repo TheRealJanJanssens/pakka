@@ -16,7 +16,7 @@ class ShipmentController extends Controller
         $this->middleware('auth');
         constructGlobVars();
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -57,7 +57,7 @@ class ShipmentController extends Controller
             }
             ShipmentCondition::storeCondition($shipment['id'], $conditions);
         }
-        
+
         return redirect()->route(config('pakka.prefix.admin'). '.shipments.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
@@ -81,7 +81,7 @@ class ShipmentController extends Controller
     public function edit($id)
     {
         $shipment = ShipmentOption::getShipment($id, 2);
-        
+
         return view('pakka::admin.shipments.edit', compact('shipment'));
     }
 
@@ -95,20 +95,20 @@ class ShipmentController extends Controller
     public function update(Request $request, $id)
     {
         //$this->validate($request, ShipmentOption::rules(true, $id));
-        
+
         $result = constructTranslations($request->all());
-        
+
         $shipment = ShipmentOption::findOrFail($id);
         $shipment->update($result);
-        
+
         if (isset($result['value']) && is_array($result['value'])) {
             for ($i = 0; $i < count($result['value']); $i++) {
                 $conditions[$i] = ["operator" => $result['operator'][$i], "value" => $result['value'][$i], "type" => $result['type'][$i]];
             }
             ShipmentCondition::storeCondition($shipment['id'], $conditions);
         }
-        
-        
+
+
         return redirect()->route(config('pakka.prefix.admin'). '.shipments.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
@@ -121,18 +121,18 @@ class ShipmentController extends Controller
     public function destroy($id)
     {
         $items = ShipmentOption::where('id', $id)->get()->toArray();
-        
+
         foreach ($items as $item) {
             $transName = $item['name'];
             $transDescription = $item['description'];
-            
+
             Translation::where('translation_id', $transName)->delete();
             Translation::where('translation_id', $transDescription)->delete();
         }
-        
+
         ShipmentOption::destroy($id);
         ShipmentCondition::where('shipment_option_id', $id)->delete();
-        
+
         return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
 }

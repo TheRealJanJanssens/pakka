@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 class TaskComment extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,7 +32,7 @@ class TaskComment extends Model
         $commun = [
             'task_id' => "required",
             'user_id' => "required",
-            
+
         ];
 
         if ($update) {
@@ -44,7 +44,7 @@ class TaskComment extends Model
             'user_id' => "required",
         ]);
     }
-    
+
     public static function getComments($id)
     {
         $result = TaskComment::select([
@@ -59,7 +59,7 @@ class TaskComment extends Model
         ->where('task_comments.task_id', $id)
         ->orderBy('task_comments.id', 'desc')
         ->get()->toArray();
-        
+
         return $result;
     }
 }

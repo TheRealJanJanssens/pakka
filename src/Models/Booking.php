@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\DB;
 class Booking extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,9 +29,9 @@ class Booking extends Model
         'price',
         'description',
     ];
-    
+
     protected $casts = ['id' => 'string'];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -51,7 +51,7 @@ class Booking extends Model
             'title' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Convert dates to right format
@@ -59,7 +59,7 @@ class Booking extends Model
     | $mode = 1: insert to db, 2: show in datepicker
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function convertDates($array, $mode = 1)
     {
         switch ($mode) {
@@ -67,7 +67,7 @@ class Booking extends Model
                 if (isset($array['start_at'])) {
                     $array['start_at'] = Carbon::parse($array['start_at'])->format('Y-m-d H:i:s');
                 }
-                
+
                 if (isset($array['end_at'])) {
                     $array['end_at'] = Carbon::parse($array['end_at'])->format('Y-m-d H:i:s');
                 }
@@ -77,19 +77,19 @@ class Booking extends Model
                 if (isset($array['start_at'])) {
                     $array['start_at'] = Carbon::parse($array['start_at'])->format('d-m-Y H:i');
                 }
-                
+
                 if (isset($array['end_at'])) {
                     $array['end_at'] = Carbon::parse($array['end_at'])->format('d-m-Y H:i');
                 }
 
                 break;
         }
-        
-        
-        
+
+
+
         return $array;
     }
-    
+
     public static function getBooking($id)
     {
         $result = Booking::select([
@@ -104,19 +104,19 @@ class Booking extends Model
             'bookings.description', ])
             ->where('bookings.id', '=', $id)
             ->first();
-        
+
         $result = $result;
         $result = Booking::convertDates($result, 2);
 
         return $result;
     }
-    
+
     public static function getBookings($date = null)
     {
         if ($date == null) {
             $date = Carbon::today()->subDays(30);
         }
-        
+
         $bookings = Booking::select([
         'bookings.id',
         'bookings.service_id',
@@ -129,7 +129,7 @@ class Booking extends Model
         'bookings.description', ])
         ->whereDate('bookings.start_at', '>=', $date)
         ->get();
-        
+
         if (count($bookings) > 0) {
             $i = 0;
             foreach ($bookings as $booking) {
@@ -138,7 +138,7 @@ class Booking extends Model
                 $result[$i]['start'] = $booking['start_at'];
                 $result[$i]['end'] = $booking['end_at'];
                 $result[$i]['desc'] = $booking['description'];
-                
+
                 if (! isset($booking['end_at'])) {
                     $result[$i]['allDay'] = true;
                 } else {
@@ -151,15 +151,15 @@ class Booking extends Model
         } else {
             $result = $bookings;
         }
-        
+
         return $result;
     }
-    
+
     public static function getUpcomingBookings($limit = 5)
     {
         $date = Carbon::now();
         $result = [];
-        
+
         $bookings = Booking::select([
         'bookings.id',
         'bookings.service_id',
@@ -174,7 +174,7 @@ class Booking extends Model
         ->orderBy('bookings.start_at', 'asc')
         ->limit($limit)
         ->get();
-        
+
         if ($bookings) {
             $i = 0;
             foreach ($bookings as $booking) {
@@ -182,7 +182,7 @@ class Booking extends Model
                 $i++;
             }
         }
-        
+
         return $result;
     }
 }

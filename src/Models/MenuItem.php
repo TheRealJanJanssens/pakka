@@ -29,7 +29,7 @@ class MenuItem extends Model
     {
         $commun = [
             'link' => "required",
-            
+
         ];
 
         if ($update) {
@@ -40,7 +40,7 @@ class MenuItem extends Model
             'link' => 'required',
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get menu item with translations (mainly for editing)
@@ -49,7 +49,7 @@ class MenuItem extends Model
     | $permission = permission lvl (0,5,10)
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getMenuItem($id, $locale = null)
     {
         if (! empty($locale) && isset($locale)) {
@@ -105,21 +105,21 @@ class MenuItem extends Model
             ->where('menu_items.id', $id)
             ->get();
         }
-        
+
         $result = constructTranslatableValues($queryResult, ['name']);
 
         return $result; //outputs array
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get menu item with translations by Link
     | $link = menu id
     |------------------------------------------------------------------------------------
     */
-    
+
     //Niet meer nodig?
-    
+
     /*
         public static function getMenuItemByLink($link)
         {
@@ -151,7 +151,7 @@ class MenuItem extends Model
             return $result; //outputs array
         }
     */
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get menu items with translations
@@ -159,11 +159,11 @@ class MenuItem extends Model
     | $permission = permission lvl (0,5,10)
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getMenuItems($id, $permission = 0)
     {
         $locale = app()->getLocale();
-        
+
         if ($id == 1) {
             //QUERY FOR ADMIN PANEL MENU
             $result = MenuItem::select([
@@ -199,7 +199,7 @@ class MenuItem extends Model
             ->orderBy('menu_items.position')
             ->get();
         }
-        
+
         //remove the slashes from the menu item name
         $i = 0;
         foreach ($result as $item) {

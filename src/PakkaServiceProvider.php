@@ -56,7 +56,7 @@ class PakkaServiceProvider extends PackageServiceProvider
 
             //Auth
             //__DIR__.'/../src/Http/Controllers/Auth' => app_path('Http/Controllers/Auth'),
-            
+
             // Storage Assets
             __DIR__.'/../storage/analytics' => storage_path('app/analytics'),
             __DIR__.'/../storage/fonts' => storage_path('fonts'),
@@ -71,7 +71,7 @@ class PakkaServiceProvider extends PackageServiceProvider
         // $this->publishes([
         //     // Composer.json for pakka dev
         //     __DIR__.'/../resources/dev/composer.json' =>  public_path('../composer.json'),
-            
+
         //     // Webpack Mix
         //     __DIR__.'/../resources/dev/webpack.mix.js' => public_path('../webpack.mix.js'),
 
@@ -81,7 +81,7 @@ class PakkaServiceProvider extends PackageServiceProvider
 
         // ], 'pakka-dev');
     }
-    
+
     public function configurePackage(Package $package): void
     {
         /*

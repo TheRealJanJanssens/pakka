@@ -8,9 +8,9 @@ use Illuminate\Notifications\Notifiable;
 class VariantOption extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,9 +19,9 @@ class VariantOption extends Model
     protected $fillable = [
         'id', 'variant_id', 'product_id', 'name',
     ];
-    
+
     protected $casts = ['id' => 'string'];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations

@@ -8,9 +8,9 @@ use Illuminate\Notifications\Notifiable;
 class OrderShipment extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,7 +29,7 @@ class OrderShipment extends Model
     {
         $commun = [
             'order_id' => "required",
-            
+
         ];
 
         if ($update) {

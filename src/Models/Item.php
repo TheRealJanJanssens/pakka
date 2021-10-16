@@ -20,9 +20,9 @@ class Item extends Model
     protected $fillable = [
         'id','module_id','slug','status','created_at','created_by','updated_at','updated_by',
     ];
-    
+
     protected $casts = ['id' => 'string'];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -33,7 +33,7 @@ class Item extends Model
         $commun = [
             'id' => "required",
             'module_id' => "required",
-            
+
         ];
 
         if ($update) {
@@ -45,7 +45,7 @@ class Item extends Model
             'module_id' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Construct the attributes (and images) of items
@@ -54,7 +54,7 @@ class Item extends Model
     | $mode = construct attributes for display (1) or edit (2) purpose
     |------------------------------------------------------------------------------------
     */
-    
+
     /*
         public static function constructAttributes($items,$mode = 1){
 
@@ -155,7 +155,7 @@ class Item extends Model
             return $items;
         }
     */
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get item with translations
@@ -168,12 +168,12 @@ class Item extends Model
     | Didn't found out yet why it happens but this problem shouldn't occure anymore.
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getItem($id, $mode = 1)
     {
         //Sets the max char length of group_concat (1024 to 1000000 chars)
         DB::statement("SET SESSION group_concat_max_len = 1000000;");
-        
+
         switch ($mode) {
             case 1:
                 //Display mode
@@ -208,7 +208,7 @@ class Item extends Model
 
                 break;
         }
-            
+
         $result = Item::select([
         'items.id',
         'items.module_id',
@@ -248,18 +248,18 @@ class Item extends Model
         ->groupBy('items.id')
         //->toSql();
         ->get(); //->toArray()
-        
+
         $result = constructAttributes($result, $mode);
-        
+
         //dd($result);
-        
+
         if (isset($result[0])) {
             $result = $result[0]; //removes associate construct
         }
-        
+
         return $result; //outputs array
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get items with translations
@@ -271,17 +271,17 @@ class Item extends Model
     | Didn't found out yet why it happens but this problem shouldn't occure anymore.
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getItems($moduleId, $status = null, $sort = "desc", $limit = null)
     {
         $locale = app()->getLocale();
-        
+
         //Sets the max char length of group_concat (1024 to 1000000 chars)
         DB::statement("SET SESSION group_concat_max_len = 1000000;");
-        
+
         $optionAttr = "attributes.option_value";
         $valueAttr = "attributes.name, IFNULL(attributes.value, '')";
-            
+
         $result = Item::select([
         'items.id',
         'items.module_id',
@@ -319,11 +319,11 @@ class Item extends Model
 			) as attributes"), 'items.id', '=', 'attributes.item_id')
         ->leftJoin('images', 'items.id', '=', 'images.item_id')
         ->where('items.module_id', $moduleId);
-        
+
         if ($status !== null) {
             $result = $result->where('items.status', $status);
         }
-        
+
         $result = $result
         ->orderBy('items.created_at', $sort)
         ->groupBy('items.id')
@@ -331,9 +331,9 @@ class Item extends Model
         ->get();
         //dd($result);
         $result = constructAttributes($result);
-        
+
         //dd($result);
-        
+
         return $result; //outputs array
     }
 }

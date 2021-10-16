@@ -15,13 +15,13 @@ class SettingController extends Controller
         $this->middleware('auth');
         constructGlobVars();
     }
-    
+
     public function index()
     {
         $userId = auth()->user()->id;
         $settings = config('settings');
         $locale = App::getLocale();
-        
+
         $values = Setting::getSettings(false, $userId);
         if (isset($values)) {
             //If value is not set it takes the default value set in config
@@ -29,7 +29,7 @@ class SettingController extends Controller
                 foreach ($group["inputs"] as $setting) {
                     foreach ($values as $key => $value) {
                         if (stripos($setting['name'], $key) !== false) {
-                            if (!isset($value) && isset($setting['default']) && !empty($setting['default'])) {
+                            if (! isset($value) && isset($setting['default']) && ! empty($setting['default'])) {
                                 $values[$key] = $setting['default'];
                             }
                         }
@@ -37,9 +37,10 @@ class SettingController extends Controller
                 }
             }
         }
+
         return view('pakka::admin.settings.index', compact('settings', 'values'));
     }
-    
+
     public function updateSettings(Request $request)
     {
         $settings = config('settings');
@@ -51,7 +52,7 @@ class SettingController extends Controller
                     if ($key == $setting['name']) {
                         $fileInputs = ['app_logo','app_cover','app_dashboard_cover'];
                         $transInputs = ['site_title','site_description','site_keywords'];
-                        
+
                         switch (true) {
                             case contains($key, $fileInputs):
                                 //handles files
@@ -77,7 +78,7 @@ class SettingController extends Controller
                 }
             }
         }
-        
+
         Session::forget('settings');
 
         return redirect()->route(config('pakka.prefix.admin'). '.settings.index')->withSuccess(trans('pakka::app.success_store'));

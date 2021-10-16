@@ -29,7 +29,7 @@ class Language extends Model
     {
         $commun = [
             'name' => "required",
-            
+
         ];
 
         if ($update) {
@@ -40,17 +40,17 @@ class Language extends Model
             'name' => 'required',
         ]);
     }
-    
+
     public static function getLangCodes()
     {
         $langs = Language::select(['languages.language_code'])->get()->toArray();
-            
+
         $i = 0;
         foreach ($langs as $lang) {
             $result[$i] = $lang['language_code'];
             $i++;
         }
-        
+
         return $result;
     }
 }

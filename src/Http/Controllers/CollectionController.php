@@ -19,7 +19,7 @@ class CollectionController extends Controller
         $this->middleware('auth');
         constructGlobVars();
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -61,9 +61,9 @@ class CollectionController extends Controller
             }
             CollectionCondition::storeCondition($collection['id'], $conditions);
         }
-        
+
         Cache::tags('collections')->flush();
-        
+
         return redirect()->route(config('pakka.prefix.admin'). '.collections.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
@@ -87,9 +87,9 @@ class CollectionController extends Controller
     public function edit($id)
     {
         $collection = Collection::getCollection($id, 2);
-        
+
         Cache::tags('collections')->flush();
-        
+
         return view('pakka::admin.collections.edit', compact('collection'));
     }
 
@@ -105,12 +105,12 @@ class CollectionController extends Controller
         //$this->validate($request, Collection::rules(true, $id));
 
         $array = $request->all();
-        
+
         $result = constructTranslations($request->all());
-        
+
         $collection = Collection::findOrFail($id);
         $collection->update($result);
-        
+
         CollectionCondition::where('collection_id', $id)->delete();
         if (isset($result['string']) && is_array($result['string'])) {
             for ($i = 0; $i < count($result['string']); $i++) {
@@ -118,9 +118,9 @@ class CollectionController extends Controller
             }
             CollectionCondition::storeCondition($collection['id'], $conditions);
         }
-        
+
         Cache::tags('collections')->flush();
-        
+
         return redirect()->route(config('pakka.prefix.admin'). '.collections.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
@@ -133,24 +133,24 @@ class CollectionController extends Controller
     public function destroy($id)
     {
         $items = Collection::where('id', $id)->get()->toArray();
-        
+
         foreach ($items as $item) {
             $transName = $item['name'];
             $transSlug = $item['slug'];
             $transDescription = $item['description'];
-            
+
             Translation::where('translation_id', $transName)->delete();
             Translation::where('translation_id', $transSlug)->delete();
             Translation::where('translation_id', $transDescription)->delete();
         }
-        
+
         Collection::destroy($id);
         CollectionCondition::where('collection_id', $id)->delete();
         CollectionSet::where('collection_id', $id)->delete();
-        
+
         return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
-    
+
     public function sort(Request $request)
     {
         if ($request->isMethod('post')) {

@@ -17,7 +17,7 @@ class Forms extends Model
      * @var array
      */
     protected $fillable = [
-        'set_id','name','type'
+        'set_id','name','type',
     ];
 
     /*
@@ -29,7 +29,7 @@ class Forms extends Model
     {
         $commun = [
             'set_id' => "required",
-            
+
         ];
 
         if ($update) {
@@ -41,11 +41,12 @@ class Forms extends Model
         ]);
     }
 
-    public static function getFormsLinks(){
+    public static function getFormsLinks()
+    {
         $result = [];
         $forms = Forms::select([
             'forms.set_id',
-            'forms.name'
+            'forms.name',
         ])
         ->get();
 
@@ -54,7 +55,7 @@ class Forms extends Model
                 $result[$form->set_id] = $form->name;
             }
         }
-        
+
         return $result;
     }
 }

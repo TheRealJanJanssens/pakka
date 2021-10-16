@@ -8,9 +8,9 @@ use Illuminate\Notifications\Notifiable;
 class TaskGroup extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,7 +30,7 @@ class TaskGroup extends Model
         $commun = [
             'project_id' => "required",
             'name' => "required",
-            
+
         ];
 
         if ($update) {

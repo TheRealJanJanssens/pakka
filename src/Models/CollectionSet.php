@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\DB;
 class CollectionSet extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +20,7 @@ class CollectionSet extends Model
     protected $fillable = [
         'collection_id', 'product_id',
     ];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -42,7 +42,7 @@ class CollectionSet extends Model
             'product_id' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get service with translations
@@ -51,7 +51,7 @@ class CollectionSet extends Model
     | $mode = construct attributes for display (1) or edit (2) purpose
     |------------------------------------------------------------------------------------
     */
-    
+
 /*
     public static function getService($id,$mode = 1){
 

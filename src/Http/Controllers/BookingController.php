@@ -15,7 +15,7 @@ class BookingController extends Controller
         $this->middleware('auth');
         constructGlobVars();
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -73,7 +73,7 @@ class BookingController extends Controller
     public function edit($id)
     {
         $booking = Booking::getBooking($id);
-        
+
         return view('pakka::admin.bookings.edit', compact('booking'));
     }
 
@@ -91,7 +91,7 @@ class BookingController extends Controller
 
         $inputs = Booking::convertDates($request->all());
         $booking->update($inputs);
-      
+
         //return redirect()->route(config('pakka.prefix.admin'). '.bookings.index')->withSuccess(trans('pakka::app.success_update'));
     }
 
@@ -105,10 +105,11 @@ class BookingController extends Controller
     {
         Booking::destroy($id);
     }
-    
+
     public function getJson()
     {
         $result = Booking::getBookings();
+
         return response()->json($result);
     }
 }

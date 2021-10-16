@@ -13,7 +13,7 @@ class CouponController extends Controller
         $this->middleware('auth');
         constructGlobVars();
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +47,7 @@ class CouponController extends Controller
         $this->validate($request, Coupon::rules());
         $inputs = Coupon::convertDates($request->all());
         $coupon = Coupon::create($inputs);
-        
+
         return redirect()->route(config('pakka.prefix.admin'). '.coupons.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
@@ -71,7 +71,7 @@ class CouponController extends Controller
     public function edit($id)
     {
         $coupon = Coupon::getCoupon($id);
-        
+
         return view('pakka::admin.coupons.edit', compact('coupon'));
     }
 
@@ -85,7 +85,7 @@ class CouponController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, Coupon::rules(true, $id));
-        
+
         $inputs = Coupon::convertDates($request->all());
         $coupon = Coupon::findOrFail($id);
         $coupon->update($inputs);
@@ -102,10 +102,10 @@ class CouponController extends Controller
     public function destroy($id)
     {
         $coupon = Coupon::where('id', $id)->get()->toArray();
-        
+
         Coupon::destroy($id);
         //couponschedule::where('Service_id',$id)->delete();
-        
+
         return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
 }

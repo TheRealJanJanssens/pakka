@@ -14,7 +14,7 @@ class ProvidersController extends Controller
         $this->middleware('auth');
         constructGlobVars();
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -46,14 +46,14 @@ class ProvidersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, Provider::rules());
-      
+
         $array = $request->all();
 
         $provider = Provider::create($array);
         if (isset($array['schedule'])) {
             ProviderSchedule::storeSchedule($provider['id'], $array['schedule']);
         }
-    
+
         return redirect()->route(config('pakka.prefix.admin'). '.providers.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
@@ -92,7 +92,7 @@ class ProvidersController extends Controller
     {
         $this->validate($request, Provider::rules(true, $id));
         $array = $request->all();
-    
+
         $provider = Provider::findOrFail($id);
         $provider->update($request->all());
 
@@ -113,7 +113,7 @@ class ProvidersController extends Controller
     {
         Provider::destroy($id);
         ProviderSchedule::where('provider_id', $id)->delete();
-        
+
         return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
 }

@@ -15,7 +15,7 @@ class ServicesController extends Controller
         $this->middleware('auth');
         constructGlobVars();
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -54,7 +54,7 @@ class ServicesController extends Controller
         if (isset($array['providers'])) {
             ServiceAssignment::storeAssignments($service->id, $array['providers']);
         }
-    
+
         return redirect()->route(config('pakka.prefix.admin'). '.services.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
@@ -92,14 +92,14 @@ class ServicesController extends Controller
     public function update(Request $request, $id)
     {
         //$this->validate($request, Service::rules(true, $id));
-        
+
         $array = $request->all();
         $service = Service::findOrFail($id);
 
         //converts lang inputs
         $result = constructTranslations($request->all());
         $service->update($request->all());
-        
+
         if (isset($array['providers'])) {
             ServiceAssignment::storeAssignments($id, $array['providers']);
         }
@@ -116,18 +116,18 @@ class ServicesController extends Controller
     public function destroy($id)
     {
         $items = Service::where('id', $id)->get();
-        
+
         foreach ($items as $item) {
             $transName = $item->name;
             $transDescription = $item->description;
-        
+
             Translation::where('translation_id', $transName)->delete();
             Translation::where('translation_id', $transDescription)->delete();
         }
-        
+
         Service::destroy($id);
         //ServiceSchedule::where('Service_id',$id)->delete();
-        
+
         return back()->withSuccess(trans('pakka::app.success_destroy'));
     }
 }

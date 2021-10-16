@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 class Provider extends Model
 {
     use Notifiable;
-  
+
     public $timestamps = false;
 
     /**
@@ -23,9 +23,9 @@ class Provider extends Model
       'user_id',
       'capacity',
   ];
-    
+
     protected $casts = ['id' => 'string'];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -45,7 +45,7 @@ class Provider extends Model
       'name' => "required",
     ]);
     }
-    
+
     public static function getProvider($id)
     {
         $provider = Provider::findOrFail($id);
@@ -53,14 +53,14 @@ class Provider extends Model
 
         return $provider;
     }
-    
+
     public static function getProviders()
     {
         $result = Provider::orderBy('id')->get();
 
         return $result;
     }
-    
+
     public static function constructSelect()
     {
         $providers = Provider::orderBy('id')->get();
@@ -72,7 +72,7 @@ class Provider extends Model
         if (! empty($result)) {
             array_unshift($result, trans("app.select_option"));
         }
-    
+
         return $result;
     }
 }

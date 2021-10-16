@@ -4,11 +4,10 @@ namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use TheRealJanJanssens\Pakka\Models\Forms;
 use TheRealJanJanssens\Pakka\Models\AttributeInput;
 use TheRealJanJanssens\Pakka\Models\AttributeOption;
 use TheRealJanJanssens\Pakka\Models\AttributeValue;
-
+use TheRealJanJanssens\Pakka\Models\Forms;
 
 class FormController extends Controller
 {
@@ -49,11 +48,11 @@ class FormController extends Controller
     public function store(Request $request)
     {
         $request->request->add(['set_id' => generateString(10)]);
-        
+
         //create Form
         $this->validate($request, Forms::rules());
         Forms::create($request->all());
-    
+
         return redirect()->route(config('pakka.prefix.admin'). '.forms.index')->withSuccess(trans('pakka::app.success_store'));
     }
 
@@ -77,6 +76,7 @@ class FormController extends Controller
     public function edit($id)
     {
         $item = Forms::findOrFail($id);
+
         return view('pakka::admin.forms.edit', compact('item'));
     }
 
@@ -88,12 +88,12 @@ class FormController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
+    {
         //update Form
         //$this->validate($request, Forms::rules());
         $form = Forms::findOrFail($id);
         $form->update($request->all());
-        
+
         return redirect()->route(config('pakka.prefix.admin'). '.forms.index')->withSuccess(trans('pakka::app.success_update'));
     }
 

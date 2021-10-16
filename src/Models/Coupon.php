@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class Coupon extends Model
 {
     use Notifiable;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,9 +22,9 @@ class Coupon extends Model
     protected $fillable = [
         'collection_id', 'name', 'status', 'code', 'discount', 'type', 'is_fixed', 'expiry_date',
     ];
-    
+
     protected $casts = ['id' => 'string'];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -52,7 +52,7 @@ class Coupon extends Model
             'is_fixed' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Convert dates to right format
@@ -60,7 +60,7 @@ class Coupon extends Model
     | $mode = 1: insert to db, 2: show in datepicker
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function convertDates($array, $mode = 1)
     {
         switch ($mode) {
@@ -80,7 +80,7 @@ class Coupon extends Model
 
         return $array;
     }
-    
+
     public static function getCoupon($id)
     {
         $result = Coupon::select([
@@ -97,7 +97,7 @@ class Coupon extends Model
         'coupons.updated_at', ])
         ->where('coupons.id', '=', $id)
         ->get()->toArray();
-        
+
         if (isset($result[0])) {
             $result = $result[0];
             $result = Coupon::convertDates($result, 2);
@@ -105,7 +105,7 @@ class Coupon extends Model
             return $result;
         }
     }
-    
+
     public static function getCoupons()
     {
         $result = Coupon::select([
@@ -121,7 +121,7 @@ class Coupon extends Model
         'coupons.created_at',
         'coupons.updated_at', ])
         ->get()->toArray();
-        
+
         /*
                 $result = $result[0];
                 $result = Coupon::convertDates($result,2);
@@ -129,11 +129,11 @@ class Coupon extends Model
         //dd($result);
         return $result;
     }
-    
+
     public static function redeem($string)
     {
         $date = Carbon::now();
-        
+
         $result = Coupon::select([
         'coupons.id',
         'coupons.collection_id',
@@ -152,10 +152,10 @@ class Coupon extends Model
         //->whereNull('coupons.uses')
         ->whereDate('coupons.expiry_date', '>=', $date)
         ->get()->toArray();
-        
+
         if (isset($result[0])) {
             $result = $result[0];
-            
+
             //checks if vouchers or giftcards are already used
             if ($result['type'] == 1) {
                 $order = Order::latest('created_at')->where('coupon_id', $result['id'])->where(function ($query) {
@@ -166,7 +166,7 @@ class Coupon extends Model
                     return null;
                 }
             }
-            
+
             return $result;
         }
     }

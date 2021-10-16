@@ -5,11 +5,11 @@ namespace TheRealJanJanssens\Pakka\Mails;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class OrderConfirmationCompany extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * Create a new message instance.
@@ -18,27 +18,27 @@ class OrderConfirmationCompany extends Mailable
      */
     public function __construct($data = null)
     {
-		$exclude = array('_method','_token');
-		$subjectSearch = array('subject','onderwerp');
-		
-		if( isset( $data['replyTo'] ) ){
-			$this->replyTo($data['replyTo']);
-			unset( $data['replyTo'] );
-		}
-		
-		$this->subject(trans('pakka::mail.new_order',['order_number' => $data['name']]));
-		
-		foreach($data as $key => $value){
-			if(!contains($key,$exclude)){
-				$result[$key] = $value;
-			}
-			
-			if(contains($key,$subjectSearch)){
-				$this->subject($value);
-			}
-		}
-		
-		$this->data = $result;
+        $exclude = ['_method','_token'];
+        $subjectSearch = ['subject','onderwerp'];
+
+        if (isset($data['replyTo'])) {
+            $this->replyTo($data['replyTo']);
+            unset($data['replyTo']);
+        }
+
+        $this->subject(trans('pakka::mail.new_order', ['order_number' => $data['name']]));
+
+        foreach ($data as $key => $value) {
+            if (! contains($key, $exclude)) {
+                $result[$key] = $value;
+            }
+
+            if (contains($key, $subjectSearch)) {
+                $this->subject($value);
+            }
+        }
+
+        $this->data = $result;
     }
 
     /**
@@ -47,7 +47,7 @@ class OrderConfirmationCompany extends Mailable
      * @return $this
      */
     public function build()
-    {	    
-	    return $this->markdown('pakka::emails.order.confirmation.company')->with('data', $this->data);
+    {
+        return $this->markdown('pakka::emails.order.confirmation.company')->with('data', $this->data);
     }
 }

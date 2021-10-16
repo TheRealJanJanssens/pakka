@@ -2,7 +2,6 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use TheRealJanJanssens\Pakka\Models\ShipmentCondition;
 use Cart;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,9 +13,9 @@ use Session;
 class ShipmentOption extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,9 +24,9 @@ class ShipmentOption extends Model
     protected $fillable = [
         'status', 'name', 'description', 'price', 'carrier', 'delivery', 'region', 'match',
     ];
-    
+
     protected $casts = ['id' => 'string'];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -49,7 +48,7 @@ class ShipmentOption extends Model
             'price' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get shipment option with translations
@@ -58,13 +57,13 @@ class ShipmentOption extends Model
     | $mode = construct attributes for display (1) or edit (2) purpose
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getShipment($id, $mode = 1)
     {
         switch (true) {
             case $mode == 1:
                 $locale = app()->getLocale();
-            
+
                 $result = ShipmentOption::select([
                 'shipment_options.id',
                 'shipment_options.status',
@@ -84,13 +83,13 @@ class ShipmentOption extends Model
                 ])
                 ->where('shipment_options.id', $id)
                 ->get()->toArray();
-                
+
                 $result = $result[0];
                 $result['conditions'] = CollectionCondition::getConditions($result['id']);
-                
+
                 break;
             case $mode == 2:
-                
+
                 $queryResult = ShipmentOption::select([
                 'shipment_options.id',
                 'shipment_options.status',
@@ -134,20 +133,20 @@ class ShipmentOption extends Model
                 ])
                 ->where('shipment_options.id', $id)
                 ->get();
-                
+
                 $result = constructTranslatableValues($queryResult, ['name','description']);
                 $result['conditions'] = ShipmentCondition::getConditions($result['id']);
-                
+
                 break;
         }
 
         return $result; //outputs array
     }
-    
+
     public static function getShipments($conditions = false)
     {
         $locale = app()->getLocale();
-        
+
         $query = ShipmentOption::select([
         'shipment_options.id',
         'shipment_options.status',
@@ -165,17 +164,17 @@ class ShipmentOption extends Model
 				WHERE `translations`.`translation_id` = `shipment_options`.`description` AND `translations`.`language_code` = "'.$locale.'") 
 				AS description'),
         ]);
-        
+
         if ($conditions == true) {
             $query->where('shipment_options.status', '=', '1');
         }
-        
+
         $query->orderBy('shipment_options.region')
         ->orderBy('shipment_options.delivery')
         ->orderBy('shipment_options.price');
-        
+
         $result = $query->get()->toArray();
-        
+
         if ($conditions == true) {
             $i = 0;
             foreach ($result as $item) {
@@ -183,21 +182,21 @@ class ShipmentOption extends Model
                 $i++;
             }
         }
-        
+
         return $result;
     }
-    
+
     public static function getAvailableRegions()
     {
         $locale = app()->getLocale();
-        
+
         if (! Session::has('checkout.helpers.regions.'.$locale)) {
             $array = ShipmentOption::select(['shipment_options.region'])
             ->where('shipment_options.status', '=', 1)
             ->get()->toArray();
-            
+
             $regions = config('pakka.regions');
-            
+
             foreach ($array as $item) {
                 $result[$item['region']] = trans($regions[$item['region']]);
             }
@@ -205,25 +204,25 @@ class ShipmentOption extends Model
         } else {
             $result = Session::get('checkout.helpers.regions.'.$locale);
         }
-        
+
         //set default region if it isn't set
         if (! Session::has('checkout.details.country')) {
             $region = key($result); //gets first region in array
             Session::put('checkout.details.country', $region);
         }
-        
+
         return $result;
     }
-    
+
     public static function getAvailableOptions($region = null, $price = null, $weight = null)
     {
         $locale = app()->getLocale();
-        
+
         //set region
         if (! isset($region)) {
             $region = Session::get('checkout.details.country');
         }
-        
+
         //set price
         if (! isset($price)) {
             if (Cart::getCondition('COUPON')) {
@@ -233,16 +232,16 @@ class ShipmentOption extends Model
                 $price = Cart::getSubTotal();
             }
         }
-        
+
         //set weight
         if (! isset($weight)) {
             $weight = Cart::getTotalWeight();
         }
-        
+
         //get or construct options
         if (! Session::has('checkout.helpers.shipment_options.'.$locale)) {
             $array = ShipmentOption::getShipments(true);
-            
+
             foreach ($array as $item) {
                 if (! isset($options[$item['region']][$item['delivery']])) {
                     $options[$item['region']][$item['delivery']] = [];
@@ -253,26 +252,26 @@ class ShipmentOption extends Model
         } else {
             $options = Session::get('checkout.helpers.shipment_options.'.$locale);
         }
-        
+
         //construct available options
         $delivery_options = config('pakka.shipment_delivery');
         $set_delivery = true;
         $i = 0; //available option count
-        
+
         if (Cart::getCondition('SHIPPING')) {
             $set_delivery = false;
             $is_option_visible = false;
         }
-        
+
         foreach ($options[$region] as $key => $delivery) {
             $result[$key]['title'] = trans($delivery_options[$key]);
-            
+
             foreach ($delivery as $option) {
                 $option_available = false; //indicates if option is available
                 if (! isset($result[$key]['options'])) {
                     $result[$key]['options'] = [];
                 }
-                
+
                 if (! empty($option['conditions'])) {
                     $iC = 0; //condition iteration
                     $iV = 0; //validation iteration
@@ -292,7 +291,7 @@ class ShipmentOption extends Model
 
                                 break;
                         }
-                        
+
                         switch ($condition['operator']) {
                             case 1:
                                 //vanaf
@@ -311,12 +310,12 @@ class ShipmentOption extends Model
 
                                 break;
                         }
-                        
+
                         if ($validation == true) {
                             $iV++;
                         }
                     }
-                    
+
                     //if validation meets all the requirements push delivery option
                     switch ($option['match']) {
                         case 1:
@@ -340,13 +339,13 @@ class ShipmentOption extends Model
                     array_push($result[$key]['options'], $option);
                     $option_available = true;
                 }
-                
+
                 //check if set option is still visible current array of options
                 $set_delivery_option = Session::get('checkout.helpers.set_delivery_option');
                 if ($option['id'] == $set_delivery_option && $option_available) {
                     $is_option_visible = true;
                 }
-                
+
                 //sets default delivery method if there isn't one set
                 if ($set_delivery == true && $i == 0 && $option_available == true) {
                     if (! Session::has('checkout.helpers.preferred_delivery_method')) {
@@ -357,13 +356,13 @@ class ShipmentOption extends Model
                             'value' => $option['price'],
                             'attributes' => $option,
                         ]);
-                        
+
                         Cart::condition($condition);
                         Session::put('checkout.helpers.set_delivery_option', $option['id']);
                         Session::put('checkout.helpers.preferred_delivery_method', $option['delivery']);
                     }
                 }
-                
+
                 $i++;
             }
         }
@@ -372,7 +371,7 @@ class ShipmentOption extends Model
         //check for region switch and set proper shipping option
         $prefered_delivery_method = Session::get('checkout.helpers.preferred_delivery_method');
         $set_shipment_region = Session::get('checkout.helpers.set_shipment_region');
-        
+
         if (($set_shipment_region !== $region) || (isset($is_option_visible) && ! $is_option_visible)) {
             if (isset($result[$prefered_delivery_method])) {
                 $option_key = key($result[$prefered_delivery_method]['options']);
@@ -382,7 +381,7 @@ class ShipmentOption extends Model
                 $option_key = key($result[$method_key]['options']);
                 $option = $result[$method_key]['options'][$option_key];
             }
-            
+
             $condition = new \Darryldecode\Cart\CartCondition([
                 'name' => 'SHIPPING',
                 'type' => 'shipping',
@@ -390,15 +389,15 @@ class ShipmentOption extends Model
                 'value' => $option['price'],
                 'attributes' => $option,
             ]);
-            
+
             Cart::condition($condition);
-            
+
             Session::put('checkout.helpers.set_delivery_option', $option['id']);
             Session::put('checkout.helpers.preferred_delivery_method', $option['delivery']);
         }
-        
+
         Session::put('checkout.helpers.set_shipment_region', $region);
-        
+
         return $result;
     }
 }

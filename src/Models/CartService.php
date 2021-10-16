@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\DB;
 class CartService extends Model
 {
     use Notifiable;
-    
+
     public $timestamps = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,9 +24,9 @@ class CartService extends Model
     protected $fillable = [
         'status', 'name', 'description', 'price', 'icon',
     ];
-    
+
     protected $casts = ['id' => 'string'];
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Validations
@@ -48,7 +48,7 @@ class CartService extends Model
             'price' => "required",
         ]);
     }
-    
+
     /*
     |------------------------------------------------------------------------------------
     | Get CartService option with translations
@@ -57,13 +57,13 @@ class CartService extends Model
     | $mode = construct attributes for display (1) or edit (2) purpose
     |------------------------------------------------------------------------------------
     */
-    
+
     public static function getCartService($id, $mode = 1)
     {
         switch (true) {
             case $mode == 1:
                 $locale = app()->getLocale();
-            
+
                 $result = CartService::select([
                 'cart_services.id',
                 'cart_services.status',
@@ -80,13 +80,13 @@ class CartService extends Model
                 ])
                 ->where('cart_services.id', $id)
                 ->get();
-                
+
                 $result = $result[0];
                 //$result['conditions'] = CollectionCondition::getConditions($result['id']);
-                
+
                 break;
             case $mode == 2:
-                
+
                 $queryResult = CartService::select([
                 'cart_services.id',
                 'cart_services.status',
@@ -127,20 +127,20 @@ class CartService extends Model
                 ])
                 ->where('cart_services.id', $id)
                 ->get();
-                
+
                 $result = constructTranslatableValues($queryResult, ['name','description']);
                 //$result['conditions'] = CartServiceCondition::getConditions($result['id']);
-                
+
                 break;
         }
 
         return $result; //outputs array
     }
-    
+
     public static function getCartServices($conditions = false)
     {
         $locale = app()->getLocale();
-        
+
         $query = CartService::select([
         'cart_services.id',
         'cart_services.status',
@@ -155,19 +155,19 @@ class CartService extends Model
 				WHERE `translations`.`translation_id` = `cart_services`.`description` AND `translations`.`language_code` = "'.$locale.'") 
 				AS description'),
         ]);
-        
+
         if ($conditions == true) {
             $query->where('cart_services.status', '=', '1');
         }
-        
+
         /*
                 $query->orderBy('cart_services.region')
                   ->orderBy('cart_services.delivery')
                   ->orderBy('cart_services.price');
         */
-        
+
         $result = $query->get();
-        
+
         /*
                 if($conditions == true){
                     $i = 0;
@@ -177,14 +177,14 @@ class CartService extends Model
                     }
                 }
         */
-        
+
         return $result;
     }
-    
+
     public static function getAvailableCartServices($conditions = false)
     {
         $locale = app()->getLocale();
-        
+
         $query = CartService::select([
         'cart_services.id',
         'cart_services.status',
@@ -199,11 +199,11 @@ class CartService extends Model
 				WHERE `translations`.`translation_id` = `cart_services`.`description` AND `translations`.`language_code` = "'.$locale.'") 
 				AS description'),
         ]);
-        
+
         $query->where('cart_services.status', '=', '1');
-        
+
         $result = $query->get();
-        
+
         /*
                 if($conditions == true){
                     $i = 0;
@@ -213,7 +213,7 @@ class CartService extends Model
                     }
                 }
         */
-        
+
         return $result;
     }
 }
