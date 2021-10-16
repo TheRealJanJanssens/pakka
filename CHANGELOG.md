@@ -5,6 +5,8 @@ All notable changes to `pakka` will be documented in this file.
 ## 0.4.1 - 2021-10-16
 - Removed js alert when reinitiating a slide with meta data
 - Directly getting the item id from the url and not from the session while updating items (items, products, content)
+- Reconnected cart services module
+
 ## 0.4.0 - 2021-10-12
 - Connected services, providers and booking modules
 - Fixed the the way which the json response is given in getJson() of BookingController
