@@ -2,7 +2,7 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+//use App\Http\Controllers\Controller;
 use ApTheRealJanJanssens\Pakka\Models\OrderDocument;
 use Illuminate\Http\Request;
 use PDF;

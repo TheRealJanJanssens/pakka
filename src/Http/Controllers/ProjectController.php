@@ -2,7 +2,7 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+//use App\Http\Controllers\Controller;
 use Illuminate\Http\Request; //querybuilder used in sort
 use Illuminate\Support\Facades\DB;
 use Session;

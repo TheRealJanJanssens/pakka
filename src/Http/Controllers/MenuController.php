@@ -2,7 +2,7 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+//use App\Http\Controllers\Controller;
 //querybuilder used in sort
 use Cache;
 use Illuminate\Http\Request;

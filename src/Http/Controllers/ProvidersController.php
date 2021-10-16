@@ -2,7 +2,7 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+//use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use TheRealJanJanssens\Pakka\Models\Provider;
 use TheRealJanJanssens\Pakka\Models\ProviderSchedule;

@@ -2,7 +2,7 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+//use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use TheRealJanJanssens\Pakka\Exports\AllCompletedOrdersExport;
 use TheRealJanJanssens\Pakka\Exports\AllInvoicesExport;
