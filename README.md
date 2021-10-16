@@ -5,7 +5,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/therealjanjanssens/pakka.svg?style=flat-square)](https://packagist.org/packages/therealjanjanssens/pakka)
 
 
-Pakka in a package
+Pakka in a package 
 
 ## Installation
 
