@@ -45,6 +45,10 @@
     "repositories": [
         {
             "type": "vcs",
+            "url": "https://github.com/TheRealJanJanssens/laravelshoppingcart"
+        },
+        {
+            "type": "vcs",
             "url": "git@github.com:TheRealJanJanssens/taggedFileCache.git"
         }
     ],
