@@ -168,6 +168,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Unikent\Cache\TaggableFileCacheServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
         TheRealJanJanssens\Pakka\PakkaServiceProvider::class,
 
         /*
@@ -184,7 +185,6 @@ return [
          */
         TheRealJanJanssens\Pakka\Providers\HelperServiceProvider::class,
         TheRealJanJanssens\Pakka\Providers\MacroServiceProvider::class,
-
     ],
 
     /*
@@ -216,8 +216,10 @@ return [
         'Event' => Illuminate\Support\Facades\Event::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'File' => Illuminate\Support\Facades\File::class,
+        'Form' => Collective\Html\FormFacade::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
+        'Html' => Collective\Html\HtmlFacade::class,
         'Http' => Illuminate\Support\Facades\Http::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,

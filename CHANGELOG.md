@@ -2,6 +2,13 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 0.4.2 - 2021-10-
+- Removed some bad code initiating the Form macro
+- Unit test debugging
+- README changes to document testing
+- Removed Psalm
+- Added pest instead of phpunit
+
 ## 0.4.1 - 2021-10-16
 - Removed js alert when reinitiating a slide with meta data
 - Directly getting the item id from the url and not from the session while updating items (items, products, content)

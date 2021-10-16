@@ -47,9 +47,25 @@ echo $pakka->echoPhrase('Hello, TheRealJanJanssens!');
 ```
 
 ## Testing
+Use below commands to run the Unit tests
 
 ```bash
 composer test
+
+or
+
+./vendor/bin/pest tests
+```
+
+If you want to run the tests like its getting triggered with Github actions first make sure you have docker installed and install arc
+```brew instal act```
+
+Once everything is installed you can simulate the Github actions with:
+```act
+
+or 
+
+act -P ubuntu-latest=shivammathur/node:latest
 ```
 
 ## Custom sections, templates and layouts

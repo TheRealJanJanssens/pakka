@@ -1,5 +1,4 @@
 <?php
-
 Form::macro('myInput', function ($type = "text", $name, $label = "", $options = [], $default = null, $lang = null, $row = false, $prepend = false, $append = false) {
     $transIdInput = '';
     

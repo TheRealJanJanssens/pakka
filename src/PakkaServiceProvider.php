@@ -80,10 +80,6 @@ class PakkaServiceProvider extends PackageServiceProvider
         //     __DIR__.'/../resources/sass' => resource_path('pakka/sass'),
 
         // ], 'pakka-dev');
-
-        if (file_exists($file = __DIR__.'/Macros/form.php')) {
-            require_once $file;
-        }
     }
     
     public function configurePackage(Package $package): void
