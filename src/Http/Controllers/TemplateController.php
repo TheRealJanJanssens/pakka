@@ -2,7 +2,7 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+//use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Storage;
 use TheRealJanJanssens\Pakka\Models\Template;
