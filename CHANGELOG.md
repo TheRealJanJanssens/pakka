@@ -8,6 +8,7 @@ All notable changes to `pakka` will be documented in this file.
 - README changes to document testing
 - Removed Psalm
 - Added pest instead of phpunit
+- Fixed the Check & fix styling workflow
 
 ## 0.4.1 - 2021-10-16
 - Removed js alert when reinitiating a slide with meta data
