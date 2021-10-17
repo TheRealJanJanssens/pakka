@@ -2,7 +2,6 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use PDF;
 use Session;
