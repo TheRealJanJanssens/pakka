@@ -97,7 +97,7 @@ class Menu extends Model
     */
     public static function constructMenu($id = null)
     {
-        $defaultLocale = env('APP_LOCALE');
+        $result=[];
         $currentAuth = 0; //Default auth role to 0 if not set. It isn't set when 'php artisan route:list' and throws a 'Trying to get property of non-object' error because the value is NULL
         if (! empty(auth()->user()->role)) {
             $currentAuth = auth()->user()->role;
@@ -106,84 +106,6 @@ class Menu extends Model
         if ($id !== null) {
             $menus = Menu::where('id', $id)->get()->toArray();
         } else {
-            $menus = Menu::get()->toArray();
-        }
-
-        //Constructs AdminMenu when not in database
-        if (empty($menus)) {
-            Menu::create([
-                'id' => 1,
-                'name' => 'Beheerpaneel',
-            ]);
-
-            $menuItems = [
-                0 => [
-                    'menu' => 1,
-                    'position' => 1,
-                    'icon' => 'ti-home',
-                    'name' => 'genmen01',
-                    'link' => 'dashboard',
-                    'permission' => 5,
-                    'translation' => [
-                        'input_name' => 'name',
-                        'translation_id' => 'genmen01',
-                        'text' => 'Dashboard',
-                        'language_code' => $defaultLocale,
-                    ],
-                ],
-                1 => [
-                    'menu' => 1,
-                    'position' => 2,
-                    'icon' => 'ti-user',
-                    'name' => 'genmen02',
-                    'translation_id' => ['name' => ''],
-                    'link' => 'users',
-                    'permission' => 10,
-                    'translation' => [
-                        'input_name' => 'name',
-                        'translation_id' => 'genmen02',
-                        'text' => 'Gebruikers',
-                        'language_code' => $defaultLocale,
-                    ],
-                ],
-                2 => [
-                    'menu' => 1,
-                    'position' => 3,
-                    'icon' => 'ti-menu',
-                    'name' => 'genmen03',
-                    'translation_id' => ['name' => ''],
-                    'link' => 'menu',
-                    'permission' => 10,
-                    'translation' => [
-                        'input_name' => 'name',
-                        'translation_id' => 'genmen03',
-                        'text' => 'Menu',
-                        'language_code' => $defaultLocale,
-                    ],
-                ],
-                3 => [
-                    'menu' => 1,
-                    'position' => 4,
-                    'icon' => 'ti-pencil-alt',
-                    'name' => "genmen04",
-                    'translation_id' => ['name' => ''],
-                    'link' => 'content',
-                    'permission' => 5,
-                    'translation' => [
-                        'input_name' => 'name',
-                        'translation_id' => 'genmen04',
-                        'text' => "Pagina's",
-                        'language_code' => $defaultLocale,
-                    ],
-                ],
-            ];
-
-            foreach ($menuItems as $menuItem) {
-                MenuItem::create($menuItem);
-                Translation::create($menuItem['translation']);
-            }
-
-            //Get the freshly made menu and items
             $menus = Menu::get()->toArray();
         }
 

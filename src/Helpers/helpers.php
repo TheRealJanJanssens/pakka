@@ -302,14 +302,6 @@ if (! function_exists('constructGlobVars')) {
 
         if (! Session::has('lang')) {
             $lang = Language::get()->toArray();
-            if (empty($lang)) {
-                Language::create([
-                    'id' => 1,
-                    'language_code' => 'nl',
-                    'name' => 'Nederlands',
-                ]);
-            }
-
             Session::put('lang', $lang);
         } else {
             $lang = Session::get('lang');

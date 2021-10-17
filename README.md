@@ -25,6 +25,7 @@ You can publish and run the migrations with:
 ```bash
 php artisan vendor:publish --provider="TheRealJanJanssens\Pakka\PakkaServiceProvider" --tag="migrations"
 php artisan migrate
+php artisan db:seed --class="TheRealJanJanssens\Pakka\Database\Seeders\DatabaseSeeder"
 ```
 
 You can publish the config file with:

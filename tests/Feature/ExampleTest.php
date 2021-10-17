@@ -1,0 +1,28 @@
+<?php
+/**
+ * Feature tests
+ * 
+ * Test the functionality of the entire system like a user should use it
+ * (users perspective)
+ */
+
+use TheRealJanJanssens\Pakka\Models\User;
+use function Pest\Laravel\get;
+
+beforeEach(fn () => User::factory()->create());
+
+it('has users')->assertDatabaseHas('users', [
+    'id' => 1,
+]);
+
+it('has languages')->assertDatabaseHas('languages', [
+    'id' => 1,
+]);
+
+it('has menus')->assertDatabaseHas('menus', [
+    'id' => 1,
+]);
+
+// it('has a login page', function () {
+//     get('/clear-cache')->assertStatus(200);
+// });

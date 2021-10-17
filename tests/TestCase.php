@@ -3,18 +3,26 @@
 namespace TheRealJanJanssens\Pakka\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as Orchestra;
 use TheRealJanJanssens\Pakka\PakkaServiceProvider;
-
 class TestCase extends Orchestra
 {
-    public function setUp(): void
+    use RefreshDatabase;
+
+    protected function setUp(): void
     {
         parent::setUp();
+
+        // seed the database
+        $this->seed("TheRealJanJanssens\\Pakka\\Database\\Seeders\\DatabaseSeeder");
 
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'TheRealJanJanssens\\Pakka\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
+
+        //Simulate pakka installation
+        //$this->artisan("pakka-install");
     }
 
     protected function getPackageProviders($app)
@@ -26,12 +34,8 @@ class TestCase extends Orchestra
 
     public function getEnvironmentSetUp($app)
     {
-        $app['config']->set('database.default', 'sqlite');
-        $app['config']->set('database.connections.sqlite', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
-        ]);
+        config()->set('database.default', 'sqlite');
+        config()->set('database.connections.sqlite.database', ':memory:');
 
         /*
         include_once __DIR__.'/../database/migrations/create_pakka_table.php.stub';
