@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Session;
 use TheRealJanJanssens\Pakka\Mails\GeneralMail;
 use TheRealJanJanssens\Pakka\Models\Language;
+
 class WebsiteController extends Controller
 {
     /**
