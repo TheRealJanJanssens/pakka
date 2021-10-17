@@ -1,7 +1,7 @@
 <?php
 /**
  * Unit tests
- * 
+ *
  * Test individual methods (or a unit) of a class to ensure it preforms a set of specific tasks
  * (programmers perspective)
  */
