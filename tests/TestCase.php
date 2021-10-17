@@ -21,9 +21,6 @@ class TestCase extends Orchestra
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'TheRealJanJanssens\\Pakka\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
-
-        //Simulate pakka installation
-        //$this->artisan("key:generate");
     }
 
     protected function getPackageProviders($app)

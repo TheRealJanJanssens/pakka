@@ -23,6 +23,6 @@ it('has menus')->assertDatabaseHas('menus', [
     'id' => 1,
 ]);
 
-it('route is available', function () {
-    get('/clear-cache')->assertStatus(200);
-});
+// it('route is available', function () {
+//     get('/clear-cache')->assertStatus(200);
+// });

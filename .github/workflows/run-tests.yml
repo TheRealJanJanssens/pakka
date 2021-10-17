@@ -43,8 +43,6 @@ jobs:
           composer global config github-oauth.github.com "${{ secrets.GITHUB_TOKEN }}"
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
-          php artisan key:generate
-          php artisan pakka-install
 
       - name: Execute tests
         run: vendor/bin/pest
