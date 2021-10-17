@@ -1997,6 +1997,30 @@ if (! function_exists('getSection')) {
     }
 }
 
+/**
+ * getAdminView
+ */
+
+if (! function_exists('getAdminView')) {
+    function getAdminView($name)
+    {
+        $resource = 'views/'.str_replace('.','/',$name).'.blade.php';
+        switch (true) {
+            //Get File if exists on app level
+            case file_exists(resource_path($resource)):
+                return $name;
+                break;
+            //Catch Placeholder sections
+            case substr($name, 0, 1) == "_":
+            //Get File if exists on package level
+            case file_exists(base_path('vendor/therealjanjanssens/pakka/resources/'.$resource)):
+            case file_exists(base_path('package/resources/'.$resource)):
+                return 'pakka::'.$name;
+                break;
+        }
+    }
+}
+
 if (! function_exists('getSectionView')) {
     function getSectionView($name)
     {

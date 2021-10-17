@@ -13,6 +13,9 @@ All notable changes to `pakka` will be documented in this file.
 - Moved Menu Seeding in its own seeder
 - Changed the index ids for the items and product migrations
 - General code cleanup in controllers
+- renamed index.blade.phpkopie.php to old_index.blade.php in dashboard folder
+- Added the getAdminView() helper to make it possible to make custom version of existing admin view (if enabled)
+- Enabled getAdminView for orders, clients and dashboard module
 
 ## 0.4.1 - 2021-10-16
 - Removed js alert when reinitiating a slide with meta data

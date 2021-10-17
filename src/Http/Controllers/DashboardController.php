@@ -56,6 +56,6 @@ class DashboardController extends Controller
             "avgSessionDuration" => $avgSessionDuration,
         ];
 
-        return view('pakka::admin.dashboard.index', compact('analytics'));
+        return view(getAdminView(config('pakka.prefix.admin'). '.dashboard.index'), compact('analytics'));
     }
 }

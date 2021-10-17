@@ -23,7 +23,7 @@ class ClientController extends Controller
     {
         $items = User::getUsers(1);
 
-        return view('pakka::admin.clients.index', compact('items'));
+        return view(getAdminView(config('pakka.prefix.admin'). '.clients.index'), compact('items'));
     }
 
     /**
@@ -33,7 +33,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('pakka::admin.clients.create');
+        return view(getAdminView(config('pakka.prefix.admin'). '.clients.create'));
     }
 
     /**
@@ -80,7 +80,7 @@ class ClientController extends Controller
     {
         $item = User::getUser($id);
         //dd($item);
-        return view('pakka::admin.clients.edit', compact('item'));
+        return view(getAdminView(config('pakka.prefix.admin'). '.clients.edit'), compact('item'));
     }
 
     /**
@@ -104,7 +104,7 @@ class ClientController extends Controller
         $this->validate($request, UserDetail::rules(true, $id));
         $userDetail = UserDetail::updateOrCreate(['user_id' => $id], $request->all());
 
-        return redirect()->route(config('pakka.prefix.admin'). '.clients.index')->withSuccess(trans('pakka::app.success_update'));
+        return redirect()->route(getAdminView(config('pakka.prefix.admin'). '.clients.index'))->withSuccess(trans('pakka::app.success_update'));
     }
 
     /**

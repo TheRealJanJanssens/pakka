@@ -2,13 +2,13 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-use ApTheRealJanJanssens\Pakka\Models\OrderDocument;
 use Illuminate\Http\Request;
 use PDF;
 use TheRealJanJanssens\Pakka\Models\Invoice;
 use TheRealJanJanssens\Pakka\Models\InvoiceDetail;
 use TheRealJanJanssens\Pakka\Models\Order;
 use TheRealJanJanssens\Pakka\Models\OrderDetail;
+use TheRealJanJanssens\Pakka\Models\OrderDocument;
 use TheRealJanJanssens\Pakka\Models\OrderShipment;
 use TheRealJanJanssens\Pakka\Models\User;
 use TheRealJanJanssens\Pakka\Models\UserDetail;
@@ -30,7 +30,7 @@ class OrderController extends Controller
     {
         $orders = Order::getOrders();
 
-        return view('pakka::admin.orders.index', compact('orders'));
+        return view(getAdminView(config('pakka.prefix.admin'). '.orders.index'), compact('orders'));
     }
 
     /**
@@ -62,7 +62,7 @@ class OrderController extends Controller
     {
         $order = Order::getOrder($id);
 
-        return view('pakka::admin.orders.detail', compact('order'));
+        return view(getAdminView(config('pakka.prefix.admin'). '.orders.detail'), compact('order'));
     }
 
     /**
@@ -100,7 +100,7 @@ class OrderController extends Controller
     {
         $order = Order::getOrder($id);
 
-        return view('pakka::admin.orders.form_details', compact('order'));
+        return view(getAdminView(config('pakka.prefix.admin'). '.orders.form_details'), compact('order'));
     }
 
     public function updateDetails(Request $request, $id)
@@ -147,14 +147,14 @@ class OrderController extends Controller
 
         $orderDetails->update($array);
 
-        return redirect()->route(config('pakka.prefix.admin'). '.orders.show', $orderDetails->order_id)->withSuccess(trans('pakka::app.success_update'));
+        return redirect()->route(getAdminView(config('pakka.prefix.admin'). '.orders.show'), $orderDetails->order_id)->withSuccess(trans('pakka::app.success_update'));
     }
 
     public function editShipment($id)
     {
         $order = Order::getOrder($id);
 
-        return view('pakka::admin.orders.form_shipment', compact('order'));
+        return view(getAdminView(config('pakka.prefix.admin'). '.orders.form_shipment'), compact('order'));
     }
 
     public function updateShipment(Request $request, $id)

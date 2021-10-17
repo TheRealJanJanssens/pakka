@@ -163,6 +163,7 @@ Route::group([
     Route::get('content/{id}/template/generate', [ContentController::class, 'generateTemplate'])->name('content.generatetemplate');
     
     //CLIENTS
+    //TODO: move to API routes
     Route::get('clients/{id}/get/info', [ClientController::class, 'getInfo']);
     
     //INVOICES
@@ -272,10 +273,10 @@ Route::group([
 	});
 */
 	
-    Route::get('/clear-cache', function() {
-        //$exitCode = Artisan::call('cache:clear');
-        return '<h1>Cache cleared</h1>';
-    });
+    // Route::get('/clear-cache', function() {
+    //     //$exitCode = Artisan::call('cache:clear');
+    //     return '<h1>Cache cleared</h1>';
+    // });
 
 	//AUTH
 	Route::get("logout", [LoginController::class, 'logout'])->name('logout');

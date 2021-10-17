@@ -40,7 +40,7 @@
 		@endif
 		
 		<div class="dropdown">
-			<a href="#" id="more-dropdown" class="text-body mr-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ trans('pakka::app.more_actions') }}<i class="fa fa-caret-down"></i></a>
+			<a href="#" id="more-dropdown" class="text-body mr-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ trans('pakka::app.more_actions') }}<i class="fa fa-caret-down ml-1"></i></a>
 			
 			<div class="dropdown-menu" aria-labelledby="more-dropdown" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
 				

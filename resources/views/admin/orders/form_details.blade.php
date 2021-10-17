@@ -42,7 +42,7 @@
 						
 						<div class="col-md-3">
 							<?php
-								$regions = App\ShipmentOption::getAvailableRegions();
+								$regions = \TheRealJanJanssens\Pakka\Models\ShipmentOption::getAvailableRegions();
 							?>
 							
 							{!! Form::mySelect('country', 'Land', $regions, null, ['class' => 'form-control select2', 'data-search' => '-1']) !!}
