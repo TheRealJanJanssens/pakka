@@ -272,6 +272,11 @@ Route::group([
 	});
 */
 	
+    Route::get('/clear-cache', function() {
+        //$exitCode = Artisan::call('cache:clear');
+        return '<h1>Cache cleared</h1>';
+    });
+
 	//AUTH
 	Route::get("logout", [LoginController::class, 'logout'])->name('logout');
     Route::get("login", [LoginController::class, 'showLoginForm'])->name('login');
