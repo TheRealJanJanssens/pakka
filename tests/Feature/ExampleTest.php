@@ -1,13 +1,13 @@
 <?php
 /**
  * Feature tests
- * 
+ *
  * Test the functionality of the entire system like a user should use it
  * (users perspective)
  */
 
-use TheRealJanJanssens\Pakka\Models\User;
 use function Pest\Laravel\get;
+use TheRealJanJanssens\Pakka\Models\User;
 
 beforeEach(fn () => User::factory()->create());
 

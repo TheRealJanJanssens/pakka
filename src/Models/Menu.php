@@ -97,7 +97,7 @@ class Menu extends Model
     */
     public static function constructMenu($id = null)
     {
-        $result=[];
+        $result = [];
         $currentAuth = 0; //Default auth role to 0 if not set. It isn't set when 'php artisan route:list' and throws a 'Trying to get property of non-object' error because the value is NULL
         if (! empty(auth()->user()->role)) {
             $currentAuth = auth()->user()->role;
