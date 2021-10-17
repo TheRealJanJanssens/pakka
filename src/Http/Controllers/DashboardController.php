@@ -3,9 +3,6 @@
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
 use Analytics;
-use Illuminate\Support\Facades\Auth;
-
-
 use Spatie\Analytics\Period;
 
 class DashboardController extends Controller

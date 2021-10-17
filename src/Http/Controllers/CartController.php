@@ -2,13 +2,9 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-//use App\Http\Controllers\Controller;
-//querybuilder used in sort
 use Cart;
 use Illuminate\Http\Request;
-
 use Mollie\Laravel\Facades\Mollie;
-
 use Session;
 use TheRealJanJanssens\Pakka\Models\CartService;
 use TheRealJanJanssens\Pakka\Models\Coupon;
@@ -16,9 +12,7 @@ use TheRealJanJanssens\Pakka\Models\Order;
 use TheRealJanJanssens\Pakka\Models\OrderPayment;
 use TheRealJanJanssens\Pakka\Models\Product;
 use TheRealJanJanssens\Pakka\Models\ShipmentOption;
-use TheRealJanJanssens\Pakka\Models\Stock;
 use TheRealJanJanssens\Pakka\Models\User;
-
 use TheRealJanJanssens\Pakka\Models\UserDetail;
 
 class CartController extends Controller

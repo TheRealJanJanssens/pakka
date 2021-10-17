@@ -2,14 +2,11 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-//use App\Http\Controllers\Controller;
 use Cache;
 use Illuminate\Http\Request;
 use TheRealJanJanssens\Pakka\Models\Collection;
 use TheRealJanJanssens\Pakka\Models\CollectionCondition;
-
 use TheRealJanJanssens\Pakka\Models\CollectionSet;
-
 use TheRealJanJanssens\Pakka\Models\Translation;
 
 class CollectionController extends Controller

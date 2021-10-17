@@ -2,18 +2,15 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-//use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 use PDF;
-
 use Session;
 use TheRealJanJanssens\Pakka\Models\Invoice;
-
 use TheRealJanJanssens\Pakka\Models\InvoiceDetail;
 use TheRealJanJanssens\Pakka\Models\InvoiceItem;
 use TheRealJanJanssens\Pakka\Models\OrderDocument;
 use TheRealJanJanssens\Pakka\Models\User;
-
 use TheRealJanJanssens\Pakka\Models\UserDetail;
 
 class InvoiceController extends Controller

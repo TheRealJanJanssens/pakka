@@ -4,11 +4,15 @@ All notable changes to `pakka` will be documented in this file.
 
 ## 0.4.2 - 2021-10-
 - Removed some bad code initiating the Form macro
-- Unit test debugging
 - README changes to document testing
 - Removed Psalm
 - Added pest instead of phpunit
-- Fixed the Check & fix styling workflow
+- Fixed the "Check & fix" styling workflow
+- Fixed the basic testing pipeline and added Example test files for feature and unit tests
+- Added UserFactory
+- Moved Menu Seeding in its own seeder
+- Changed the index ids for the items and product migrations
+- General code cleanup in controllers
 
 ## 0.4.1 - 2021-10-16
 - Removed js alert when reinitiating a slide with meta data

@@ -2,12 +2,9 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-//use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use TheRealJanJanssens\Pakka\Models\Booking;
 use TheRealJanJanssens\Pakka\Models\Service;
-
 class BookingController extends Controller
 {
     public function __construct()

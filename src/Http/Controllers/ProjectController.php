@@ -2,11 +2,9 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-//use App\Http\Controllers\Controller;
 use Illuminate\Http\Request; //querybuilder used in sort
 use Illuminate\Support\Facades\DB;
 use Session;
-
 use TheRealJanJanssens\Pakka\Models\Project;
 use TheRealJanJanssens\Pakka\Models\Task;
 use TheRealJanJanssens\Pakka\Models\TaskComment;

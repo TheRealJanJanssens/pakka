@@ -9,7 +9,6 @@ use Image;
 use ImageOptimizer;
 use Session;
 use Storage;
-
 use TheRealJanJanssens\Pakka\Models\Images;
 
 class ImageController extends Controller

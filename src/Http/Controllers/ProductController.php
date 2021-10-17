@@ -5,7 +5,6 @@ namespace TheRealJanJanssens\Pakka\Http\Controllers;
 use Cache;
 use Illuminate\Http\Request;
 use Session;
-
 use TheRealJanJanssens\Pakka\Models\AttributeInput;
 use TheRealJanJanssens\Pakka\Models\AttributeValue;
 use TheRealJanJanssens\Pakka\Models\Collection;

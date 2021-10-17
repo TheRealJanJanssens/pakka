@@ -5,17 +5,14 @@ namespace TheRealJanJanssens\Pakka\Http\Controllers;
 use Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
 use Session;
 use Spatie\Sitemap\SitemapGenerator;
-
 use Storage;
 use TheRealJanJanssens\Pakka\Models\AttributeInput;
 use TheRealJanJanssens\Pakka\Models\AttributeOption;
 use TheRealJanJanssens\Pakka\Models\AttributeValue;
 use TheRealJanJanssens\Pakka\Models\Component;
 use TheRealJanJanssens\Pakka\Models\Images;
-use TheRealJanJanssens\Pakka\Models\Item;
 use TheRealJanJanssens\Pakka\Models\Menu;
 use TheRealJanJanssens\Pakka\Models\MenuItem;
 use TheRealJanJanssens\Pakka\Models\Page;

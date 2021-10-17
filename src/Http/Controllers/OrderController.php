@@ -2,7 +2,6 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-//use App\Http\Controllers\Controller;
 use ApTheRealJanJanssens\Pakka\Models\OrderDocument;
 use Illuminate\Http\Request;
 use PDF;
@@ -12,7 +11,6 @@ use TheRealJanJanssens\Pakka\Models\Order;
 use TheRealJanJanssens\Pakka\Models\OrderDetail;
 use TheRealJanJanssens\Pakka\Models\OrderShipment;
 use TheRealJanJanssens\Pakka\Models\User;
-
 use TheRealJanJanssens\Pakka\Models\UserDetail;
 
 class OrderController extends Controller

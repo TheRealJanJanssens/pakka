@@ -4,7 +4,6 @@ namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
 use App;
 use Illuminate\Http\Request;
-
 use Session;
 use TheRealJanJanssens\Pakka\Models\Setting;
 
