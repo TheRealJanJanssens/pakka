@@ -23,7 +23,7 @@ class TestCase extends Orchestra
         );
 
         //Simulate pakka installation
-        $this->artisan("pakka-install");
+        $this->artisan("key:generate");
     }
 
     protected function getPackageProviders($app)
