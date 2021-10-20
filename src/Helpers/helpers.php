@@ -2005,11 +2005,12 @@ if (! function_exists('getSection')) {
 if (! function_exists('getAdminView')) {
     function getAdminView($name)
     {
-        $resource = 'views/'.str_replace('.','/',$name).'.blade.php';
+        $resource = 'views/'.str_replace('.', '/', $name).'.blade.php';
         switch (true) {
             //Get File if exists on app level
             case file_exists(resource_path($resource)):
                 return $name;
+
                 break;
             //Catch Placeholder sections
             case substr($name, 0, 1) == "_":
@@ -2017,6 +2018,7 @@ if (! function_exists('getAdminView')) {
             case file_exists(base_path('vendor/therealjanjanssens/pakka/resources/'.$resource)):
             case file_exists(base_path('package/resources/'.$resource)):
                 return 'pakka::'.$name;
+
                 break;
         }
     }
