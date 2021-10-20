@@ -16,6 +16,8 @@ All notable changes to `pakka` will be documented in this file.
 - renamed index.blade.phpkopie.php to old_index.blade.php in dashboard folder
 - Added the getAdminView() helper to make it possible to make custom version of existing admin view (if enabled)
 - Enabled getAdminView for orders, clients and dashboard module
+- Bugfix edit background image button now works for items and products
+- Provided the logic so product images can be properlly edited in the live editor
 
 ## 0.4.1 - 2021-10-16
 - Removed js alert when reinitiating a slide with meta data

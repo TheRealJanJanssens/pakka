@@ -473,6 +473,7 @@ class ContentController extends Controller
     public function editContent($id)
     {
         Session::put('set_id', $id);
+        Session::put('current_item_id', $id);
 
         $inputs = AttributeInput::getInputs();
 

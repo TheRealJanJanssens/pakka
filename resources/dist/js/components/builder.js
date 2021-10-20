@@ -1086,8 +1086,13 @@ console.log(this.selectionState);
 		$(".background-image-holder").each(function(index){
 			var imgSrc = $(this).find('img').attr("src");
 			var imgId = $(this).find('img').attr("data-id");
+			var moduleId = $(this).find('img').attr("data-module-id");
 			
-			$(this).append('<a href="#" class="btn btn--rounded bg-img-edit" src="'+imgSrc+'" data-id="'+imgId+'"><i class="ti-save"></i>Achtergrond afbeelding wijzigen</a>');
+			if (typeof moduleId !== typeof undefined && moduleId !== false) {
+				$(this).append('<a href="#" class="btn btn--rounded bg-img-edit" src="'+imgSrc+'" data-id="'+imgId+'" data-module-id="'+moduleId+'"><i class="ti-save"></i>Achtergrond afbeelding wijzigen</a>');
+			}else{
+				$(this).append('<a href="#" class="btn btn--rounded bg-img-edit" src="'+imgSrc+'" data-id="'+imgId+'"><i class="ti-save"></i>Achtergrond afbeelding wijzigen</a>');
+			}
 		});
 	//}
 	
@@ -1912,11 +1917,19 @@ console.log(this.selectionState);
 		
 		//location.reload();
 		
-		var module = $(this).attr("data-module");
+		var moduleId = $(this).attr("data-module-id");
+		var module = $(this).attr("data-module") ?? 'items';
 	
-		if (typeof module !== typeof undefined && module !== false) {
-		  // Element has this attribute and therefore is a item elment
-		  	var url = "/admin/items/"+module+"/"+id+"/edit/item form";
+		if (typeof moduleId !== typeof undefined && moduleId !== false) {
+		  	// Element has this attribute and therefore is a item elment
+			  if(module == "products"){
+				//product module
+				var url = "/admin/products/"+id+"/edit #product_images";
+			  }else{
+				//item module
+				var url = "/admin/"+module+"/"+moduleId+"/"+id+"/edit/item form";
+			  }
+		  	
 		}else{
 			var url = "/admin/content/"+id+"/edit/content form";
 		}
@@ -1929,6 +1942,7 @@ console.log(this.selectionState);
 		    $("#se-edit-images").addClass("active");
 	        $(".se-overlay").addClass("active");
 	        
+			$("#se-edit-images p").remove();
 	        $("#se-edit-images .col-sm-4").remove();
 			$("#se-edit-images .col-sm-8").removeClass("col-sm-8").addClass("col-sm-12");
 			$(".form-group:not(.dropzone-input)").remove();

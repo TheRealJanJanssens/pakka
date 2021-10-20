@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-sm-8">
-		<div class="bgc-white mB-30 p-20 bd">
+		<div id="product_images" class="bgc-white mB-30 p-20 bd">
 			<?php
 				$h = 0;
 				$s = Session::get('current_item_id'); //hIMR

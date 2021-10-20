@@ -7,6 +7,7 @@ use TheRealJanJanssens\Pakka\Models\Forms;
 use TheRealJanJanssens\Pakka\Models\Item;
 use TheRealJanJanssens\Pakka\Models\Language;
 use TheRealJanJanssens\Pakka\Models\Menu;
+use TheRealJanJanssens\Pakka\Models\MenuItem;
 use TheRealJanJanssens\Pakka\Models\Page;
 use TheRealJanJanssens\Pakka\Models\Section;
 use TheRealJanJanssens\Pakka\Models\Setting;
@@ -2218,15 +2219,28 @@ if (! function_exists('parseImage')) {
             $lazyLoad = "";
         }
 
+        //If product detected add module id
+        if(isset($array['base_price'])){
+            $module = MenuItem::where('link', "products")->first();
+            $array['module_id'] = $module->id;
+        }
+
         if (! isset(auth()->user()->role)) {
             echo $lazyLoad."src='".$url."'";
         } else {
-            //detects is element array is an item element
-            if (isset($array['module_id'])) {
-                //item element
-                echo $lazyLoad."src='".$url."' contenteditable='true' data-id='".$id."' data-module='".$array['module_id']."'";
-            } else {
-                echo $lazyLoad."src='".$url."' contenteditable='true' data-id='".$id."'";
+            //detects is element array is an item/product/content element
+            switch (true) {
+                case isset($array['base_price']):
+                    //product element
+                    echo $lazyLoad."src='".$url."' contenteditable='true' data-id='".$id."' data-module-id='".$array['module_id']."' data-module='products'";
+                    break;
+                case isset($array['module_id']):
+                    //item element
+                    echo $lazyLoad."src='".$url."' contenteditable='true' data-id='".$id."' data-module-id='".$array['module_id']."'";
+                    break;
+                default:
+                    //content element
+                    echo $lazyLoad."src='".$url."' contenteditable='true' data-id='".$id."'";
             }
         }
     }
