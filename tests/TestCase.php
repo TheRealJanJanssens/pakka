@@ -37,18 +37,18 @@ class TestCase extends Orchestra
 
         // import all migrations created by the package
         $migrations = PakkaServiceProvider::allMigrations();
-        foreach($migrations as $migration){
+        foreach ($migrations as $migration) {
             include_once __DIR__ . '/../database/migrations/'.$migration.'.php.stub';
             $className = $this->dashesToCamelCase($migration);
-            (new $className)->up();
+            (new $className())->up();
         }
     }
 
-    function dashesToCamelCase($string, $capitalizeFirstCharacter = false) 
+    public function dashesToCamelCase($string, $capitalizeFirstCharacter = false)
     {
         $str = str_replace(' ', '', ucwords(str_replace('_', ' ', $string)));
 
-        if (!$capitalizeFirstCharacter) {
+        if (! $capitalizeFirstCharacter) {
             $str[0] = strtolower($str[0]);
         }
 
