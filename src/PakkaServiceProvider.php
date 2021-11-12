@@ -95,64 +95,22 @@ class PakkaServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasTranslations()
             ->hasRoute('web')
-            ->hasMigrations([
-                'add_permission_to_section_items_table',
-                'create_attribute_inputs_table',
-                'create_attribute_options_table',
-                'create_attribute_values_table',
-                'create_bookings_table',
-                'create_cart_services_table',
-                'create_collection_conditions_table',
-                'create_collection_sets_table',
-                'create_collections_table',
-                'create_components_table',
-                'create_coupons_table',
-                'create_coupons_table',
-                'create_forms_table',
-                'create_images_table',
-                'create_invoice_details_table',
-                'create_invoice_items_table',
-                'create_invoice_presets_table',
-                'create_invoices_table',
-                'create_items_table',
-                'create_languages_table',
-                'create_menu_items_table',
-                'create_menus_table',
-                'create_order_details_table',
-                'create_order_documents_table',
-                'create_order_items_table',
-                'create_order_payments_table',
-                'create_order_shipments_table',
-                'create_orders_table',
-                'create_pages_table',
-                'create_password_resets_table',
-                'create_products_table',
-                'create_projects_table',
-                'create_provider_schedules_table',
-                'create_providers_table',
-                'create_section_items_table',
-                'create_sections_table',
-                'create_service_assignments_table',
-                'create_services_table',
-                'create_settings_table',
-                'create_shipment_conditions_table',
-                'create_shipment_options_table',
-                'create_stocks_table',
-                'create_task_comments_table',
-                'create_task_groups_table',
-                'create_tasks_table',
-                'create_templates_table',
-                'create_translations_table',
-                'create_user_details_table',
-                'create_users_table',
-                'create_variant_options_table',
-                'create_variant_values_table',
-                'create_variants_table',
-            ])
+            ->hasMigrations($this->allMigrations())
             ->hasCommands([
                 InstallCommand::class,
                 CleanCommand::class,
                 UserMakeCommand::class,
             ]);
+    }
+
+    public function allMigrations(){
+        $path = __DIR__ . '/../database/migrations';
+        $files = array_values(array_diff(scandir($path), array('.', '..','.DS_Store')));
+
+        for($i = 0; $i < count($files); ++$i) {
+            $result[$i] = str_replace('.php.stub','', $files[$i]);
+        }
+
+        return $result;
     }
 }
