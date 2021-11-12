@@ -31,7 +31,7 @@ class ItemController extends Controller
         $items = Item::getItems($moduleId);
         $inputs = AttributeInput::getInputsChecklist();
 
-        return view('pakka::admin.items.index', compact('items','inputs'));
+        return view('pakka::admin.items.index', compact('items', 'inputs'));
     }
 
     public function show($moduleId, $id)

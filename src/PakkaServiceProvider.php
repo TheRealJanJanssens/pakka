@@ -147,7 +147,7 @@ class PakkaServiceProvider extends PackageServiceProvider
                 'create_users_table',
                 'create_variant_options_table',
                 'create_variant_values_table',
-                'create_variants_table'
+                'create_variants_table',
             ])
             ->hasCommands([
                 InstallCommand::class,

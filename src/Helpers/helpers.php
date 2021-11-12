@@ -1073,12 +1073,15 @@ function constructTranslations($array)
                switch (true) {
                     case contains($inputType, $optionsInputs): //insert option
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['option_id' => htmlspecialchars($value) ]);
+
                         break;
                     case ! contains($inputType, $optionsInputs) && $value !== null: //insert value
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => htmlentities($value) ]);
+
                         break;
                     case ! contains($inputType, $optionsInputs) && $value == null: //insert value null
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => null]);
+
                         break;
                 }
 
@@ -1092,6 +1095,7 @@ function constructTranslations($array)
                 //NON INPUTS (_token,status,...)
                 //status is a general input for all items and is set with a hidden input
                 $result[$key] = $value;
+
                 break;
         }
     }
