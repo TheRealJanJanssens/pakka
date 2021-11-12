@@ -12,7 +12,7 @@ class PakkaServiceProvider extends PackageServiceProvider
 {
     public function bootingPackage()
     {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        //$this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         //php artisan vendor:publish --tag=pakka
         $this->publishes([

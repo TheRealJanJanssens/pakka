@@ -2,11 +2,11 @@
 
 namespace TheRealJanJanssens\Pakka\Tests;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as Orchestra;
 use TheRealJanJanssens\Pakka\PakkaServiceProvider;
-
 class TestCase extends Orchestra
 {
     use RefreshDatabase;
