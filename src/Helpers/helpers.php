@@ -2216,7 +2216,7 @@ if (! function_exists('parseImage')) {
         }
 
         //If product detected add module id
-        if(isset($array['base_price'])){
+        if (isset($array['base_price'])) {
             $module = MenuItem::where('link', "products")->first();
             $array['module_id'] = $module->id;
         }
@@ -2229,10 +2229,12 @@ if (! function_exists('parseImage')) {
                 case isset($array['base_price']):
                     //product element
                     echo $lazyLoad."src='".$url."' contenteditable='true' data-id='".$id."' data-module-id='".$array['module_id']."' data-module='products'";
+
                     break;
                 case isset($array['module_id']):
                     //item element
                     echo $lazyLoad."src='".$url."' contenteditable='true' data-id='".$id."' data-module-id='".$array['module_id']."'";
+
                     break;
                 default:
                     //content element
