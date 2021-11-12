@@ -105,10 +105,10 @@ class PakkaServiceProvider extends PackageServiceProvider
 
     static public function allMigrations(){
         $path = __DIR__ . '/../database/migrations';
-        $files = array_values(array_diff(scandir($path), array('.', '..','.DS_Store')));
+        $files = array_values(array_diff(scandir($path), ['.', '..','.DS_Store']));
 
-        for($i = 0; $i < count($files); ++$i) {
-            $result[$i] = str_replace('.php.stub','', $files[$i]);
+        for ($i = 0; $i < count($files); ++$i) {
+            $result[$i] = str_replace('.php.stub', '', $files[$i]);
         }
 
         return $result;
