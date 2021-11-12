@@ -2,7 +2,15 @@
 
 All notable changes to `pakka` will be documented in this file.
 
-## 0.4.2 - 2021-10-
+## 0.4.3 - 2021-11-12
+- On the Items index/list screen the first input of the item will be shown in the name column
+- Small CSS tweaks on the admin tables
+- Changed all migration files into stubs and added a "if table exists" check
+- Added a stub to add the permission column to section_items
+- README update
+- Automaticlly execute migrations and seeding when installing Pakka
+
+## 0.4.2 - 2021-10-20
 - Removed some bad code initiating the Form macro
 - README changes to document testing
 - Removed Psalm

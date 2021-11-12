@@ -20,32 +20,21 @@ We also prepared a complete setup for the pakka package with following command
 php artisan pakka-install
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --provider="TheRealJanJanssens\Pakka\PakkaServiceProvider" --tag="migrations"
-php artisan migrate
-php artisan db:seed --class="TheRealJanJanssens\Pakka\Database\Seeders\DatabaseSeeder"
-```
-
 You can publish the config file with:
 ```bash
 php artisan vendor:publish --provider="TheRealJanJanssens\Pakka\PakkaServiceProvider" --tag="config"
 ```
 
-This is the contents of the published config file:
+## Installation for development
 
-```php
-return [
-];
-```
+Provide this info for this section.
 
-## Usage
+## Upgrade guide
+### Database structure changes
+When changing something on the structure of the database please do it with migrations and create a new stub so updating instances will be easier. Take add_permission_to_section_items_table.php.stub as example when dealing with columns and create_attribute_inputs_table.php.stub when dealing with tables
+### Upgrading to 1.0 From 0.x
 
-```php
-$pakka = new TheRealJanJanssens\Pakka();
-echo $pakka->echoPhrase('Hello, TheRealJanJanssens!');
-```
+When updating everything below 1.0.0 to current version take a backup from the database and remove the existing database. Reconstruct it with php artisan pakka-install and insert the data back into it
 
 ## Testing
 Use below commands to run the Unit tests

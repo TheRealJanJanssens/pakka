@@ -60,23 +60,6 @@
 	}
 }
 
-.table-image{
-	display: inline-block;
-	width: 23px;
-	height: 23px;
-	border-radius: 15px;
-	overflow: hidden;
-	margin-right: 5px;
-	vertical-align: middle;
-	
-	img{
-		width: 100%;
-		min-height: 100%;
-		height: auto;
-		object-fit: cover;
-	}
-}
-
 #dataTable_filter, #dataTables_paginate{
 	margin: 0px 20px;
 }

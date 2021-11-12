@@ -253,7 +253,6 @@ class AttributeInput extends Model
         ->orderBy('attribute_inputs.position')
         ->get();
 
-
         foreach ($queryResult as $item) {
             $result[$item->name] = $item->input_id;
         }

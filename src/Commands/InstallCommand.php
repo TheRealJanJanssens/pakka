@@ -29,9 +29,12 @@ class InstallCommand extends Command
         $this->info('Copied all files');
 
         //migrate
-        //Artisan::call('vendor:publish --tag=pakka-migrations');
-        //Artisan::call('migrate');
-        $this->info('Done all migrations');
+        Artisan::call('vendor:publish --tag=pakka-migrations');
+        Artisan::call('migrate');
+        $this->info('Migrations succeeded');
+
+        Artisan::call('db:seed --class="TheRealJanJanssens\Pakka\Database\Seeders\DatabaseSeeder"');
+        $this->info('Seeding succeeded');
 
         //clear cache
         Artisan::call('cache:clear');

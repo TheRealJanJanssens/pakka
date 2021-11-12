@@ -1073,16 +1073,12 @@ function constructTranslations($array)
                switch (true) {
                     case contains($inputType, $optionsInputs): //insert option
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['option_id' => htmlspecialchars($value) ]);
-
                         break;
                     case ! contains($inputType, $optionsInputs) && $value !== null: //insert value
-                        //dd(htmlentities(htmlentities($value)));
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => htmlentities($value) ]);
-
                         break;
                     case ! contains($inputType, $optionsInputs) && $value == null: //insert value null
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => null]);
-
                         break;
                 }
 
@@ -1096,7 +1092,6 @@ function constructTranslations($array)
                 //NON INPUTS (_token,status,...)
                 //status is a general input for all items and is set with a hidden input
                 $result[$key] = $value;
-
                 break;
         }
     }
@@ -1239,7 +1234,6 @@ if (! function_exists('constructAttributes')) {
                                 if (isset($attribute[1])) {
                                     $key = $attribute[0];
                                     $val = $attribute[1];
-
                                     $items[$i]->setAttribute($key, $val);
 
                                     $getAttr = [];

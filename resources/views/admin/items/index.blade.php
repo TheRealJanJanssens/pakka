@@ -58,7 +58,7 @@
 				                        	<div class="table-image"><img src="{{ imgUrl($item['id'] ,$item['images'][0], 100) }}"></div>
 				                        @endif
 			
-				                        <a href="{{ route(config('pakka.prefix.admin'). '.items.edititem', ['moduleId' => Session::get('set_id'), 'id' => $item['id']]) }}" class="link">{{ htmlspecialchars_decode($item['title']) }}</a>
+				                        <a href="{{ route(config('pakka.prefix.admin'). '.items.edititem', ['moduleId' => Session::get('set_id'), 'id' => $item['id']]) }}" class="link">{{ htmlspecialchars_decode($item[array_key_first($inputs)]) }}</a>
 				                    </td>
 			                        <td>
 				                        @if ($item['status'] == 1)
@@ -128,7 +128,7 @@
 				                        	<div class="table-image"><img src="{{ imgUrl($item['id'] ,$item['images'][0], 100) }}"></div>
 				                        @endif
 			
-				                        <a href="{{ route(config('pakka.prefix.admin'). '.items.edititem', ['moduleId' => Session::get('set_id'), 'id' => $item['id']]) }}" class="link">{{ htmlspecialchars_decode($item['title']) }}</a>
+				                        <a href="{{ route(config('pakka.prefix.admin'). '.items.edititem', ['moduleId' => Session::get('set_id'), 'id' => $item['id']]) }}" class="link">{{ htmlspecialchars_decode($item[array_key_first($inputs)]) }}</a>
 				                    </td>
 			                        <td>
 				                        @if ($item['status'] == 1)

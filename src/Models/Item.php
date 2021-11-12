@@ -329,10 +329,8 @@ class Item extends Model
         ->groupBy('items.id')
         ->limit($limit)
         ->get();
-        //dd($result);
-        $result = constructAttributes($result);
 
-        //dd($result);
+        $result = constructAttributes($result);
 
         return $result; //outputs array
     }
