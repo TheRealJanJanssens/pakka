@@ -64,13 +64,13 @@ class TestCase extends Orchestra
         config()->set('database.connections.mysql.password', 'root');
         config()->set('database.connections.mysql.port', '8889');
 
-        // import all migrations created by the package
-        // $migrations = PakkaServiceProvider::allMigrations();
-        // foreach ($migrations as $migration) {
-        //     include_once __DIR__ . '/../database/migrations/'.$migration.'.php.stub';
-        //     $className = $this->dashesToCamelCase($migration);
-        //     (new $className())->up();
-        // }
+        //import all migrations created by the package
+        $migrations = PakkaServiceProvider::allMigrations();
+        foreach ($migrations as $migration) {
+            include_once __DIR__ . '/../database/migrations/'.$migration.'.php.stub';
+            $className = $this->dashesToCamelCase($migration);
+            (new $className())->up();
+        }
     }
 
     public function dashesToCamelCase($string, $capitalizeFirstCharacter = false)
