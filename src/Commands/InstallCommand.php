@@ -33,7 +33,7 @@ class InstallCommand extends Command
         Artisan::call('migrate');
         $this->info('Migrations succeeded');
 
-        Artisan::call('db:seed --class="TheRealJanJanssens\Pakka\Database\Seeders\DatabaseSeeder"');
+        Artisan::call('db:seed', [ '--class' => 'TheRealJanJanssens\Pakka\Database\Seeders\DatabaseSeeder']);
         $this->info('Seeding succeeded');
 
         //clear cache
