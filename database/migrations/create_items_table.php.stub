@@ -20,7 +20,7 @@ class CreateItemsTable extends Migration
                 $table->string('slug', 91)->nullable();
                 $table->integer('status')->default(0);
                 $table->integer('created_by')->nullable();
-                $table->timestamps();
+                $table->nullableTimestamps();
                 $table->string('updated_by', 91)->nullable();
             });
         }

@@ -25,7 +25,7 @@ class CreateSectionsTable extends Migration
                 $table->string('classes', 750)->nullable()->default('');
                 $table->string('attributes', 750)->nullable()->default('');
                 $table->string('extras', 750)->nullable()->default('');
-                $table->timestamps();
+                $table->nullableTimestamps();
             });
         }
     }

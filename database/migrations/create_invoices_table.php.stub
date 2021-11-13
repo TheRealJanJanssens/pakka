@@ -28,7 +28,7 @@ class CreateInvoicesTable extends Migration
                 $table->string('sended_to')->nullable();
                 $table->dateTime('received_at')->nullable();
                 $table->dateTime('canceled_at')->nullable();
-                $table->timestamps();
+                $table->nullableTimestamps();
             });
         }
     }

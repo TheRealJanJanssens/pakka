@@ -19,7 +19,7 @@ class CreateFormsTable extends Migration
                 $table->string('set_id', 10)->nullable();
                 $table->string('name')->nullable()->default('');
                 $table->string('type', 10)->nullable();
-                $table->timestamps();
+                $table->nullableTimestamps();
             });
         }
     }

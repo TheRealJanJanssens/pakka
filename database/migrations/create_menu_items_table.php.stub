@@ -25,7 +25,7 @@ class CreateMenuItemsTable extends Migration
                 $table->string('parameter', 191)->nullable();
                 $table->string('parameter_slug', 191)->nullable();
                 $table->integer('permission')->default(1);
-                $table->timestamps();
+                $table->nullableTimestamps();
             });
         }
     }
