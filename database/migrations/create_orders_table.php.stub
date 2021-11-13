@@ -24,10 +24,10 @@ class CreateOrdersTable extends Migration
                 $table->integer('coupon_id')->nullable();
                 $table->unsignedInteger('taxes_included')->default(1);
                 $table->unsignedInteger('cancel_reason')->default(0);
-                $table->timestamp('created_at');
-                $table->timestamp('updated_at');
-                $table->timestamp('closed_at');
-                $table->timestamp('cancelled_at');
+                $table->timestamp('created_at')->nullable();
+                $table->timestamp('updated_at')->nullable();
+                $table->timestamp('closed_at'->nullable());
+                $table->timestamp('cancelled_at')->nullable();
             });
         }
     }
