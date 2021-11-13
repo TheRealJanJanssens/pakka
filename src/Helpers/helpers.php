@@ -194,7 +194,7 @@ if (! function_exists('getAuthRole')) {
 if (! function_exists('getPackageInfo')) {
     function getPackageInfo($name)
     {
-        if(file_exists(base_path('vendor/composer/installed.json'))){
+        if (file_exists(base_path('vendor/composer/installed.json'))) {
             $json = json_decode(file_get_contents(base_path('vendor/composer/installed.json')), true);
             $i = array_search($name, array_column($json['packages'], 'name'));
             if ($i == false) {
@@ -202,7 +202,7 @@ if (! function_exists('getPackageInfo')) {
             }
 
             return $json['packages'][$i];
-        }else{
+        } else {
             return null;
         }
     }

@@ -101,7 +101,8 @@ class PakkaServiceProvider extends PackageServiceProvider
             ]);
     }
 
-    static public function allMigrations(){
+    public static function allMigrations()
+    {
         $path = __DIR__ . '/../database/migrations';
         $files = array_values(array_diff(scandir($path), ['.', '..','.DS_Store']));
 
