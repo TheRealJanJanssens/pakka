@@ -63,6 +63,7 @@ class TestCase extends Orchestra
         config()->set('database.connections.mysql.username', 'root');
         config()->set('database.connections.mysql.password', 'root');
         config()->set('database.connections.mysql.port', '8889');
+        config()->set('database.connections.mysql.strict', 'false');
 
         //import all migrations created by the package
         $migrations = PakkaServiceProvider::allMigrations();
