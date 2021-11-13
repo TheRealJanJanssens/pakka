@@ -24,5 +24,5 @@ it('has menus')->assertDatabaseHas('menus', [
 ]);
 
 // it('route is available', function () {
-//     get('/clear-cache')->assertStatus(200);
+//     get('/admin')->assertStatus(200);
 // });

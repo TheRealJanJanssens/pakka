@@ -12,8 +12,6 @@ class PakkaServiceProvider extends PackageServiceProvider
 {
     public function bootingPackage()
     {
-        //$this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-
         //php artisan vendor:publish --tag=pakka
         $this->publishes([
             // Config
@@ -103,8 +101,7 @@ class PakkaServiceProvider extends PackageServiceProvider
             ]);
     }
 
-    public static function allMigrations()
-    {
+    static public function allMigrations(){
         $path = __DIR__ . '/../database/migrations';
         $files = array_values(array_diff(scandir($path), ['.', '..','.DS_Store']));
 

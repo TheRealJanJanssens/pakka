@@ -194,13 +194,17 @@ if (! function_exists('getAuthRole')) {
 if (! function_exists('getPackageInfo')) {
     function getPackageInfo($name)
     {
-        $json = json_decode(file_get_contents(base_path('vendor/composer/installed.json')), true);
-        $i = array_search($name, array_column($json['packages'], 'name'));
-        if ($i == false) {
+        if(file_exists(base_path('vendor/composer/installed.json'))){
+            $json = json_decode(file_get_contents(base_path('vendor/composer/installed.json')), true);
+            $i = array_search($name, array_column($json['packages'], 'name'));
+            if ($i == false) {
+                return null;
+            }
+
+            return $json['packages'][$i];
+        }else{
             return null;
         }
-
-        return $json['packages'][$i];
     }
 }
 

@@ -9,6 +9,8 @@ All notable changes to `pakka` will be documented in this file.
 - Added a stub to add the permission column to section_items
 - README update
 - Automaticlly execute migrations and seeding when installing Pakka
+- Removed windows-latest from testing flow because it keeps throwing a deprecation error which can't be solved at this moment in time
+- Provided some code to test routes but is disabled because ongoing problems
 
 ## 0.4.2 - 2021-10-20
 - Removed some bad code initiating the Form macro
