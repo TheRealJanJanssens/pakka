@@ -26,7 +26,7 @@ class CreateOrdersTable extends Migration
                 $table->unsignedInteger('cancel_reason')->default(0);
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
-                $table->timestamp('closed_at'->nullable());
+                $table->timestamp('closed_at')->nullable();
                 $table->timestamp('cancelled_at')->nullable();
             });
         }
