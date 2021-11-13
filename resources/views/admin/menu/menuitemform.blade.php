@@ -6,7 +6,7 @@
 					{!! Form::myInput('text', 'name', 'Naam', [], null, $langItem["language_code"]) !!}
 				@endforeach
 				
-				@if(checkAcces("permission_edit_app_menu"))
+				@if(checkAccess("permission_edit_app_menu"))
 					{!! Form::mySelect('icon', 'Icoon', config('pakka.icons'), null, ['class' => 'menu-check form-control select2']) !!}
 				@endif
 				
@@ -14,11 +14,11 @@
 				
 				@php( $roles = config('pakka.roles') + config('pakka.adminRoles'))
 				
-				@if(checkAcces("permission_edit_app_menu"))
+				@if(checkAccess("permission_edit_app_menu"))
 					{!! Form::mySelect('permission', 'Toegankelijkheid', $roles, null, ['class' => 'form-control select2']) !!}
 				@endif
 				
-				@if(checkAcces("permission_edit_app_menu"))
+				@if(checkAccess("permission_edit_app_menu"))
 					@php( $links = array(trans("pakka::app.pages") => $pages, trans("pakka::app.controlpanel") => config('pakka.modules')) )
 				@else
 					@php( $links = $pages )
@@ -38,7 +38,7 @@
 		{{ constructTransSelect() }}
 		
 		<button type="submit" class="btn btn-primary">{{ trans('pakka::app.edit_button') }}</button>
-		@if(checkAcces("permission_edit_app_menu"))
+		@if(checkAccess("permission_edit_app_menu"))
 			<p class="text-subinfo font-italic mT-20">
 				Icons worden enkel in het beheerpaneel gebruikt! 
 			</p>

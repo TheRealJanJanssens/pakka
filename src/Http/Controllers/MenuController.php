@@ -26,7 +26,7 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Session::get('menus');
-        if (! checkAcces("permission_edit_app_menu")) {
+        if (! checkAccess("permission_edit_app_menu")) {
             unset($menus[1]);
         }
 
@@ -40,7 +40,7 @@ class MenuController extends Controller
      */
     public function createMenu()
     {
-        if (checkAcces("permission_add_menus")) {
+        if (checkAccess("permission_add_menus")) {
             return view('pakka::admin.menu.createmenu');
         } else {
             return back();
@@ -49,7 +49,7 @@ class MenuController extends Controller
 
     public function createMenuItem()
     {
-        if (checkAcces("permission_edit_app_menu")) {
+        if (checkAccess("permission_edit_app_menu")) {
             $menuResults = Menu::get();
         } else {
             $menuResults = Menu::get()->where('id', '!=', 1);
@@ -136,7 +136,7 @@ class MenuController extends Controller
         $item = Menu::findOrFail($id);
         $items = Menu::latest('updated_at')->get();
 
-        if (checkAcces("permission_add_menus")) {
+        if (checkAccess("permission_add_menus")) {
             return view('pakka::admin.menu.editmenu', compact('item', 'items'));
         } else {
             return back();

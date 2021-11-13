@@ -2,15 +2,17 @@
 
 All notable changes to `pakka` will be documented in this file.
 
-## 0.4.3 - 2021-11-12
+## 1.0.0 - 2021-11-12
 - On the Items index/list screen the first input of the item will be shown in the name column
 - Small CSS tweaks on the admin tables
-- Changed all migration files into stubs and added a "if table exists" check
+- Changed all migration and seeders files into stubs and added a "if table/content exists" check
 - Added a stub to add the permission column to section_items
 - README update
 - Automaticlly execute migrations and seeding when installing Pakka
 - Removed windows-latest from testing flow because it keeps throwing a deprecation error which can't be solved at this moment in time
 - Provided some code to test routes but is disabled because ongoing problems
+- Added permission check on getSectionItemsByType() to have full control which user can insert which blocks
+- Added Section manager to add/edit/delete section items
 
 ## 0.4.2 - 2021-10-20
 - Removed some bad code initiating the Form macro

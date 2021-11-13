@@ -7,9 +7,15 @@
 @section('content')
 
 	<div class="action-bar mB-20 ">
-        @if(checkAcces("permission_content_edit"))
+        @if(checkAccess("permission_content_edit"))
 			<a href="{{ route(config('pakka.prefix.admin'). '.content.createpage') }}" class="btn btn-info">
 		        {{ trans('pakka::app.page') }} {{ trans('pakka::app.add_button') }}
+		    </a>
+	    @endif
+
+		@if(checkAccess())
+			<a href="{{ route(config('pakka.prefix.admin'). '.sectionmanager.index') }}" class="btn btn-info">
+		        {{ trans('pakka::app.section_manager') }}
 		    </a>
 	    @endif
 	    
@@ -36,9 +42,9 @@
 	                        <td>
 	                            <ul class="list-inline">
 		                            
-		                            @if(checkAcces("permission_content_edit"))
+		                            @if(checkAccess("permission_content_edit"))
 
-										@if(checkAcces("permission_template_managment"))
+										@if(checkAccess("permission_template_managment"))
 										<li class="list-inline-item">
 											<a href="{{ route(config('pakka.prefix.admin'). '.content.generatetemplate', [$page->id]) }}" title="{{ trans('pakka::app.generate_template') }}" class="btn btn-secondary btn-sm"><span class="ti-hummer"></span></a></li>
 										@endif
@@ -75,7 +81,7 @@
 			                        <td><i class="handle ti-line-double"></i><b>{{ $section->name }}</b></td>
 			                        <td>
 			                            <ul class="list-inline">
-				                            @if(checkAcces("permission_content_edit"))
+				                            @if(checkAccess("permission_content_edit"))
 					                            <li class="list-inline-item">
 				                                    <a href="{{ route(config('pakka.prefix.admin'). '.content.createcomponent', [$page->id,$section->id]) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-secondary btn-sm"><span class="ti-plus"></span></a></li>
 				                                    
@@ -112,12 +118,12 @@
 						                            <li class="list-inline-item">
 						                                <a href="{{ route(config('pakka.prefix.admin'). '.content.editcontent', $component->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil-alt"></span></a></li>
 						                            
-						                            @if(checkAcces("permission_input_edit"))
+						                            @if(checkAccess("permission_input_edit"))
 							                            <li class="list-inline-item">
 						                                    <a href="{{ route(config('pakka.prefix.admin'). '.inputs.index', $component->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-secondary btn-sm"><span class="ti-view-list"></span></a></li>
 						                            @endif
 						                            
-						                            @if(checkAcces("permission_content_edit"))
+						                            @if(checkAccess("permission_content_edit"))
 						                                <li class="list-inline-item">
 						                                    <a href="{{ route(config('pakka.prefix.admin'). '.content.editcomponent', [$component->id,$page->id,$section->id]) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
 						                                <li class="list-inline-item">

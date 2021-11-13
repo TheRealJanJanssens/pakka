@@ -30,6 +30,7 @@ use TheRealJanJanssens\Pakka\Http\Controllers\Auth\LoginController;
 use TheRealJanJanssens\Pakka\Http\Controllers\CollectionController;
 use TheRealJanJanssens\Pakka\Http\Controllers\CartServiceController;
 use TheRealJanJanssens\Pakka\Http\Controllers\InvoicePresetController;
+use TheRealJanJanssens\Pakka\Http\Controllers\sectionmanagerController;
 use TheRealJanJanssens\Pakka\Http\Controllers\Auth\ForgotPasswordController;
 
 // :resource sets up some default routes any other has to be manually registerd. Check above examples
@@ -60,9 +61,12 @@ Route::group([
     ], function () {
 	
 	//Route::auth();
-    
-    Route::resource('users', UserController::class);
-    Route::resource('templates', TemplateController::class);
+
+    Route::resources([
+        'users' => UserController::class,
+        'templates' => TemplateController::class,
+        'sectionmanager' => SectionManagerController::class
+    ]);
 
     //Templates
     Route::get('templates/{id}/download', [TemplateController::class, "download"])->name('templates.download');

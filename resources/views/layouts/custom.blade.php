@@ -59,15 +59,15 @@
 		<meta name="autosave" content="{{ $page['meta']['settings']['editor_autosave'] }}"/>
 	@endif
 	
-	@if(checkAcces("permission_layout_edit"))
+	@if(checkAccess("permission_layout_edit"))
 		<meta name="layout_editor" content="1"/>
 	@endif
 	
-	@if(checkAcces("permission_layout_edit_items"))
+	@if(checkAccess("permission_layout_edit_items"))
 		<meta name="layout_editor_items" content="1"/>
 	@endif
 	
-	@if(checkAcces("permission_content_edit_advanced"))
+	@if(checkAccess("permission_content_edit_advanced"))
 		<meta name="content_edit_advanced" content="1"/>
 	@endif
 	

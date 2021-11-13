@@ -9,6 +9,8 @@ class SectionItem extends Model
 {
     use Notifiable;
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,6 +21,7 @@ class SectionItem extends Model
         'section',
         'name',
         'tags',
+        'permission'
     ];
 
     /*
@@ -50,7 +53,7 @@ class SectionItem extends Model
     |------------------------------------------------------------------------------------
     */
 
-    public static function getSectionItemsByType($type)
+    public static function getSectionItemsByType($type, $role = null)
     {
         $result = SectionItem::select([
         'section_items.id',
@@ -58,8 +61,13 @@ class SectionItem extends Model
         'section_items.section',
         'section_items.tags',
         ])
-        ->where('section_items.type', $type)
-        ->orderBy('name')
+        ->where('section_items.type', $type);
+
+        if($role){
+            $result = $result->where('section_items.permission', '<=', $role);
+        }
+
+        $result = $result->orderBy('name')
         ->get();
 
         return $result;

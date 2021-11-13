@@ -37,7 +37,7 @@
             
             <tbody>
                 @foreach ($items as $item)
-                	@if(($item->role == 10 && checkAcces("permission_user_admin_edit")) || $item->role !== 10)
+                	@if(($item->role == 10 && checkAccess("permission_user_admin_edit")) || $item->role !== 10)
 	                    <tr>
 	                        <td>
 		                        <a href="{{ route(config('pakka.prefix.admin'). '.clients.edit', $item->id) }}">			                        

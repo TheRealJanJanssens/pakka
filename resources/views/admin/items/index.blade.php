@@ -23,7 +23,7 @@
 	            {{ trans('pakka::app.add_button') }}
 	        </a>
 
-	        @if(checkAcces("permission_input_edit"))
+	        @if(checkAccess("permission_input_edit"))
 		        <a href="{{ route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id')) }}" class="btn btn-info">
 		            Inputs {{ trans('pakka::app.admin') }}
 		        </a>

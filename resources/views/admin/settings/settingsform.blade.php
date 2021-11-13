@@ -3,7 +3,7 @@
 		@php($i=1)
 		@foreach ($settings as $group)
 			<!-- if you want to exclude more groups use the contain() function -->
-<!-- 		($group['category'] == "app.settings_assets.permission_settings" && checkAcces('permission_perm_edit')) || $group['category'] !== "app.settings_assets.permission_settings" -->
+<!-- 		($group['category'] == "app.settings_assets.permission_settings" && checkAccess('permission_perm_edit')) || $group['category'] !== "app.settings_assets.permission_settings" -->
 			
 			<?php
 				//Checks admin settings
@@ -20,7 +20,7 @@
 				$parseGroup = true;
 				foreach($accesCheck as $name => $label){
 					if($name == $group['category']){
-						if(!checkAcces($label)){
+						if(!checkAccess($label)){
 							$parseGroup = false;
 						}
 					}

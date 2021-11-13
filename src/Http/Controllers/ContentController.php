@@ -519,7 +519,7 @@ class ContentController extends Controller
 
     public function loadSectionList($type)
     {
-        $sections = SectionItem::getSectionItemsByType($type);
+        $sections = SectionItem::getSectionItemsByType($type, auth()->user()->role);
 
         $tags = [];
         foreach ($sections as $section) {

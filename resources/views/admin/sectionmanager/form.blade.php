@@ -11,18 +11,16 @@
 	
 		<div class="col-sm-8">
 			<div class="bgc-white p-20 bd">
-				{!! Form::myInput('text', 'name', 'Username') !!}
-			
-					{!! Form::myInput('email', 'email', 'Email') !!}
-			
-					{!! Form::myInput('password', 'password', 'Password') !!}
-			
-					{!! Form::myInput('password', 'password_confirmation', 'Password again') !!}
-		
-			
-					{!! Form::myFile('avatar', 'Avatar') !!}
-			
-					{!! Form::myTextArea('bio', 'Bio') !!}
+				{!! Form::myInput('text', 'id', 'ID') !!}
+
+				{!! Form::myInput('text', 'name', 'Titel') !!}
+
+				{!! Form::myInput('text', 'section', 'Section slug') !!}
+
+				{!! Form::myInput('text', 'tags', 'Tags') !!}
+
+				{!! Form::mySelect('type', 'Type', [1 => "navigation",2 => "main",3 => "footer"], null, ['class' => 'form-control select2']) !!}
+
 			</div>  
 		</div>
 		
@@ -38,7 +36,7 @@
 					}
 				?>
 				
-				{!! Form::mySelect('role', 'Rol', $roles, null, ['class' => 'form-control select2']) !!}
+				{!! Form::mySelect('permission', 'Rol', $roles, null, ['class' => 'form-control select2']) !!}
 			</div>
 			
 			<button type="submit" class="btn btn-primary">{{ trans('pakka::app.edit_button') }}</button>

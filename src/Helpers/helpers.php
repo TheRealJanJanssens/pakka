@@ -191,6 +191,14 @@ if (! function_exists('getAuthRole')) {
     }
 }
 
+if (! function_exists('getRoleName')) {
+    function getRoleName($id)
+    {
+        $roles = array_replace(config('pakka.roles'), config('pakka.adminRoles'));
+        return $roles[$id];
+    }
+}
+
 if (! function_exists('getPackageInfo')) {
     function getPackageInfo($name)
     {
@@ -351,7 +359,7 @@ if (! function_exists('constructGlobVars')) {
             Session::put('pakka_version', $package['version'] ?? 'Version unknown');
         }
 
-        if (! Session::has('menus')) {
+        if (! Session::has('menus') || empty(Session::get('menus'))) {
             $menus = Menu::constructMenu();
             //View::share('adminMenu', $menus[1]);
             Session::put('menus', $menus);
@@ -850,8 +858,8 @@ if (! function_exists('slugControl')) {
 |
 */
 
-if (! function_exists('checkAcces')) {
-    function checkAcces($setting)
+if (! function_exists('checkAccess')) {
+    function checkAccess($setting = null)
     {
         if (isset(auth()->user()->role)) {
             $settings = Session::get('settings');
@@ -1972,7 +1980,7 @@ if (! function_exists('parseEditSecAttr')) {
 if (! function_exists('checkAdjustable')) {
     function checkAdjustable()
     {
-        if (checkAcces("permission_layout_edit")) {
+        if (checkAccess("permission_layout_edit")) {
             echo "adjustable";
         }
     }
@@ -1981,7 +1989,7 @@ if (! function_exists('checkAdjustable')) {
 if (! function_exists('checkManageable')) {
     function checkManageable()
     {
-        if (checkAcces("permission_section_edit")) {
+        if (checkAccess("permission_section_edit")) {
             echo "manageable";
         }
     }

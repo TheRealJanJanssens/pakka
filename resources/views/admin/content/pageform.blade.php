@@ -10,7 +10,7 @@
 			
 			{!! Form::mySelect('template', 'Template', $templates, null, ['class' => 'form-control select2']) !!}
 			
-			@if(checkAcces("permission_template_managment") && !empty($jsonTemplates))
+			@if(checkAccess("permission_template_managment") && !empty($jsonTemplates))
 				<div class="form-group">
 					<label for="json" class="col-form-label">Layout Template</label>
 					

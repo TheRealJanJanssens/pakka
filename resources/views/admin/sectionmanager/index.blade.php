@@ -1,13 +1,13 @@
 @extends('pakka::admin.default')
 
 @section('page-header')
-    Users <small>{{ trans('pakka::app.manage') }}</small>
+    Section <small>{{ trans('pakka::app.manage') }}</small>
 @endsection
 
 @section('content')
 
     <div class="mB-20">
-        <a href="{{ route(config('pakka.prefix.admin'). '.users.create') }}" class="btn btn-info">
+        <a href="{{ route(config('pakka.prefix.admin'). '.sectionmanager.create') }}" class="btn btn-info">
             {{ trans('pakka::app.add_button') }}
         </a>
     </div>
@@ -18,7 +18,8 @@
             <thead>
                 <tr>
                     <th>{{ trans('pakka::app.name') }}</th>
-                    <th>{{ trans('pakka::app.email') }}</th>
+                    <th>{{ trans('pakka::app.role') }}</th>
+                    <th>{{ trans('pakka::app.tags') }}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -37,16 +38,17 @@
                 @foreach ($items as $item)
                 	@if(($item->role == 10 && checkAccess("permission_user_admin_edit")) || $item->role !== 10)
 	                    <tr>
-	                        <td><a href="{{ route(config('pakka.prefix.admin'). '.users.edit', $item->id) }}">{{ $item->name }}</a></td>
-	                        <td>{{ $item->email }}</td>
+	                        <td><a href="{{ route(config('pakka.prefix.admin'). '.sectionmanager.edit', $item->id) }}">{{ $item->name }}</a></td>
+	                        <td>{{ getRoleName($item->permission) }}</td>
+                            <td>{{ $item->tags }}</td>
 	                        <td>
 	                            <ul class="list-inline">
 	                                <li class="list-inline-item">
-	                                    <a href="{{ route(config('pakka.prefix.admin'). '.users.edit', $item->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
+	                                    <a href="{{ route(config('pakka.prefix.admin'). '.sectionmanager.edit', $item->id) }}" title="{{ trans('pakka::app.edit_title') }}" class="btn btn-primary btn-sm"><span class="ti-pencil"></span></a></li>
 	                                <li class="list-inline-item">
 	                                    {!! Form::open([
 	                                        'class'=>'delete',
-	                                        'url'  => route(config('pakka.prefix.admin'). '.users.destroy', $item->id), 
+	                                        'url'  => route(config('pakka.prefix.admin'). '.sectionmanager.destroy', $item->id), 
 	                                        'method' => 'DELETE',
 	                                        ]) 
 	                                    !!}

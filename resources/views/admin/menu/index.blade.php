@@ -7,7 +7,7 @@
 @section('content')
 	
     <div class="mB-20">
-	    @if(checkAcces("permission_add_menus"))
+	    @if(checkAccess("permission_add_menus"))
 	        <a href="{{ route(config('pakka.prefix.admin').'.menu.createmenu') }}" class="btn btn-info">
 	            Menu {{ trans('pakka::app.add_button') }}
 	        </a>
