@@ -195,6 +195,7 @@ if (! function_exists('getRoleName')) {
     function getRoleName($id)
     {
         $roles = array_replace(config('pakka.roles'), config('pakka.adminRoles'));
+
         return $roles[$id];
     }
 }

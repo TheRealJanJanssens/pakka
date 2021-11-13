@@ -21,7 +21,7 @@ class SectionItem extends Model
         'section',
         'name',
         'tags',
-        'permission'
+        'permission',
     ];
 
     /*
@@ -63,7 +63,7 @@ class SectionItem extends Model
         ])
         ->where('section_items.type', $type);
 
-        if($role){
+        if ($role) {
             $result = $result->where('section_items.permission', '<=', $role);
         }
 
