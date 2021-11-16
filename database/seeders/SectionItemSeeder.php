@@ -16,11 +16,11 @@ class SectionItemSeeder extends Seeder
     {
         if(DB::table('section_items')->count() == 0) {
             DB::table('section_items')->insert([
-                array("id" => 1, "type" => 2, "section" => "AI1", "name" => "Accordion Image", "tags" => "accordion"),
+                array("id" => 1, "type" => 2, "section" => "ACORST03001", "name" => "Accordion Image", "tags" => "accordion"),
                 array("id" => 2, "type" => 2, "section" => "AIBG1", "name" => "Accordion Image background", "tags" => "accordion,achtergrond"),
                 array("id" => 3, "type" => 3, "section" => "FOOT1", "name" => "Footer 1", "tags" => "footer"),
                 array("id" => 4, "type" => 1, "section" => "MNAVST01001", "name" => "Navigation 1", "tags" => "navigation"),
-                array("id" => 5, "type" => 2, "section" => "AI2", "name" => "Accordion Image 2", "tags" => "accordion"),
+                array("id" => 5, "type" => 2, "section" => "ACORST01001", "name" => "Accordion Text 1", "tags" => "accordion,tekst"),
                 array("id" => 6, "type" => 2, "section" => "AIBG2", "name" => "Accordion Image background 2", "tags" => "accordion,achtergrond"),
                 array("id" => 8, "type" => 2, "section" => "HEROIG01001", "name" => "Cover Text 2", "tags" => "cover,achtergrond"),
                 array("id" => 9, "type" => 2, "section" => "HEROIG02001", "name" => "Cover Text 3", "tags" => "cover,achtergrond"),

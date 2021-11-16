@@ -2101,6 +2101,24 @@ if (! function_exists('getLayout')) {
     }
 }
 
+if (! function_exists('getSectionImage')) {
+    function getSectionImage($name)
+    {
+        $vendorResource = 'vendor/images/sections/'.$name.'.png';
+        $customResource = 'images/sections/'.$name.'.png';
+
+        switch (true) {
+            //Get File if exists on app level
+            case file_exists(public_path($customResource)):
+                return $customResource;
+                break;
+            default:
+                return $vendorResource;
+                break;
+        }
+    }
+}
+
 /*
 |--------------------------------------------------------------------------
 | Checks link (probably redundant)

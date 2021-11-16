@@ -11,6 +11,7 @@ use TheRealJanJanssens\Pakka\Models\User;
 
 beforeEach(fn () => User::factory()->create());
 
+//TODO: when new scenario is run the database is cleared and migrations and seeders run again. the auto increment is not reset so the beforeEach doesn't start from 1 so below test fails
 it('has users')->assertDatabaseHas('users', [
     'id' => 1,
 ]);
