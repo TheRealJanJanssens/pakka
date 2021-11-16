@@ -13,6 +13,13 @@ All notable changes to `pakka` will be documented in this file.
 - Provided some code to test routes but is disabled because ongoing problems
 - Added permission check on getSectionItemsByType() to have full control which user can insert which blocks
 - Added Section manager to add/edit/delete section items
+- Added accordion_type in layout editor to reduce the amount of blocks
+- Depricated AI2 section and removed from seeder
+- AI1 > ACORST03001 and added some optimalizations
+- Added new section ACORST01001
+- Custom section thumbnails are now possible for existing and custom sections
+- added getSectionImage() helper to provide logic for aboce change
+- Updated README for the custom section thumbnails
 
 ## 0.4.2 - 2021-10-20
 - Removed some bad code initiating the Form macro

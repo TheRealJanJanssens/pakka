@@ -61,6 +61,11 @@ act -P ubuntu-latest=shivammathur/node:latest
 ## Custom sections, templates and layouts
 If you need to change a particular section, template or layout you can simply add a 'sections', 'templates' or 'layouts' folder in your views. You can put a copy of existing resources in the folder you just made and do all the changes you want. When you update the package this folder won't be updated so your custom resources will be untouched.
 
+Custom sections also can have their own custom thumbnail. Just add the following to your project and your set!
+```php
+"/public/images/sections/{nameSection}.png"
+```
+
 ## Custom dynamic sections with items
 This sounds a bit abstract but you can put custom html/blade in a few selected sections (For example IFRMST01004). Some of them even allow you to connect a item module to them and directly list items in your custom html/blade. To access the item variables you just use the name of the key as variable like:
 ```
