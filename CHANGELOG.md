@@ -2,7 +2,7 @@
 
 All notable changes to `pakka` will be documented in this file.
 
-## 1.0.0 - 2021-11-12
+## 1.0.0 - 2021-11-16
 - On the Items index/list screen the first input of the item will be shown in the name column
 - Small CSS tweaks on the admin tables
 - Changed all migration and seeders files into stubs and added a "if table/content exists" check

@@ -96,7 +96,8 @@
 			{
 				"position":2,
 				"label":"Omschrijving",
-				"name":"text"
+				"name":"text",
+				"type":"textarea"
 			}
 		]
 	},
