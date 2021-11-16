@@ -2111,9 +2111,11 @@ if (! function_exists('getSectionImage')) {
             //Get File if exists on app level
             case file_exists(public_path($customResource)):
                 return $customResource;
+
                 break;
             default:
                 return $vendorResource;
+
                 break;
         }
     }
