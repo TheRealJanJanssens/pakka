@@ -326,9 +326,13 @@ class Item extends Model
 
         $result = $result
         ->orderBy('items.created_at', $sort)
-        ->groupBy('items.id')
-        ->limit($limit)
-        ->get();
+        ->groupBy('items.id');
+
+        if ($limit !== null) {
+            $result = $result->limit($limit);
+        }
+
+        $result = $result->get();
 
         $result = constructAttributes($result);
 
