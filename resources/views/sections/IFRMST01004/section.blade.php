@@ -28,7 +28,7 @@
                             ?>
 
                             <div class="masonry__item item {{ parseSecAttr('.item', $section['classes']) }}">                                
-                                {!! bladeCompile(html_entity_decode($section['IFRMST01004_C1']['iframe']), $item->attributes) !!}
+                                {!! bladeCompile(html_entity_decode($section['IFRMST01004_C1']['iframe']), array_merge(["id"=>$item->id, "images"=>$item->images], $item->attributes)) !!}
                             </div>
                             
                             <?php

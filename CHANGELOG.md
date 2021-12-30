@@ -2,6 +2,10 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 1.0.1 - 2021-12-30
+- Optimized the variable load in in IFRMST01004
+- Changed the add_permission_to_section_items_table.php to modify_permission_to_section_items_table.php to adjust the order this migration needs to be executed in
+
 ## 1.0.0 - 2021-11-16
 - On the Items index/list screen the first input of the item will be shown in the name column
 - Small CSS tweaks on the admin tables
