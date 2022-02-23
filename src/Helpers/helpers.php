@@ -504,6 +504,7 @@ if (! function_exists('constructStatusSelect')) {
 if (! function_exists('getBladeList')) {
     function getBladeList($name, $emptyVal = false)
     {
+        $result = [];
         $files = glob(resource_path()."/views/".$name."/*");
 
         foreach ($files as $file) {

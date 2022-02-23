@@ -2,6 +2,10 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 1.0.2 - 2022-02-23
+- TXTLST01001 tweaks
+- fixed getBladeList array_merge error
+
 ## 1.0.1 - 2021-12-30
 - Optimized the variable load in in IFRMST01004
 - Changed the add_permission_to_section_items_table.php to modify_permission_to_section_items_table.php to adjust the order this migration needs to be executed in

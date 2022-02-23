@@ -18,10 +18,13 @@
 	                    @endif
                     
                 </div>
-                <div class="text-block">
-                    <h5>{{ trans('pakka::app.settings_assets.address') }}</h5>
-                    <p>{{ $settings['company_address'] }}<br>{{ $settings['company_zip'] }} {{ $settings['company_city'] }}<br>{{ $settings['company_country'] }}</p>
-                </div>
+
+            		@if($settings['company_address'] || $settings['company_zip'] || $settings['company_city'] || $settings['company_country'])
+                        <div class="text-block">
+                            <h5>{{ trans('pakka::app.settings_assets.address') }}</h5>
+                            <p>{{ $settings['company_address'] }}<br>{{ $settings['company_zip'] }} {{ $settings['company_city'] }}<br>{{ $settings['company_country'] }}</p>
+                        </div>
+            		@endif 
                 
                 @if($settings['company_monday'] || $settings['company_tuesday'] || $settings['company_wednesday'] || $settings['company_thursday'] || $settings['company_friday'] || $settings['company_saturday'])
 	                <div class="text-block">
