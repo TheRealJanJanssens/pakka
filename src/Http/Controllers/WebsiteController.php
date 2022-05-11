@@ -26,7 +26,7 @@ class WebsiteController extends Controller
                 $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
             }
 
-            $acceptLang = Language::getLangCodes();
+            $acceptLang = Language::getLangCodes()->toArray();
 
             if (contains($lang, $acceptLang)) {
                 //browser preference language

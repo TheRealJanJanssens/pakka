@@ -43,7 +43,7 @@ class Language extends Model
 
     public static function getLangCodes()
     {
-        $langs = Language::select(['languages.language_code'])->get()->toArray();
+        $langs = Language::select(['languages.language_code'])->get();
 
         $i = 0;
         foreach ($langs as $lang) {
