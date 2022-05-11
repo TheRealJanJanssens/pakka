@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
 
@@ -6,10 +6,10 @@ return [
 	"success_store"   => "Succesvol toegevoegd",
 	"success_update"  => "Succesvol bewerkt",
 	"success_destroy" => "Succesvol verwijderd",
-	
+
 	"error_something" => "Oeps! er ging iets mis.",
 	"error_fill_all" => "Er ging iets mis. Vul alle nodige velden in!",
-	
+
 	// My Views
 	"new"       => "Nieuw",
 	"manage"       => "Beheer",
@@ -41,7 +41,7 @@ return [
 	// Admin menu
 	"users"       => "Gebruikers",
 	"menu"       => "Menu",
-	
+
 	//Admin assets
 	"name"       => "Naam",
 	"email"       => "Email",
@@ -68,7 +68,7 @@ return [
     "company_info" => "Bedrijfsgegevens",
     "personal_info" => "Persoonlijke gegevens",
     "invoices" => "Facturen",
-	
+
 	'settings_assets' => [
         'general_settings' => 'Algemene Instellingen',
         'item_settings' => 'Items',
@@ -190,8 +190,8 @@ return [
         'fri' => 'Vr',
         'sat' => 'Za',
         'sun' => 'Zo',
-    ], 
-    
+    ],
+
     //input assets
 	"select_option" => "Selecteer een optie",
 	"appointment_with" => "Afspraak met",
@@ -223,7 +223,7 @@ return [
     "bc" => "RPR",
     'iban' => 'IBAN',
     'no_page_selected' => 'Geen pagina geselecteerd',
-    
+
     //booking
     'booking_assets' => [
 	    '1' => [
@@ -235,7 +235,7 @@ return [
 			'no_bookings' => 'Geen reservaties'
         ],
     ],
-    
+
     //invoice
     "product" => "Product",
     "service_product" => "Dienst/Product",
@@ -265,11 +265,11 @@ return [
     "make_payment" => "Gelieve het totaal bedrag te storten op volgende rekening nummer binnen de aangegeven periode.",
     "copy_document" => "Dupliceer document",
     "view_document" => "Bekijk document",
-    "download_document" => "Download document",
     "download" => "Download",
     "send_to_client" => "Verzend naar klant",
     "view_client" => "Klant bekijken",
-    "download" => [
+    "download_document" => [
+        "general" => "Download document",
         "excel" => [
             "all_orders" => "Alle orders",
             "all_completed_orders" => "Alle complete orders",
@@ -288,14 +288,14 @@ return [
     "match_conditions" => "Moet voldoen aan",
     "all_conditions" => "Alle voorwaarden",
     "any_conditions" => "Eender welke voorwaarden",
-    
+
     "equal" => "Is gelijk aan",
     "not_equal" => "Is niet gelijk aan",
     "starts_with" => "Start met",
     "ends_with" => "Eindigt met",
     "contains" => "Bevat",
     "doesnt_contain" => "Bevat niet",
-    
+
     //coupons
     "code" => "Code",
     "fixed" => "Vast bedrag",
@@ -308,7 +308,7 @@ return [
     "expired" => "Vervallen",
     "expiry_date" => "Verval datum",
     "discount" => "Korting",
-    
+
     //shipment
     "shipping" => "Levering",
     "pick_up" => "Afhalen",
@@ -319,7 +319,7 @@ return [
     "grams" => "Gram",
     "valuta" => "Valuta",
     "weight" => "Gewicht",
-    
+
     //carriers
     "own_business" => "Eigen zaak",
     "bpost" => "Bpost",
@@ -328,7 +328,7 @@ return [
     "gls" => "GLS",
     "postnl" => "PostNL",
     "ups" => "UPS",
-    
+
     //regions
     "region" => "Regio",
     "belgium" => "België",
@@ -336,7 +336,7 @@ return [
     "luxembourg" => "Luxemburg",
     "france" => "Frankrijk",
     "germany" => "Duitsland",
-    
+
     //order detail
     "order_no" => "Ordernummer",
     "contact_info" => "Contact informatie",
@@ -355,7 +355,7 @@ return [
     "succes_send_oc" => "Bestelbevestiging verzonden naar de klant",
     "send_shipment_confirmation" => "Verstuur leverbevestiging",
     "succes_send_sc" => "Leverbevestiging verzonden naar de klant",
-    
+
     "reserved" => "Gereserveerd",
     "send" => "Verzonden",
     "retour" => "Retour",
@@ -367,7 +367,7 @@ return [
     "expired" => "Vervallen",
     "failed" => "Mislukt",
     "unknown" => "Onbekend",
-    
+
     "bookkeeping" => "Facturatie",
     "view_packslip" => "Bekijk pakbon",
     "download_packslip" => "Download pakbon",
@@ -382,7 +382,7 @@ return [
     "mark_as_send" => "Markeren als verzonden",
     "change_user" => "Klantenbestand wijzigen",
     "leave_user" => "Klantenbestand niet wijzigen",
-    
+
     //website assets
     "insert_here" => "Voeg je tekst hier in...",
     "all_rights" => "Alle rechten voorbehouden",

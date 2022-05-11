@@ -2,6 +2,12 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 1.0.3 - 2022-05-11
+- fixed getBladeList empty array error
+- Section list image 404 fix
+- Translation for 'download' fix
+- Added the possibility to edit a page with json page structure
+
 ## 1.0.2 - 2022-02-23
 - TXTLST01001 tweaks
 - fixed getBladeList array_merge error

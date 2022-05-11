@@ -69,9 +69,9 @@ class Page extends Model
         'pages.status',
         'pages.template',
         'pages.position',
-        DB::raw('(SELECT `translations`.`text` 
-  				FROM `translations` 
-  				WHERE `translations`.`translation_id` = `pages`.`slug` AND `translations`.`language_code` = '.$locale.') 
+        DB::raw('(SELECT `translations`.`text`
+  				FROM `translations`
+  				WHERE `translations`.`translation_id` = `pages`.`slug` AND `translations`.`language_code` = '.$locale.')
   				AS slug'),
             ])
         ->where('slug', $slug)
@@ -100,25 +100,25 @@ class Page extends Model
                 'pages.status',
                 'pages.template',
                 'pages.position',
-                DB::raw('(SELECT `translations`.`text` 
-                    FROM `translations` 
-                    WHERE `translations`.`translation_id` = `pages`.`slug` AND `translations`.`language_code` = "'.$locale.'") 
+                DB::raw('(SELECT `translations`.`text`
+                    FROM `translations`
+                    WHERE `translations`.`translation_id` = `pages`.`slug` AND `translations`.`language_code` = "'.$locale.'")
                     AS slug'),
-                DB::raw('(SELECT `translations`.`text` 
-                    FROM `translations` 
-                    WHERE `translations`.`translation_id` = `pages`.`name` AND `translations`.`language_code` = "'.$locale.'") 
+                DB::raw('(SELECT `translations`.`text`
+                    FROM `translations`
+                    WHERE `translations`.`translation_id` = `pages`.`name` AND `translations`.`language_code` = "'.$locale.'")
                     AS name'),
-                DB::raw('(SELECT `translations`.`text` 
-                    FROM `translations` 
-                    WHERE `translations`.`translation_id` = `pages`.`meta_title` AND `translations`.`language_code` = "'.$locale.'") 
+                DB::raw('(SELECT `translations`.`text`
+                    FROM `translations`
+                    WHERE `translations`.`translation_id` = `pages`.`meta_title` AND `translations`.`language_code` = "'.$locale.'")
                     AS meta_title'),
-                DB::raw('(SELECT `translations`.`text` 
-                    FROM `translations` 
-                    WHERE `translations`.`translation_id` = `pages`.`meta_description` AND `translations`.`language_code` = "'.$locale.'") 
+                DB::raw('(SELECT `translations`.`text`
+                    FROM `translations`
+                    WHERE `translations`.`translation_id` = `pages`.`meta_description` AND `translations`.`language_code` = "'.$locale.'")
                     AS meta_description'),
-                DB::raw('(SELECT `translations`.`text` 
-                    FROM `translations` 
-                    WHERE `translations`.`translation_id` = `pages`.`meta_keywords` AND `translations`.`language_code` = "'.$locale.'") 
+                DB::raw('(SELECT `translations`.`text`
+                    FROM `translations`
+                    WHERE `translations`.`translation_id` = `pages`.`meta_keywords` AND `translations`.`language_code` = "'.$locale.'")
                     AS meta_keywords'),
                 ])
                 ->where('pages.id', $id)
@@ -136,65 +136,65 @@ class Page extends Model
                 'pages.status',
                 'pages.template',
                 'pages.position',
-                DB::raw('(SELECT 
+                DB::raw('(SELECT
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`language_code` IS NOT NULL THEN `translations`.`language_code`
 									WHEN `translations`.`language_code` IS NULL THEN IFNULL(`translations`.`language_code`, "")
 								END SEPARATOR "(~)"
-							) 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `pages`.`slug`) 
+							)
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `pages`.`slug`)
 						AS language_code'),
-                DB::raw('(SELECT 
+                DB::raw('(SELECT
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
 									WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
 								END SEPARATOR "(~)"
-							) 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `pages`.`slug`) 
+							)
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `pages`.`slug`)
 						AS slug'),
-                DB::raw('(SELECT 
+                DB::raw('(SELECT
                             GROUP_CONCAT(
                                 CASE
                                     WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
                                     WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
                                 END SEPARATOR "(~)"
-                            ) 
-                        FROM `translations` 
-                        WHERE `translations`.`translation_id` = `pages`.`name`) 
+                            )
+                        FROM `translations`
+                        WHERE `translations`.`translation_id` = `pages`.`name`)
                         AS name'),
-                DB::raw('(SELECT 
+                DB::raw('(SELECT
                             GROUP_CONCAT(
                                 CASE
                                     WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
                                     WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
                                 END SEPARATOR "(~)"
-                            ) 
-                        FROM `translations` 
-                        WHERE `translations`.`translation_id` = `pages`.`meta_title`) 
+                            )
+                        FROM `translations`
+                        WHERE `translations`.`translation_id` = `pages`.`meta_title`)
                         AS meta_title'),
-                DB::raw('(SELECT 
+                DB::raw('(SELECT
                             GROUP_CONCAT(
                                 CASE
                                     WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
                                     WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
                                 END SEPARATOR "(~)"
-                            ) 
-                        FROM `translations` 
-                        WHERE `translations`.`translation_id` = `pages`.`meta_description`) 
+                            )
+                        FROM `translations`
+                        WHERE `translations`.`translation_id` = `pages`.`meta_description`)
                         AS meta_description'),
-                DB::raw('(SELECT 
+                DB::raw('(SELECT
                             GROUP_CONCAT(
                                 CASE
                                     WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
                                     WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
                                 END SEPARATOR "(~)"
-                            ) 
-                        FROM `translations` 
-                        WHERE `translations`.`translation_id` = `pages`.`meta_keywords`) 
+                            )
+                        FROM `translations`
+                        WHERE `translations`.`translation_id` = `pages`.`meta_keywords`)
                         AS meta_keywords'),
                 DB::raw('`pages`.`slug` AS slug_trans'),
                 DB::raw('`pages`.`name` AS name_trans'),
@@ -323,7 +323,6 @@ class Page extends Model
     public static function generateTemplate($id, $content = true)
     {
         $sections = Section::generateSectionTemplate(2, $id)->toArray();
-
         $i = 0;
         foreach ($sections as $section) {
             $result['sections'][$i] = $section;

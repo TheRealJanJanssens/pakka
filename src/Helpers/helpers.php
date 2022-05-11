@@ -525,7 +525,7 @@ if (! function_exists('getBladeList')) {
         }
 
         //fallback if no view templates are set
-        if (! isset($result)) {
+        if (empty($result)) {
             $result = ["templates.component" => "component"];
         }
 
