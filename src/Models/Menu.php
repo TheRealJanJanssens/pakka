@@ -115,6 +115,7 @@ class Menu extends Model
 
             $result[$menuId] = $menu;
 
+            //TODO: currentAuth only get the specific auth and not all lesser auths
             $items = MenuItem::getMenuItems($menuId, $currentAuth)->toArray();
 
             //Duplicate $items with true position for constructing parents
@@ -204,6 +205,7 @@ class Menu extends Model
     public static function generateRoutes()
     {
         $menus = Menu::constructMenu();
+        //dd($menus);
         $result = [];
         foreach ($menus as $menu) {
             if ($menu['id'] == 1) {

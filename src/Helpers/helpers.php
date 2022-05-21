@@ -431,13 +431,13 @@ if (! function_exists('constructTransSelect')) {
                     $class = 'list-group-head active';
                 } else {
                     $class = '';
-                } ?>					
+                } ?>
 						<a href="#" class="list-group-item list-group-item-action <?php echo $class; ?>" data-lang="<?php echo $langItem['language_code']; ?>"><?php echo $langItem['name']; ?></a>
 						<?php
                         $i++;
             } ?>
 				</div>
-				
+
 			</div>
 			<?php
         }
@@ -725,7 +725,7 @@ if (! function_exists('constructInputs')) {
                 ?>
 			        <div class="form-group dropzone-input">
 				    	<label for="<?php echo $input['name']."[]"; ?>"><?php echo $label; ?></label>
-				    	
+
 				    	<?php
                             if (! empty($item['images'])) {
                                 echo '<div id="dropzone__json">';
@@ -741,19 +741,19 @@ if (! function_exists('constructInputs')) {
                                 echo '</div>';
                             }
                         ?>
-				    	
+
 				       	<div id="dropzone__container" class="dropzone dropzone-previews">
-	
+
 							<div class="fallback">
 								<input type="file" name="images[]" required="true" multiple/>
 							</div>
-							
+
 							<div class="dz-default dz-message">
 								<span>
 									<i class="ti-image"></i>Sleep je afbeeldingen hierheen
 								</span>
 							</div>
-							
+
 							<div id="preview-template" style="display:none">
 								<div class="dz-preview dz-file-preview">
 									<div class="dz-overlay">
@@ -762,7 +762,7 @@ if (! function_exists('constructInputs')) {
 									<div class="dz-image">
 										<img data-dz-thumbnail />
 									</div>
-	
+
 									<div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
 									<div class="dz-success-mark"><span>✔</span></div>
 									<div class="dz-error-mark"><span>✘</span></div>
@@ -774,7 +774,7 @@ if (! function_exists('constructInputs')) {
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
 			    	</div>
 					<?php
@@ -2378,7 +2378,7 @@ if (! function_exists('constructStyleVar')) {
                         --highlight-color: ".$settings['highlight_color'].";
                         --dark-color: ".$settings['dark_color'].";
                         --grey-color: ".$settings['grey_color'].";
-						
+
 						--body-font: ".$body_font.";
 						--heading-font: ".$heading_font.";
 					}
@@ -2507,13 +2507,13 @@ if (! function_exists('constructVariantSelect')) {
             foreach ($variants as $variant) {
                 $ids = explode(',', $variant['option_ids']);
                 $values = explode(',', $variant['option_values']); ?>
-				<div class="select-group" data-group="<?php echo $variant['id']; ?>">       	                    	
+				<div class="select-group" data-group="<?php echo $variant['id']; ?>">
 	            	<b class="d-block mb-2"><?php echo $variant['name']; ?></b>
 	            	<?php
                         $i = 0;
                 foreach ($values as $value) {
                     ?>
-			        	<div class="select-item d-inline-block p-3 boxed e 
+			        	<div class="select-item d-inline-block p-3 boxed e
 						<?php
                             echo $classes;
                     if ($i == 0) {
@@ -2521,21 +2521,21 @@ if (! function_exists('constructVariantSelect')) {
                     } else {
                         echo " m-2";
                     } ?>">
-		                	<div class="input-radio"> 
-		                		<div class="select-item-label hidden"> 
-		                			<input type="radio" class="cart-delivery" value="<?php echo $ids[$i]; ?>" id="input-assigned-<?php echo $ids[$i]; ?>"> 
-									<label for="input-assigned-<?php echo $ids[$i]; ?>"></label> 
+		                	<div class="input-radio">
+		                		<div class="select-item-label hidden">
+		                			<input type="radio" class="cart-delivery" value="<?php echo $ids[$i]; ?>" id="input-assigned-<?php echo $ids[$i]; ?>">
+									<label for="input-assigned-<?php echo $ids[$i]; ?>"></label>
 		                		</div>
-		                		
+
 		                		<div class="select-item-text ml-0">
 			                		<b><?php echo $value; ?></b>
 								</div>
 		                	</div>
-		            	</div>	
+		            	</div>
 			        <?php
                         $i++;
                 } ?>
-	        					                    	
+
 		        </div>
 				<?php
             }
@@ -2708,11 +2708,11 @@ function constructAdminMenu($array)
             $liClass .= " dropdown";
             $aClass .= "dropdown-toggle";
         } ?>
-		
+
 		<li class="nav-item mT-20 <?php echo $liClass; ?>">
 			<a class="<?php echo $aClass; ?>" href="<?php echo $route; ?>">
 				<span class="icon-holder"><i class="<?php echo $iClass; ?>"></i> </span>
-				<span class="title"><?php echo $item['name']; ?></span> 
+				<span class="title"><?php echo $item['name']; ?></span>
 				<?php
                     if (isset($item['items'])) {
                         ?>
@@ -2720,7 +2720,7 @@ function constructAdminMenu($array)
 					<?php
                     } ?>
 			</a>
-			
+
 			<?php
                 if (isset($item['items'])) {
                     ?>
@@ -2739,7 +2739,7 @@ function constructAdminMenu($array)
 			<?php
                 } ?>
 		</li>
-		
+
 		<?php
     }
 }
