@@ -4,6 +4,7 @@ namespace TheRealJanJanssens\Pakka\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use TheRealJanJanssens\Pakka\Models\AttributeInput;
 
 class AttributeValue extends Model
 {
@@ -45,5 +46,10 @@ class AttributeValue extends Model
             'input_id' => "required",
             'item_id' => "required",
         ]);
+    }
+
+    public function input()
+    {
+        return $this->hasOne(AttributeInput::class, 'input_id', 'input_id');
     }
 }

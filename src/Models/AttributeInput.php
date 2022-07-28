@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Session;
+use TheRealJanJanssens\Pakka\Models\AttributeOption;
+use TheRealJanJanssens\Pakka\Models\AttributeValues;
 
 class AttributeInput extends Model
 {
@@ -54,11 +56,14 @@ class AttributeInput extends Model
         ]);
     }
 
-    public function getOptions()
+    public function options()
     {
+        return $this->hasMany(AttributeOption::class);
+    }
 
-        // Accessing comments posted by a user
-        return $this->hasMany(\App\AttributeOption::class);
+    public function values()
+    {
+        return $this->hasMany(AttributeValues::class);
     }
 
     public static function prepareAttributes($array)
@@ -108,24 +113,24 @@ class AttributeInput extends Model
         'attribute_inputs.input_id',
         'attribute_inputs.set_id',
         'attribute_inputs.position',
-        DB::raw('(SELECT 
+        DB::raw('(SELECT
                     GROUP_CONCAT(
                         CASE
                             WHEN `translations`.`language_code` IS NOT NULL THEN `translations`.`language_code`
                             WHEN `translations`.`language_code` IS NULL THEN IFNULL(`translations`.`language_code`, "")
                         END SEPARATOR "(~)"
-                    ) 
-                FROM `translations` 
-                WHERE `translations`.`translation_id` = `attribute_inputs`.`label`) 
+                    )
+                FROM `translations`
+                WHERE `translations`.`translation_id` = `attribute_inputs`.`label`)
                 AS language_code'),
-        DB::raw('IFNULL((SELECT 
+        DB::raw('IFNULL((SELECT
                     GROUP_CONCAT(
                         CASE
                             WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
                             WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
                         END SEPARATOR "(~)"
-                    ) 
-                FROM `translations` 
+                    )
+                FROM `translations`
                 WHERE `translations`.`translation_id` = `attribute_inputs`.`label`), `attribute_inputs`.`label`)
                 AS label'),
         DB::raw('`attribute_inputs`.`label` AS label_trans'),
@@ -184,9 +189,9 @@ class AttributeInput extends Model
         'attribute_inputs.input_id',
         'attribute_inputs.set_id',
         'attribute_inputs.position',
-        DB::raw('IFNULL((SELECT `translations`.`text` 
-                    FROM `translations` 
-                    WHERE `translations`.`translation_id` = `attribute_inputs`.`label` AND `translations`.`language_code` = "'.$locale.'"), `attribute_inputs`.`label`) 
+        DB::raw('IFNULL((SELECT `translations`.`text`
+                    FROM `translations`
+                    WHERE `translations`.`translation_id` = `attribute_inputs`.`label` AND `translations`.`language_code` = "'.$locale.'"), `attribute_inputs`.`label`)
                     AS label'),
         'attribute_inputs.name',
         'attribute_inputs.type',

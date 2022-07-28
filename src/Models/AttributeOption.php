@@ -4,6 +4,7 @@ namespace TheRealJanJanssens\Pakka\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use TheRealJanJanssens\Pakka\Models\AttributeInput;
 
 use Session;
 
@@ -55,7 +56,7 @@ class AttributeOption extends Model
 
     public function input()
     {
-        return $this->hasOne(\App\AttributeInput::class, 'input_id', 'input_id');
+        return $this->hasOne(AttributeInput::class, 'input_id', 'input_id');
     }
 
     /*
