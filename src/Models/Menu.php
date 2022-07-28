@@ -179,7 +179,7 @@ class Menu extends Model
         $result['slugs'][$pageAs] = $link['slug'].$parameters;
         $result['slugs'][$menuAs] = $slug.$parameters;
 
-        if(count($langs) > 1){
+        if (count($langs) > 1) {
             $result['slugs']['locale.'.$pageAs] = "{locale?}/".$link['slug'].$parameters;
             $result['slugs']['locale.'.$menuAs] = "{locale?}/".$slug.$parameters;
         }
