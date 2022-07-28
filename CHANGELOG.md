@@ -2,6 +2,10 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 1.0.4 - 2022-07-28
+- Fixes to accordion blocks
+- Fix to complex nested routes when only one language exists
+
 ## 1.0.3 - 2022-05-11
 - fixed getBladeList empty array error
 - Section list image 404 fix
