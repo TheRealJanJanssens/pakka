@@ -60,34 +60,34 @@ class Service extends Model
     public static function getService($id, $mode = 1)
     {
         switch (true) {
-        case $mode == 1:
-            $locale = app()->getLocale();
+            case $mode == 1:
+                $locale = app()->getLocale();
 
-          $result = Service::select([
-                'services.id',
-                'services.price',
-                'services.duration',
-            DB::raw('(SELECT `translations`.`text` 
+                $result = Service::select([
+                      'services.id',
+                      'services.price',
+                      'services.duration',
+                  DB::raw('(SELECT `translations`.`text` 
 						FROM `translations` 
 						WHERE `translations`.`translation_id` = `services`.`name` AND `translations`.`language_code` = "'.$locale.'") 
 						AS name'),
-            DB::raw('(SELECT `translations`.`text` 
+                  DB::raw('(SELECT `translations`.`text` 
 						FROM `translations` 
 						WHERE `translations`.`translation_id` = `services`.`description` AND `translations`.`language_code` = "'.$locale.'") 
 						AS description'),
-          ])
-                ->where('services.id', $id)
-                ->first();
+                ])
+                      ->where('services.id', $id)
+                      ->first();
 
-          $result = $result;
+                $result = $result;
 
-          break;
-        case $mode == 2:
-          $queryResult = Service::select([
-                'services.id',
-                'services.price',
-                'services.duration',
-                DB::raw('(SELECT 
+                break;
+            case $mode == 2:
+                $queryResult = Service::select([
+                      'services.id',
+                      'services.price',
+                      'services.duration',
+                      DB::raw('(SELECT 
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`language_code` IS NOT NULL THEN `translations`.`language_code`
@@ -97,7 +97,7 @@ class Service extends Model
 						FROM `translations` 
 						WHERE `translations`.`translation_id` = `services`.`name`) 
 						AS language_code'),
-                DB::raw('(SELECT 
+                      DB::raw('(SELECT 
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
@@ -107,7 +107,7 @@ class Service extends Model
 						FROM `translations` 
 						WHERE `translations`.`translation_id` = `services`.`name`) 
 						AS name'),
-            DB::raw('(SELECT 
+                  DB::raw('(SELECT 
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
@@ -117,15 +117,15 @@ class Service extends Model
 						FROM `translations` 
 						WHERE `translations`.`translation_id` = `services`.`description`) 
 						AS description'),
-            DB::raw('`services`.`name` AS name_trans'),
-            DB::raw('`services`.`description` AS description_trans'),
-                ])
-          ->where('services.id', $id)
-          ->get();
+                  DB::raw('`services`.`name` AS name_trans'),
+                  DB::raw('`services`.`description` AS description_trans'),
+                      ])
+                ->where('services.id', $id)
+                ->get();
 
-          $result = constructTranslatableValues($queryResult, ['name','description']);
+                $result = constructTranslatableValues($queryResult, ['name','description']);
 
-          break;
+                break;
         }
 
         $providers = ServiceAssignment::getProviders($id);

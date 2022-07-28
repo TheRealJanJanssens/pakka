@@ -61,16 +61,16 @@ class CollectionCondition extends Model
 
         foreach ($array as $item) {
 
-/*
-            //efficienter for db queries
-            if($item['id'] == 0){
-                //new schedule item
-                $schedule = new ProviderSchedule;
-            }else{
-                //existing schedule item
-                $schedule = ProviderSchedule::find($item['id']);
-            }
-*/
+            /*
+                        //efficienter for db queries
+                        if($item['id'] == 0){
+                            //new schedule item
+                            $schedule = new ProviderSchedule;
+                        }else{
+                            //existing schedule item
+                            $schedule = ProviderSchedule::find($item['id']);
+                        }
+            */
             $condition = new CollectionCondition();
             $condition->collection_id = $id;
             $condition->input = $item['input'];
