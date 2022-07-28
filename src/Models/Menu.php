@@ -166,6 +166,7 @@ class Menu extends Model
         $result['page_uid'] = $page['page_uid'];
         $slug = ! empty($link['preslug']) ? $link['preslug'].'/'.$link['slug'] : $link['slug'];
         $parameters = $hasChild ? "/{param1?}/{param2?}" : "";
+        $langs = Language::getLangCodes();
 
         //only give it optional parameters if it is last nested item
         if ($page['position'] == 1) {
@@ -177,8 +178,11 @@ class Menu extends Model
 
         $result['slugs'][$pageAs] = $link['slug'].$parameters;
         $result['slugs'][$menuAs] = $slug.$parameters;
-        $result['slugs']['locale.'.$pageAs] = "{locale?}/".$link['slug'].$parameters;
-        $result['slugs']['locale.'.$menuAs] = "{locale?}/".$slug.$parameters;
+
+        if(count($langs) > 1){
+            $result['slugs']['locale.'.$pageAs] = "{locale?}/".$link['slug'].$parameters;
+            $result['slugs']['locale.'.$menuAs] = "{locale?}/".$slug.$parameters;
+        }
 
         return $result;
     }
