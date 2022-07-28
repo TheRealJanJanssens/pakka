@@ -496,11 +496,11 @@ class Order extends Model
         //Mail::to('debug@janjanssens.be')->send(new OrderConfirmationClient($array));
 
         //Company mail
-/*
-        $data['replyTo'] = $client_mail;
+        /*
+                $data['replyTo'] = $client_mail;
 
-        Mail::to($company_mail)->send(new MailOrderShipment($array));
-*/
+                Mail::to($company_mail)->send(new MailOrderShipment($array));
+        */
         //Mail::to('debug@janjanssens.be')->send(new OrderConfirmationCompany($array));
     }
 

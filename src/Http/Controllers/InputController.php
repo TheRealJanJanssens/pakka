@@ -38,7 +38,7 @@ class InputController extends Controller
     public function index($setId)
     {
         $this->constructSetId($setId);
-dd( AttributeInput::where('set_id', $setId)->orderBy('position')->get()[2]->options()->get() );
+        dd(AttributeInput::where('set_id', $setId)->orderBy('position')->get()[2]->options()->get());
         $inputs = AttributeInput::getInputs();
 
         if (empty($inputs)) {

@@ -372,17 +372,17 @@ if (! function_exists('constructGlobVars')) {
         }
 
         switch (true) {
-           case ! Session::has('settings') && isset($userId):
-               $settings = Setting::getSettings($locale, $userId);
-               Session::put('settings', $settings);
+            case ! Session::has('settings') && isset($userId):
+                $settings = Setting::getSettings($locale, $userId);
+                Session::put('settings', $settings);
 
-               break;
-           case ! Session::has('settings'):
-               $settings = Setting::getSettings($locale);
-               Session::put('settings', $settings);
+                break;
+            case ! Session::has('settings'):
+                $settings = Setting::getSettings($locale);
+                Session::put('settings', $settings);
 
-               break;
-       }
+                break;
+        }
 
         if (Session::has('settings')) {
             View::share('settings', Session::get('settings'));
@@ -722,25 +722,25 @@ if (! function_exists('constructInputs')) {
 
                     break;
                 case "images":
-                ?>
+                    ?>
 			        <div class="form-group dropzone-input">
 				    	<label for="<?php echo $input['name']."[]"; ?>"><?php echo $label; ?></label>
 
 				    	<?php
-                            if (! empty($item['images'])) {
-                                echo '<div id="dropzone__json">';
-                                $imgJSON = [];
-                                $i = 0;
-                                foreach ($item['images'] as $image) {
-                                    $imgJSON[$i]["id"] = $itemId;
-                                    $imgJSON[$i]["file"] = $image;
-                                    $imgJSON[$i]["url"] = imgUrl($itemId, $image, 100);
-                                    $i++;
+                                if (! empty($item['images'])) {
+                                    echo '<div id="dropzone__json">';
+                                    $imgJSON = [];
+                                    $i = 0;
+                                    foreach ($item['images'] as $image) {
+                                        $imgJSON[$i]["id"] = $itemId;
+                                        $imgJSON[$i]["file"] = $image;
+                                        $imgJSON[$i]["url"] = imgUrl($itemId, $image, 100);
+                                        $i++;
+                                    }
+                                    echo json_encode($imgJSON);
+                                    echo '</div>';
                                 }
-                                echo json_encode($imgJSON);
-                                echo '</div>';
-                            }
-                        ?>
+                    ?>
 
 				       	<div id="dropzone__container" class="dropzone dropzone-previews">
 
@@ -1083,8 +1083,8 @@ function constructTranslations($array)
 
                 break;
             case isset($checklist[$inputName]) && $translationId == null && $translatable == true:
-               /* TRANSLATION ATTRIBUTE INPUT */
-               switch (true) {
+                /* TRANSLATION ATTRIBUTE INPUT */
+                switch (true) {
                     case contains($inputType, $optionsInputs): //insert option
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['option_id' => htmlspecialchars($value) ]);
 
@@ -1266,7 +1266,7 @@ if (! function_exists('constructAttributes')) {
                             }
                         }
 
-                    break;
+                        break;
                     case 2:
                         //CONSTRUCT SLUG
                         if (isset($item['slug']) && ! empty($item['slug']) && isset($items[$i]['translation_id_slug'])) {
@@ -1317,7 +1317,7 @@ if (! function_exists('constructAttributes')) {
                             unset($items[$i]["attributes"]);
                         }
 
-                    break;
+                        break;
                 }
             }
             $i++;
@@ -1327,7 +1327,7 @@ if (! function_exists('constructAttributes')) {
     }
 }
 
- /*
+/*
 |------------------------------------------------------------------------------------
 | Constructs all variant of Products
 |
@@ -2024,9 +2024,9 @@ if (! function_exists('getAdminView')) {
                 return $name;
 
                 break;
-            //Catch Placeholder sections
+                //Catch Placeholder sections
             case substr($name, 0, 1) == "_":
-            //Get File if exists on package level
+                //Get File if exists on package level
             case file_exists(base_path('vendor/therealjanjanssens/pakka/resources/'.$resource)):
             case file_exists(base_path('package/resources/'.$resource)):
                 return 'pakka::'.$name;
@@ -2046,9 +2046,9 @@ if (! function_exists('getSectionView')) {
                 return 'sections.'.$name.'.section';
 
                 break;
-            //Catch Placeholder sections
+                //Catch Placeholder sections
             case substr($name, 0, 1) == "_":
-            //Get File if exists on package level
+                //Get File if exists on package level
             case file_exists(base_path('vendor/therealjanjanssens/pakka/resources/'.$resource)):
             case file_exists(base_path('package/resources/'.$resource)):
                 return 'pakka::sections.'.$name.'.section';
@@ -2068,9 +2068,9 @@ if (! function_exists('getTemplate')) {
                 return $name;
 
                 break;
-            //Catch Placeholder sections
+                //Catch Placeholder sections
             case substr($name, 0, 1) == "_":
-            //Get File if exists on package level
+                //Get File if exists on package level
             case file_exists(base_path('vendor/therealjanjanssens/pakka/resources/'.$resource)):
             case file_exists(base_path('package/resources/'.$resource)):
                 return 'pakka::'.$name;
@@ -2090,9 +2090,9 @@ if (! function_exists('getLayout')) {
                 return 'layouts.'.$name;
 
                 break;
-            //Catch Placeholder sections
+                //Catch Placeholder sections
             case substr($name, 0, 1) == "_":
-            //Get File if exists on package level
+                //Get File if exists on package level
             case file_exists(base_path('vendor/therealjanjanssens/pakka/resources/'.$resource)):
             case file_exists(base_path('package/resources/'.$resource)):
                 return 'pakka::layouts.'.$name;
@@ -2165,11 +2165,11 @@ if (! function_exists('parseContent')) {
                     $value = $value[0]['value'] ?? "";
                 }
 
-                //commented this out because it is possibly not needed check this
-                // else {
+            //commented this out because it is possibly not needed check this
+            // else {
                 //     $value = trans("pakka::app.insert_here");
                 //     $empty = true;
-                // }
+            // }
             } else {
                 //Your logged in and in the live editor. Your value you try to parse is empty.
                 $value = trans("pakka::app.insert_here");

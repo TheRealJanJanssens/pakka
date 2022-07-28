@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Session;
-use TheRealJanJanssens\Pakka\Models\AttributeOption;
-use TheRealJanJanssens\Pakka\Models\AttributeValues;
 
 class AttributeInput extends Model
 {

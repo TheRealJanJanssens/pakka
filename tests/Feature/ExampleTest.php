@@ -7,6 +7,7 @@
  */
 
 use function Pest\Laravel\get;
+
 use TheRealJanJanssens\Pakka\Models\User;
 
 beforeEach(fn () => User::factory()->create());

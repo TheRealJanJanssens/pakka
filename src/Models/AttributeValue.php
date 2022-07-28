@@ -4,7 +4,6 @@ namespace TheRealJanJanssens\Pakka\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use TheRealJanJanssens\Pakka\Models\AttributeInput;
 
 class AttributeValue extends Model
 {
