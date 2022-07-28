@@ -2,9 +2,9 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <div class="heading-block">
+                <div class="heading-block mb-3">
                     <ul class="list-inline list--hover">
-	                    
+
 	                    @if(empty($section['extras']['menu_id']))
 							@php( $menu = TheRealJanJanssens\Pakka\Models\Menu::getMenuOrFirst(null) )
 						@else
@@ -12,15 +12,15 @@
 						@endif
 
 	                    @foreach($menu['items'] as $item)
-	                            
-                        <li> 
-                        	<a href="{{ $item['link'] }}">{{ $item['name'] }}</a> 
+
+                        <li>
+                        	<a href="{{ $item['link'] }}">{{ $item['name'] }}</a>
                         </li>
-                        
+
                         @endforeach
                     </ul>
                 </div>
-                <div>
+                <div class="mb-3">
                     <ul class="social-list list-inline list--hover">
 	                    <?php
 							$smLinks = constructSocialMediaLinks();
@@ -34,28 +34,29 @@
 						?>
                     </ul>
                 </div>
-                
-                <div> 
+
+                <div>
 	                <span class="type--fine-print mx-2">
-	                	© <span class="update-year"></span> {{ $settings['company_name'] }}</span> 
-						
+	                	© <span class="update-year"></span> {{ $settings['company_name'] }}</span>
+
 						@if(empty($section['extras']['credmenu_id']))
 							@php( $menu = TheRealJanJanssens\Pakka\Models\Menu::getMenuOrFirst(null) )
 						@else
 							@php( $menu = TheRealJanJanssens\Pakka\Models\Menu::getMenuOrFirst($section['extras']['credmenu_id']) )
 						@endif
-	                	
+
 	                	@foreach($menu['items'] as $item)
 
-                        	<a class="type--fine-print mx-2" href="{{ $item['link'] }}">{{ $item['name'] }}</a> 
-                        
+                        	<a class="type--fine-print mx-2" href="{{ $item['link'] }}">{{ $item['name'] }}</a>
+
                         @endforeach
 	            </div>
-	            
-	            <div> 
+
+	            <div>
 	                <a href="http://www.pakka.be" class="type--fine-print">Gemaakt met <i class="fa fa-heart color--pink"></i> door Päkka</a>
 	          	</div>
             </div>
         </div>
     </div>
+    {!! constructDividers($section) !!}
 </footer>

@@ -1,4 +1,22 @@
 [
+    {
+		"name":"Hoofding",
+		"slug":"ACORST01001_HEAD",
+		"inputs":[
+			{
+				"position":1,
+				"label":"Titel",
+				"name":"title",
+				"type":"text"
+			},
+			{
+				"position":2,
+				"label":"Omschrijving",
+				"name":"text",
+				"type":"textarea"
+			}
+		]
+	},
 	{
 		"name":"Kolom 1",
 		"slug":"ACORST01001_C1",

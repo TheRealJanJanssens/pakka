@@ -24,6 +24,10 @@
 		"flip_layout",
 		"image_border_radius",
 		"image_shadow",
-		"slide_arrows"
+		"slide_paging",
+		"slide_arrows",
+		"slide_speed",
+		"slide_transition",
+		"slide_autoplay"
 	]
 }

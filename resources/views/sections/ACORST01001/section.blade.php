@@ -10,11 +10,11 @@
                         <?php
                     }else{
                         ?>
-                            <h2>{{ parseContent($section['ACORST01001_C1'],'title') }}</h2>
+                            <h2>{{ parseContent($section['ACORST01001_HEAD'],'title') }}</h2>
                         <?php
                     }
                 ?>
-                
+
                 <?php
                     if(isset($section['extras']['item_text']) && isset($page['item'])){
                         ?>
@@ -22,7 +22,7 @@
                         <?php
                     }else{
                         ?>
-                            <p class="lead">{{ parseContent($section['ACORST01001_C1'],'text') }}<p>
+                            <p class="lead">{{ parseContent($section['ACORST01001_HEAD'],'text') }}<p>
                         <?php
                     }
                 ?>
@@ -83,7 +83,7 @@
                     @endif
                 </ul>
             </div>
-            
+
         </div>
     </div>
 {!! constructDividers($section) !!}
