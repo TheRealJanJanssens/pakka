@@ -2,6 +2,7 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
+use Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
@@ -40,12 +41,12 @@ class WebsiteController extends Controller
             App::setLocale($locale);
         } else {
             foreach (Session::get("lang") as $lang) {
-                if ($request->locale == $lang['language_code']) {
+                if ($request->locale == $lang['language_code'] && Session::get("locale") !== $lang['language_code']) {
                     Session::put('locale', $lang['language_code']);
-
                     App::setLocale($lang['language_code']);
 
                     //forgets menu so the new one is loaded in
+                    Cache::tags('content')->flush();
                     Session::forget('menus');
                 }
             }
