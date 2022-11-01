@@ -39,6 +39,7 @@ class InputController extends Controller
     {
         $this->constructSetId($setId);
         $inputs = AttributeInput::inputs();
+
         return view('pakka::admin.inputs.index', compact('inputs'));
     }
 
@@ -86,7 +87,7 @@ class InputController extends Controller
         $request->request->add(['set_id' => $setId]); //add to request
 
         $this->validate($request, AttributeInput::rules());
-dd($request->all());
+        dd($request->all());
         // $result = constructTranslations($request->all());
 
         // $input = AttributeInput::findOrFail($id);

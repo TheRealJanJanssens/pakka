@@ -1089,17 +1089,20 @@ function constructTranslations($array)
                 switch (true) {
                     case contains($inputType, $optionsInputs): //insert option
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['option_id' => htmlspecialchars($value) ]);
+
                         break;
                     case ! contains($inputType, $optionsInputs) && $value !== null: //insert value
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => htmlentities($value) ]);
+
                         break;
                     case ! contains($inputType, $optionsInputs) && $value == null: //insert value null
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => null]);
+
                         break;
                 }
 
                 $debug['translations'][$iT] = ['mode' => 'custom', 'input_id' => htmlspecialchars($inputId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName), 'value' => htmlspecialchars(addslashes($value))];
-dd($debug);
+                dd($debug);
                 $iT++;
                 $iI++;
 
@@ -1275,7 +1278,6 @@ if (! function_exists('constructAttributes')) {
                             $iS = 0;
 
                             foreach ($langs as $lang) {
-
                                 //SAFETY INCASE OF NEW LANGUAGES
                                 if (! isset($slugs[$iS])) {
                                     $slugs[$iS] = null;

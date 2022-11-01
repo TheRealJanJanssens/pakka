@@ -72,7 +72,6 @@ class AttributeOption extends Model
 
     public static function constructOptions($array)
     {
-
         //BASE VARIABLES
         $inputId = constructTransId($array['input_id']);// generates input_id
         $translationId = $array['option_id']; //option id is the same as translation id
@@ -82,20 +81,20 @@ class AttributeOption extends Model
         $optionsInputs = ["select", "checkbox","radio"];
         $iT = 0; //translation_id count (used for debug)
         $iI = 0; //input count. used to keep track of the custom inputs
-dd($array);
+        dd($array);
         foreach ($array as $key => $value) {
             if (substr($key, 2, 1) === ':') {
                 //explodes key to extract name and language
                 $expKey = explode(":", $key);
                 $languageCode = $expKey[0];
                 $inputName = $expKey[1];
-dd($value);
+                dd($value);
                 //check if value is an option input
                 if ($inputName == "option" && contains($inputType, $optionsInputs) && $value[0] !== null) {
                     $vI = 0; // value array counter
 
                     foreach ($value as $item) {
-dd($item);
+                        dd($item);
                         //remove duplicate translation_ids and rekey so its the same format like the loop through the inputs
                         $xI = 0;
                         for ($x = 0; $x < count($translationId); $x++) {
@@ -122,7 +121,7 @@ dd($item);
                         }
 
                         $debug['translations'][$iT] = ['mode' => 'static', 'option_id' => $optionId, 'language_code' => $languageCode, 'input_id' => $inputId, 'text' => addslashes($item), 'position' => $position, '$iV' => $vI];
-dd($debug);
+                        dd($debug);
                         AttributeOption::updateOrCreate(['option_id' => htmlspecialchars($optionId), 'input_id' => htmlspecialchars($inputId), 'language_code' => htmlspecialchars($languageCode)], ['value' => htmlspecialchars(addslashes($item)), 'position' => htmlspecialchars($position) ]);
                         $vI++;
                         $iT++;

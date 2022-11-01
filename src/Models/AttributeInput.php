@@ -4,7 +4,6 @@ namespace TheRealJanJanssens\Pakka\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
 use Session;
 
 class AttributeInput extends Model
@@ -56,7 +55,6 @@ class AttributeInput extends Model
 
     public function getOptions()
     {
-
         // Accessing comments posted by a user
         return $this->hasMany(\App\AttributeOption::class);
     }
@@ -90,6 +88,7 @@ class AttributeInput extends Model
     public static function inputs()
     {
         $id = isset($id) ? $id : Session::get('set_id');
+
         return AttributeInput::query()
             ->where('set_id', $id)
             ->orderBy('position')
@@ -115,7 +114,7 @@ class AttributeInput extends Model
 
         //$array = parent::toArray();
         $array = $this->constructAttributes($array);
-//dd($array);
+        //dd($array);
         return $array;
     }
 
