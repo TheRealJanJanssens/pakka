@@ -1020,9 +1020,11 @@ function constructTranslations($array)
             $inputName = $key;
         }
 
+        //dd($array);
+
         $translationId = isset($array["translation_id"][$inputName]) ? $array["translation_id"][$inputName] : null;
-        $inputId = isset($array["input_id"][$iI]) ? $array["input_id"][$iI] : null;
-        $inputType = isset($array["input_type"][$iI]) ? $array["input_type"][$iI] : null;
+        $inputId = isset($array["input_id"]) ? $array["input_id"] : null;
+        $inputType = isset($array["input_type"]) ? $array["input_type"] : null;
 
         if (substr($key, 2, 1) === ':' || isset($checklist[$inputName])) {
             $translatable = true;
@@ -1087,20 +1089,17 @@ function constructTranslations($array)
                 switch (true) {
                     case contains($inputType, $optionsInputs): //insert option
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['option_id' => htmlspecialchars($value) ]);
-
                         break;
                     case ! contains($inputType, $optionsInputs) && $value !== null: //insert value
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => htmlentities($value) ]);
-
                         break;
                     case ! contains($inputType, $optionsInputs) && $value == null: //insert value null
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => null]);
-
                         break;
                 }
 
                 $debug['translations'][$iT] = ['mode' => 'custom', 'input_id' => htmlspecialchars($inputId), 'language_code' => htmlspecialchars($languageCode), 'input_name' => htmlspecialchars($inputName), 'value' => htmlspecialchars(addslashes($value))];
-
+dd($debug);
                 $iT++;
                 $iI++;
 

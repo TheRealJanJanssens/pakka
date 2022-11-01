@@ -38,25 +38,7 @@ class InputController extends Controller
     public function index($setId)
     {
         $this->constructSetId($setId);
-
-        $inputs = AttributeInput::getInputs();
-
-        if (empty($inputs)) {
-            $inputId = constructTransId();
-
-            $result = [
-                'input_id' => $inputId,
-                'set_id' => Session::get('set_id'),
-                'position' => 1,
-                'label' => 'Titel',
-                'name' => 'title',
-                'type' => 'text',
-            ];
-            AttributeInput::create($result);
-
-            $inputs = AttributeInput::getInputs();
-        }
-
+        $inputs = AttributeInput::inputs();
         return view('pakka::admin.inputs.index', compact('inputs'));
     }
 
@@ -88,8 +70,10 @@ class InputController extends Controller
     {
         $this->constructSetId($setId);
 
-        $input = AttributeInput::getInput($id);
-        //return $input;
+        $input = AttributeInput::input($id)->toArray();
+        // $input = AttributeInput::getInput($id);
+        // dd($input);
+
         return view('pakka::admin.inputs.edit', compact('input'));
     }
 
@@ -102,14 +86,14 @@ class InputController extends Controller
         $request->request->add(['set_id' => $setId]); //add to request
 
         $this->validate($request, AttributeInput::rules());
+dd($request->all());
+        // $result = constructTranslations($request->all());
 
-        $result = constructTranslations($request->all());
+        // $input = AttributeInput::findOrFail($id);
+        // $result = AttributeOption::constructOptions($result);
 
-        $input = AttributeInput::findOrFail($id);
-        $result = AttributeOption::constructOptions($result);
-
-        $result = AttributeInput::prepareAttributes($result);
-        $input->update($result);
+        // $result = AttributeInput::prepareAttributes($result);
+        // $input->update($result);
 
         return redirect()->route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id'))->withSuccess(trans('pakka::app.success_store'));
     }

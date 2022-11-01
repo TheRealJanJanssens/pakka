@@ -64,12 +64,9 @@ class Translation extends Model
         }
 
         $result = Cache::tags('translations')->rememberForever('translation:'.$locale.':'.$string, function () use ($result) {
-            return $result->get();
+            return $result->first();
         });
 
-        //fail safe if there is no translation. Mostly will result in a 404 error (if slug is empty)
-        if (! empty($result)) {
-            return $result->toArray()[0]['text'];
-        }
+        return isset($result->text) ? $result->text : null;
     }
 }
