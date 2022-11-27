@@ -72,7 +72,6 @@ class AttributeOption extends Model
 
     public static function constructOptions($array)
     {
-
         //BASE VARIABLES
         $inputId = constructTransId($array['input_id']);// generates input_id
         $translationId = $array['option_id']; //option id is the same as translation id

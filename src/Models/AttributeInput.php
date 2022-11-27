@@ -56,7 +56,6 @@ class AttributeInput extends Model
 
     public function getOptions()
     {
-
         // Accessing comments posted by a user
         return $this->hasMany(\App\AttributeOption::class);
     }

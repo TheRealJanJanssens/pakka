@@ -114,64 +114,64 @@ class Section extends Model
                     $result[$id] = $name;
                 }
 
-            /*
-            //query if you want to translate the name attibute
-            $queryResult = Section::select([
-            'sections.id',
-            'sections.page_id',
-            'sections.type',
-            'sections.position',
-            'sections.section',
-            'sections.attributes',
-            DB::raw('(SELECT
-                        GROUP_CONCAT(
-                            CASE
-                                WHEN `translations`.`language_code` IS NOT NULL THEN `translations`.`language_code`
-                                WHEN `translations`.`language_code` IS NULL THEN IFNULL(`translations`.`language_code`, "")
-                            END SEPARATOR "(~)"
-                        )
-                    FROM `translations`
-                    WHERE `translations`.`translation_id` = `sections`.`name`)
-                    AS language_code'),
-            DB::raw('(SELECT
-                        GROUP_CONCAT(
-                            CASE
-                                WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
-                                WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
-                            END SEPARATOR "(~)"
-                        )
-                    FROM `translations`
-                    WHERE `translations`.`translation_id` = `sections`.`name`)
-                    AS name'),
-            DB::raw('`sections`.`name` AS name_trans'),
-              ])
-              ->where('sections.id', $id)
-              ->orderBy('sections.position')
-            ->get()->toArray();
+                /*
+                //query if you want to translate the name attibute
+                $queryResult = Section::select([
+                'sections.id',
+                'sections.page_id',
+                'sections.type',
+                'sections.position',
+                'sections.section',
+                'sections.attributes',
+                DB::raw('(SELECT
+                            GROUP_CONCAT(
+                                CASE
+                                    WHEN `translations`.`language_code` IS NOT NULL THEN `translations`.`language_code`
+                                    WHEN `translations`.`language_code` IS NULL THEN IFNULL(`translations`.`language_code`, "")
+                                END SEPARATOR "(~)"
+                            )
+                        FROM `translations`
+                        WHERE `translations`.`translation_id` = `sections`.`name`)
+                        AS language_code'),
+                DB::raw('(SELECT
+                            GROUP_CONCAT(
+                                CASE
+                                    WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
+                                    WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
+                                END SEPARATOR "(~)"
+                            )
+                        FROM `translations`
+                        WHERE `translations`.`translation_id` = `sections`.`name`)
+                        AS name'),
+                DB::raw('`sections`.`name` AS name_trans'),
+                  ])
+                  ->where('sections.id', $id)
+                  ->orderBy('sections.position')
+                ->get()->toArray();
 
-            foreach($queryResult as $item){
-                $i=0;
-                $languageCodes = explode("(~)", $item['language_code']);
-                $names = explode("(~)", $item['name']);
+                foreach($queryResult as $item){
+                    $i=0;
+                    $languageCodes = explode("(~)", $item['language_code']);
+                    $names = explode("(~)", $item['name']);
 
-                foreach($item as $key => $input){
-                    $result[$key] = $input;
+                    foreach($item as $key => $input){
+                        $result[$key] = $input;
+                    }
+
+                    foreach($languageCodes as $languageCode){
+                        $result[$languageCode.':name:translation_id'] = $item['name_trans'];
+                        $result[$languageCode.':name'] = $names[$i];
+
+                        $i++;
+                    }
                 }
 
-                foreach($languageCodes as $languageCode){
-                    $result[$languageCode.':name:translation_id'] = $item['name_trans'];
-                    $result[$languageCode.':name'] = $names[$i];
+                unset($result['name_trans']);
+                unset($result['name']);
+                unset($result['language_code']);
 
-                    $i++;
-                }
-            }
-
-            unset($result['name_trans']);
-            unset($result['name']);
-            unset($result['language_code']);
-
-            break;
-            */
+                break;
+                */
         }
 
         return $result; //outputs array
