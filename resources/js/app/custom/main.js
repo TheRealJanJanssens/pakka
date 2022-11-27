@@ -23,8 +23,8 @@ $('a[href*="#"]')
 .click(function(event) {
 // On-page links
 if (
-  location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
-  && 
+  location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+  &&
   location.hostname == this.hostname
 ) {
   // Figure out element to scroll to
@@ -56,9 +56,9 @@ if (
 /**
  *
  * TABLE SORT DRAG & DROP
- * 
+ *
  */
- 
+
 // TABLE SORT CONSTRUCT
 function sortConstruct(selector){
 	var i = 1;
@@ -66,7 +66,7 @@ function sortConstruct(selector){
 	$.each($(".table-sort "+selector), function(index){
 		var id = $(this).attr('data-id');
 		var thisHead = $(this).attr('data-head');
-		
+
 		//resets counter if a head isset and it doesn't match with the previous set one
 		if(typeof thisHead !== typeof undefined && thisHead !== false){
 			if(headId !== thisHead){
@@ -75,7 +75,7 @@ function sortConstruct(selector){
 				console.log("reset");
 			}
 		}
-		
+
 		//counter
 		if (typeof id !== typeof undefined && id !== false) {
 			$(this).attr("data-position",i);
@@ -90,7 +90,7 @@ sortConstruct(".input-option");
 // TABLE LEVEL CONSTRUCT
 function levelConstruct(startPos, endPos){
 	var result;
-	
+
 	switch(true) {
 		case startPos + 15 >= endPos:
 			result = 1;
@@ -104,7 +104,7 @@ function levelConstruct(startPos, endPos){
 		default:
 			result = 1;
 	}
-	
+
 	return result;
 };
 
@@ -116,20 +116,20 @@ function objectSortAjax(action = null){ //selector,
 		var menuVar = $(this).attr('data-menu');
 		var parentVar = $(this).attr('data-parent');
 		var positionVar = $(this).attr('data-position');
-		
+
 		var listItem =[{
 			id:idVar,
 			menu:menuVar,
 			parent:parentVar,
 			position:positionVar,
 		}];
-			
+
 		list.push(listItem);
 		i++;
 	});
-	
+
 	var dataArray = JSON.stringify(list);
-	
+
 	if(action !== null){
 		$.ajax({
 		   url: action,
@@ -146,9 +146,9 @@ function objectSortAjax(action = null){ //selector,
 }
 
 $(function() {
-	
+
 	var xPosSave;
-	
+
 	$(".table-sort tbody").sortable({
 	  cursor: "move",
 	  handle: ".handle",
@@ -162,7 +162,7 @@ $(function() {
 	    // Set helper cell sizes to match the original sizes
 	    $(this).width($originals.eq(index).width());
 	    });
-	    
+
 	    return $helper;
 	  },
 		update: function(event, ui) {
@@ -173,10 +173,10 @@ $(function() {
 		},
 		beforeStop:function(event,ui) {
 			var xPos = ui.helper.offset().left; //gets x position from helper to determine lvl
-			
+
 			//get new lvl
 			var newLvl = levelConstruct(xPosSave,xPos);
-			
+
 			//get closest parent
 			var parent = ui.item.prev('.item'); // needs to go 2 elementes up bc it counts the placeholder as prev
 			var parentId = parseInt(parent.attr("data-id"));
@@ -185,23 +185,23 @@ $(function() {
 			var parentParent = parent.attr("data-parent");
 			var newParent;
 			var newMenu;
-			
+
 			//decide if new lvl is correct
 			switch(true) {
 				case newLvl == 1: //less then (item lvl is 1)
 					newLvl = newLvl;
 					newParent = "";
-					newMenu = ui.item.prev().attr("data-menu");					
+					newMenu = ui.item.prev().attr("data-menu");
 					break;
 				case newLvl == parentLvl: //equal to (item above is same lvl)
 					newLvl = newLvl; //new level can exist but only with it's parent his parent
 					newParent = parentParent;
-					newMenu = parentMenu;					
+					newMenu = parentMenu;
 					break;
 				case newLvl > parentLvl+1: //higher then (item above multiple levels lower)
 					newLvl = parentLvl+1; //new level can exist but only with it's parent his parent
 					newParent = parentId;
-					newMenu = parentMenu;										
+					newMenu = parentMenu;
 					break;
 				case parentLvl == 1: //less then (item above is lvl 1)
 					newLvl = newLvl;
@@ -211,20 +211,20 @@ $(function() {
 				default:
 					newLvl = 1; //newLvl
 					newParent = "";
-					newMenu = parentId;		
+					newMenu = parentId;
 			}
-			
+
 			ui.item.attr("data-menu", newMenu);
 			ui.item.attr("data-level", newLvl);
 			ui.item.attr("data-parent", newParent);
-			
-			
+
+
 		},
 		stop:function(event,ui) {
 			var action = $(this).attr('data-action');
 			//ajax call during stop event so the placeholder doesn't get in JSON array
 			objectSortAjax(action);
-			
+
 		}
 	}); //.disableSelection()
 });
@@ -232,7 +232,7 @@ $(function() {
 /**
  *
  * SLUGIFY
- * 
+ *
  */
 
 function slugify(Text)
@@ -254,34 +254,34 @@ $(".slug-input").keyup(function(){
 /**
  *
  * LANGUAGE SWITCH
- * 
+ *
  */
- 
+
  function langSelectInput(){
  	if($( ".list-group-lang" ).length){
-	 	
+
 	 	var activeLang = $(".list-group-lang .list-group-item.active").attr('data-lang');
 	 	var items = $( ".list-group-lang .list-group-item" ); //makes sure it only selects language items
-	 	
+
 	 	$(".form-group").each(function(index){
 	 		var itemLang = $(this).attr('data-lang');
 	 		var transCheck = 0;
-	 		
+
 	 		if(itemLang == undefined || itemLang.length == 0){
 		 		itemLang = 0; //prevents hidden class get put on transparent items
 	 		}
-	 		
+
 	 		switch (true) {
 	 		    case itemLang == 0 && !$(".list-group-lang .list-group-head").hasClass("active"):
 	 		        $(this).addClass('transparant');
-	 		        
+
 	 		        break;
 	 		    case itemLang !== activeLang && itemLang.length > 0:
 	 		        $(this).addClass('hidden');
 	 		        break;
 	 		    default:
 	 		    	$(this).removeClass('hidden');
-	 		    	$(this).removeClass('transparant');    
+	 		    	$(this).removeClass('transparant');
 	 		}
 	 	});
  	}
@@ -298,7 +298,7 @@ $(".list-group-lang .list-group-item").click(function() {
 /**
  *
  * STATUS SWITCH
- * 
+ *
  */
 
  function statusInput(){
@@ -319,7 +319,7 @@ $(".list-group-status .list-group-item").click(function() {
 /**
  *
  * CUSTOM INPUT
- * 
+ *
  */
 
 function optionsInputCheck(elem){
@@ -337,14 +337,14 @@ $(".select-custom-input").change(function(){
 optionsInputCheck(".select-custom-input");
 
 function sortInputOptions(){
-	
+
 	sortConstruct(".input-option");
-	
+
 	//construct order
 	$.each($(".table-sort .input-option"), function(index){
 		$(this).find("input[name='option_position\\[\\]']").val($(this).attr('data-position'));
 	});
-	
+
 	//construct clone id
 	$(".input-option").attr('id','');
 	$(".input-option:nth-child(1)").attr('id','clone-input-option');
@@ -352,25 +352,25 @@ function sortInputOptions(){
 
 $(document).on('click', '.add-input-option', function() {
 	$("#clone-input-option").clone().attr('id','').appendTo( "tbody" ).find('input').val('');
-	
+
 	sortInputOptions();
 });
 
 $(document).on('click', '.remove-input-option', function() {
 	if($('.input-option').length > 1){
-		
+
 		var id = $(this).attr("data-id");
-		
+
 		if(id !== null){
 			$.ajax({
-			   url: "/admin/items/"+id+"/destroy/inputoption",
+			   url: "/admin/inputs/"+id+"/destroy/option",
 			   type: 'DELETE',
 			   headers: {
 			        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			    }
 			});
 		}
-		
+
 		$(this).parents('.input-option').remove();
 		sortInputOptions();
 	}
@@ -383,12 +383,12 @@ $(document).on('mouseleave', '.input-options .input-option', function () {
 /**
  *
  * SWITCH INPUT
- * 
+ *
  */
 
 $(".input-switch").each(function(index){
 	var val = $(this).parent().find("input[type=hidden]:not(.input-translation-id)").val();
-	
+
 	if(val == 1){
 		$(this).find('input[type=checkbox]').prop('checked', true);
 		console.log(true);
@@ -412,13 +412,13 @@ $(".input-switch").click(function() {
 $(".table-accordion b, .table-accordion .arrow").click(function() {
 	var head = $(this).closest("tr").attr("data-head");
 	var subItem = $(this).closest("tr").attr("data-subitem");
-	
+
 	if(head !== undefined && subItem == undefined){
 		$(".item[data-head='"+head+"'][data-level='1']").toggleClass("hidden");
 		$(".item[data-head='"+head+"'][data-level='2']").addClass('hidden');
 		$(this).closest("tr").find(".arrow").toggleClass("active");
 	}
-	
+
 	if(subItem !== undefined){
 		$(".item[data-subitem='"+subItem+"'][data-level='2']").toggleClass("hidden");
 		$(this).closest("tr").find(".arrow").toggleClass("active");
@@ -428,15 +428,15 @@ $(".table-accordion b, .table-accordion .arrow").click(function() {
 //SETTINGS
 $(document).on('click', '.settings-link', function () {
 	var id = $(this).attr('data-id');
-	
+
 	$('.settings-inputs[data-id="'+id+'"]').closest('.settings-group').toggleClass('active');
 });
 
 $(document).on('click', '.colorpick-input-btn', function () {
-	
+
 	var standardValue = $(this).parent().find(".colorpick-input").val();
 	var colorDisplay = $(this);
-	
+
 	var picker = new Picker({
 	    parent: colorDisplay[0],
 	    color: standardValue,
@@ -445,18 +445,18 @@ $(document).on('click', '.colorpick-input-btn', function () {
 			colorDisplay.css({"background-color":color.hex});
 			colorDisplay.parent().find(".colorpick-input").val(color.hex);
 		},
-		onClose: function(color) {			
+		onClose: function(color) {
 			picker.destroy();
 		}
 	});
-	
+
 	//remove <style> generated of vanilla picker
 	$("style").each(function(index){
 		if($(this).html().indexOf('.picker_wrapper') !== -1){
 			$(this).remove();
 		}
 	});
-	
+
 	picker.openHandler();
 });
 
@@ -493,13 +493,13 @@ function getProgress(){
 	});
 	var percent = (iD/iT)*100;
 	var widthBar = $("#progress-bar").width();
-	
+
 	if(percent == NaN){
 		percent = 0;
 	}
-	
+
 	var widthProgress = widthBar*(percent/100);
-	
+
 	$("#progress").css("width",widthProgress);
 	animatePercent(".progress-percentage",percent);
 	animatePercent(".progress-percentage-countdown span",(100-percent));
@@ -517,13 +517,13 @@ function orderTaskGroups(){
 			id: $(this).attr("data-group"),
 			position:i
 		};
-		
+
 		data.push(item);
 		i++;
 	});
-	
+
 	var dataArray = JSON.stringify(data);
-	
+
 	$.ajax({
 	   url: "/admin/projects/order/taskgroups",
 	   data: {data: dataArray},
@@ -541,7 +541,7 @@ function addTaskGroup(e){
 		name: "Groep naam",
 		color: "#ffffff",
 	};
-	
+
 	$.ajax({
 	   url: "/admin/projects/store/taskgroup",
 	   data: dataArray,
@@ -572,7 +572,7 @@ function ajaxTaskGroup(data){
 function orderTasks(){
 	//order all tasks
 	var data = new Array();
-	
+
 	$(".list-group").each(function(index){
 		var iG = $(this).closest(".task-group").attr('data-group'); // GroupId
 		var i = 1; //position
@@ -582,14 +582,14 @@ function orderTasks(){
 				group_id: iG,
 				position:i
 			};
-			
+
 			data.push(item);
 			i++;
 		});
 	});
-	
+
 	var dataArray = JSON.stringify(data);
-	
+
 	$.ajax({
 	   url: "/admin/projects/order/task",
 	   data: {data: dataArray},
@@ -603,7 +603,7 @@ function orderTasks(){
 function addTask(e){
 	//add task
 	var value = e.closest(".list-group-input").find("input").val();
-	
+
 	if(value !== "" ){ //&& value.length > 5
 		var list = e.closest(".list-group");
 		var cloneItem = list.find(".list-group-item-clone");
@@ -614,7 +614,7 @@ function addTask(e){
 			name: value,
 			created_by: $('meta[name="user_id"]').attr('content')
 		};
-		
+
 		$.ajax({
 		   url: "/admin/projects/store/task",
 		   data: dataArray,
@@ -659,19 +659,19 @@ function editTask(){
 $(".task-container-fade > .row").scroll(function(){
 	var e = document.querySelector(".task-container-fade > .row");
 	var rowWidth = $(this).width();
-	
+
     if($(this).scrollLeft() >= 10){
        	$(".task-container-fade").addClass("task-container-scrolled");
     }else{
 	    $(".task-container-fade").removeClass("task-container-scrolled");
     }
-    
+
 	if((e.offsetWidth + $(this).scrollLeft()) >= (e.scrollWidth - 10)){
        	$(".task-container-fade").addClass("task-container-scroll-end");
     }else{
 	    $(".task-container-fade").removeClass("task-container-scroll-end");
     }
-    
+
 });
 
 $(".task-container-editable").find(".row").append('<div class="col-md-3 task-group task-group-placeholder"><div class="placeholder-text"><i class="fa fa-plus"></i><p>Voeg een nieuwe groep toe</p></div></div>');
@@ -711,15 +711,15 @@ $(document).on('click', '.card-right', function () {
 
 $(document).on('click', '.custom-control', function () {
 	var dataArray = {}; //makes an obj so it can be posted (instead of a normal array with [])
-	
+
 	dataArray["id"] = $(this).closest(".list-group-item").attr("data-id");
-	
+
 	if ($(this).closest(".list-group-item").hasClass("done")) {
 		dataArray["status"] = 0; //open
 	}else{
 		dataArray["status"] = 1; //done
 	}
-	
+
 	ajaxTask(dataArray);
 
 	$(this).closest(".list-group-item").toggleClass("done");
@@ -732,7 +732,7 @@ $(document).on('focusout', ".card-header-title b[contenteditable='true']", funct
 		id: $(this).closest(".task-group-position").attr("data-group"),
 		name: $(this).html()
 	};
-	
+
 	ajaxTaskGroup(dataArray);
 });
 
@@ -755,29 +755,29 @@ $(document).on('click', '.card-change-color-btn', function () {
 	var parent = $(this).closest(".card-change-color")[0];
 	var picker = new Picker({
 	    parent: parent,
-	    color: $(this).closest(".card-header-title").find(".card-header-border").css("background-color"), 
+	    color: $(this).closest(".card-header-title").find(".card-header-border").css("background-color"),
 	    onChange: function(color) {
 			border.css({"background-color":color.hex});
 		},
-		onClose: function(color) {			
+		onClose: function(color) {
 			var dataArray = {
 				id: border.closest(".task-group").attr("data-group"),
 				color: color.hex
 			};
-			
+
 			ajaxTaskGroup(dataArray);
-			
+
 			picker.destroy();
 		}
 	});
-	
+
 	//remove <style> generated of vanilla picker
 	$("style").each(function(index){
 		if($(this).html().indexOf('.picker_wrapper') !== -1){
 			$(this).remove();
 		}
 	});
-	
+
 	picker.openHandler();
 });
 
@@ -796,7 +796,7 @@ $(document).on('keyup', '#task-detail *[contenteditable="true"][data-name="name"
 //Loads the task detail
 $(document).on('click', '.widget-content-main, .open-task-detail', function () {
 	var id = $(this).closest(".list-group-item").attr("data-id");
-	
+
 	$("#task-detail").load("/admin/projects/"+id+"/task/detail", function(responseText, textStatus, XMLHttpRequest){
 		$("#task-detail").toggleClass("active");
 		$("#task-detail-overlay").addClass("active");
@@ -805,11 +805,11 @@ $(document).on('click', '.widget-content-main, .open-task-detail', function () {
 
 //Saves all the changes made in the detail
 $(document).on('click', '.task-detail-close, #task-detail-overlay, #task-edit-btn', function () {
-	
+
 	var dataArray = {}; //makes an obj so it can be posted (instead of a normal array with [])
-	
+
 	dataArray["id"] = $("#task-detail-inner").attr("data-id");
-	
+
 	$("#task-detail-inner *[contenteditable='true']").each(function(index){
 		var key = $(this).attr('data-name');
 		var value = $(this).html();
@@ -821,13 +821,13 @@ $(document).on('click', '.task-detail-close, #task-detail-overlay, #task-edit-bt
 function storeComment(){
 	var input = $("#task-activity-input input")
 	var value = input.val();
-	    
+
     var dataArray = {
 		task_id: input.closest("#task-detail-inner").attr("data-id"),
 		user_id: $('meta[name="user_id"]').attr('content'),
 		text: value
 	};
-	
+
 	$.ajax({
 	   url: "/admin/projects/store/comment",
 	   data: dataArray,
@@ -839,12 +839,12 @@ function storeComment(){
 		   var result = JSON.parse(r);
 		   var cloneItem = $(".message-clone");
 		   var comment = cloneItem.clone().removeClass("message-clone").addClass("message").insertAfter(cloneItem).attr("data-id",result.id);
-		   
+
 		   comment.find(".message-content p span").html(result.text);
 		   comment.find(".message-content p b").html($('meta[name="user_name"]').attr('content'));
-		   
+
 		   $(".message-placeholder").remove();
-		   
+
 		   input.val(""); //reset input
 	   }
 	});
@@ -869,7 +869,7 @@ function initTableForm(){
 	if($('table[data-head="true"]').length){
 		$(this).find("tr:not( .table-form-template):first-child, & .table-form-template + tr").attr('id','table-form-head');
 	}
-	
+
 	//converts name attributes to data-name attributes (necessary to prevent empty hidden inputs)
 	$(".table-form-template").find(':input').each(function(index){
 		var name = $(this).attr('name');
@@ -884,11 +884,11 @@ initTableForm();
 $(document).on('click', '.table-form-add', function () {
 	var tempId = Math.random().toString(36).substring(7);
 	var table = $(this).closest('.table-form');
-	
+
 	if(! table.length ) {
 	    table = $('.table-form');
 	}
-	
+
 	table.find(".table-form-template").clone().attr('id',tempId).appendTo( table.find("tbody") );
 
 	//converts the data-name to name attribute
@@ -897,9 +897,9 @@ $(document).on('click', '.table-form-add', function () {
 		$(this).attr('name',name);
 		$(this).removeAttr('data-name');
 	});
-	
+
 	$("#"+tempId).removeClass('table-form-template');
-	
+
 	datePicker.pickTime();
 	event.preventDefault();
 	select2.destroySelect();
@@ -910,13 +910,13 @@ $(document).on('click', '.table-form-add', function () {
 $(document).on('click', '.table-form-duplicate', function () {
 	$(this).closest("tr").clone().removeAttr('id').appendTo(".table-form tbody");
 	$('.dropdown-menu').removeClass('show');
-	
+
 	datePicker.pickTime();
 	event.preventDefault();
 });
 
 //Remove row
-$(document).on('click', '.table-form-remove', function () {	
+$(document).on('click', '.table-form-remove', function () {
 	var table = $(this).closest("table");
 	var head = $(this).closest("table").attr('data-head');
 	if(typeof head !== typeof undefined && head !== false){
@@ -934,16 +934,16 @@ $(document).on('click', '.table-form-remove', function () {
 	event.preventDefault();
 });
 
-/* 
-|	TABLE SORT 
+/*
+|	TABLE SORT
 |
 |	This is used to sort items within a table.
 |	When you set data-head attribute to true, it will give the first tr in tbody a head class.
-|	This ensures that the first item will not be deleted only emptied.	
+|	This ensures that the first item will not be deleted only emptied.
 |
 |	current use: add/edit invoice items table
 |	planned: menu table, item table
-|	
+|
 */
 
 
@@ -953,7 +953,7 @@ function sortTable(){
 		i++;
 		$(this).find('input[name="position[]"]').val(i);
 	});
-	
+
 	//only if data-head is set on true
 	$(".table-sort tbody tr #table-form-head").removeAttr('id');
 	$('.table-sort[data-head="true"] tbody tr:nth-child(2)').attr('id','table-form-head');
@@ -981,7 +981,7 @@ function calcInvoice(){
 	var subTotal=0;
 	var vatTotal=0;
 	var total=0;
-	
+
 	$(".invoice-item:not( .table-form-template)").each(function(i){
 		var itemSubTotal=0;
 		var itemVatTotal=0;
@@ -996,32 +996,32 @@ function calcInvoice(){
 */
 		var value = $(this).find('input[name="price[]"]').val();
 		price = parseFloat(value.replace(',', '.').replace(/[^0-9.-]+/g, ''));
-		
+
 		if(isNaN(price)){
 			price = 0;
 		}
-		
+
 		quantity = parseFloat($(this).find('input[name="quantity[]"]').val());
 		vat = parseFloat($(this).find('input[name="vat[]"]').val());
 		if(isNaN(vat)){
 			vat = 0;
 		}
-		
+
 		itemSubTotal = price*quantity;
-		
+
 		//item vat percentage (example: 0.21)
 		if(vat !== 0){
 			itemVatTotal = vat/100;
 		}
-		
+
 		itemVatTotal = itemVatTotal*itemSubTotal;
-		
+
 		//item total
 		itemTotal = itemVatTotal+itemSubTotal;
 		if(isNaN(itemTotal)){
 			itemTotal = 0;
 		}
-		
+
 		var item = {
 			price: price.toFixed(2).toString().replace(/\./g, ','),
 			quantity: quantity,
@@ -1030,29 +1030,29 @@ function calcInvoice(){
 			subtotal:itemSubTotal.toFixed(2).toString().replace(/\./g, ','),
 			total:itemTotal.toFixed(2).toString().replace(/\./g, ',')
 		};
-		
+
 		$(this).find('.invoice-item-total').text(item.total);
-		
+
 		items.push(item);
-		
+
 		//global count
 		subTotal = subTotal+itemSubTotal;
 		vatTotal = vatTotal+itemVatTotal;
 		total = subTotal+vatTotal;
 	});
-	
+
 	if(isNaN(subTotal)){
 		subTotal = 0;
 	}
-	
+
 	if(isNaN(vatTotal)){
 		vatTotal = 0;
 	}
-	
+
 	if(isNaN(total)){
 		total = 0;
 	}
-	
+
 	//Automatic invoice type change if not a proforma
 	if($('.invoice-type-select').val() == "1" || $('.invoice-type-select').val() == "2" && total !== 0){
 		if(total < 0){
@@ -1062,7 +1062,7 @@ function calcInvoice(){
 		}
 		$('.invoice-type-select').trigger('change'); //intialize select2
 	}
-	
+
 	$("#invoice-subtotal").text(subTotal.toFixed(2).toString().replace(/\./g, ','));
 	$("#invoice-vattotal").text(vatTotal.toFixed(2).toString().replace(/\./g, ','));
 	$("#invoice-total").text(total.toFixed(2).toString().replace(/\./g, ','));
@@ -1075,13 +1075,13 @@ $("#other_shipping_info").click(function() {
 	//timeout makes sure you get the right value
 	setTimeout(function(){
 		var val = $("input[name='other_shipping_info']").val();
-		
+
 		if(val == 1){
 			$("#shipping_info").removeClass("hidden");
 		}else{
 			$("#shipping_info").addClass("hidden");
 		}
-		
+
 	}, 1);
 });
 
@@ -1097,13 +1097,13 @@ $(document).on('click', '.preset-item', function () {
 	var price = $(this).attr('data-price');
 	var quantity = $(this).attr('data-quantity');
 	var vat = $(this).attr('data-vat');
-	
+
 	$(".preset-editable input[name='name[]']").val(name);
 	$(".preset-editable input[name='price[]']").val(price);
 	$(".preset-editable input[name='quantity[]']").val(quantity);
 	$(".preset-editable input[name='vat[]']").val(vat);
 	$('#preset-modal').modal('hide');
-	
+
 	calcInvoice();
 });
 
@@ -1138,9 +1138,9 @@ $(document).on('keyup', 'input[name="vat[]"]', function () {
 $(".card-filter").click(function() {
 	$(".card-filter").removeClass('active');
 	$(this).addClass('active');
-	
+
 	var val = $(this).attr('data-value');
-	
+
 	$(".table-card-filter tbody tr").each(function(index){
 		var rowVal = $(this).attr("data-value");
 		if(val.indexOf(rowVal) >= 0 || val == ""){
@@ -1155,13 +1155,13 @@ $(".card-filter").click(function() {
 
 function rekeyScheduleInputs(){
 	$('.table-datepicker tbody tr:not( .table-form-template)').each(function(iTr){
-		
+
 		$(this).find('input[name*="schedule"]').each(function(iIn){
 			var name = $(this).attr('name');
 			var exp = /(\w+)\[?(\d+?)?\]\[(\w+)\]/;
 			var values = name.match(exp); // 1 = schedule, 2 = array key(int), 3 = mon/tue/...
 			var newName = values[1]+'['+iTr+']'+'['+values[3]+']';
-			
+
 			$(this).not("[type='hidden']").attr('id',newName);
 			$(this).attr('name',newName);
 			$(this).parent().find('label').attr('for',newName);

@@ -84,7 +84,7 @@ Form::macro('myInput', function ($type = "text", $name, $label = "", $options = 
                 . $prepend .
                   Form::input($type, $name, $defaultValue, array_merge(["class" => "form-control".$classInput], $options)). " ".$transIdInput.
                    $append .
-                   $inputGroupEnd." 
+                   $inputGroupEnd."
 	        </div>
 	    ";
     }
@@ -280,7 +280,7 @@ Form::macro('mySwitch', function ($name, $label = "", $value = null, $checked = 
 			  <i></i>
 			  <p>".$label."</p>
 			</label>
-			
+
 			".Form::input("hidden", "translation_id[$name]", null, array_merge(["class" => "form-control input-translation-id"])).
             Form::input("hidden", $name, null, array_merge(["class" => "form-control"]))."
         </div>
@@ -380,7 +380,7 @@ Form::macro('myPrice', function ($name, $label = "", $options = [], $default = n
               		<div class='input-group-prepend'>
 						<span class='input-group-text input-group-addon'><i class='fas fa-euro-sign'></i></span>
 					</div>
-              			
+
 					".
                     Form::input('number', $name, $default, array_merge(["class" => "form-control","step" => "0.01"]))."
 				</div>

@@ -75,8 +75,8 @@ class InputController extends Controller
         $request['required'] = $request->required ?? 0;
         $this->validate($request, AttributeInput::rules());
 
-        $result = constructTranslations($request->all());
-        $result = AttributeOption::constructOptions($result);
+        $result = AttributeOption::constructOptions($request->all());
+        $result = constructTranslations($result);
 
         $result = AttributeInput::prepareAttributes($result);
         AttributeInput::create($result);
@@ -103,12 +103,13 @@ class InputController extends Controller
 
         $this->validate($request, AttributeInput::rules());
 
-        $result = constructTranslations($request->all());
-
+        $result = AttributeOption::constructOptions($request->all());
+        //dd($result);
+        $result = constructTranslations($result);
         $input = AttributeInput::findOrFail($id);
-        $result = AttributeOption::constructOptions($result);
 
         $result = AttributeInput::prepareAttributes($result);
+
         $input->update($result);
 
         return redirect()->route(config('pakka.prefix.admin'). '.inputs.index', Session::get('set_id'))->withSuccess(trans('pakka::app.success_store'));

@@ -2,6 +2,9 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 1.0.5 - 2022-11-27
+- Fix to edit and save select inputs in control panel (checkboxes still broken)
+
 ## 1.0.4 - 2022-07-28
 - Fixes to accordion blocks
 - Fix to complex nested routes when only one language exists
