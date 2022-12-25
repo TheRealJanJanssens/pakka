@@ -6,14 +6,13 @@
 
 @section('content')
 	{!! Form::open([
-			//'route' => [config('pakka.prefix.admin').'.menu.storemenuitem'],
-			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\MenuController@storeMenuItem'],
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\MenuItemController@store'],
 			'files' => true
 		])
 	!!}
 
-	@include('pakka::admin.menu.menuitemform')
-		
+	@include('pakka::admin.menu_items.form')
+
 	{!! Form::close() !!}
-	
+
 @stop

@@ -6,14 +6,14 @@
 
 @section('content')
 	{!! Form::model($menuItem, [
-			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\MenuController@updateMenuItem', $menuItem['id']],
-			'method' => 'put', 
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\MenuItemController@update', $menuItem['id']],
+			'method' => 'put',
 			'files' => true
 		])
 	!!}
 
-		@include('pakka::admin.menu.menuitemform')
-		
+		@include('pakka::admin.menu_items.form')
+
 	{!! Form::close() !!}
-	
+
 @stop

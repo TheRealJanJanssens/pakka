@@ -3,9 +3,10 @@
 namespace TheRealJanJanssens\Pakka\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use TheRealJanJanssens\Pakka\Models\Translation;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class MenuItem extends Model
 {
@@ -17,8 +18,18 @@ class MenuItem extends Model
      * @var array
      */
     protected $fillable = [
-        'menu','parent','position', 'icon', 'name', 'link','permission',
+        'menu',
+        'parent',
+        'position',
+        'icon',
+        'name',
+        'link',
+        'permission'
     ];
+
+    protected $hidden = ['nameRelation'];
+
+    protected $with = ['name'];
 
     /*
     |------------------------------------------------------------------------------------
@@ -40,6 +51,16 @@ class MenuItem extends Model
             'link' => 'required',
         ]);
     }
+
+    public function name()
+    {
+        return $this->hasOne(Translation::class, 'translation_id', 'name');
+    }
+
+    // public function getNameAttribute($value)
+    // {
+    //     return $value." test";
+    // }
 
     /*
     |------------------------------------------------------------------------------------
@@ -80,25 +101,25 @@ class MenuItem extends Model
             'menu_items.icon',
             'menu_items.link',
             'menu_items.permission',
-             DB::raw('(SELECT 
+             DB::raw('(SELECT
 	        			GROUP_CONCAT(
 	        				CASE
 								WHEN `translations`.`language_code` IS NOT NULL THEN `translations`.`language_code`
 								WHEN `translations`.`language_code` IS NULL THEN IFNULL(`translations`.`language_code`, "")
 							END SEPARATOR "(~)"
-						) 
-					FROM `translations` 
-					WHERE `translations`.`translation_id` = `menu_items`.`name`) 
+						)
+					FROM `translations`
+					WHERE `translations`.`translation_id` = `menu_items`.`name`)
 					AS language_code'),
-            DB::raw('(SELECT 
+            DB::raw('(SELECT
 	        			GROUP_CONCAT(
 	        				CASE
 								WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
 								WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
 							END SEPARATOR "(~)"
-						) 
-					FROM `translations` 
-					WHERE `translations`.`translation_id` = `menu_items`.`name`) 
+						)
+					FROM `translations`
+					WHERE `translations`.`translation_id` = `menu_items`.`name`)
 					AS name'),
             DB::raw('`menu_items`.`name` AS name_trans'),
             ])

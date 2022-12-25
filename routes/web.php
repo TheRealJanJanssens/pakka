@@ -25,6 +25,7 @@ use TheRealJanJanssens\Pakka\Http\Controllers\InvoiceController;
 use TheRealJanJanssens\Pakka\Http\Controllers\TemplateController;
 use TheRealJanJanssens\Pakka\Http\Controllers\ShipmentController;
 use TheRealJanJanssens\Pakka\Http\Controllers\ServicesController;
+use TheRealJanJanssens\Pakka\Http\Controllers\MenuItemController;
 use TheRealJanJanssens\Pakka\Http\Controllers\DashboardController;
 use TheRealJanJanssens\Pakka\Http\Controllers\ProvidersController;
 use TheRealJanJanssens\Pakka\Http\Controllers\Auth\LoginController;
@@ -113,6 +114,7 @@ Route::group([
         'bookings' => BookingController::class,
         'invoices' => InvoiceController::class,
         'products' => ProductController::class,
+        'menu_items' => MenuItemController::class,
         'services' => ServicesController::class,
         'shipments' => ShipmentController::class,
         'providers' => ProvidersController::class,
@@ -130,15 +132,15 @@ Route::group([
 
     Route::delete('menu/{id}/destroy/menu', [MenuController::class, 'destroyMenu'])->name('menu.destroymenu');
 
-    Route::get('menu/create/menuitem', [MenuController::class, 'createMenuItem'])->name('menu.createmenuitem');
-    Route::post('menu/store/menuitem', [MenuController::class, 'storeMenuItem'])->name('menu.storemenuitem');
+    //Route::get('menu/create/menuitem', [MenuController::class, 'createMenuItem'])->name('menu.createmenuitem');
+    //Route::post('menu/store/menuitem', [MenuController::class, 'storeMenuItem'])->name('menu.storemenuitem');
 
-    Route::get('menu/{id}/edit/menuitem', [MenuController::class, 'editMenuItem'])->name('menu.editmenuitem');
-    Route::match(['put', 'patch'],'menu/{id}/update/menuitem', [MenuController::class, 'updateMenuItem']);
+    //Route::get('menu/{id}/edit/menuitem', [MenuController::class, 'editMenuItem'])->name('menu.editmenuitem');
+    //Route::match(['put', 'patch'],'menu/{id}/update/menuitem', [MenuController::class, 'updateMenuItem']);
 
-    Route::delete('menu/{id}/destroy/menuitem', [MenuController::class, 'destroyMenuItem'])->name('menu.destroymenuitem');
+    //Route::delete('menu/{id}/destroy/menuitem', [MenuController::class, 'destroyMenuItem'])->name('menu.destroymenuitem');
 
-    Route::post('menu/sort', [MenuController::class, 'sortMenu']);
+    Route::post('menu/sort', [MenuController::class, 'sort']);
 
     //ITEMS
     Route::get('items/{moduleId}/list', [ItemController::class, 'index'])->name('items.index');
