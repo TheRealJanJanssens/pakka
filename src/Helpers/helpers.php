@@ -695,7 +695,7 @@ if (! function_exists('constructInputs')) {
 
                     break;
                 case "checkbox":
-                    foreach($options as $option){
+                    foreach ($options as $option) {
                         echo Form::myCheckbox($input['name'].'[]', $option['value'], $option['option_id'], null, false);
                     }
                     echo $extra;
@@ -1048,7 +1048,7 @@ function constructTranslations($array)
         }
 
         switch (true) {
-            case !isset($checklist[$inputName]) && $translatable == true:
+            case ! isset($checklist[$inputName]) && $translatable == true:
                 /* TRANSLATION STATIC INPUT (INSERT) */
                 //check if value is an array. This is used in translatable static table inputs (ex. collection conditions)
                 if (is_array($value)) {
@@ -1104,21 +1104,21 @@ function constructTranslations($array)
                 switch (true) {
                     case contains($inputType, $optionsInputs): //insert option
                         //dd($value);
-                        if(is_array($value)){
+                        if (is_array($value)) {
                             // loop through options if multiple are selected (CHECKBOXES)
-                            foreach($value as $option){
+                            foreach ($value as $option) {
                                 AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['option_id' => htmlspecialchars($option) ]);
                             }
-                        }else{
+                        } else {
                             AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['option_id' => htmlspecialchars($value) ]);
                         }
 
                         break;
-                    case !contains($inputType, $optionsInputs) && $value !== null: //insert value
+                    case ! contains($inputType, $optionsInputs) && $value !== null: //insert value
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => htmlentities($value) ]);
 
                         break;
-                    case !contains($inputType, $optionsInputs) && $value == null: //insert value null
+                    case ! contains($inputType, $optionsInputs) && $value == null: //insert value null
                         AttributeValue::updateOrCreate(['input_id' => htmlspecialchars($inputId), 'item_id' => htmlspecialchars($itemId), 'language_code' => htmlspecialchars($languageCode) ], ['value' => null]);
 
                         break;
@@ -1142,7 +1142,7 @@ function constructTranslations($array)
     $debug["checklist"] = $checklist;
     $debug["start_array"] = $array;
     $debug["end_array"] = $result;
-//dd($debug);
+    //dd($debug);
     return $result;
 }
 
@@ -1302,7 +1302,6 @@ if (! function_exists('constructAttributes')) {
                             $iS = 0;
 
                             foreach ($langs as $lang) {
-
                                 //SAFETY INCASE OF NEW LANGUAGES
                                 if (! isset($slugs[$iS])) {
                                     $slugs[$iS] = null;

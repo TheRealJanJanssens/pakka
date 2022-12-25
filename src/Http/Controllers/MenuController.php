@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Session;
 use TheRealJanJanssens\Pakka\Models\Menu;
 use TheRealJanJanssens\Pakka\Models\MenuItem;
-use TheRealJanJanssens\Pakka\Models\Page;
 use TheRealJanJanssens\Pakka\Models\Translation;
 
 class MenuController extends Controller

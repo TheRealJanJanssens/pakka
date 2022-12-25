@@ -52,7 +52,6 @@ class CollectionCondition extends Model
 
     public static function storeCondition($id, $array)
     {
-
         //deleting and inserting again is not the most efficient way to update these rows
         //updating is much better but the way the form is build is difficult to detect deleted rows without ajax request
 
@@ -60,7 +59,6 @@ class CollectionCondition extends Model
         CollectionCondition::where('collection_id', $id)->delete();
 
         foreach ($array as $item) {
-
             /*
                         //efficienter for db queries
                         if($item['id'] == 0){

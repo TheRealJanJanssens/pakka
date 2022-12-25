@@ -45,7 +45,6 @@ class InvoiceController extends Controller
 
         //Quick checkup if the necessary inputs are there
         if (! empty($inputs['client_email']) && ! empty($inputs['price'][0])) {
-
             //NEW CLIENT
             //if client id is empty make new client account
             if (empty($inputs['client_id']) && ! empty($inputs['client_email'])) {
@@ -106,7 +105,6 @@ class InvoiceController extends Controller
             //INVOICE ITEMS
             $i = 0;
             foreach ($inputs['name'] as $name) {
-
                 //if nothing is entered just return a space
                 if (empty($name)) {
                     $name = " ";
