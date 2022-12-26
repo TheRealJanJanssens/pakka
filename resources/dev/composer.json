@@ -29,6 +29,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "laravelcollective/html": "^6.2",
+        "livewire/livewire": "^2.10",
         "maatwebsite/excel": "^3.1",
         "mollie/laravel-mollie": "^2.14",
         "php-parallel-lint/php-console-highlighter": "^0.5.0",

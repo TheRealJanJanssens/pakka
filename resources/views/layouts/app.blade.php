@@ -12,6 +12,8 @@
 
   <!-- Styles -->
   <link href="{{ asset('public/vendor/css/app.css') }}" rel="stylesheet">
+
+  @livewireStyles
 </head>
 <body class="app">
 
@@ -19,9 +21,9 @@
 
     <div class="peers ai-s fxw-nw h-100vh">
 	    @if(isset($settings['app_cover']))
-        	@php( $cover = config('image.app.public').$settings['app_cover']) 
+        	@php( $cover = config('image.app.public').$settings['app_cover'])
         @else
-        	@php( $cover = config('placeholders.cover')) 
+        	@php( $cover = config('placeholders.cover'))
         @endif
       <div class="d-n@sm- peer peer-greed h-100 pos-r bgr-n bgpX-c bgpY-c bgsz-cv" style='background-image: url("{{ $cover }}")'>
         <div class="pos-a centerXY">
@@ -31,7 +33,7 @@
             @else
             	<img class="pos-a centerXY" src="{{ config('placeholders.logo') }}" alt="" style="max-width: 80%; max-height:75%;">
             @endif
-            
+
           </div>
         </div>
       </div>
@@ -39,6 +41,7 @@
         @yield('content')
       </div>
     </div>
-  
+
+    @livewireScripts
 </body>
 </html>
