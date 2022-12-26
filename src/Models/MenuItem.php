@@ -5,8 +5,6 @@ namespace TheRealJanJanssens\Pakka\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
-use TheRealJanJanssens\Pakka\Models\Translation;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class MenuItem extends Model
 {
@@ -24,7 +22,7 @@ class MenuItem extends Model
         'icon',
         'name',
         'link',
-        'permission'
+        'permission',
     ];
 
     protected $hidden = ['nameRelation'];

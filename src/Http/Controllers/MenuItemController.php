@@ -55,7 +55,6 @@ class MenuItemController extends Controller
         return back()->withSuccess(trans('pakka::app.success_store'));
     }
 
-
     public function edit($id)
     {
         $menuResults = Menu::get();
@@ -70,7 +69,6 @@ class MenuItemController extends Controller
 
         return view('pakka::admin.menu_items.edit', compact('menus', 'menuItem', 'pages'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -88,7 +86,6 @@ class MenuItemController extends Controller
 
         return redirect()->route(config('pakka.prefix.admin').'.menu.index')->withSuccess(trans('pakka::app.success_update'));
     }
-
 
     public function destroy($id)
     {
