@@ -60,6 +60,8 @@ class CleanCommand extends Command
         $this->replace(app_path('Http/Middleware/Role.php'), file_get_contents(__DIR__.'/../Http/Middleware/Role.php'));
         $this->replace(app_path('Http/Middleware/VerifyCsrfToken.php'), file_get_contents(__DIR__.'/../Http/Middleware/VerifyCsrfToken.php'));
         $this->replace(app_path('Http/Middleware/CheckForMaintenanceMode.php'), file_get_contents(__DIR__.'/../Http/Middleware/CheckForMaintenanceMode.php'));
+        $this->replace(app_path('Http/Middleware/TrustProxies.php'), file_get_contents(__DIR__.'/../Http/Middleware/TrustProxies.php'));
+
         // Clean Kernel
         $this->replace(app_path('Http/Kernel.php'), file_get_contents(__DIR__.'/../Http/Kernel/Kernel.php'));
 
