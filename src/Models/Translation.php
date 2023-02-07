@@ -45,6 +45,12 @@ class Translation extends Model
         ]);
     }
 
+    // Returns the translated value
+    public function value()
+    {
+        return $this->text;
+    }
+
     public static function getTranslation($string)
     {
         $locale = app()->getLocale();

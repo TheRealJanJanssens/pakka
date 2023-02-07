@@ -2732,7 +2732,7 @@ function constructAdminMenu($array)
         } else {
             $liClass .= " dropdown";
             $aClass .= "dropdown-toggle";
-        } ?>
+        } dd($array); ?>
 
 		<li class="nav-item mT-20 <?php echo $liClass; ?>">
 			<a class="<?php echo $aClass; ?>" href="<?php echo $route; ?>">

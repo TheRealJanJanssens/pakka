@@ -1,7 +1,7 @@
 <div class="row mB-40">
 	<div class="col-sm-8">
 		<div class="bgc-white p-20 bd">
-				{{$menuItem->name}}
+				{{ $menuItem->name }}
 				@foreach ($lang as $langItem)
 					{!! Form::myInput('text', 'name', 'Naam', [], null, $langItem["language_code"]) !!}
 				@endforeach
@@ -25,9 +25,6 @@
 				@endif
 
 				{!! Form::mySelect('link', 'Link', $links, null, ['class' => 'form-control select2']) !!}
-
-
-
 		</div>
 	</div>
 

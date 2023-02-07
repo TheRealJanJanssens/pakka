@@ -5,10 +5,12 @@ namespace TheRealJanJanssens\Pakka\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use TheRealJanJanssens\Pakka\Traits\Translations;
 
 class MenuItem extends Model
 {
-    use Notifiable;
+    use Notifiable, Translations;
 
     /**
      * The attributes that are mass assignable.
@@ -24,8 +26,6 @@ class MenuItem extends Model
         'link',
         'permission',
     ];
-
-    protected $hidden = ['nameRelation'];
 
     protected $with = ['name'];
 
@@ -52,12 +52,19 @@ class MenuItem extends Model
 
     public function name()
     {
-        return $this->hasOne(Translation::class, 'translation_id', 'name');
+        return $this->hasMany(Translation::class, 'translation_id', 'name');
     }
+
+    // protected function name(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => $this->translations()->name->value()
+    //     );
+    // }
 
     // public function getNameAttribute($value)
     // {
-    //     return $value." test";
+    //     return $this->nameRelation->first()->text;
     // }
 
     /*
