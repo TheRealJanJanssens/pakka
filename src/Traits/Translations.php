@@ -16,7 +16,7 @@ trait Translations
     {
         $result = collect($this->getRelations())->filter(function ($relation) {
             return $relation->first() instanceof Translation;
-        })->mapWithKeys(function ($value, $key){
+        })->mapWithKeys(function ($value, $key) {
             return [$value->first()->input_name => $value->all()]; //new Collection($value->all())
         })->all();
 

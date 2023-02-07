@@ -2,15 +2,16 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use TheRealJanJanssens\Pakka\Traits\Translations;
 
 class MenuItem extends Model
 {
-    use Notifiable, Translations;
+    use Notifiable;
+    use Translations;
 
     /**
      * The attributes that are mass assignable.

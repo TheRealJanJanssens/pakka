@@ -2,8 +2,8 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Model;
 
 class Translations extends Model
 {
@@ -37,6 +37,7 @@ class Translations extends Model
         $locale = app()->getLocale();
         $translation = collect($value);
         $result = $translation->where('language_code', $locale)->first();
+
         return parent::setAttribute($key, $result->text ?? $translation->first()->text);
     }
 
@@ -60,7 +61,8 @@ class Translations extends Model
     public function locale($locale = null)
     {
         $locale = $locale ?? app()->getLocale();
-        return collect($this->attributes)->first(function($item) use ($locale) {
+
+        return collect($this->attributes)->first(function ($item) use ($locale) {
             return $item->language_code == $locale;
         });
     }
