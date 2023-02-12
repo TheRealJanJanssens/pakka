@@ -56,7 +56,6 @@ class ProviderSchedule extends Model
 
     public static function storeSchedule($id, $array)
     {
-
         //deleting and inserting again is not the most efficient way to update these rows
         //updating is much better but the way the form is build is difficult to detect deleted rows without ajax request
 
