@@ -2,9 +2,9 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use TheRealJanJanssens\Pakka\Traits\HasPackageFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use TheRealJanJanssens\Pakka\Traits\HasPackageFactory;
 
 class User extends Authenticatable
 {

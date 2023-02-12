@@ -6,10 +6,11 @@
  * (users perspective)
  */
 
-use TheRealJanJanssens\Pakka\Database\Seeders\MenuSeeder;
-use TheRealJanJanssens\Pakka\Models\User;
-
 use function Pest\Laravel\get;
+
+use TheRealJanJanssens\Pakka\Database\Seeders\MenuSeeder;
+
+use TheRealJanJanssens\Pakka\Models\User;
 
 beforeEach(function () {
     $this->seed(MenuSeeder::class);
@@ -45,4 +46,3 @@ it('has menus')->assertDatabaseHas('menus', [
 
 //     get(route('admin.users.index'))->assertStatus(200);
 // });
-

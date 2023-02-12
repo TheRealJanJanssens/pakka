@@ -11,17 +11,11 @@ namespace TheRealJanJanssens\Pakka\Tests;
 
 
 
-use Barryvdh\DomPDF\ServiceProvider;
-use Collective\Html\FormFacade;
-use Collective\Html\HtmlServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Maatwebsite\Excel\ExcelServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use TheRealJanJanssens\Pakka\PakkaServiceProvider;
 use TheRealJanJanssens\Pakka\Providers\HelperServiceProvider;
-use TheRealJanJanssens\Pakka\Providers\MacroServiceProvider;
-use Unikent\Cache\TaggableFileCacheServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -43,7 +37,7 @@ class TestCase extends Orchestra
     {
         return [
             PakkaServiceProvider::class,
-            HelperServiceProvider::class
+            HelperServiceProvider::class,
         ];
     }
 
