@@ -2,6 +2,15 @@
 
 namespace TheRealJanJanssens\Pakka\Tests;
 
+// use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+
+// abstract class TestCase extends BaseTestCase
+// {
+//     use CreatesApplication;
+// }
+
+
+
 use Barryvdh\DomPDF\ServiceProvider;
 use Collective\Html\FormFacade;
 use Collective\Html\HtmlServiceProvider;
@@ -23,47 +32,33 @@ class TestCase extends Orchestra
         parent::setUp();
 
         // seed the database
-        $this->seed("TheRealJanJanssens\\Pakka\\Database\\Seeders\\DatabaseSeeder");
+        // $this->seed("TheRealJanJanssens\\Pakka\\Database\\Seeders\\DatabaseSeeder");
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'TheRealJanJanssens\\Pakka\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
+        // Factory::guessFactoryNamesUsing(
+        //     fn (string $modelName) => 'TheRealJanJanssens\\Pakka\\Database\\Factories\\'.class_basename($modelName).'Factory'
+        // );
     }
-
-    // protected function resolveApplicationHttpKernel($app)
-    // {
-    //   $app->singleton('Illuminate\Contracts\Http\Kernel', 'TheRealJanJanssens\Pakka\Http\Kernel\TestKernel');
-    // }
 
     protected function getPackageProviders($app)
     {
         return [
-            //ServiceProvider::class,
-            //ExcelServiceProvider::class,
-            //TaggableFileCacheServiceProvider::class,
-            //HtmlServiceProvider::class,
             PakkaServiceProvider::class,
-            //HelperServiceProvider::class,
-            //MacroServiceProvider::class,
+            HelperServiceProvider::class
         ];
     }
-
-    // protected function getPackageAliases($app)
-    // {
-    //   return [
-    //     'Form' => FormFacade::class
-    //   ];
-    // }
 
     public function getEnvironmentSetUp($app)
     {
         //Credentials to setup local and git action database
-        config()->set('app.key', 'base64:80bvk6/X6cFNdI5INpiNRYVgb1Vjl/XeY9GWu5BNocw=');
-        config()->set('database.connections.mysql.database', 'pakka_testing');
-        config()->set('database.connections.mysql.username', 'root');
-        config()->set('database.connections.mysql.password', 'root');
-        config()->set('database.connections.mysql.port', '8889');
-        config()->set('database.connections.mysql.strict', 'false');
+        // config()->set('app.key', 'base64:80bvk6/X6cFNdI5INpiNRYVgb1Vjl/XeY9GWu5BNocw=');
+        // config()->set('database.connections.mysql.database', 'pakka_testing');
+        // config()->set('database.connections.mysql.username', 'root');
+        // config()->set('database.connections.mysql.password', 'root');
+        // config()->set('database.connections.mysql.port', '8889');
+        // config()->set('database.connections.mysql.strict', 'false');
+
+        //Route middleware
+        $app->make('Illuminate\Contracts\Http\Kernel')->pushMiddleware('Illuminate\Session\Middleware\StartSession');
 
         //import all migrations created by the package
         $migrations = PakkaServiceProvider::allMigrations();

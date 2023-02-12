@@ -4,6 +4,7 @@ namespace TheRealJanJanssens\Pakka\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use TheRealJanJanssens\Pakka\Models\Menu;
 
 class MenuSeeder extends Seeder
 {
@@ -14,9 +15,9 @@ class MenuSeeder extends Seeder
      */
     public function run()
     {
-        if(DB::table('menus')->count() == 0) {
+        if(Menu::count() == 0) {
             $defaultLocale = env('APP_LOCALE', 'nl');
-            DB::table('menus')->insert([
+            Menu::create([
                 'id' => 1,
                 'name' => 'Beheerpaneel',
             ]);

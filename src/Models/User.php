@@ -2,14 +2,14 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use TheRealJanJanssens\Pakka\Traits\HasPackageFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     use Notifiable;
-    use HasFactory;
+    use HasPackageFactory;
 
     public $timestamps = false;
 

@@ -179,15 +179,15 @@ class Item extends Model
                 //Display mode
                 $optionAttr = "attributes.option_value";
                 $valueAttr = "attributes.name, IFNULL(attributes.value, '')";
-                $slug = DB::raw('(SELECT 
+                $slug = DB::raw('(SELECT
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
 									WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
 								END SEPARATOR "(~)"
-							) 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `items`.`slug`) 
+							)
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `items`.`slug`)
 						AS slug');
 
                 break;
@@ -195,15 +195,15 @@ class Item extends Model
                 //Edit mode
                 $optionAttr = "attributes.option_id";
                 $valueAttr = "attributes.language_code, attributes.name, IFNULL(attributes.value, '')";
-                $slug = DB::raw('`items`.`slug` AS translation_id_slug, (SELECT 
+                $slug = DB::raw('`items`.`slug` AS translation_id_slug, (SELECT
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
 									WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
 								END SEPARATOR "(~)"
-							) 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `items`.`slug`) 
+							)
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `items`.`slug`)
 						AS slug');
 
                 break;
@@ -224,7 +224,7 @@ class Item extends Model
         DB::raw("GROUP_CONCAT( DISTINCT images.file ORDER BY images.position SEPARATOR '(~)') as images"),
         ])
         ->leftJoin(DB::raw("(
-				SELECT 
+				SELECT
 			    attribute_values.input_id,
 			    attribute_values.option_id,
 			    attribute_values.item_id,
@@ -233,8 +233,8 @@ class Item extends Model
 			    attribute_inputs.name,
 			    attribute_inputs.position,
 			    attribute_options.value AS option_value
-			    FROM 
-			    attribute_values 
+			    FROM
+			    attribute_values
 			    LEFT JOIN attribute_inputs ON attribute_values.input_id = attribute_inputs.input_id
 				LEFT JOIN attribute_options ON attribute_values.option_id = attribute_options.option_id
 			) as attributes"), 'items.id', '=', 'attributes.item_id')
@@ -286,10 +286,10 @@ class Item extends Model
         'items.id',
         'items.module_id',
         'items.status',
-        DB::raw('(SELECT 
+        DB::raw('(SELECT
         			IFNULL(`translations`.`text`, "")
-				FROM `translations` 
-				WHERE `translations`.`translation_id` = `items`.`slug` AND `translations`.`language_code` = "'.$locale.'") 
+				FROM `translations`
+				WHERE `translations`.`translation_id` = `items`.`slug` AND `translations`.`language_code` = "'.$locale.'")
 				AS slug'),
         'items.created_at',
         DB::raw("GROUP_CONCAT( DISTINCT
@@ -301,7 +301,7 @@ class Item extends Model
         DB::raw("GROUP_CONCAT( DISTINCT images.file ORDER BY images.position SEPARATOR '(~)') as images"),
         ])
         ->leftJoin(DB::raw("(
-				SELECT 
+				SELECT
 			    attribute_values.input_id,
 			    attribute_values.option_id,
 			    attribute_values.item_id,
@@ -310,8 +310,8 @@ class Item extends Model
 			    attribute_inputs.name,
 			    attribute_inputs.position,
 			    attribute_options.value AS option_value
-			    FROM 
-			    attribute_values 
+			    FROM
+			    attribute_values
 			    LEFT JOIN attribute_inputs ON attribute_values.input_id = attribute_inputs.input_id
 				LEFT JOIN attribute_options ON attribute_values.option_id = attribute_options.option_id
 				WHERE attribute_options.language_code = '".$locale."'

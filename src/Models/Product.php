@@ -186,18 +186,18 @@ class Product extends Model
                 //Display mode
                 $optionAttr = "attributes.option_value";
                 $valueAttr = "attributes.name, IFNULL(attributes.value, '')";
-                $slug = DB::raw('(SELECT `translations`.`text` 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `products`.`slug` AND `translations`.`language_code` = "'.$locale.'") 
+                $slug = DB::raw('(SELECT `translations`.`text`
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `products`.`slug` AND `translations`.`language_code` = "'.$locale.'")
 						AS slug');
-                $name = DB::raw('(SELECT `translations`.`text` 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `products`.`name` AND `translations`.`language_code` = "'.$locale.'") 
+                $name = DB::raw('(SELECT `translations`.`text`
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `products`.`name` AND `translations`.`language_code` = "'.$locale.'")
 						AS name');
 
-                $description = DB::raw('(SELECT `translations`.`text` 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `products`.`description` AND `translations`.`language_code` = "'.$locale.'") 
+                $description = DB::raw('(SELECT `translations`.`text`
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `products`.`description` AND `translations`.`language_code` = "'.$locale.'")
 						AS description');
 
                 break;
@@ -205,48 +205,48 @@ class Product extends Model
                 //Edit mode
                 $optionAttr = "attributes.option_id";
                 $valueAttr = "attributes.language_code, attributes.name, IFNULL(attributes.value, '')";
-                $languageCode = DB::raw('(SELECT 
+                $languageCode = DB::raw('(SELECT
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`language_code` IS NOT NULL THEN `translations`.`language_code`
 									WHEN `translations`.`language_code` IS NULL THEN IFNULL(`translations`.`language_code`, "")
 								END SEPARATOR "(~)"
-							) 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `products`.`slug`) 
+							)
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `products`.`slug`)
 						AS language_code');
 
-                $slug = DB::raw('`products`.`slug` AS translation_id_slug, (SELECT 
+                $slug = DB::raw('`products`.`slug` AS translation_id_slug, (SELECT
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
 									WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
 								END SEPARATOR "(~)"
-							) 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `products`.`slug`) 
+							)
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `products`.`slug`)
 						AS slug');
 
-                $name = DB::raw('`products`.`name` AS translation_id_name, (SELECT 
+                $name = DB::raw('`products`.`name` AS translation_id_name, (SELECT
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
 									WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
 								END SEPARATOR "(~)"
-							) 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `products`.`name`) 
+							)
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `products`.`name`)
 						AS name');
 
-                $description = DB::raw('`products`.`description` AS translation_id_description, (SELECT 
+                $description = DB::raw('`products`.`description` AS translation_id_description, (SELECT
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
 									WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
 								END SEPARATOR "(~)"
-							) 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `products`.`description`) 
+							)
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `products`.`description`)
 						AS description');
 
                 array_push($extra, $languageCode);
@@ -281,7 +281,7 @@ class Product extends Model
 
         $result = Product::select($selectArray)
         ->leftJoin(DB::raw("(
-				SELECT 
+				SELECT
 			    attribute_values.input_id,
 			    attribute_values.option_id,
 			    attribute_values.item_id,
@@ -290,8 +290,8 @@ class Product extends Model
 			    attribute_inputs.name,
 			    attribute_inputs.position,
 			    attribute_options.value AS option_value
-			    FROM 
-			    attribute_values 
+			    FROM
+			    attribute_values
 			    LEFT JOIN attribute_inputs ON attribute_values.input_id = attribute_inputs.input_id
 				LEFT JOIN attribute_options ON attribute_values.option_id = attribute_options.option_id
 			) as attributes"), 'products.id', '=', 'attributes.item_id')
@@ -349,20 +349,20 @@ class Product extends Model
         'products.base_price',
         'products.compare_price',
         'products.status',
-        DB::raw('(SELECT 
+        DB::raw('(SELECT
         			IFNULL(`translations`.`text`, "")
-				FROM `translations` 
-				WHERE `translations`.`translation_id` = `products`.`slug` AND `translations`.`language_code` = "'.$locale.'") 
+				FROM `translations`
+				WHERE `translations`.`translation_id` = `products`.`slug` AND `translations`.`language_code` = "'.$locale.'")
 				AS slug'),
-        DB::raw('(SELECT 
+        DB::raw('(SELECT
         			IFNULL(`translations`.`text`, "")
-				FROM `translations` 
-				WHERE `translations`.`translation_id` = `products`.`name` AND `translations`.`language_code` = "'.$locale.'") 
+				FROM `translations`
+				WHERE `translations`.`translation_id` = `products`.`name` AND `translations`.`language_code` = "'.$locale.'")
 				AS name'),
-        DB::raw('(SELECT 
+        DB::raw('(SELECT
         			IFNULL(`translations`.`text`, "")
-				FROM `translations` 
-				WHERE `translations`.`translation_id` = `products`.`description` AND `translations`.`language_code` = "'.$locale.'") 
+				FROM `translations`
+				WHERE `translations`.`translation_id` = `products`.`description` AND `translations`.`language_code` = "'.$locale.'")
 				AS description'),
         'products.created_at',
         DB::raw("GROUP_CONCAT( DISTINCT
@@ -374,7 +374,7 @@ class Product extends Model
         DB::raw("GROUP_CONCAT( DISTINCT images.file ORDER BY images.position SEPARATOR '(~)') as images"),
         ])
         ->leftJoin(DB::raw("(
-				SELECT 
+				SELECT
 			    attribute_values.input_id,
 			    attribute_values.option_id,
 			    attribute_values.item_id,
@@ -383,8 +383,8 @@ class Product extends Model
 			    attribute_inputs.name,
 			    attribute_inputs.position,
 			    attribute_options.value AS option_value
-			    FROM 
-			    attribute_values 
+			    FROM
+			    attribute_values
 			    LEFT JOIN attribute_inputs ON attribute_values.input_id = attribute_inputs.input_id
 				LEFT JOIN attribute_options ON attribute_values.option_id = attribute_options.option_id
 				WHERE attribute_options.language_code = '".$locale."'
@@ -460,20 +460,20 @@ class Product extends Model
                     'products.base_price',
                     'products.compare_price',
                     'products.status',
-                    DB::raw('(SELECT 
+                    DB::raw('(SELECT
 			        			IFNULL(`translations`.`text`, "")
-							FROM `translations` 
-							WHERE `translations`.`translation_id` = `products`.`slug` AND `translations`.`language_code` = "'.$locale.'") 
+							FROM `translations`
+							WHERE `translations`.`translation_id` = `products`.`slug` AND `translations`.`language_code` = "'.$locale.'")
 							AS slug'),
-                    DB::raw('(SELECT 
+                    DB::raw('(SELECT
 			        			IFNULL(`translations`.`text`, "")
-							FROM `translations` 
-							WHERE `translations`.`translation_id` = `products`.`name` AND `translations`.`language_code` = "'.$locale.'") 
+							FROM `translations`
+							WHERE `translations`.`translation_id` = `products`.`name` AND `translations`.`language_code` = "'.$locale.'")
 							AS name'),
-                    DB::raw('(SELECT 
+                    DB::raw('(SELECT
 			        			IFNULL(`translations`.`text`, "")
-							FROM `translations` 
-							WHERE `translations`.`translation_id` = `products`.`description` AND `translations`.`language_code` = "'.$locale.'") 
+							FROM `translations`
+							WHERE `translations`.`translation_id` = `products`.`description` AND `translations`.`language_code` = "'.$locale.'")
 							AS description'),
                     'products.created_at',
                     DB::raw("GROUP_CONCAT( DISTINCT
@@ -485,7 +485,7 @@ class Product extends Model
                     DB::raw("GROUP_CONCAT( DISTINCT images.file ORDER BY images.position SEPARATOR '(~)') as images"),
                     ])
                     ->leftJoin(DB::raw("(
-							SELECT 
+							SELECT
 						    attribute_values.input_id,
 						    attribute_values.option_id,
 						    attribute_values.item_id,
@@ -494,8 +494,8 @@ class Product extends Model
 						    attribute_inputs.name,
 						    attribute_inputs.position,
 						    attribute_options.value AS option_value
-						    FROM 
-						    attribute_values 
+						    FROM
+						    attribute_values
 						    LEFT JOIN attribute_inputs ON attribute_values.input_id = attribute_inputs.input_id
 							LEFT JOIN attribute_options ON attribute_values.option_id = attribute_options.option_id
 							WHERE attribute_options.language_code = '".$locale."'
@@ -506,9 +506,9 @@ class Product extends Model
                     foreach ($collection['conditions'] as $condition) {
                         $string = $condition['string'];
                         //$input = "products.".$condition['input'];
-                        $input = DB::raw('SELECT 
+                        $input = DB::raw('SELECT
 			        			IFNULL(`translations`.`text`, "")
-							FROM `translations` 
+							FROM `translations`
 							WHERE `translations`.`translation_id` = `products`.`name` AND `translations`.`language_code` = "'.$locale.'"');
 
                         switch ($condition['operator']) {
@@ -625,17 +625,17 @@ class Product extends Model
             'products.id',
             'stocks.sku',
             'products.status',
-            DB::raw('(SELECT `translations`.`text` 
-				FROM `translations` 
-				WHERE `translations`.`translation_id` = `products`.`name` AND `translations`.`language_code` = "'.$locale.'") 
+            DB::raw('(SELECT `translations`.`text`
+				FROM `translations`
+				WHERE `translations`.`translation_id` = `products`.`name` AND `translations`.`language_code` = "'.$locale.'")
 				AS name'),
-            DB::raw('(SELECT `translations`.`text` 
-				FROM `translations` 
-				WHERE `translations`.`translation_id` = `products`.`description` AND `translations`.`language_code` = "'.$locale.'") 
+            DB::raw('(SELECT `translations`.`text`
+				FROM `translations`
+				WHERE `translations`.`translation_id` = `products`.`description` AND `translations`.`language_code` = "'.$locale.'")
 				AS description'),
-            DB::raw('(SELECT `translations`.`text` 
-				FROM `translations` 
-				WHERE `translations`.`translation_id` = `products`.`slug` AND `translations`.`language_code` = "'.$locale.'") 
+            DB::raw('(SELECT `translations`.`text`
+				FROM `translations`
+				WHERE `translations`.`translation_id` = `products`.`slug` AND `translations`.`language_code` = "'.$locale.'")
 				AS slug'),
             DB::raw("GROUP_CONCAT( DISTINCT
 					CASE variant_values.option_id

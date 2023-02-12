@@ -31,7 +31,7 @@ class PakkaServiceProvider extends PackageServiceProvider
             __DIR__.'/../resources/dev/package.json' => base_path('package.json'),
 
             // Webpack Mix
-             __DIR__.'/../resources/dev/webpack.mix.js' => public_path('../webpack.mix.js'),
+            __DIR__.'/../resources/dev/webpack.mix.js' => public_path('../webpack.mix.js'),
 
             // Helpers
             //__DIR__.'/../src/Helpers' => app_path('Helpers'),

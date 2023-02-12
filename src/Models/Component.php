@@ -106,7 +106,7 @@ class Component extends Model
       DB::raw("GROUP_CONCAT( DISTINCT images.file ORDER BY images.position SEPARATOR '(~)') as images"),
       ])
       ->leftJoin(DB::raw("(
-				SELECT 
+				SELECT
 			    attribute_values.input_id,
 			    attribute_values.option_id,
 			    attribute_values.item_id,
@@ -115,8 +115,8 @@ class Component extends Model
 			    attribute_inputs.name,
 			    attribute_inputs.position,
 			    attribute_options.value AS option_value
-			    FROM 
-			    attribute_values 
+			    FROM
+			    attribute_values
 			    LEFT JOIN attribute_inputs ON attribute_values.input_id = attribute_inputs.input_id
 				LEFT JOIN attribute_options ON attribute_values.option_id = attribute_options.option_id
 			) as attributes"), 'components.id', '=', 'attributes.item_id')
@@ -183,7 +183,7 @@ class Component extends Model
         DB::raw("GROUP_CONCAT( DISTINCT images.file ORDER BY images.position SEPARATOR '(~)') as images"),
         ])
         ->leftJoin(DB::raw("(
-				SELECT 
+				SELECT
 			    attribute_values.input_id,
 			    attribute_values.option_id,
 			    attribute_values.item_id,
@@ -192,8 +192,8 @@ class Component extends Model
 			    attribute_inputs.name,
 			    attribute_inputs.position,
 			    attribute_options.value AS option_value
-			    FROM 
-			    attribute_values 
+			    FROM
+			    attribute_values
 			    LEFT JOIN attribute_inputs ON attribute_values.input_id = attribute_inputs.input_id
 				LEFT JOIN attribute_options ON attribute_values.option_id = attribute_options.option_id
 				WHERE (attribute_values.language_code IS NULL AND attribute_options.language_code = '".$locale."')
