@@ -1008,7 +1008,7 @@ if (! function_exists('constructTransId')) {
 function constructTranslations($array)
 {
     //BASE VARIABLES
-    $itemId = $array['set_id'] ?? $array['id']; //item_id
+    $itemId = $array['set_id'] ?? ($array['id'] ?? null); //item_id
     $checklist = AttributeInput::getInputsChecklist();
     $langs = Session::get('lang');
     $optionsInputs = ["select", "checkbox","radio"];

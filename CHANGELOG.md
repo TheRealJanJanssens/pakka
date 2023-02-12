@@ -2,6 +2,10 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 1.0.6 - 2023-02-12
+- Quickfix on missing id in constructTranslations helper
+- Preparing Pest test to actually have an impact while refactoring
+
 ## 1.0.5 - 2022-11-27
 - Fix to edit and save select inputs in control panel (checkboxes still broken)
 
