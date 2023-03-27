@@ -118,10 +118,10 @@ class Menu extends Model
             //TODO: currentAuth only get the specific auth and not all lesser auths
             // This is very expensive to include all languages
             $items = [];
-            foreach( Language::getLangCodes() as $lang){
+            foreach (Language::getLangCodes() as $lang) {
                 $its = MenuItem::getMenuItems($menuId, $currentAuth, $lang)->toArray();
                 $i = 0;
-                foreach($its as $it){
+                foreach ($its as $it) {
                     $its[$i]['locale'] = $lang;
                     $i++;
                 }
@@ -208,10 +208,10 @@ class Menu extends Model
             $pageKey = array_search($uid, array_column($pages, 'page_uid'));
             $slug = ! empty($preslug) ? $preslug.'/'.$items['link'] : $items['link'];
 
-            if(isset($result[$uid])){
+            if (isset($result[$uid])) {
                 $prepare = Menu::prepareRoute($pages[$pageKey], ["preslug" => $preslug, "slug" => $items['link']], ! isset($items['items']));
                 $result[$uid]['slugs'] = array_merge($result[$uid]['slugs'], $prepare['slugs']);
-            }else{
+            } else {
                 $result[$uid] = Menu::prepareRoute($pages[$pageKey], ["preslug" => $preslug, "slug" => $items['link']], ! isset($items['items']));
             }
 
