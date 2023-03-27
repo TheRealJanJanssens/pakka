@@ -2,6 +2,9 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 1.1.0 - 2023-03-27
+- Quick fix for multilanguage sites. Warning: Menu's and footers will load all links and need refinement
+
 ## 1.0.6 - 2023-02-12
 - Quickfix on missing id in constructTranslations helper
 - Preparing Pest test to actually have an impact while refactoring

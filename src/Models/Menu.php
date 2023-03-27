@@ -116,13 +116,25 @@ class Menu extends Model
             $result[$menuId] = $menu;
 
             //TODO: currentAuth only get the specific auth and not all lesser auths
-            $items = MenuItem::getMenuItems($menuId, $currentAuth)->toArray();
+            // This is very expensive to include all languages
+            $items = [];
+            foreach( Language::getLangCodes() as $lang){
+                $its = MenuItem::getMenuItems($menuId, $currentAuth, $lang)->toArray();
+                $i = 0;
+                foreach($its as $it){
+                    $its[$i]['locale'] = $lang;
+                    $i++;
+                }
+                $items[] = $its;
+            }
+
+            $items = collect($items)->collapse()->reverse()->toArray();
 
             //Duplicate $items with true position for constructing parents
             //$itemsDuplicate = $items;
 
             //reverses all menu items so if proper positioned subitems can be constructed
-            $items = array_reverse($items);
+            //$items = array_reverse($items);
 
             foreach ($items as $masterKey => $item) {
                 //edit to allow parents
@@ -196,7 +208,12 @@ class Menu extends Model
             $pageKey = array_search($uid, array_column($pages, 'page_uid'));
             $slug = ! empty($preslug) ? $preslug.'/'.$items['link'] : $items['link'];
 
-            $result[$uid] = Menu::prepareRoute($pages[$pageKey], ["preslug" => $preslug, "slug" => $items['link']], ! isset($items['items']));
+            if(isset($result[$uid])){
+                $prepare = Menu::prepareRoute($pages[$pageKey], ["preslug" => $preslug, "slug" => $items['link']], ! isset($items['items']));
+                $result[$uid]['slugs'] = array_merge($result[$uid]['slugs'], $prepare['slugs']);
+            }else{
+                $result[$uid] = Menu::prepareRoute($pages[$pageKey], ["preslug" => $preslug, "slug" => $items['link']], ! isset($items['items']));
+            }
 
             if (isset($items['items'])) {
                 $result = array_replace_recursive($result, Menu::linkPages($items['items'], $slug));
@@ -209,7 +226,7 @@ class Menu extends Model
     public static function generateRoutes()
     {
         $menus = Menu::constructMenu();
-        //dd($menus);
+
         $result = [];
         foreach ($menus as $menu) {
             if ($menu['id'] == 1) {

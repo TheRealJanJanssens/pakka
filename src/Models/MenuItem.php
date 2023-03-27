@@ -80,25 +80,25 @@ class MenuItem extends Model
             'menu_items.icon',
             'menu_items.link',
             'menu_items.permission',
-             DB::raw('(SELECT 
+             DB::raw('(SELECT
 	        			GROUP_CONCAT(
 	        				CASE
 								WHEN `translations`.`language_code` IS NOT NULL THEN `translations`.`language_code`
 								WHEN `translations`.`language_code` IS NULL THEN IFNULL(`translations`.`language_code`, "")
 							END SEPARATOR "(~)"
-						) 
-					FROM `translations` 
-					WHERE `translations`.`translation_id` = `menu_items`.`name`) 
+						)
+					FROM `translations`
+					WHERE `translations`.`translation_id` = `menu_items`.`name`)
 					AS language_code'),
-            DB::raw('(SELECT 
+            DB::raw('(SELECT
 	        			GROUP_CONCAT(
 	        				CASE
 								WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
 								WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
 							END SEPARATOR "(~)"
-						) 
-					FROM `translations` 
-					WHERE `translations`.`translation_id` = `menu_items`.`name`) 
+						)
+					FROM `translations`
+					WHERE `translations`.`translation_id` = `menu_items`.`name`)
 					AS name'),
             DB::raw('`menu_items`.`name` AS name_trans'),
             ])
@@ -160,9 +160,9 @@ class MenuItem extends Model
     |------------------------------------------------------------------------------------
     */
 
-    public static function getMenuItems($id, $permission = 0)
+    public static function getMenuItems($id, $permission = 0, $lang = null)
     {
-        $locale = app()->getLocale();
+        $locale = empty($lang) ? app()->getLocale() : $lang;
 
         if ($id == 1) {
             //QUERY FOR ADMIN PANEL MENU
