@@ -2736,7 +2736,7 @@ function constructAdminMenu($array)
 		<li class="nav-item mT-20 <?php echo $liClass; ?>">
 			<a class="<?php echo $aClass; ?>" href="<?php echo $route; ?>">
 				<span class="icon-holder"><i class="<?php echo $iClass; ?>"></i> </span>
-				<span class="title"><?php //echo $item['name']; ?>need fixing</span>
+				<span class="title"><?php //echo $item['name'];?>need fixing</span>
 				<?php
                     if (isset($item['items'])) {
                         ?>
