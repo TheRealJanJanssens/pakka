@@ -22,4 +22,9 @@ trait Translations
 
         return new Collection($result);
     }
+
+    public function localize(){
+        $this->attributes = array_merge($this->attributes, $this->translations()->attributes);
+        return $this;
+    }
 }

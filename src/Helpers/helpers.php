@@ -2713,7 +2713,6 @@ function areActiveRoutes(array $routes, $output = "active")
 function constructAdminMenu($array)
 {
     foreach ($array as $item) {
-        //dd($item['link']);
         $liClass = "";
         $aClass = "";
         $iClass = $item['icon'].' ';
@@ -2732,12 +2731,12 @@ function constructAdminMenu($array)
         } else {
             $liClass .= " dropdown";
             $aClass .= "dropdown-toggle";
-        } dd($array); ?>
+        }  ?>
 
 		<li class="nav-item mT-20 <?php echo $liClass; ?>">
 			<a class="<?php echo $aClass; ?>" href="<?php echo $route; ?>">
 				<span class="icon-holder"><i class="<?php echo $iClass; ?>"></i> </span>
-				<span class="title"><?php echo $item['name']; ?></span>
+				<span class="title"><?php //echo $item['name']; ?>need fixing</span>
 				<?php
                     if (isset($item['items'])) {
                         ?>

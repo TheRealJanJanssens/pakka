@@ -28,7 +28,7 @@ class MenuItem extends Model
         'permission',
     ];
 
-    protected $with = ['name'];
+    protected $with = ['name', 'link'];
 
     /*
     |------------------------------------------------------------------------------------
@@ -54,6 +54,11 @@ class MenuItem extends Model
     public function name()
     {
         return $this->hasMany(Translation::class, 'translation_id', 'name');
+    }
+
+    public function link()
+    {
+        return $this->hasMany(Translation::class, 'translation_id', 'link');
     }
 
     // protected function name(): Attribute

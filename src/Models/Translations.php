@@ -14,32 +14,19 @@ class Translations extends Model
     //     return $this->{$method};
     // }
 
-    //Works but misses embeded functions
-    // protected function name(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn ($value) => $this->translations()->name->value()
-    //     );
-    // }
-
-    // protected function castAttribute($key, $value) {
-    //     if (is_null($value)) {
-    //         return $value;
-    //     }
-
-    //     dd("in castable");
-
-    //     return parent::castAttribute($key, $value);
-    // }
-
     public function setAttribute($key, $value)
     {
         $locale = app()->getLocale();
         $translation = collect($value);
         $result = $translation->where('language_code', $locale)->first();
 
-        return parent::setAttribute($key, $result->text ?? $translation->first()->text);
+        return parent::setAttribute($key, $result->value() ?? $translation->first()->value());
     }
+
+
+
+
+    // Below functions are broken and redundant?
 
     /**
      * Directly get the translated value with current locale
