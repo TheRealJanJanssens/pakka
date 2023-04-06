@@ -2,6 +2,9 @@
 
 All notable changes to `pakka` will be documented in this file.
 
+## 1.1.1 - 2023-04-06
+- Change language switcher in websitecontroller
+
 ## 1.1.0 - 2023-03-27
 - Quick fix for multilanguage sites. Warning: Menu's and footers will load all links and need refinement
 
