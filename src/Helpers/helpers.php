@@ -2192,8 +2192,8 @@ if (! function_exists('parseContent')) {
 
             //commented this out because it is possibly not needed check this
             // else {
-                //     $value = trans("pakka::app.insert_here");
-                //     $empty = true;
+            //     $value = trans("pakka::app.insert_here");
+            //     $empty = true;
             // }
             } else {
                 //Your logged in and in the live editor. Your value you try to parse is empty.
