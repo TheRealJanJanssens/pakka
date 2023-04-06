@@ -41,7 +41,7 @@ class WebsiteController extends Controller
             App::setLocale($locale);
         } else {
             foreach (Session::get("lang") as $lang) {
-                if ($request->locale == $lang['language_code'] && Session::get("locale") !== $lang['language_code']) {
+                if ($request->locale == $lang['language_code']) {
                     Session::put('locale', $lang['language_code']);
                     App::setLocale($lang['language_code']);
 
