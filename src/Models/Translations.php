@@ -2,7 +2,6 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class Translations extends Model
