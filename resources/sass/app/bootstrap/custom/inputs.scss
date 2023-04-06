@@ -1,0 +1,15 @@
+.input-option{
+	.form-group{
+		display: inline-block;
+		width: calc(100% - 30px);
+		margin-bottom: 0;
+	}
+}
+
+input{
+	border-color: $border-color !important;
+}
+
+.form-control:disabled{
+	color:$border-color;
+}

@@ -24,12 +24,25 @@ mix.webpackConfig(webpack => {
     };
 });
 
+// DEFAULT BOOTSTRAP
+// mix.js('package/resources/js/app/app.js', 'public/vendor/js')
+// 	.js('package/resources/js/app/dropzone.js', 'public/vendor/js') //used when you only need the dropzone resources
+// 	.sass('package/resources/sass/app/bootstrap/dropzone.scss', 'public/vendor/css') //used when you only need the dropzone resources
+//     .sass('package/resources/sass/app/bootstrap/app.scss', 'public/vendor/css')
+//     .browserSync('pakka.test')
+//     .version()
+//     .sourceMaps()
+//     .copyDirectory('public/vendor/js','/package/resources/dist/js')
+//     .copyDirectory('public/vendor/css','/package/resources/dist/css');
 
+// TAILWIND SETUP
 mix.js('package/resources/js/app/app.js', 'public/vendor/js')
-	.js('package/resources/js/app/dropzone.js', 'public/vendor/js') //used when you only need the dropzone resources
-	.sass('package/resources/sass/app/dropzone.scss', 'public/vendor/css') //used when you only need the dropzone resources
-    .sass('package/resources/sass/app/app.scss', 'public/vendor/css')
-    .browserSync('local.orca:8889')
+	//.js('package/resources/js/app/dropzone.js', 'public/vendor/js') //used when you only need the dropzone resources
+	//.sass('package/resources/sass/app/bootstrap/dropzone.scss', 'public/vendor/css') //used when you only need the dropzone resources
+    .postCss('package/resources/sass/app/tailwind/app.css', 'public/vendor/css', [
+        require('tailwindcss')
+    ])
+    .browserSync('pakka.test')
     .version()
     .sourceMaps()
     .copyDirectory('public/vendor/js','/package/resources/dist/js')

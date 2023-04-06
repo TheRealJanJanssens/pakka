@@ -1,0 +1,77 @@
+.table-invoice{	
+	tr td:first-child {
+		i{
+			width: 20px;
+			
+			&:last-child{
+				font-size: 15px;
+				opacity: 0.5;
+				cursor: pointer;
+				transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+				-webkit-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+				-moz-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+				-o-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+				&:hover{
+					opacity: 1;
+				}
+			}
+		}
+		
+		input{
+			font-weight: 600 !important;
+			width: calc(100% - 50px);
+		}
+	}
+	
+	input{
+		border: none;
+		color: $default-text-color;
+		width: 100%;
+	}
+}
+
+#invoice-client{	
+	.form-group{
+		margin-bottom: 0px;
+		input{
+			border: none;
+			border-bottom:$border-width solid $border-color;
+			padding-left: 0;
+			border-radius: 0;
+			&:focus{
+				outline: none;
+			}
+		}
+	}
+	
+	#shipping_info{
+		opacity: 1;
+		pointer-events: all;
+		visibility: visible;
+		transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+		-webkit-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+		-moz-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+		-o-transition:all 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+	}
+	
+	
+}
+
+.invoice-total-list{
+	border:$border-width solid $border-color;
+	padding: 10px;
+	border-radius: $border-radius;
+	
+	.invoice-total-list-item{
+		
+	}
+}
+
+.dropdown-menu{
+	border: none;
+	box-shadow: 0px 32px 32px 0px rgba(20,44,26,0.05), 0px 16px 16px 0px rgba(20,44,26,0.05), 0px 8px 8px 0px rgba(20,44,26,0.05), 0px 4px 4px 0px rgba(20,44,26,0.05), 0px 2px 2px 0px rgba(20,44,26,0.05);
+	
+	.dropdown-item{
+		
+	}
+}
