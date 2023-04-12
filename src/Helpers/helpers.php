@@ -360,11 +360,11 @@ if (! function_exists('constructGlobVars')) {
             Session::put('pakka_version', $package['version'] ?? 'Version unknown');
         }
 
-        if (! Session::has('menus') || empty(Session::get('menus'))) {
-            $menus = Menu::constructMenu();
-            //View::share('adminMenu', $menus[1]);
-            Session::put('menus', $menus);
-        }
+        // if (! Session::has('menus') || empty(Session::get('menus'))) {
+        //     $menus = Menu::constructMenu();
+        //     //View::share('adminMenu', $menus[1]);
+        //     Session::put('menus', $menus);
+        // }
 
         //remove settings if translation_ids are cached (it means the settings session was set on the adminpanel with no translations)
         if (Session::has('settings.translation_id')) {
@@ -389,7 +389,8 @@ if (! function_exists('constructGlobVars')) {
         }
 
         //get and set active module name
-        $menus = Session::get('menus');
+        $menus = Menu::constructMenu();
+
         $adminMenu = $menus[1];
         foreach ($adminMenu['items'] as $array) {
             constructModuleAssets($array);

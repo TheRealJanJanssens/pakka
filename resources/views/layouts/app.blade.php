@@ -15,9 +15,15 @@
 
   @livewireStyles
 </head>
-<body class="app">
+<body class="bg-gray-50 dark:bg-gray-800">
 
-    @include('pakka::admin.partials.spinner')
+    <main class="bg-gray-50 dark:bg-gray-900">
+        <div class="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0 dark:bg-gray-900">
+            @yield('content')
+        </div>
+    </main>
+
+    {{-- @include('pakka::admin.partials.spinner')
 
     <div class="peers ai-s fxw-nw h-100vh">
 	    @if(isset($settings['app_cover']))
@@ -40,7 +46,7 @@
       <div class="col-12 col-md-4 peer pX-40 pY-80 h-100 bgc-white scrollable pos-r" style='min-width: 320px;'>
         @yield('content')
       </div>
-    </div>
+    </div> --}}
 
     @livewireScripts
 </body>

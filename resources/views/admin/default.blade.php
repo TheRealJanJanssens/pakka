@@ -12,59 +12,52 @@
 
     <title>{{ config('app.name', 'Beheerpaneel') }}</title>
 
-    <!-- Styles (use mix to add versioning to file against caching) -->
-	<link href="{{ asset('public/vendor/css/app.css') }}" rel="stylesheet"> 
-	
+    <!-- Styles -->
+    <link href="{{ asset('public/vendor/css/app.css') }}?{{rand()}}" rel="stylesheet">
+
 	@yield('css')
+    @livewireStyles
 
 </head>
 
-<body class="app">
+<body>
+    {{-- @include('pakka::admin.partials.spinner') --}}
 
-    @include('pakka::admin.partials.spinner')
+    <!-- ### $Topbar ### -->
+    @include('pakka::admin.partials.topbar')
 
-    <div>
+    <!-- #Main ============================ -->
+    <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+
         <!-- #Left Sidebar ==================== -->
-        @include('pakka::admin.partials.sidebar')
+        {{-- @include('pakka::admin.partials.menu.sidebar') --}}
+        <x-pakka-sidebar />
 
-        <!-- #Main ============================ -->
-        <div class="page-container">
-            <!-- ### $Topbar ### -->
-            @include('pakka::admin.partials.topbar')
+        <!-- ### $App Screen Content ### -->
+        <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
+            <main class="p-10">
+                @include('pakka::admin.partials.messages')
+                @if(View::hasSection('page-header'))
+                    <h4 class="c-grey-900 mT-10 mB-30">@yield('page-header')</h4>
+                @endif
 
-            <!-- ### $App Screen Content ### -->
-            <main class='main-content bgc-grey-100'>
-                <div id='mainContent'>
-                    <div class="container-fluid">
-						
-						@include('pakka::admin.partials.messages')
-						@if(View::hasSection('page-header'))
-					        <h4 class="c-grey-900 mT-10 mB-30">@yield('page-header')</h4>
-					    @endif
-					    
-					    @if(View::hasSection('page-header-alt'))
-					        @yield('page-header-alt')
-					    @endif
-						
-						@yield('content')
+                @if(View::hasSection('page-header-alt'))
+                    @yield('page-header-alt')
+                @endif
 
-                    </div>
-                </div>
+                @yield('content')
             </main>
 
             <!-- ### $App Screen Footer ### -->
-            <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600">
-                <span>Copyright © {{ date('Y') }}<!--
- Developed by
-                    <a href="https://janjanssens.be" target='_blank' title="Jan Janssens">Jan Janssens</a>
--->. All rights reserved. {{ session('pakka_version') }}</span>
-            </footer>
+            @include('pakka::admin.partials.footer')
+
         </div>
     </div>
-    
+
+    @livewireScripts
 	<!-- (use mix to add versioning to file against caching) -->
 	<script src="https://kit.fontawesome.com/a4dc62876e.js" crossorigin="anonymous"></script>
-    <script src="{{ asset('public/vendor/js/app.js') }}"></script>
+    <script src="{{ asset('public/vendor/js/app.js') }}?{{rand()}}"></script>
 
     @yield('js')
 

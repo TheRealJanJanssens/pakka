@@ -3,10 +3,12 @@
 namespace TheRealJanJanssens\Pakka\Models;
 
 use Cache;
-use Illuminate\Database\Eloquent\Model;
-
-use Illuminate\Notifications\Notifiable;
 use Session;
+use TheRealJanJanssens\Pakka\Models\MenuItem;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 class Menu extends Model
 {
@@ -40,6 +42,11 @@ class Menu extends Model
         return array_merge($commun, [
             'name' => 'required',
         ]);
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(MenuItem::class, 'menu');
     }
 
     /*
@@ -104,54 +111,56 @@ class Menu extends Model
             $currentAuth = auth()->user()->role;
         }
 
+        //dd(Menu::find(1)->items);
+
         if ($id !== null) {
-            $menus = Menu::where('id', $id)->get()->toArray();
+            $menus = Menu::find($id)->get();
         } else {
-            $menus = Menu::get()->toArray();
+            $menus = Menu::get();
         }
 
         $i = 0;
         foreach ($menus as $menu) {
-            $menuId = $menu['id'];
+            $menuId = $menu->id;
 
             $result[$menuId] = $menu;
 
             //TODO: currentAuth only get the specific auth and not all lesser auths
-            $items = MenuItem::getMenuItems($menuId, $currentAuth)->toArray();
+            $items = $menu->items;
 
             //Duplicate $items with true position for constructing parents
             //$itemsDuplicate = $items;
 
             //reverses all menu items so if proper positioned subitems can be constructed
-            $items = array_reverse($items);
+            // $items = array_reverse($items);
 
-            foreach ($items as $masterKey => $item) {
-                //edit to allow parents
-                if (isset($item['parent'])) {
-                    //Loops to find its parent
-                    foreach ($items as $key => $subitem) {
-                        if ($subitem['id'] == $item['parent']) {
-                            if (! isset($items[$key]['items'])) {
-                                //makes new item
-                                $items[$key]['items'][0] = $items[$masterKey];
-                            } else {
-                                //Puts new elemen in front to respect correct position
-                                array_unshift($items[$key]['items'], $items[$masterKey]);
-                            }
-                        }
-                    }
-                }
-            }
+            // foreach ($items as $masterKey => $item) {
+            //     //edit to allow parents
+            //     if (isset($item['parent'])) {
+            //         //Loops to find its parent
+            //         foreach ($items as $key => $subitem) {
+            //             if ($subitem['id'] == $item['parent']) {
+            //                 if (! isset($items[$key]['items'])) {
+            //                     //makes new item
+            //                     $items[$key]['items'][0] = $items[$masterKey];
+            //                 } else {
+            //                     //Puts new elemen in front to respect correct position
+            //                     array_unshift($items[$key]['items'], $items[$masterKey]);
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
 
-            //Removes subitems that are not in their parent
-            foreach ($items as $key => $item) {
-                if (! empty($item["parent"])) { //!isset($item["items"]) &&
-                    unset($items[$key]);
-                }
-            }
+            // //Removes subitems that are not in their parent
+            // foreach ($items as $key => $item) {
+            //     if (! empty($item["parent"])) { //!isset($item["items"]) &&
+            //         unset($items[$key]);
+            //     }
+            // }
 
-            //Restores true position in menu
-            $items = array_reverse($items);
+            // //Restores true position in menu
+            // $items = array_reverse($items);
 
             $result[$menuId]['items'] = $items;
         }
@@ -210,7 +219,7 @@ class Menu extends Model
     public static function generateRoutes()
     {
         $menus = Menu::constructMenu();
-        //dd($menus);
+
         $result = [];
         foreach ($menus as $menu) {
             if ($menu['id'] == 1) {

@@ -34,6 +34,12 @@
 //     encrypted: true
 // });
 
+import 'flowbite';
+
+import './tailwind/darkmode';
+import './tailwind/sidebar';
+
+//needs to be refactored
 import './masonry';
 import './charts';
 import './popover';

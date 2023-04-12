@@ -45,5 +45,5 @@ mix.js('package/resources/js/app/app.js', 'public/vendor/js')
     .browserSync('pakka.test')
     .version()
     .sourceMaps()
-    .copyDirectory('public/vendor/js','/package/resources/dist/js')
-    .copyDirectory('public/vendor/css','/package/resources/dist/css');
+    .copyDirectory('public/vendor/js','../package/resources/dist/js')
+    .copyDirectory('public/vendor/css','../package/resources/dist/css');

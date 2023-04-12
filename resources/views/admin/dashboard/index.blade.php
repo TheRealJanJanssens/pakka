@@ -3,31 +3,31 @@
 @section('content')
 
     <div class="row pos-r"> <!-- masonry -->
-	    
+
 <!-- 	    <div class="masonry-sizer col-md-6"></div> -->
-	    
+
 	    <div class="w-100"> <!-- masonry-header masonry-item -->
 		    <div class="row">
 			    <div class='dashboard-header col-md-12'>
 				    <div class="dashboard-text">
 					    <h1>Welkom terug {{ auth()->user()->name }}</h1>
 					    <p>Er waren <span>{{ $analytics['monthVisits'] }} bezoekers</span> in de voorbije <span>30 dagen</span></p>
-					    
+
 					    <div class="row gap-20">
 						    <div class='col-md-3'>
 						    	<a href="/" class="link"><i class="ti-angle-right"></i>Ga naar de live editor</a>
 								<a href="/admin/content" class="link"><i class="ti-angle-right"></i>Beheer je pagina's</a>
 						    </div>
-						    
+
 						    <div class='col-md-3'>
 							    <a href="#" class="link"><i class="ti-angle-right"></i>Plaats een nieuw project</a>
 								<a href="/admin/menu" class="link"><i class="ti-angle-right"></i>Beheer je menu's</a>
 						    </div>
 					    </div>
 				    </div>
-				    
+
 				    <div class='dashboard-background'>
-					    
+
 					    <?php
 						    if(isset($settings['app_dashboard_cover'])){
 							    $dashboardCover = config('image.app.public').$settings['app_dashboard_cover'];
@@ -35,16 +35,16 @@
 							    $dashboardCover = config('placeholders.dashboard_cover');
 						    }
 					    ?>
-					    
+
 					    <img src="{{ $dashboardCover }}" alt="">
 				    </div>
 			    </div>
 		    </div>
 	    </div>
-        
+
         <div class="w-100"> <!-- masonry-item -->
             <div class="row overflow-visible gap-20">
-	            
+
                 <!-- #Unique Visitors Weekly ==================== -->
                 <div class='col-md-3'>
                     <div class="dashboard-card box-shadow layers bd bgc-white p-20">
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- #AVRG Session Duration ==================== -->
                 <div class='col-md-3'>
                     <div class="dashboard-card box-shadow layers bd bgc-white p-20">
@@ -90,17 +90,17 @@
 	                            Bounce percentage
 	                            <span data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Precentage van bezoekers die na één pagina de website verlaten."><i class="ti-info-alt"></i></span>
                             </p>
-                            
+
                         </div>
                         <div class="masonry-result layer w-100">
                             <h5>{{ $analytics['bounceRate'] }}%</h5>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
-        
+
         <div class="col-md-6"> <!-- masonry-header masonry-item -->
             <!-- #Monthly Stats ==================== -->
 <!--
@@ -136,7 +136,7 @@
             </div>
 -->
         </div>
-        
+
     </div>
 
 @endsection

@@ -32,6 +32,8 @@ class PakkaServiceProvider extends PackageServiceProvider
 
             // Webpack Mix
             __DIR__.'/../resources/dev/webpack.mix.js' => public_path('../webpack.mix.js'),
+            __DIR__.'/../resources/dev/postcss.config.js' => public_path('../postcss.config.js'),
+            __DIR__.'/../resources/dev/tailwind.config.js' => public_path('../tailwind.config.js'),
 
             // Helpers
             //__DIR__.'/../src/Helpers' => app_path('Helpers'),
@@ -78,6 +80,8 @@ class PakkaServiceProvider extends PackageServiceProvider
         //     __DIR__.'/../resources/sass' => resource_path('pakka/sass'),
 
         // ], 'pakka-dev');
+
+        $this->loadViewComponentsAs('pakka', $this->viewComponents());
     }
 
     public function configurePackage(Package $package): void
@@ -111,5 +115,14 @@ class PakkaServiceProvider extends PackageServiceProvider
         }
 
         return $result;
+    }
+
+    protected function viewComponents(): array
+    {
+        return [
+            \TheRealJanJanssens\Pakka\View\Components\Sidebar::class,
+            \TheRealJanJanssens\Pakka\View\Components\SidebarIcon::class,
+            \TheRealJanJanssens\Pakka\View\Components\SidebarItem::class,
+        ];
     }
 }
