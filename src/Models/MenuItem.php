@@ -2,11 +2,8 @@
 
 namespace TheRealJanJanssens\Pakka\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use TheRealJanJanssens\Pakka\Casts\Value;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
 use TheRealJanJanssens\Pakka\Traits\Translations;
 
 class MenuItem extends Model
