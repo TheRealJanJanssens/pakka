@@ -18,6 +18,9 @@
 	@yield('css')
     @livewireStyles
 
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
 </head>
 
 <body>
@@ -31,11 +34,11 @@
 
         <!-- #Left Sidebar ==================== -->
         {{-- @include('pakka::admin.partials.menu.sidebar') --}}
-        <x-pakka-sidebar />
+        <x-pakka::sidebar />
 
         <!-- ### $App Screen Content ### -->
         <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
-            <main class="p-10">
+            <main>
                 @include('pakka::admin.partials.messages')
                 @if(View::hasSection('page-header'))
                     <h4 class="c-grey-900 mT-10 mB-30">@yield('page-header')</h4>
@@ -54,6 +57,9 @@
         </div>
     </div>
 
+    @livewire('notifications')
+
+    @stack('scripts')
     @livewireScripts
 	<!-- (use mix to add versioning to file against caching) -->
 	<script src="https://kit.fontawesome.com/a4dc62876e.js" crossorigin="anonymous"></script>

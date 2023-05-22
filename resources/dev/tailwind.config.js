@@ -9,6 +9,8 @@ module.exports = {
         "./package/resources/views/**/*.blade.php",
         "./package/resources/js/**/*.js",
         "./package/resources/**/*.vue",
+        './vendor/rappasoft/laravel-livewire-tables/resources/views/**/*.blade.php',
+        './vendor/filament/**/*.blade.php',
     ],
     safelist: [
         'w-64',
@@ -32,6 +34,12 @@ module.exports = {
             primary: { "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe", "300": "#93c5fd", "400": "#60a5fa", "500": "#3b82f6", "600": "#2563eb", "700": "#1d4ed8", "800": "#1e40af", "900": "#1e3a8a" }
         },
         extend: {
+            colors: {
+                danger: colors.rose,
+                primary: colors.blue,
+                success: colors.green,
+                warning: colors.yellow,
+            },
             transitionProperty: {
                 'width': 'width'
             },
@@ -39,6 +47,8 @@ module.exports = {
         },
     },
     plugins: [
-        require('flowbite/plugin')
+        require('flowbite/plugin'),
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography'),
     ],
 }

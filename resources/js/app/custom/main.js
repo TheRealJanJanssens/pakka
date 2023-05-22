@@ -8,7 +8,7 @@ $('.table-sort').dataTable( {
 
 import * as select2 from '../select2';
 import * as input from '../input';
-import swal from 'sweetalert2';
+// import swal from 'sweetalert2';
 import * as fullCalendar from 'fullcalendar';
 import * as product from '../product';
 import * as datePicker from '../datepicker';

@@ -2,12 +2,13 @@
 
 namespace TheRealJanJanssens\Pakka;
 
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use TheRealJanJanssens\Pakka\Commands\CleanCommand;
 use TheRealJanJanssens\Pakka\Commands\InstallCommand;
 use TheRealJanJanssens\Pakka\Commands\UserMakeCommand;
-
+use Illuminate\Support\Facades\Blade;
 class PakkaServiceProvider extends PackageServiceProvider
 {
     public function bootingPackage()
@@ -81,7 +82,8 @@ class PakkaServiceProvider extends PackageServiceProvider
 
         // ], 'pakka-dev');
 
-        $this->loadViewComponentsAs('pakka', $this->viewComponents());
+        Blade::componentNamespace('TheRealJanJanssens\\Pakka\\View\\Components', 'pakka');
+        $this->loadLivewireComponents();
     }
 
     public function configurePackage(Package $package): void
@@ -117,12 +119,16 @@ class PakkaServiceProvider extends PackageServiceProvider
         return $result;
     }
 
-    protected function viewComponents(): array
+    protected function loadLivewireComponents()
     {
-        return [
-            \TheRealJanJanssens\Pakka\View\Components\Sidebar::class,
-            \TheRealJanJanssens\Pakka\View\Components\SidebarIcon::class,
-            \TheRealJanJanssens\Pakka\View\Components\SidebarItem::class,
+        $array = [
+            "users-table" => \TheRealJanJanssens\Pakka\Http\Livewire\Admin\Users\Table::class,
+            "users-form" => \TheRealJanJanssens\Pakka\Http\Livewire\Admin\Users\Form::class,
         ];
+
+        foreach($array as $k => $v)
+        {
+            Livewire::component($k, $v);
+        }
     }
 }

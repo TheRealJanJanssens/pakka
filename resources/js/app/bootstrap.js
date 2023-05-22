@@ -1,44 +1,14 @@
 
-// window.axios = require('axios');
-
-// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-/**
- * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
- * a simple convenience so we don't have to attach every token manually.
- */
-
-// let token = document.head.querySelector('meta[name="csrf-token"]');
-
-// if (token) {
-//     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-// } else {
-//     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-// }
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from 'laravel-echo'
-
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
+import Alpine from 'alpinejs'
+import FormsAlpinePlugin from '../../../vendor/filament/forms/dist/module.esm'
+import NotificationsAlpinePlugin from '../../../vendor/filament/notifications/dist/module.esm'
 
 import 'flowbite';
 
 import './tailwind/darkmode';
 import './tailwind/sidebar';
 
+/****************
 //needs to be refactored
 import './masonry';
 import './charts';
@@ -46,15 +16,12 @@ import './popover';
 import './scrollbar';
 import './search';
 import './sidebar';
-import './skycons';
+// import './skycons';
 import './vectorMaps';
 import './chat';
 import './datatable';
-import './datepicker';
+// import './datepicker';
 import './email';
-
-import './select2';
-import './sweetalert2';
 
 import './fullcalendar';
 import './googleMaps';
@@ -65,7 +32,11 @@ import './custom/colorpicker.js';
 import './custom/dropzone.js';
 import './custom/main.js';
 
-/*
-import './sweetalert2';
-import './select2';
 */
+
+Alpine.plugin(FormsAlpinePlugin)
+Alpine.plugin(NotificationsAlpinePlugin)
+
+window.Alpine = Alpine
+
+Alpine.start()
