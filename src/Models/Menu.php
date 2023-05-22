@@ -3,12 +3,10 @@
 namespace TheRealJanJanssens\Pakka\Models;
 
 use Cache;
-use Session;
-use TheRealJanJanssens\Pakka\Models\MenuItem;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
+use Illuminate\Notifications\Notifiable;
+use Session;
 
 class Menu extends Model
 {

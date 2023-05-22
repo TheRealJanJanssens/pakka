@@ -2,10 +2,10 @@
 
 namespace TheRealJanJanssens\Pakka\View\Components;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 use TheRealJanJanssens\Pakka\Models\Menu;
-use Illuminate\Database\Eloquent\Collection;
 
 class Sidebar extends Component
 {

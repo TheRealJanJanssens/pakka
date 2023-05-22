@@ -9,7 +9,8 @@ class SidebarIcon extends Component
 {
     public function __construct(
         public string $icon
-    ){}
+    ) {
+    }
 
     public function legacyMapping()
     {
@@ -56,6 +57,7 @@ class SidebarIcon extends Component
     public function render(): View
     {
         $this->icon = $this->legacyMapping();
+
         return view('pakka::admin.partials.menu.sidebar-icon');
     }
 }
