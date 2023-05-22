@@ -3,8 +3,8 @@
 namespace TheRealJanJanssens\Pakka\Http\Livewire\Admin\Users;
 
 use Filament\Forms;
-use Livewire\Component;
 use Illuminate\Contracts\View\View;
+use Livewire\Component;
 use TheRealJanJanssens\Pakka\Models\User;
 
 class Form extends Component implements Forms\Contracts\HasForms
@@ -33,7 +33,7 @@ class Form extends Component implements Forms\Contracts\HasForms
             Forms\Components\TextInput::make('name')->required(),
             Forms\Components\TextInput::make('email')->email()->required(),
             Forms\Components\Select::make('role')
-            ->options(array_merge(config('pakka.roles'), config('pakka.adminRoles')))
+            ->options(array_merge(config('pakka.roles'), config('pakka.adminRoles'))),
         ];
     }
 

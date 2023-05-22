@@ -2,13 +2,14 @@
 
 namespace TheRealJanJanssens\Pakka;
 
+use Illuminate\Support\Facades\Blade;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use TheRealJanJanssens\Pakka\Commands\CleanCommand;
 use TheRealJanJanssens\Pakka\Commands\InstallCommand;
 use TheRealJanJanssens\Pakka\Commands\UserMakeCommand;
-use Illuminate\Support\Facades\Blade;
+
 class PakkaServiceProvider extends PackageServiceProvider
 {
     public function bootingPackage()
@@ -126,8 +127,7 @@ class PakkaServiceProvider extends PackageServiceProvider
             "users-form" => \TheRealJanJanssens\Pakka\Http\Livewire\Admin\Users\Form::class,
         ];
 
-        foreach($array as $k => $v)
-        {
+        foreach($array as $k => $v) {
             Livewire::component($k, $v);
         }
     }
