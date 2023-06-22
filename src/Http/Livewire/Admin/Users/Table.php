@@ -3,9 +3,9 @@
 namespace TheRealJanJanssens\Pakka\Http\Livewire\Admin\Users;
 
 use App\Models\User;
+use Filament\Tables\Actions\Action;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use Filament\Tables\Actions\Action;
 
 class Table extends DataTableComponent
 {
@@ -43,7 +43,7 @@ class Table extends DataTableComponent
         return [
             Action::make('edit')
                 ->url(fn (User $record): string => route(config('pakka.prefix.admin'). '.users.edit', $record))
-                ->openUrlInNewTab()
+                ->openUrlInNewTab(),
         ];
     }
 }

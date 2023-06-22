@@ -32,7 +32,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $user = new User;
+        $user = new User();
+
         return view('pakka::admin.users.create', compact('user'));
     }
 

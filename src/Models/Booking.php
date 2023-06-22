@@ -6,8 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-use Illuminate\Support\Facades\DB;
-
 class Booking extends Model
 {
     use Notifiable;
