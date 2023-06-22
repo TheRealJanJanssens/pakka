@@ -59,8 +59,9 @@
 
     @livewire('notifications')
 
-    @stack('scripts')
     @livewireScripts
+    @stack('scripts')
+
 	<!-- (use mix to add versioning to file against caching) -->
 	<script src="https://kit.fontawesome.com/a4dc62876e.js" crossorigin="anonymous"></script>
     <script src="{{ asset('public/vendor/js/app.js') }}?{{rand()}}"></script>

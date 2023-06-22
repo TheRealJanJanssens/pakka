@@ -5,15 +5,15 @@
 @stop
 
 @section('content')
-	{!! Form::model($item, [
-			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\UserController@update', $item->id],
-			'method' => 'put', 
+	{!! Form::model($user, [
+			'action' => ['TheRealJanJanssens\Pakka\Http\Controllers\UserController@update', $user->id],
+			'method' => 'put',
 			'files' => true
 		])
 	!!}
 
 		@include('pakka::admin.users.form')
-		
+
 	{!! Form::close() !!}
-	
+
 @stop

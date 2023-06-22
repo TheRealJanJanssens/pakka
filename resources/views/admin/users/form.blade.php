@@ -1,4 +1,6 @@
-<livewire:users-form />
+
+
+<livewire:users-form :user="$user" />
 
 
 
@@ -18,8 +20,8 @@
 <div class="row mB-40">
 
 	<!-- admin protection -->
-	@if(isset($item))
-		@php($role = $item->role)
+	@if(isset($user))
+		@php($role = $user->role)
 	@else
 		@php($role = 5)
 	@endif
@@ -27,7 +29,7 @@
 	@if(($role == 10 && checkAccess("permission_user_admin_edit")) || $role !== 10)
 
 		<div class="col-sm-8">
-			<div class="bgc-white p-20 bd">
+			{{-- <div class="bgc-white p-20 bd">
 				{!! Form::myInput('text', 'name', 'Username') !!}
 
 					{!! Form::myInput('email', 'email', 'Email') !!}
@@ -40,7 +42,7 @@
 					{!! Form::myFile('avatar', 'Avatar') !!}
 
 					{!! Form::myTextArea('bio', 'Bio') !!}
-			</div>
+			</div> --}}
 		</div>
 
 		<div class="col-sm-4">

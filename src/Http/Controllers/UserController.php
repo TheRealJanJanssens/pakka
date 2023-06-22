@@ -32,7 +32,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pakka::admin.users.create');
+        $user = new User;
+        return view('pakka::admin.users.create', compact('user'));
     }
 
     /**
@@ -69,9 +70,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $item = User::findOrFail($id);
+        $user = User::findOrFail($id);
 
-        return view('pakka::admin.users.edit', compact('item'));
+        return view('pakka::admin.users.edit', compact('user'));
     }
 
     /**

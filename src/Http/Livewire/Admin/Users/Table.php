@@ -5,6 +5,7 @@ namespace TheRealJanJanssens\Pakka\Http\Livewire\Admin\Users;
 use App\Models\User;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
+use Filament\Tables\Actions\Action;
 
 class Table extends DataTableComponent
 {
@@ -28,12 +29,21 @@ class Table extends DataTableComponent
             Column::make(trans('pakka::app.email'), 'email')
                 ->sortable()
                 ->searchable(),
-            Column::make('Actions')
-                ->label(
-                    function ($row, Column $column) {
-                        return view('pakka::admin.users.rowActions');
-                    }
-                ),
+            // Column::make('Actions')
+            //     ->label(
+            //         function ($row, Column $column) {
+            //             return view('pakka::admin.users.rowActions', ['user' => $row]);
+            //         }
+            //     ),
+        ];
+    }
+
+    protected function getTableActions(): array
+    {
+        return [
+            Action::make('edit')
+                ->url(fn (User $record): string => route(config('pakka.prefix.admin'). '.users.edit', $record))
+                ->openUrlInNewTab()
         ];
     }
 }

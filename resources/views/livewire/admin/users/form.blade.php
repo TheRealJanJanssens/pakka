@@ -1,7 +1,9 @@
-<form wire:submit.prevent="submit">
-    {{ $this->form }}
+<div>
+    <form wire:submit.prevent="submit">
+        {{ $this->form }}
 
-    <button type="submit">
-        Submit
-    </button>
-</form>
+        <button type="submit">
+            Submit
+        </button>
+    </form>
+</div>

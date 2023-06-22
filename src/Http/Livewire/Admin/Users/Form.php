@@ -30,12 +30,22 @@ class Form extends Component implements Forms\Contracts\HasForms
     {
         //TODO: Refactor roles
         return [
-            Forms\Components\TextInput::make('name')->required(),
-            Forms\Components\TextInput::make('email')->email()->required(),
+            Forms\Components\TextInput::make('name')
+                ->required()
+                ->extraInputAttributes(['class' => 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'], false),
+            Forms\Components\TextInput::make('email')
+                ->email()
+                ->required()
+                ->extraInputAttributes(['class' => 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'], false),
             Forms\Components\Select::make('role')
-            ->options(array_merge(config('pakka.roles'), config('pakka.adminRoles'))),
+                ->options(config('pakka.roles') + config('pakka.adminRoles')),
         ];
     }
+
+    // protected function getFormModel(): User
+    // {
+    //     return $this->user;
+    // }
 
     public function submit(): void
     {
