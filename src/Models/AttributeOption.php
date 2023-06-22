@@ -83,14 +83,14 @@ class AttributeOption extends Model
         $iI = 0; //input count. used to keep track of the custom inputs
 
         foreach ($array as $key => $value) {
-            if (substr($key, 2, 1) === ':') {
+            if (substr($key, 2, 1) === ':' && contains($inputType, $optionsInputs)) {
                 //explodes key to extract name and language
                 $expKey = explode(":", $key);
                 $languageCode = $expKey[0];
                 $inputName = $expKey[1];
 
                 //check if value is an option input
-                if ($inputName == "option" && contains($inputType, $optionsInputs) && $value[0] !== null) {
+                if ($inputName == "option" && $value[0] !== null) {
                     $vI = 0; // value array counter
 
                     foreach ($value as $item) {
