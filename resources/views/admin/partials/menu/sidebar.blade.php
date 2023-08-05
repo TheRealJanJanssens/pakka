@@ -16,7 +16,7 @@
             </li> --}}
 
             @foreach($menu as $item)
-                <x-pakka::sidebar-item :item="$item" />
+                <x-pakka::components.sidebar-item :item="$item" />
             @endforeach
 
           </ul>

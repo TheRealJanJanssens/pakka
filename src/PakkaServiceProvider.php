@@ -83,7 +83,7 @@ class PakkaServiceProvider extends PackageServiceProvider
 
         // ], 'pakka-dev');
 
-        Blade::componentNamespace('TheRealJanJanssens\\Pakka\\View\\Components', 'pakka');
+        Blade::componentNamespace('TheRealJanJanssens\\Pakka\\View', 'pakka');
         $this->loadLivewireComponents();
     }
 
@@ -124,7 +124,8 @@ class PakkaServiceProvider extends PackageServiceProvider
     {
         $array = [
             "users-table" => \TheRealJanJanssens\Pakka\Http\Livewire\Admin\Users\Table::class,
-            "users-form" => \TheRealJanJanssens\Pakka\Http\Livewire\Admin\Users\Form::class,
+            // "users-form" => \TheRealJanJanssens\Pakka\Http\Livewire\Admin\Users\Form::class,
+            // "users-pakka-form" => \TheRealJanJanssens\Pakka\Http\Livewire\Admin\Users\PakkaForm::class,
         ];
 
         foreach($array as $k => $v) {

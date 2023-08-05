@@ -4,6 +4,9 @@ namespace TheRealJanJanssens\Pakka\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use TheRealJanJanssens\Pakka\Forms\Fieldtypes\Select;
+use TheRealJanJanssens\Pakka\Forms\Fieldtypes\TextInput;
+use TheRealJanJanssens\Pakka\Forms\FormBuilder;
 use TheRealJanJanssens\Pakka\Traits\HasPackageFactory;
 
 class User extends Authenticatable
@@ -98,6 +101,25 @@ class User extends Authenticatable
                 $user->attributes['password'] = $original['password'];
             }
         });
+    }
+
+    public function getRoles(){
+        $roles = config('pakka.roles');
+
+        if(checkAccess("permission_user_admin_edit")){
+            $roles = $roles + config('pakka.adminRoles');
+        }
+
+        return $roles;
+    }
+
+    public function form(){
+        return FormBuilder::make([
+            TextInput::make('firstname'),
+            TextInput::make('lastname'),
+            TextInput::make('email')->email(),
+            Select::make('role')->options($this->getRoles())
+        ])->model($this);
     }
 
     public static function getUser($id)
