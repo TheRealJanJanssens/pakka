@@ -103,22 +103,24 @@ class User extends Authenticatable
         });
     }
 
-    public function getRoles(){
+    public function getRoles()
+    {
         $roles = config('pakka.roles');
 
-        if(checkAccess("permission_user_admin_edit")){
+        if(checkAccess("permission_user_admin_edit")) {
             $roles = $roles + config('pakka.adminRoles');
         }
 
         return $roles;
     }
 
-    public function form(){
+    public function form()
+    {
         return FormBuilder::make([
             TextInput::make('firstname'),
             TextInput::make('lastname'),
             TextInput::make('email')->email(),
-            Select::make('role')->options($this->getRoles())
+            Select::make('role')->options($this->getRoles()),
         ])->model($this);
     }
 
