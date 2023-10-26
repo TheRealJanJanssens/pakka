@@ -11,6 +11,7 @@ trait IsReactive
     public function reactive(Closure $closure)
     {
         $this->reactive = $this->evaluate($closure);
+
         return $this;
     }
 

@@ -3,13 +3,13 @@
 namespace TheRealJanJanssens\Pakka\Forms\Layout;
 
 use Livewire\Wireable;
-use TheRealJanJanssens\Pakka\Traits\Forms\Layout\HasSchema;
-use TheRealJanJanssens\Pakka\Traits\Forms\Layout\HasDescription;
-use TheRealJanJanssens\Pakka\Traits\Forms\HasWireables;
-use TheRealJanJanssens\Pakka\Traits\Forms\Layout\HasTitle;
-use TheRealJanJanssens\Pakka\Traits\Forms\IsReactive;
 use TheRealJanJanssens\Pakka\Traits\EvaluatesClosures;
 use TheRealJanJanssens\Pakka\Traits\Forms\HasView;
+use TheRealJanJanssens\Pakka\Traits\Forms\HasWireables;
+use TheRealJanJanssens\Pakka\Traits\Forms\IsReactive;
+use TheRealJanJanssens\Pakka\Traits\Forms\Layout\HasDescription;
+use TheRealJanJanssens\Pakka\Traits\Forms\Layout\HasSchema;
+use TheRealJanJanssens\Pakka\Traits\Forms\Layout\HasTitle;
 
 class Step implements Wireable
 {

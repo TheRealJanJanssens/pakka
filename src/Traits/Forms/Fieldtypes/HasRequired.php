@@ -13,7 +13,8 @@ trait HasRequired
         return $this;
     }
 
-    public function isRequired(): bool {
+    public function isRequired(): bool
+    {
         return $this->required ?? false;
     }
 }

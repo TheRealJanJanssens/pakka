@@ -2,9 +2,6 @@
 
 namespace TheRealJanJanssens\Pakka\Traits\Forms;
 
-use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Support\Str;
-
 trait HasView
 {
     // protected string $view;

@@ -2,9 +2,7 @@
 
 namespace TheRealJanJanssens\Pakka\Forms\Fieldtypes;
 
-use TheRealJanJanssens\Pakka\Traits\Forms\Fieldtypes\HasWireables;
 use Closure;
-use Livewire\Wireable;
 
 class Text extends Fieldtype
 {

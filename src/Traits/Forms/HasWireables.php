@@ -25,9 +25,10 @@ trait HasWireables
     protected function getObjectAttributes()
     {
         $result = [];
-        foreach ($this as $property => $value){
+        foreach ($this as $property => $value) {
             $result[$property] = $value;
         }
+
         return $result;
     }
 
@@ -36,16 +37,16 @@ trait HasWireables
      */
     protected function setObjectAttributes($array)
     {
-        foreach($array as $key => $value){
-            if($value instanceof Closure){
+        foreach($array as $key => $value) {
+            if($value instanceof Closure) {
                 $value = $this->evaluate($value);
             }
 
             $this->{$key} = $value;
         }
+
         return $this;
     }
-
 
     public function toLivewire()
     {
@@ -60,6 +61,7 @@ trait HasWireables
     public static function fromLivewire($data)
     {
         $key = $data['constructAttributeKey'];
+
         return (new static($data[$key]))->setObjectAttributes($data);
     }
 }

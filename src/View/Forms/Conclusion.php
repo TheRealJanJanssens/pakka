@@ -11,7 +11,8 @@ class Conclusion extends Component
      * Create the component instance.
      */
     public function __construct(
-    ) {}
+    ) {
+    }
 
     /**
      * Get the view / contents that represent the component.

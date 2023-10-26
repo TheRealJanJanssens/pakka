@@ -2,14 +2,14 @@
 
 namespace TheRealJanJanssens\Pakka\Forms\Fieldtypes;
 
+use Livewire\Wireable;
 use TheRealJanJanssens\Pakka\Traits\EvaluatesClosures;
-use TheRealJanJanssens\Pakka\Traits\Forms\HasName;
 use TheRealJanJanssens\Pakka\Traits\Forms\Fieldtypes\HasLabel;
 use TheRealJanJanssens\Pakka\Traits\Forms\Fieldtypes\HasRequired;
-use TheRealJanJanssens\Pakka\Traits\Forms\IsReactive;
-use TheRealJanJanssens\Pakka\Traits\Forms\HasWireables;
-use Livewire\Wireable;
+use TheRealJanJanssens\Pakka\Traits\Forms\HasName;
 use TheRealJanJanssens\Pakka\Traits\Forms\HasView;
+use TheRealJanJanssens\Pakka\Traits\Forms\HasWireables;
+use TheRealJanJanssens\Pakka\Traits\Forms\IsReactive;
 
 class Fieldtype implements Wireable
 {

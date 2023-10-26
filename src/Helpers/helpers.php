@@ -1143,6 +1143,7 @@ function constructTranslations($array)
     $debug["checklist"] = $checklist;
     $debug["start_array"] = $array;
     $debug["end_array"] = $result;
+
     //dd($debug);
     return $result;
 }

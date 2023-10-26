@@ -41,6 +41,7 @@ trait HasOptions
         foreach ($this->getOptions() as $option) {
             if (isset($option['asset'])) {
                 return true;
+
                 break;
             }
         };

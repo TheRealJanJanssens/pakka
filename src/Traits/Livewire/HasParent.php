@@ -2,9 +2,6 @@
 
 namespace TheRealJanJanssens\Pakka\Traits\Livewire;
 
-use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Support\Str;
-
 trait HasParent
 {
     public array $parent;

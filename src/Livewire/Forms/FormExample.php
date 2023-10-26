@@ -2,12 +2,10 @@
 
 namespace TheRealJanJanssens\Pakka\Livewire\Forms;
 
-use Closure;
-use TheRealJanJanssens\Pakka\Forms\Fieldtypes\Text;
-use TheRealJanJanssens\Pakka\Forms\Fieldtypes\Select;
-use TheRealJanJanssens\Pakka\Forms\Fieldtypes\Radio;
 use TheRealJanJanssens\Pakka\Forms\Fieldtypes\Checkbox;
+use TheRealJanJanssens\Pakka\Forms\Fieldtypes\Radio;
 use TheRealJanJanssens\Pakka\Forms\Fieldtypes\Range;
+use TheRealJanJanssens\Pakka\Forms\Fieldtypes\Text;
 use TheRealJanJanssens\Pakka\Forms\Layout\Step;
 use TheRealJanJanssens\Pakka\Interfaces\FormInterface;
 use TheRealJanJanssens\Pakka\Livewire\Forms\Framework\FormBase;
@@ -48,17 +46,17 @@ class FormExample extends FormBase implements FormInterface
                     ->options([
                         "app" => [
                             "label" => "App",
-                            "asset" => "https://media.giphy.com/media/9ohlKnRDAmotG/giphy.gif"
+                            "asset" => "https://media.giphy.com/media/9ohlKnRDAmotG/giphy.gif",
                         ],
                         "website" => [
                             "label" => "Website",
-                            "asset" => "https://media.giphy.com/media/rGuYfsb6WlKyk/giphy.gif"
+                            "asset" => "https://media.giphy.com/media/rGuYfsb6WlKyk/giphy.gif",
                         ],
                         "webshop" => [
                             "label" => "Webshop",
-                            "asset" => "https://media.giphy.com/media/Lq0h93752f6J9tijrh/giphy.gif"
+                            "asset" => "https://media.giphy.com/media/Lq0h93752f6J9tijrh/giphy.gif",
                         ],
-                    ])
+                    ]),
             ])->reactive(function () {
                 return isset($this->result['company']) && $this->result['company'] == 'react' ? true : false;
             })
@@ -70,15 +68,15 @@ class FormExample extends FormBase implements FormInterface
                     ->options([
                         "boost" => [
                             "label" => "Boost business growth and increase sales",
-                            "asset" => "/assets/color-icon-automation-dark.svg"
+                            "asset" => "/assets/color-icon-automation-dark.svg",
                         ],
                         "digitize" => [
                             "label" => "Digitize my business to enhance efficiency and productivity",
-                            "asset" => "/assets/color-icon-growbusiness-dark.svg"
+                            "asset" => "/assets/color-icon-growbusiness-dark.svg",
                         ],
                         "scale" => [
                             "label" => "Scale and expand my offering",
-                            "asset" => "/assets/color-icon-growth-dark-1687180023.svg"
+                            "asset" => "/assets/color-icon-growth-dark-1687180023.svg",
                         ],
                     ]),
             ])
@@ -92,7 +90,7 @@ class FormExample extends FormBase implements FormInterface
                 Range::make('time')
                     ->label('What is your investment timeline? (in months)')
                     ->min(0)
-                    ->max(36)
+                    ->max(36),
             ])
                 ->title('Time for some numbers'),
         ];

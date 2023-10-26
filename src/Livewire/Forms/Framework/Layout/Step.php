@@ -2,10 +2,10 @@
 
 namespace TheRealJanJanssens\Pakka\Livewire\Forms\Framework\Layout;
 
+use Livewire\Attributes\Reactive;
 use Livewire\Component;
 use TheRealJanJanssens\Pakka\Forms\Layout\Step as Layout;
 use TheRealJanJanssens\Pakka\Traits\Livewire\HasParent;
-use Livewire\Attributes\Reactive;
 
 class Step extends Component
 {
@@ -46,7 +46,6 @@ class Step extends Component
         //TODO: first validate values before dispatching
         $this->dispatch('previous-step');
     }
-
 
     public function render()
     {

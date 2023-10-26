@@ -2,9 +2,6 @@
 
 namespace TheRealJanJanssens\Pakka\Traits\Forms\Layout;
 
-use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Support\Str;
-
 trait HasDescription
 {
     protected string $description;
@@ -23,6 +20,6 @@ trait HasDescription
 
     public function hasDescription(): bool
     {
-        return !empty($this->description);
+        return ! empty($this->description);
     }
 }

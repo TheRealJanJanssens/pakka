@@ -2,9 +2,6 @@
 
 namespace TheRealJanJanssens\Pakka\Traits\Forms\Layout;
 
-use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Support\Str;
-
 trait HasTitle
 {
     protected string $title;
@@ -23,6 +20,6 @@ trait HasTitle
 
     public function hasTitle(): bool
     {
-        return !empty($this->title);
+        return ! empty($this->title);
     }
 }

@@ -2,9 +2,6 @@
 
 namespace TheRealJanJanssens\Pakka\Traits\Forms\Layout;
 
-use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Support\Str;
-
 trait HasSchema
 {
     protected array $schema;

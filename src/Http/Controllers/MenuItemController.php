@@ -66,6 +66,7 @@ class MenuItemController extends Controller
         $pages = Page::getPagesLinks();
 
         $menuItem = MenuItem::findOrFail($id);
+
         //dd($menuItem->translations()->name);
         return view('pakka::admin.menu_items.edit', compact('menus', 'menuItem', 'pages'));
     }

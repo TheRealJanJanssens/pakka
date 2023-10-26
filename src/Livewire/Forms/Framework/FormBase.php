@@ -2,10 +2,10 @@
 
 namespace TheRealJanJanssens\Pakka\Livewire\Forms\Framework;
 
-use Livewire\Component;
 use Livewire\Attributes\On;
-use TheRealJanJanssens\Pakka\Forms\Layout\Step;
+use Livewire\Component;
 use TheRealJanJanssens\Pakka\Events\OnFormSubmitted;
+use TheRealJanJanssens\Pakka\Forms\Layout\Step;
 
 class FormBase extends Component
 {
@@ -30,7 +30,7 @@ class FormBase extends Component
                 'count' => $this->countSteps(),
                 'hasConclusion' => $this->hasConclusion,
                 'hasReactiveSteps' => $this->hasReactiveSteps(),
-            ]
+            ],
         ];
     }
 
@@ -41,6 +41,7 @@ class FormBase extends Component
                 return true;
             }
         }
+
         return false;
     }
 
@@ -77,7 +78,7 @@ class FormBase extends Component
     {
         return array_values(array_filter($this->schema(), function ($obj) {
             if ($obj instanceof Step) {
-                if ($obj->getReactive() || !$obj->isReactive()) {
+                if ($obj->getReactive() || ! $obj->isReactive()) {
                     return $obj instanceof Step;
                 }
             }

@@ -79,6 +79,7 @@ class ClientController extends Controller
     public function edit($id)
     {
         $item = User::getUser($id);
+
         //dd($item);
         return view(getAdminView(config('pakka.prefix.admin'). '.clients.edit'), compact('item'));
     }
