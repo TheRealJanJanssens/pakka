@@ -6,11 +6,11 @@
 
 @section('content')
 
-{{-- @livewire("users-table") --}}
 <div class="grid grid-cols-1 px-4 pt-6 xl:grid-cols-3 xl:gap-4 dark:bg-gray-900">
     <div class="mb-4 col-span-full xl:mb-2">
         <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Users <small>{{ trans('pakka::app.manage') }}</small></h1>
-        <livewire:users-table />
+        {{-- TODO: implement rappasoft/laravel-livewire-tables when v3 releases --}}
+        {{-- <livewire:users-table /> --}}
     </div>
 </div>
 

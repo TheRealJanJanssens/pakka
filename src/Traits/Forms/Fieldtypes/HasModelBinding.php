@@ -1,6 +1,6 @@
 <?php
 
-namespace TheRealJanJanssens\Pakka\Traits\Forms;
+namespace TheRealJanJanssens\Pakka\Traits\Forms\Fieldtypes;
 
 trait HasModelBinding
 {

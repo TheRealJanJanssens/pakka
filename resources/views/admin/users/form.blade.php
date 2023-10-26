@@ -1,10 +1,10 @@
 
 
-{{-- <livewire:users-form :user="$user" /> --}}
+<livewire:pakka-users-form :user="$user" />
 
 {{-- <livewire:users-pakka-form :user="$user" /> --}}
 
-<x-pakka::forms.index :form="$user->form()" />
+{{-- <x-pakka::forms.index :form="$user->form()" /> --}}
 
 
 

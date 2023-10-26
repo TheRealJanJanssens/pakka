@@ -123,9 +123,13 @@ class PakkaServiceProvider extends PackageServiceProvider
     protected function loadLivewireComponents()
     {
         $array = [
-            "users-table" => \TheRealJanJanssens\Pakka\Http\Livewire\Admin\Users\Table::class,
-            // "users-form" => \TheRealJanJanssens\Pakka\Http\Livewire\Admin\Users\Form::class,
-            // "users-pakka-form" => \TheRealJanJanssens\Pakka\Http\Livewire\Admin\Users\PakkaForm::class,
+            "pakka-users-form" => \TheRealJanJanssens\Pakka\Livewire\Forms\FormExample::class,
+            "pakka-form-input-text" => \TheRealJanJanssens\Pakka\Livewire\Forms\Framework\Fieldtypes\Text::class,
+            "pakka-form-input-select" => \TheRealJanJanssens\Pakka\Livewire\Forms\Framework\Fieldtypes\Select::class,
+            "pakka-form-input-radio" => \TheRealJanJanssens\Pakka\Livewire\Forms\Framework\Fieldtypes\Radio::class,
+            "pakka-form-input-checkbox" => \TheRealJanJanssens\Pakka\Livewire\Forms\Framework\Fieldtypes\Checkbox::class,
+            "pakka-form-input-range" => \TheRealJanJanssens\Pakka\Livewire\Forms\Framework\Fieldtypes\Range::class,
+            "pakka-form-step" => \TheRealJanJanssens\Pakka\Livewire\Forms\Framework\Layout\Step::class,
         ];
 
         foreach($array as $k => $v) {

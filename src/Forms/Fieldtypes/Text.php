@@ -2,12 +2,15 @@
 
 namespace TheRealJanJanssens\Pakka\Forms\Fieldtypes;
 
+use TheRealJanJanssens\Pakka\Traits\Forms\Fieldtypes\HasWireables;
 use Closure;
-use TheRealJanJanssens\Pakka\Forms\Input;
+use Livewire\Wireable;
 
-class TextInput extends Input
+class Text extends Fieldtype
 {
-    protected string $view = 'pakka::forms.fieldtypes.text-input';
+    protected string $view = 'pakka::admin.livewire.forms.framework.fieldtypes.text';
+    protected string $component = 'pakka-form-input-text';
+    protected string $classes = 'text-fieldtype';
 
     protected string | Closure | null $type = null;
     protected bool | Closure $isEmail = false;

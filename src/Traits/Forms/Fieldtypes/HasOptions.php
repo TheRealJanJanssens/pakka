@@ -1,6 +1,6 @@
 <?php
 
-namespace TheRealJanJanssens\Pakka\Traits\Forms;
+namespace TheRealJanJanssens\Pakka\Traits\Forms\Fieldtypes;
 
 use Closure;
 use Illuminate\Contracts\Support\Arrayable;
@@ -34,5 +34,17 @@ trait HasOptions
     public function hasDynamicOptions(): bool
     {
         return $this->options instanceof Closure;
+    }
+
+    public function hasAssets(): bool
+    {
+        foreach ($this->getOptions() as $option) {
+            if (isset($option['asset'])) {
+                return true;
+                break;
+            }
+        };
+
+        return false;
     }
 }
