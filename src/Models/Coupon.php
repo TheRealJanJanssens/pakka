@@ -99,6 +99,7 @@ class Coupon extends Model
         if (isset($result[0])) {
             $result = $result[0];
             $result = Coupon::convertDates($result, 2);
+
             //dd($result);
             return $result;
         }

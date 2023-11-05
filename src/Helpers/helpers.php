@@ -1142,6 +1142,7 @@ function constructTranslations($array)
     $debug["checklist"] = $checklist;
     $debug["start_array"] = $array;
     $debug["end_array"] = $result;
+
     //dd($debug);
     return $result;
 }
@@ -2190,11 +2191,11 @@ if (! function_exists('parseContent')) {
                     $value = $value[0]['value'] ?? "";
                 }
 
-                //commented this out because it is possibly not needed check this
-                // else {
-                //     $value = trans("pakka::app.insert_here");
-                //     $empty = true;
-                // }
+            //commented this out because it is possibly not needed check this
+            // else {
+            //     $value = trans("pakka::app.insert_here");
+            //     $empty = true;
+            // }
             } else {
                 //Your logged in and in the live editor. Your value you try to parse is empty.
                 $value = trans("pakka::app.insert_here");

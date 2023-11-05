@@ -89,6 +89,7 @@ class InputController extends Controller
         $this->constructSetId($setId);
 
         $input = AttributeInput::getInput($id);
+
         //return $input;
         return view('pakka::admin.inputs.edit', compact('input'));
     }

@@ -162,6 +162,7 @@ class AttributeInput extends Model
         }
 
         $input = parent::constructAttributes($input);
+
         //dd($input);
         return $input; //outputs array
     }
