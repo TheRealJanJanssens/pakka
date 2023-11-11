@@ -68,7 +68,7 @@ class Translation extends Model
         });
 
         //fail safe if there is no translation. Mostly will result in a 404 error (if slug is empty)
-        if (! empty($result)) {
+        if ($result->count() > 0) {
             return $result->toArray()[0]['text'];
         }
     }
