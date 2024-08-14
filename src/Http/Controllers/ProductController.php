@@ -71,6 +71,10 @@ class ProductController extends Controller
 
         Product::create($result);
 
+        //sync collections
+        $item = Product::find($productId);
+        $item->collections()->sync($request->get('collections'));
+
         Cache::tags('collections')->flush();
 
         return redirect()->route(config('pakka.prefix.admin'). '.products.index')->withSuccess(trans('pakka::app.success_store'));

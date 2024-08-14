@@ -4,7 +4,7 @@
     @if(Session::has('module_name'))
 		{{ Session::get('module_name') }}
 	@endif
-	 
+
 	<small>{{ trans('pakka::app.manage') }}</small>
 @endsection
 
@@ -27,7 +27,7 @@
                     <th></th>
                 </tr>
             </thead>
-            
+
 <!--
             <tfoot>
                 <tr>
@@ -37,16 +37,16 @@
                 </tr>
             </tfoot>
 -->
-            
+
             <tbody data-action="/admin/collections/sort">
                 @foreach ($collections as $collection)
                     <tr class="item" data-id="{{ $collection['id'] }}" data-position="">
-                        <td><i class="handle ti-line-double"></i><a href="{{ route(config('pakka.prefix.admin'). '.collections.edit', $collection['id']) }}">{{ stripslashes($collection['name']) }}</a></td>
+                        <td><i class="handle ti-line-double"></i><a href="{{ route(config('pakka.prefix.admin'). '.collections.edit', $collection['id']) }}">{!! $collection['name'] !!}</a></td>
                         <td>
 	                        @if ($collection['type'] == 1)
 	                        	{{ trans('pakka::app.man_col') }}
 	                        @endif
-	                        
+
 	                        @if($collection['type'] == 2)
 	                        	{{ trans('pakka::app.auto_col') }}
 	                        @endif
@@ -68,13 +68,13 @@
                                 <li class="list-inline-item">
                                     {!! Form::open([
                                         'class'=>'delete',
-                                        'url'  => route(config('pakka.prefix.admin'). '.collections.destroy', $collection['id']), 
+                                        'url'  => route(config('pakka.prefix.admin'). '.collections.destroy', $collection['id']),
                                         'method' => 'DELETE',
-                                        ]) 
+                                        ])
                                     !!}
 
                                         <button class="btn btn-danger btn-sm" title="{{ trans('pakka::app.delete_title') }}"><i class="ti-trash"></i></button>
-                                        
+
                                     {!! Form::close() !!}
                                 </li>
                             </ul>
@@ -82,7 +82,7 @@
                     </tr>
                 @endforeach
             </tbody>
-        
+
         </table>
     </div>
 

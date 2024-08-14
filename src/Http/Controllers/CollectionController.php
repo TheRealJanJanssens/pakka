@@ -83,7 +83,7 @@ class CollectionController extends Controller
      */
     public function edit($id)
     {
-        $collection = Collection::getCollection($id, 2);
+        $collection = Collection::getCollection($id, null, 2);
 
         Cache::tags('collections')->flush();
 

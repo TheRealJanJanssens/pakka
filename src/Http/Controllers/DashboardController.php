@@ -16,38 +16,16 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $week = Analytics::performQuery(Period::days(7), 'ga:sessions');
+        $week = "-";
 
-        if ($week->rows) {
-            $week = $week->rows[0][0];
-        } else {
-            $week = "-";
-        }
-
-        $month = Analytics::performQuery(Period::days(28), 'ga:sessions');
-
-        if ($month->rows) {
-            $month = $month->rows[0][0];
-        } else {
-            $month = "-";
-        }
-
-        $bounceRate = Analytics::performQuery(Period::days(28), 'ga:bounceRate'); // %
-
-        if ($bounceRate->rows) {
-            $bounceRate = round($bounceRate->rows[0][0], 2);
-        } else {
-            $bounceRate = "-";
-        }
+        $month = "-";
 
 
-        $avgSessionDuration = Analytics::performQuery(Period::days(28), 'ga:avgSessionDuration'); // seconds
+        $bounceRate = "-";
 
-        if ($avgSessionDuration->rows) {
-            $avgSessionDuration = gmdate("H:i:s", $avgSessionDuration->rows[0][0]);
-        } else {
-            $avgSessionDuration = "-";
-        }
+
+
+        $avgSessionDuration = "-";
 
         $analytics = [
             "weekVisits" => $week,

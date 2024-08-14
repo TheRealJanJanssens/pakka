@@ -62,17 +62,17 @@ class Collection extends Model
                 'collections.sort_order',
                 'collections.type',
                 'collections.match',
-                DB::raw('(SELECT `translations`.`text` 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `collections`.`name` AND `translations`.`language_code` = "'.$locale.'") 
+                DB::raw('(SELECT `translations`.`text`
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `collections`.`name` AND `translations`.`language_code` = "'.$locale.'")
 						AS name'),
-                DB::raw('(SELECT `translations`.`text` 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `collections`.`slug` AND `translations`.`language_code` = "'.$locale.'") 
+                DB::raw('(SELECT `translations`.`text`
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `collections`.`slug` AND `translations`.`language_code` = "'.$locale.'")
 						AS slug'),
-                DB::raw('(SELECT `translations`.`text` 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `collections`.`description` AND `translations`.`language_code` = "'.$locale.'") 
+                DB::raw('(SELECT `translations`.`text`
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `collections`.`description` AND `translations`.`language_code` = "'.$locale.'")
 						AS description'),
                 'collections.created_at',
                 'collections.created_by',
@@ -117,45 +117,45 @@ class Collection extends Model
                 'collections.sort_order',
                 'collections.type',
                 'collections.match',
-                DB::raw('(SELECT 
+                DB::raw('(SELECT
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`language_code` IS NOT NULL THEN `translations`.`language_code`
 									WHEN `translations`.`language_code` IS NULL THEN IFNULL(`translations`.`language_code`, "")
 								END SEPARATOR "(~)"
-							) 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `collections`.`name`) 
+							)
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `collections`.`name`)
 						AS language_code'),
-                DB::raw('(SELECT 
+                DB::raw('(SELECT
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
 									WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
 								END SEPARATOR "(~)"
-							) 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `collections`.`name`) 
+							)
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `collections`.`name`)
 						AS name'),
-                DB::raw('(SELECT 
+                DB::raw('(SELECT
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
 									WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
 								END SEPARATOR "(~)"
-							) 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `collections`.`slug`) 
+							)
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `collections`.`slug`)
 						AS slug'),
-                DB::raw('(SELECT 
+                DB::raw('(SELECT
 		        			GROUP_CONCAT(
 		        				CASE
 									WHEN `translations`.`text` IS NOT NULL THEN `translations`.`text`
 									WHEN `translations`.`text` IS NULL THEN IFNULL(`translations`.`text`, "")
 								END SEPARATOR "(~)"
-							) 
-						FROM `translations` 
-						WHERE `translations`.`translation_id` = `collections`.`description`) 
+							)
+						FROM `translations`
+						WHERE `translations`.`translation_id` = `collections`.`description`)
 						AS description'),
                 DB::raw('`collections`.`name` AS name_trans'),
                 DB::raw('`collections`.`slug` AS slug_trans'),
@@ -167,7 +167,7 @@ class Collection extends Model
                 ])
                 ->where('collections.id', $id)
                 //->orderBy('service.position')
-                ->get()->toArray();
+                ->get();
 
                 $result = constructTranslatableValues($result, ['slug','name','description']);
 
@@ -199,17 +199,17 @@ class Collection extends Model
         'collections.sort_order',
         'collections.type',
         'collections.match',
-        DB::raw('(SELECT `translations`.`text` 
-				FROM `translations` 
-				WHERE `translations`.`translation_id` = `collections`.`name` AND `translations`.`language_code` = "'.$locale.'") 
+        DB::raw('(SELECT `translations`.`text`
+				FROM `translations`
+				WHERE `translations`.`translation_id` = `collections`.`name` AND `translations`.`language_code` = "'.$locale.'")
 				AS name'),
-        DB::raw('(SELECT `translations`.`text` 
-				FROM `translations` 
-				WHERE `translations`.`translation_id` = `collections`.`slug` AND `translations`.`language_code` = "'.$locale.'") 
+        DB::raw('(SELECT `translations`.`text`
+				FROM `translations`
+				WHERE `translations`.`translation_id` = `collections`.`slug` AND `translations`.`language_code` = "'.$locale.'")
 				AS slug'),
-        DB::raw('(SELECT `translations`.`text` 
-				FROM `translations` 
-				WHERE `translations`.`translation_id` = `collections`.`description` AND `translations`.`language_code` = "'.$locale.'") 
+        DB::raw('(SELECT `translations`.`text`
+				FROM `translations`
+				WHERE `translations`.`translation_id` = `collections`.`description` AND `translations`.`language_code` = "'.$locale.'")
 				AS description'),
         ])
         ->orderBy('collections.position');
