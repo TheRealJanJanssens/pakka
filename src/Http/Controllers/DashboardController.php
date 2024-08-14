@@ -2,9 +2,6 @@
 
 namespace TheRealJanJanssens\Pakka\Http\Controllers;
 
-use Analytics;
-use Spatie\Analytics\Period;
-
 class DashboardController extends Controller
 {
     public function __construct()
