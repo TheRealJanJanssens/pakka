@@ -4,7 +4,6 @@ namespace TheRealJanJanssens\Pakka\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-
 use TheRealJanJanssens\Pakka\Models\Invoice;
 
 class AllInvoicesExport implements FromArray, WithHeadings

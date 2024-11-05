@@ -5,7 +5,6 @@ namespace TheRealJanJanssens\Pakka\Http\Controllers;
 use Illuminate\Http\Request;
 use TheRealJanJanssens\Pakka\Models\ShipmentCondition;
 use TheRealJanJanssens\Pakka\Models\ShipmentOption;
-
 use TheRealJanJanssens\Pakka\Models\Translation;
 
 class ShipmentController extends Controller

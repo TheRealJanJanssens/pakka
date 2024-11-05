@@ -3,10 +3,8 @@
 namespace TheRealJanJanssens\Pakka\Models;
 
 use App\TaskComment;
-
 use App\TaskGroup;
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 

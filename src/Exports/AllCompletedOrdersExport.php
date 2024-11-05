@@ -4,7 +4,6 @@ namespace TheRealJanJanssens\Pakka\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-
 use TheRealJanJanssens\Pakka\Models\Order;
 use TheRealJanJanssens\Pakka\Models\OrderDocument;
 

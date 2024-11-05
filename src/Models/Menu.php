@@ -4,7 +4,6 @@ namespace TheRealJanJanssens\Pakka\Models;
 
 use Cache;
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Notifications\Notifiable;
 use Session;
 

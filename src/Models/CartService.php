@@ -4,7 +4,6 @@ namespace TheRealJanJanssens\Pakka\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-
 //use App\CartServiceCondition;
 
 use Illuminate\Support\Facades\DB;

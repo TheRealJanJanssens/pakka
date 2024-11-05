@@ -5,11 +5,9 @@ namespace TheRealJanJanssens\Pakka\Models;
 use Carbon\Carbon;
 use Cart;
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Mail;
-
 use Session;
 use TheRealJanJanssens\Pakka\Mails\OrderConfirmationClient;
 use TheRealJanJanssens\Pakka\Mails\OrderConfirmationCompany;

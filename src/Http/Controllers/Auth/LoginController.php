@@ -3,7 +3,6 @@
 namespace TheRealJanJanssens\Pakka\Http\Controllers\Auth;
 
 use App\Providers\RouteServiceProvider;
-
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;

@@ -5,7 +5,6 @@ namespace TheRealJanJanssens\Pakka\Models;
 use App\Order;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Notifications\Notifiable;
 
 class Coupon extends Model
