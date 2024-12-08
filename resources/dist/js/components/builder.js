@@ -1907,18 +1907,26 @@ console.log(this.selectionState);
     // Function to handle mutations
     function handleMutations(mutationsList, observer) {
         mutationsList.forEach(mutation => {
-            // Check if mutation target is an Element
-            const target = mutation.target.nodeType === Node.ELEMENT_NODE ? mutation.target : mutation.target.parentElement;
-            if (target && target.isContentEditable) {
-                $(target).parent().addClass("edited");
-                $(target).parent().attr("data-empty", 0);
-                $(".control-bar span").html("<i class='ti-alert'></i>Uw wijzigingen zijn niet opgeslagen");
-                $(".control-bar .btn").addClass("active");
+            // Get the target as an Element, falling back to parentElement for text nodes
+            const target = mutation.target.nodeType === Node.ELEMENT_NODE
+                ? mutation.target
+                : mutation.target.parentElement;
 
-                $(target).parent().find('p').contents().unwrap();
+            // Ensure target exists and is part of the DOM
+            if (target) {
+                // Find the closest contenteditable element
+                const editableTarget = target.closest('[contenteditable="true"]');
+                if (editableTarget) {
+                    $(editableTarget).addClass("edited");
+                    $(editableTarget).attr("data-empty", 0);
+                    $(".control-bar span").html("<i class='ti-alert'></i>Uw wijzigingen zijn niet opgeslagen");
+                    $(".control-bar .btn").addClass("active");
 
-                if ($('meta[name="autosave"]').length !== 0) {
-                    $(".spinner").addClass("active");
+                    $(editableTarget).parent().find('p').contents().unwrap();
+
+                    if ($('meta[name="autosave"]').length !== 0) {
+                        $(".spinner").addClass("active");
+                    }
                 }
             }
         });
