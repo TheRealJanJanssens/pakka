@@ -1909,13 +1909,13 @@ console.log(this.selectionState);
         mutationsList.forEach(mutation => {
             // Check if mutation target is an Element
             const target = mutation.target.nodeType === Node.ELEMENT_NODE ? mutation.target : mutation.target.parentElement;
-            if (target && target.matches('[contenteditable="true"]')) {
-                $(target).addClass("edited");
-                $(target).attr("data-empty", 0);
+            if (target && target.isContentEditable) {
+                $(target).parent().addClass("edited");
+                $(target).parent().attr("data-empty", 0);
                 $(".control-bar span").html("<i class='ti-alert'></i>Uw wijzigingen zijn niet opgeslagen");
                 $(".control-bar .btn").addClass("active");
 
-                $(target).find('p').contents().unwrap();
+                $(target).parent().find('p').contents().unwrap();
 
                 if ($('meta[name="autosave"]').length !== 0) {
                     $(".spinner").addClass("active");
