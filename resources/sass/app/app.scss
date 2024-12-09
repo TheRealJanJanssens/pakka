@@ -2,7 +2,7 @@
 @import 'spec/tools/index';
 @import "bootstrap/bootstrap";
 @import 'spec/index';
-@import 'vendor/index';
+@import 'vendor/themify-icons';
 @import 'custom/index';
 
 #loader {
@@ -34,8 +34,8 @@
 }
 
 @-webkit-keyframes sk-scaleout {
-    0% { 
-        -webkit-transform: scale(0) 
+    0% {
+        -webkit-transform: scale(0)
     }
     100% {
         -webkit-transform: scale(1.0);
@@ -47,7 +47,7 @@
     0% {
       -webkit-transform: scale(0);
       transform: scale(0);
-    } 
+    }
     100% {
       -webkit-transform: scale(1.0);
       transform: scale(1.0);
