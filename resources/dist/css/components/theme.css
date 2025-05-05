@@ -3571,7 +3571,7 @@ z-index: 999;
   .bar__module:not(:last-child) {
     margin-right: 0.92857143em;
   }
-  .bar--transparent:not(.bar--dark) {
+  .bar--transparent:not(.bar--dark), .bar--transparent:not(.bar--absolute) {
     background: none;
     background: rgb(255,255,255);
     background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(47,47,47,0.7) 100%);
